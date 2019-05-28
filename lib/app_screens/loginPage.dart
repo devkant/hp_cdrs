@@ -1,5 +1,3 @@
-//change this commited in Login Page
-
 import "package:flutter/material.dart";
 
 void main() {
