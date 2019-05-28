@@ -9,7 +9,7 @@ import 'package:hp_cdrs/common/functions/saveLogout.dart';
 import 'package:hp_cdrs/model/json/loginModel.dart';
 
 Future<LoginModel> requestLogoutAPI(BuildContext context) async {
-  final url = "https://www.yoururl.com/logout";
+  final url = "";
 
   var token;
 
