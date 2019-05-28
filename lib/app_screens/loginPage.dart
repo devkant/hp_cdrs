@@ -36,7 +36,7 @@ class LoginPageState extends State<LoginPage> {
                   child: new Column(
                     children: <Widget>[
                       Image(
-                        image: new AssetImage("lib/assets/hpgovet.jpg"),
+                        image: new AssetImage("assets/hpgovet.jpg"),
 
                       ),
                       Padding(
