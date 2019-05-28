@@ -22,3 +22,5 @@ Contributors:
 2. Meet Vyas
 
 3. Aryan Verma
+
+4. Amol Singhaniya
