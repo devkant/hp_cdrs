@@ -18,3 +18,9 @@ samples, guidance on mobile development, and a full API reference.
 Contributors:
 
 1. Dev Kant Chouhan
+
+2. Meet Vyas
+
+3. Aryan Verma
+
+4. Amol Singhaniya
