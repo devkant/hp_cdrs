@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return PlatformScaffold(drawer: drawer,
         body: Container(
-            decoration: BoxDecoration(color: Colors.black),
+            decoration: BoxDecoration(color: Colors.blueAccent),
             child: Column(
               children: <Widget>[
                 Expanded(child:
