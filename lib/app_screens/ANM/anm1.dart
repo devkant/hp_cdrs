@@ -56,14 +56,14 @@ class _ANMWorkerState extends State<ANMWorker> {
                 Row(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "Age:",
-                        style: TextStyle(fontSize: 20.0),
+                        "Age:  ",
+                        style: TextStyle(fontSize: 18.0),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 15.0),
+                      padding: EdgeInsets.only(top: 10.0),
                       child:DropdownButton<String>(
                         items: _age.map((String value1) {
                           return DropdownMenuItem<String>(
@@ -87,14 +87,14 @@ class _ANMWorkerState extends State<ANMWorker> {
                 Row(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "Sex:",
-                        style: TextStyle(fontSize: 20.0),
+                        "Sex:  ",
+                        style: TextStyle(fontSize: 18.0),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 15.0),
+                      padding: EdgeInsets.only(top: 10.0),
                       child:DropdownButton<String>(
                         items: _sex.map((String value2) {
                           return DropdownMenuItem<String>(
@@ -120,14 +120,14 @@ class _ANMWorkerState extends State<ANMWorker> {
                 Row(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "Order of Birth",
-                        style: TextStyle(fontSize: 20.0),
+                        "Order of Birth:  ",
+                        style: TextStyle(fontSize: 18.0),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 15.0),
+                      padding: EdgeInsets.only(top: 10.0),
                       child:DropdownButton<String>(
                         items: _orderOfBirth.map((String value1) {
                           return DropdownMenuItem<String>(
@@ -151,14 +151,14 @@ class _ANMWorkerState extends State<ANMWorker> {
                 Row(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "Category: ",
-                        style: TextStyle(fontSize: 20.0),
+                        "Category:  ",
+                        style: TextStyle(fontSize: 18.0),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 15.0),
+                      padding: EdgeInsets.only(top: 10.0),
                       child:DropdownButton<String>(
                         items: _category.map((String value1) {
                           return DropdownMenuItem<String>(
@@ -183,15 +183,15 @@ class _ANMWorkerState extends State<ANMWorker> {
                   children: <Widget>[
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
+                        padding: const EdgeInsets.only(top: 10.0),
                         child: Text(
                           "Does the family have Below Poverty Line(BPL) Card:",
-                          style: TextStyle(fontSize: 20.0),
+                          style: TextStyle(fontSize: 18.0),
                         ),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 15.0),
+                      padding: EdgeInsets.only(top: 10.0),
                       child:DropdownButton<String>(
                         items: _BPL.map((String value1) {
                           return DropdownMenuItem<String>(
@@ -215,7 +215,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                 //Immunization Status
 
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.only(top: 10.0),
                   child: TextField(
                     decoration: InputDecoration(
                         labelText: "Weight",
@@ -232,15 +232,15 @@ class _ANMWorkerState extends State<ANMWorker> {
                   children: <Widget>[
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
+                        padding: const EdgeInsets.only(top: 10.0),
                         child: Text(
-                          "Growth Curve (fill for <3 years; check MCP Card):",
-                          style: TextStyle(fontSize: 20.0),
+                          "Growth Curve (fill for <3 years; check MCP Card):  ",
+                          style: TextStyle(fontSize: 18.0),
                         ),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 15.0),
+                      padding: EdgeInsets.only(top: 10.0),
                       child:DropdownButton<String>(
                         items: _growthCurve.map((String value1) {
                           return DropdownMenuItem<String>(
@@ -264,14 +264,14 @@ class _ANMWorkerState extends State<ANMWorker> {
                 Row(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
                         "Any Past Illness: ",
-                        style: TextStyle(fontSize: 20.0),
+                        style: TextStyle(fontSize: 18.0),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 15.0),
+                      padding: EdgeInsets.only(top: 10.0),
                       child:DropdownButton<String>(
                         items: _pastIllness.map((String value1) {
                           return DropdownMenuItem<String>(
