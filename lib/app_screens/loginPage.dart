@@ -85,6 +85,7 @@ class LoginPageState extends State<LoginPage> {
                         ),
                         Padding(padding: const EdgeInsets.all(40.0)),
                         RaisedButton(
+                          color: Colors.blue,
                           child: new Text(
                             "Login",
                             style: TextStyle(
