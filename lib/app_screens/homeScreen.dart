@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Center(
           child: Column(
             children: <Widget>[
-              Text('This is the Home screen'),
+              Text('This is the Home screen-- Login Successful'),
 
             ],
           ),
