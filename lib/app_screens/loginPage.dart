@@ -43,7 +43,6 @@ class LoginPageState extends State<LoginPage> {
         }
       },
       child: Scaffold(
-          drawer: BasicDrawer(),
           appBar: AppBar(
             title: Text("Child Death Reporting App"),
           ),
