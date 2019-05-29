@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hp_cdrs/common/platform/platformScaffold.dart';
@@ -19,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Duration(seconds: splashDuration),
             () {
           SystemChannels.textInput.invokeMethod('TextInput.hide');
-          Navigator.of(context).pushReplacementNamed('/LoginScreen');
+          Navigator.of(context).pushReplacementNamed('/LoginPage');
         }
     );
   }
