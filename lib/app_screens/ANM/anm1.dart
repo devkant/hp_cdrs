@@ -23,23 +23,47 @@ class _ANMWorkerState extends State<ANMWorker> {
   var _category = ['General', 'SC', 'ST', 'OBC'];
   var _currentCategory = 'General';
   var _BPL = ['Yes', 'No'];
-  var _currentBPL = 'Yes';
+  var _currentBPL = 'No';
   var _growthCurve = ['Green zone', 'Yellow zone', 'Orange zone', 'None'];
   var _currentGrowthCurve = 'None';
   var _pastIllness = ['Yes', 'No'];
   var _currentPastIllness = 'No';
+  var _districtName = ['Bilaspur', 'Chamba', 'Hamirpur', 'Kangra', 'Kinnaur', 'Kullu', 'Lahaul and Spiti', 'Mandi', 'Shimla', 'Sirmaur', 'Solan', 'Una',];
+  var _currentSelectedDistrict = 'Hamirpur';
+  bool _constValue1 = false;
+  bool _constValue2 = false;
+  bool _constValue3 = false;
+  bool _constValue4 = false;
+  bool _constValue5 = false;
+  bool _constValue6 = false;
+  bool _chek = false;
+
+  Widget CheckBoxTile(String text, bool _chek) {
+    return CheckboxListTile(
+        value: _chek,
+        title: Text(text),
+        activeColor: Colors.red,
+        onChanged: (bool value){
+          setState(() {
+            _chek = value;
+          });
+        }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
-          title: Text("ANM Worker")
+          title: Text("ANM Worker1")
       ),
       body: Container(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 
                 TextField(
@@ -115,7 +139,62 @@ class _ANMWorkerState extends State<ANMWorker> {
                   ],
                 ), //Sex
 
-                //Address
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        "District:  ",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child:DropdownButton<String>(
+                        items: _districtName.map((String value1) {
+                          return DropdownMenuItem<String>(
+                            value: value1,
+                            child:Text(value1),
+                          );
+                        }).toList(),
+
+                        value: _currentSelectedDistrict,
+
+                        onChanged: (String newValueSelected) {
+                          setState(() {
+                            this._currentSelectedDistrict= newValueSelected;
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ), //districtAddress
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        labelText: "Block/Tehsil",
+                        hintText: "Block/Tehsil",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0)
+                        )
+                    ),
+                    keyboardType: TextInputType.text,
+                  ),
+                ), //Tehsil
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        labelText: "Address",
+                        hintText: "Address",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0)
+                        )
+                    ),
+                    keyboardType: TextInputType.text,
+                  ),
+                ), //Address
 
                 Row(
                   children: <Widget>[
@@ -212,7 +291,20 @@ class _ANMWorkerState extends State<ANMWorker> {
                   ],
                 ),  //BPL
 
-                //Immunization Status
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Text(
+                    "Immunization Status: ",
+                    style: TextStyle( fontSize: 18.0 ),
+                  ),
+                ),//Immunization Status
+                CheckBoxTile("BCG", _constValue1),
+                CheckBoxTile("Penta 1", _constValue2),
+                CheckBoxTile("Penta 2", _constValue3),
+                CheckBoxTile("Penta 3", _constValue4),
+                CheckBoxTile("MR 1", _constValue5),
+                CheckBoxTile("MR Booster", _constValue6),
+
 
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
@@ -311,3 +403,4 @@ class _ANMWorkerState extends State<ANMWorker> {
     );
   }
 }
+
