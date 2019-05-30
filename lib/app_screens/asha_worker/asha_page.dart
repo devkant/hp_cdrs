@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
-    title: 'Form',
-    theme: ThemeData(primaryColor: Colors.deepPurple),
+    title: 'ASHA Form',
     home: hpForm(),
   ));
 }
@@ -52,6 +51,7 @@ class _hpFormState extends State<hpForm> {
                       padding: EdgeInsets.only(left:20.0),
                       child:Text('District:', style:
                       TextStyle(fontSize: 18.0),)
+
                   ),
                   Padding(
                       padding: EdgeInsets.all(10.0),
@@ -117,7 +117,7 @@ class _hpFormState extends State<hpForm> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: RaisedButton(
-                    color: Colors.deepPurple,
+                    color: Colors.blue,
                     child: Text(
                       "Submit",
                       style: TextStyle(fontSize: 15.0, color: Colors.white),
