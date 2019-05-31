@@ -36,39 +36,34 @@ class _ANMWorkerState extends State<ANMWorker> {
   bool _constValue4 = false;
   bool _constValue5 = false;
   bool _constValue6 = false;
-  //bool _chek = false;
-
-  Widget CheckBoxTile(String text, bool _chek) {
-    //_chek = false;
-    return CheckboxListTile(
-        value: _chek,
-        title: Text(text),
-        activeColor: Colors.red,
-        onChanged: (value){
-          setState(() {
-            _chek = value;
-          });
-        }
-    );
-
-  }
 
   @override
   Widget build(BuildContext context) {
 
-    TextEditingController nameOfChild;
+    var _formKey = GlobalKey<FormState>();
+
     return Scaffold(
 
       appBar: AppBar(
           title: Text("ANM Worker1")
       ),
-      body: Container(
+      body: Form(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      "Background Information",
+                      style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
 
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
@@ -310,13 +305,66 @@ class _ANMWorkerState extends State<ANMWorker> {
                     style: TextStyle( fontSize: 18.0 ),
                   ),
                 ),//Immunization Status
-                CheckBoxTile("BCG", _constValue1),
-                CheckBoxTile("Penta 1", _constValue2),
-                CheckBoxTile("Penta 2", _constValue3),
-                CheckBoxTile("Penta 3", _constValue4),
-                CheckBoxTile("MR 1", _constValue5),
-                CheckBoxTile("MR Booster", _constValue6),
-
+                CheckboxListTile(
+                    value: _constValue1,
+                    title: Text("BCG"),
+                    activeColor: Colors.red,
+                    onChanged: (value){
+                      setState(() {
+                        _constValue1 = value;
+                      });
+                    }
+                ),
+                CheckboxListTile(
+                    value: _constValue2,
+                    title: Text("Penta 1"),
+                    activeColor: Colors.red,
+                    onChanged: (value){
+                      setState(() {
+                        _constValue2 = value;
+                      });
+                    }
+                ),
+                CheckboxListTile(
+                    value: _constValue3,
+                    title: Text("Penta 2"),
+                    activeColor: Colors.red,
+                    onChanged: (value){
+                      setState(() {
+                        _constValue3 = value;
+                      });
+                    }
+                ),
+                CheckboxListTile(
+                    value: _constValue4,
+                    title: Text("Penta 3"),
+                    activeColor: Colors.red,
+                    onChanged: (value){
+                      setState(() {
+                        _constValue4 = value;
+                      });
+                    }
+                ),
+                CheckboxListTile(
+                    value: _constValue5,
+                    title: Text("MR 1"),
+                    activeColor: Colors.red,
+                    onChanged: (value){
+                      setState(() {
+                        _constValue5 = value;
+                      });
+                    }
+                ),
+                CheckboxListTile(
+                    value: _constValue6,
+                    title: Text("MR Booster"),
+                    activeColor: Colors.red,
+                    onChanged: (value){
+                      setState(() {
+                        _constValue6 = value;
+                      });
+                    }
+                ),
 
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
@@ -412,12 +460,21 @@ class _ANMWorkerState extends State<ANMWorker> {
                     padding: const EdgeInsets.only(top: 15.0),
                     child: RaisedButton(
                       color: Colors.blue,
+                      textColor: Colors.white,
                       elevation: 4.0,
                       child: Text(
                         'Next Page',
-                        style: TextStyle(fontSize: 18.0),
+                        style: TextStyle(fontSize: 20.0),
                       ),
-//                      onPressed: null,
+                      onPressed: () {
+                        setState(() {
+                          if(_formKey.currentState.validate()) {
+                            return AlertDialog(
+                              title: Text("Done"),
+                            );
+                          }
+                        });
+                      },
                     ),
                   ),
                 ),
