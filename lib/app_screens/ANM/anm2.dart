@@ -36,12 +36,19 @@ class _form2State extends State<form2> {
       appBar: AppBar(
         title: Text("ANM Form2"),
       ),
-      body: Container(
-        padding: EdgeInsets.all(20.0),
+      body: Form(
         child: SingleChildScrollView(
+          padding: EdgeInsets.all(20.0),
           child: Column(
             children: <Widget>[
 
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Text(
+                  "Symptoms during illness",
+                  style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w500),
+                ),
+              ),
               TFF("Inability to feed"),
               TFF("Fever"),
               TFF("Loose Stools"),
@@ -60,6 +67,34 @@ class _form2State extends State<form2> {
                         borderRadius: BorderRadius.circular(8.0),
                       )
                   ),
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+
+                    RaisedButton(
+                      color: Colors.blue,
+                      elevation: 4.0,
+                      child: Text(
+                        'Previous page',
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                      onPressed: null,
+                    ),
+                    RaisedButton(
+                      color: Colors.blue,
+                      elevation: 4.0,
+                      child: Text(
+                        'Next Page',
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                      onPressed: null,
+                    ),
+                  ],
                 ),
               ),
 
