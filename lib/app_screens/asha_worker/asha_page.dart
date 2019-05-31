@@ -16,8 +16,22 @@ class hpForm extends StatefulWidget {
 
 class _hpFormState extends State<hpForm> {
   var _formKey = GlobalKey<FormState>();
-  var _districtName = ['Hamirpur', 'Shimla', 'Una'];
-  var _currentSelectedDistrict = 'Una';
+  var _districtName = ['Bilaspur', 'Chamba', 'Hamirpur', 'Kangra', 'Kinnaur',
+    'Kullu', 'Lahaul & Spiti', 'Mandi', 'Shimla', 'Sirmaur', 'Solan', 'Una'];
+  var _currentSelectedDistrict = '';
+
+
+  @override
+  void initState() {
+    super.initState();
+    _currentSelectedDistrict = _districtName[0];
+  }
+
+
+  TextEditingController childNameController = TextEditingController();
+  TextEditingController ashaBlockController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController phnNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +48,15 @@ class _hpFormState extends State<hpForm> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
+                    controller: childNameController,
                     validator: (String value) {
-                      if (value.length < 3)
-                        return 'The name should contain more than two letters';
+                      final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
+                      if (!nameExp.hasMatch(value))
+                        return 'Please enter only alphabetical values';
                     },
                     decoration: InputDecoration(
                         labelText: 'Name of the child',
-                        hintText: 'Name',
+                        hintText: 'Name of the child',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         )),
@@ -51,7 +67,6 @@ class _hpFormState extends State<hpForm> {
                       padding: EdgeInsets.only(left:20.0),
                       child:Text('District:', style:
                       TextStyle(fontSize: 18.0),)
-
                   ),
                   Padding(
                       padding: EdgeInsets.all(10.0),
@@ -70,9 +85,10 @@ class _hpFormState extends State<hpForm> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
+                    controller: ashaBlockController,
                     validator: (String value) {
                       if (value.length < 3)
-                        return 'The block name should contain more than two letters';
+                        return 'Block name should contain more than two letters';
                     },
                     decoration: InputDecoration(
                         labelText: 'Block/Tehsil',
@@ -85,6 +101,7 @@ class _hpFormState extends State<hpForm> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
+                    controller: addressController,
                     validator: (String value) {
                       if (value.length < 3)
                         return 'The address should contain more than two letters';
@@ -101,6 +118,7 @@ class _hpFormState extends State<hpForm> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
+                    controller: phnNumberController,
                     validator: (String value) {
                       if (value.length != 10)
                         return 'Please input a valid phone number';
