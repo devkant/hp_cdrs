@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     title: 'Verbal Autopsy Form',
-    theme: ThemeData(primaryColor: Colors.deepPurple),
     home: _verbalAutopsyForm(),
   ));
 }
@@ -17,8 +16,25 @@ class _verbalAutopsyForm extends StatefulWidget {
 
 class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
   var _formKey = GlobalKey<FormState>();
-  var _districtName = ['Hamirpur', 'Shimla', 'Una'];
-  var _currentSelectedDistrict = 'Una';
+  var _currentItemSelected = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _currentItemSelected = _districtName[0];
+  }
+
+  var _districtName = ['Bilaspur', 'Chamba', 'Hamirpur', 'Kangra', 'Kinnaur',
+    'Kullu', 'Lahaul & Spiti', 'Mandi', 'Shimla', 'Sirmaur', 'Solan', 'Una'];
+  TextEditingController blockController = TextEditingController();
+  TextEditingController villageController = TextEditingController();
+  TextEditingController phcController = TextEditingController();
+  TextEditingController subCenterController = TextEditingController();
+  TextEditingController rhcController = TextEditingController();
+  TextEditingController yearController = TextEditingController();
+  TextEditingController householdHeadController = TextEditingController();
+  TextEditingController nameOfDeceasedController = TextEditingController();
+  TextEditingController nameMotherOfDeceasedController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +49,8 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
+
+
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Center(
@@ -41,25 +59,204 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                               "\n"
                               '(28 Days or less of age)',
                           style: TextStyle(
-                              fontSize: 20.0, fontWeight: FontWeight.w800),
+                              fontSize: 18.0, fontWeight: FontWeight.w800),
                         ),
                       ),
                     ),
-                    textBoxFunction('District'),
-                    textBoxFunction('Block'),
-                    textBoxFunction('Village'),
-                    textBoxFunction('PHC'),
-                    textBoxFunction('Sub-Center'),
-                    textBoxFunction('RHC Number of Mother/Baby'),
-                    textBoxFunction('Name of the head of the Household'),
-                    textBoxFunction('Full Name of the deceased'),
-                    textBoxFunction('Full Name of the mother of deceased'),
+
+
+                    Row(children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                        child: Text('District:', style: TextStyle(fontSize: 18.0),),
+                      ),
+
+
+                      Padding(
+                          padding: EdgeInsets.only(left: 10.0),
+                          child: DropdownButton<String>(
+                            items: _districtName.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            value: _currentItemSelected,
+                            onChanged: (String newSelectedValue) {
+                              _onDropDownItemSelected(newSelectedValue);
+                            },
+                          )),
+                    ]),
+
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        controller: blockController,
+                        validator: (String value) {
+                          if (value.isEmpty) return 'Please fill a valid input';
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Block/Tehsil',
+                            hintText: 'Block/Tehsil',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                      ),
+                    ),
+
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        controller: villageController,
+                        validator: (String value) {
+                          if (value.isEmpty) return 'Please fill a valid input';
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Village',
+                            hintText: 'Village',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                      ),
+                    ),
+
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        controller: phcController,
+                        validator: (String value) {
+                          if (value.isEmpty) return 'Please fill a valid input';
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'PHC',
+                            hintText: 'PHC',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                      ),
+                    ),
+
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        controller: subCenterController,
+                        validator: (String value) {
+                          if (value.isEmpty) return 'Please fill a valid input';
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Sub-Center',
+                            hintText: 'Sub-Center',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                      ),
+                    ),
+
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        controller: rhcController,
+                        validator: (String value) {
+                          if (value.isEmpty) return 'Please fill a valid input';
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'RHC Number of Mother/Baby',
+                            hintText: 'RHC Number of Mother/Baby',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                      ),
+                    ),
+
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        controller: yearController,
+                        keyboardType: TextInputType.numberWithOptions(),
+                        validator: (String value) {
+                          if (value.length!=4) return 'Please fill a valid input';
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Year',
+                            hintText: 'Year',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                      ),
+                    ),
+
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        textCapitalization: TextCapitalization.words,
+                        controller: householdHeadController,
+                        validator: (String value) {
+                          final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
+                          if (!nameExp.hasMatch(value))
+                            return 'Please enter only alphabetical values';
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Name of head of household',
+                            hintText: 'Name of head of household',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                      ),
+                    ),
+
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        controller: nameOfDeceasedController,
+                        validator: (String value) {
+                          final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
+                          if (!nameExp.hasMatch(value))
+                            return 'Please enter only alphabetical values';
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Full name of deceased',
+                            hintText: 'Full name of deceased',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                      ),
+                    ),
+
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        controller: nameMotherOfDeceasedController,
+                        validator: (String value) {
+                          final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
+                          if (!nameExp.hasMatch(value))
+                            return 'Please enter only alphabetical values';
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Full name of mother of deceased',
+                            hintText: 'Full name of mother of deceased',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                      ),
+                    ),
+
+
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: RaisedButton(
-                        color: Colors.deepPurple,
+                        elevation: 5.0,
+                        color: Colors.blue,
                         child: Text(
-                          "Proceed",
+                          "Proceed to Section 1",
                           style: TextStyle(fontSize: 15.0, color: Colors.white),
                         ),
                         onPressed: () {
@@ -76,24 +273,13 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                   ],
                 ),
               ),
-            ))
-    );
+            )));
   }
 
-  Widget textBoxFunction(String hintAndLabelString) {
-    return Padding(
-      padding: EdgeInsets.all(10.0),
-      child: TextFormField(
-        validator: (String value) {
-          if (value.isEmpty) return 'Please fill a valid input';
-        },
-        decoration: InputDecoration(
-            labelText: hintAndLabelString,
-            hintText: hintAndLabelString,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            )),
-      ),
-    );
+
+  void _onDropDownItemSelected(String newSelectedValue) {
+    setState(() {
+      this._currentItemSelected = newSelectedValue;
+    });
   }
 }
