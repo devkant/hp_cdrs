@@ -36,23 +36,27 @@ class _ANMWorkerState extends State<ANMWorker> {
   bool _constValue4 = false;
   bool _constValue5 = false;
   bool _constValue6 = false;
-  bool _chek = false;
+  //bool _chek = false;
 
   Widget CheckBoxTile(String text, bool _chek) {
+    //_chek = false;
     return CheckboxListTile(
         value: _chek,
         title: Text(text),
         activeColor: Colors.red,
-        onChanged: (bool value){
+        onChanged: (value){
           setState(() {
             _chek = value;
           });
         }
     );
+
   }
 
   @override
   Widget build(BuildContext context) {
+
+    TextEditingController nameOfChild;
     return Scaffold(
 
       appBar: AppBar(
@@ -66,15 +70,23 @@ class _ANMWorkerState extends State<ANMWorker> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 
-                TextField(
-                  decoration: InputDecoration(
-                      labelText: "Name of Child",
-                      hintText: "Name",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0)
-                      )
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: TextFormField(
+                    validator: (String value) {
+                      if (value.isEmpty) {
+                        return 'Please enter a valid input';
+                      }
+                    },
+                    decoration: InputDecoration(
+                        labelText: "Name of Child",
+                        hintText: "Name",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0)
+                        )
+                    ),
+                    keyboardType: TextInputType.text,
                   ),
-                  keyboardType: TextInputType.text,
                 ), //Name
 
                 Row(
@@ -395,6 +407,20 @@ class _ANMWorkerState extends State<ANMWorker> {
                   keyboardType: TextInputType.text,
                 ), //Nature of Illness
 
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 15.0),
+                    child: RaisedButton(
+                      color: Colors.blue,
+                      elevation: 4.0,
+                      child: Text(
+                        'Next Page',
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+//                      onPressed: null,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
