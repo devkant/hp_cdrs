@@ -49,7 +49,7 @@ class LoginPageState extends State<LoginPage> {
           backgroundColor: Colors.white,
           body: new Container(
               child: new Padding(
-                  padding: const EdgeInsets.all(40.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: SingleChildScrollView(
                     child: new Column(
                       children: <Widget>[
@@ -58,7 +58,7 @@ class LoginPageState extends State<LoginPage> {
 
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(10.0),
                         ),
 
                         TextFormField(
@@ -82,7 +82,7 @@ class LoginPageState extends State<LoginPage> {
                           keyboardType: TextInputType.text,
                           obscureText: true,
                         ),
-                        Padding(padding: const EdgeInsets.all(40.0)),
+                        Padding(padding: const EdgeInsets.all(20.0)),
                         RaisedButton(
                           color: Colors.blue,
                           child: new Text(
@@ -96,7 +96,7 @@ class LoginPageState extends State<LoginPage> {
                             SystemChannels.textInput.invokeMethod('TextInput.hide');
                             requestLoginAPI(context, _userNameController.text, _passwordController.text);
                           },
-                          splashColor: Colors.blue,
+                          splashColor: Colors.white70,
                         ),
                       ],
                     ),
