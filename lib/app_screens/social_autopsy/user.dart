@@ -7,5 +7,5 @@ class User {
   int noOfChildren;
   String caste;
   String religion;
-  int isBelowPovertyLine;
+  int isBelowPovertyLine = -1;
 }
