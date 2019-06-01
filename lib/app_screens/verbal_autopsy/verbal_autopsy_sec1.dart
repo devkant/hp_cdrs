@@ -16,6 +16,7 @@ class _verbalAutopsyFormSec1 extends StatefulWidget {
 
 class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
   var _formKey = GlobalKey<FormState>();
+  var _respondentRadioList = ['Yes', 'No', 'Unknown'];
   var _relationWithDeceased = [
     'Father/Mother',
     'Bother/Sister',
@@ -45,6 +46,8 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
     'Unknown'
   ];
 
+  var _currentRespondentRadio = '';
+
   var _currentSelectedRespondentRelation = '';
   var _currentSelectedRespondentEducation = '';
   var _currentSelectedRespondentCategory = '';
@@ -55,6 +58,8 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
   @override
   void initState() {
     super.initState();
+    _currentRespondentRadio = _respondentRadioList[0];
+
     _currentSelectedRespondentRelation = _relationWithDeceased[0];
     _currentSelectedRespondentEducation = _respondentEducation[0];
     _currentSelectedRespondentCategory = _respondentCategory[0];
@@ -120,10 +125,8 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                         Text(
                           'Relationship of respondent with deceased:',
                           style: TextStyle(fontSize: 16.0),
-                          textAlign: TextAlign.left,
                         )
                       ])),
-
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: DropdownButton<String>(
@@ -139,16 +142,59 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                       },
                     ),
                   ),
-
                   Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Row(
                         children: <Widget>[
-                          Text('3.', style: TextStyle(fontSize: 16.0))
+                          Padding(
+                              padding: EdgeInsets.only(right: 10.0),
+                              child: Text('3.', style: TextStyle(fontSize: 16.0))),
+                          Flexible(
+                              child: Text(
+                                  'Did the respondent live with the deceased during '
+                                      'the events that led to death?',
+                                  style: TextStyle(fontSize: 16.0))),
                         ],
                       )),
-
-
+                  Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Yes',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                            Radio(
+                              value: 'Yes',
+                              groupValue: _currentRespondentRadio,
+                              onChanged: (String newRadioSelected){
+                                _onRespondentRadioSelect(newRadioSelected);
+                              },
+                            ),
+                            Text(
+                              'No',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                            Radio(
+                              value: 'No',
+                              groupValue: _currentRespondentRadio,
+                              onChanged: (String newRadioSelected){
+                                _onRespondentRadioSelect(newRadioSelected);
+                              },
+                            ),
+                            Text(
+                              'Uknown',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                            Radio(
+                              value: 'Unknown',
+                              groupValue: _currentRespondentRadio,
+                              onChanged: (String newRadioSelected){
+                                _onRespondentRadioSelect(newRadioSelected);
+                              },
+                            )
+                          ])),
                   Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Row(children: <Widget>[
@@ -267,6 +313,12 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
         ),
       ),
     );
+  }
+
+  void _onRespondentRadioSelect(String newRadioSelected){
+    setState(() {
+      this._currentRespondentRadio = newRadioSelected;
+    });
   }
 
   void _onDropDownRelationSelected(String newValueSelected) {
