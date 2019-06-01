@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hp_cdrs/model/classes/class_asha.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'dart:convert';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'ASHA Form',
-    home: hpForm(),
-  ));
-}
 
 class hpForm extends StatefulWidget {
   @override
@@ -32,6 +30,27 @@ class _hpFormState extends State<hpForm> {
   TextEditingController ashaBlockController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phnNumberController = TextEditingController();
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/asha.txt');
+  }
+
+
+  Future<File> writeToFile(String json) async {
+    final file = await _localFile;
+
+    // Write the file
+    return file.writeAsString('$json');
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -142,11 +161,19 @@ class _hpFormState extends State<hpForm> {
                     ),
                     onPressed: () {
                       setState(() {
-                        if (_formKey.currentState.validate())
-                          AlertDialog(
-                            title: Text('Form Submitted Sucessfully'),
-                            content: Text('Success'),
+                        if (_formKey.currentState.validate()){
+                          Child newEntry  = new Child(
+                              childNameController.text,
+                              this._currentSelectedDistrict,
+                              ashaBlockController.text,
+                              addressController.text,
+                              phnNumberController.text,
                           );
+                          String  jsonEntry = json.encode(newEntry);
+                          
+                          writeToFile(jsonEntry);
+
+                        }
                       });
                     },
                   ),
