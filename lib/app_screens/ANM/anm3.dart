@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
-void main() {
+import 'form2.dart';
+import 'form4.dart';
+
+/*void main() {
   runApp(MaterialApp(
     title: "Form3",
     home: Form3(),
   ));
-}
+}*/
 
 class Form3 extends StatefulWidget {
   @override
@@ -28,7 +31,7 @@ class _Form3State extends State<Form3> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ANM Form3"),
+        title: Text("Details of treatment"),
       ),
       body: Container(
         child: Padding(
@@ -36,6 +39,7 @@ class _Form3State extends State<Form3> {
           child: Column(
             children: <Widget>[
 
+              /*
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Text(
@@ -43,6 +47,7 @@ class _Form3State extends State<Form3> {
                   style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w500),
                 ),
               ),
+              */
 
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
@@ -197,18 +202,24 @@ class _Form3State extends State<Form3> {
                       elevation: 4.0,
                       child: Text(
                         'Previous page',
-                        style: TextStyle(fontSize: 20.0),
+                        style: TextStyle(fontSize: 20.0, color: Colors.white),
                       ),
-                      onPressed: null,
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => form2()));
+                      },
                     ),
                     RaisedButton(
                       color: Colors.blue,
                       elevation: 4.0,
                       child: Text(
-                        'Next Page',
-                        style: TextStyle(fontSize: 20.0),
+                        'Next Section',
+                        style: TextStyle(fontSize: 20.0, color: Colors.white),
                       ),
-                      onPressed: null,
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => Form4()));
+                      },
                     ),
                   ],
                 ),
