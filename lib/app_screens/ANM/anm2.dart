@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'form3.dart';
+import 'main.dart';
+
+/*
 void main() {
   runApp(MaterialApp(
     title: "Form 2",
     home: form2(),
   ));
 }
+*/
 
 class form2 extends StatefulWidget {
   @override
@@ -34,7 +39,7 @@ class _form2State extends State<form2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ANM Form2"),
+        title: Text("Symptoms during illness"),
       ),
       body: Form(
         child: SingleChildScrollView(
@@ -42,6 +47,7 @@ class _form2State extends State<form2> {
           child: Column(
             children: <Widget>[
 
+              /*
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Text(
@@ -49,6 +55,7 @@ class _form2State extends State<form2> {
                   style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w500),
                 ),
               ),
+              */
               TFF("Inability to feed"),
               TFF("Fever"),
               TFF("Loose Stools"),
@@ -60,6 +67,8 @@ class _form2State extends State<form2> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: TextFormField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
                   decoration: InputDecoration(
                       labelText: "Any other Symptom",
                       hintText: "If any",
@@ -81,18 +90,24 @@ class _form2State extends State<form2> {
                       elevation: 4.0,
                       child: Text(
                         'Previous page',
-                        style: TextStyle(fontSize: 20.0),
+                        style: TextStyle(fontSize: 20.0, color: Colors.white),
                       ),
-                      onPressed: null,
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => ANMWorker()));
+                      },
                     ),
                     RaisedButton(
                       color: Colors.blue,
                       elevation: 4.0,
                       child: Text(
-                        'Next Page',
-                        style: TextStyle(fontSize: 20.0),
+                        'Next Section',
+                        style: TextStyle(fontSize: 20.0, color: Colors.white),
                       ),
-                      onPressed: null,
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => Form3()));
+                      },
                     ),
                   ],
                 ),
