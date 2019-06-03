@@ -532,7 +532,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                                 Text('20. ', style: TextStyle(fontSize: 16.0))),
                             Flexible(
                                 child: Text(
-                                    'Was the child a single or multiple birth?',
+                                    'Was a disinfected or new used to cut the umbilical cord?',
                                     style: TextStyle(fontSize: 16.0))),
                           ],
                         )),
