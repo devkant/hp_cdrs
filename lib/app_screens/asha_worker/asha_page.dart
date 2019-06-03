@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hp_cdrs/model/classes/class_asha.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'dart:convert';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Form',
-    theme: ThemeData(primaryColor: Colors.deepPurple),
-    home: hpForm(),
-  ));
-}
 
 class hpForm extends StatefulWidget {
   @override
@@ -17,8 +14,43 @@ class hpForm extends StatefulWidget {
 
 class _hpFormState extends State<hpForm> {
   var _formKey = GlobalKey<FormState>();
-  var _districtName = ['Hamirpur', 'Shimla', 'Una'];
-  var _currentSelectedDistrict = 'Una';
+  var _districtName = ['Bilaspur', 'Chamba', 'Hamirpur', 'Kangra', 'Kinnaur',
+    'Kullu', 'Lahaul & Spiti', 'Mandi', 'Shimla', 'Sirmaur', 'Solan', 'Una'];
+  var _currentSelectedDistrict = '';
+
+
+  @override
+  void initState() {
+    super.initState();
+    _currentSelectedDistrict = _districtName[0];
+  }
+
+
+  TextEditingController childNameController = TextEditingController();
+  TextEditingController ashaBlockController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController phnNumberController = TextEditingController();
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/asha.txt');
+  }
+
+
+  Future<File> writeToFile(String json) async {
+    final file = await _localFile;
+
+    // Write the file
+    return file.writeAsString('$json');
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +67,15 @@ class _hpFormState extends State<hpForm> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
+                    controller: childNameController,
                     validator: (String value) {
-                      if (value.length < 3)
-                        return 'The name should contain more than two letters';
+                      final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
+                      if (!nameExp.hasMatch(value))
+                        return 'Please enter only alphabetical values';
                     },
                     decoration: InputDecoration(
                         labelText: 'Name of the child',
-                        hintText: 'Name',
+                        hintText: 'Name of the child',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         )),
@@ -70,9 +104,10 @@ class _hpFormState extends State<hpForm> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
+                    controller: ashaBlockController,
                     validator: (String value) {
                       if (value.length < 3)
-                        return 'The block name should contain more than two letters';
+                        return 'Block name should contain more than two letters';
                     },
                     decoration: InputDecoration(
                         labelText: 'Block/Tehsil',
@@ -85,6 +120,7 @@ class _hpFormState extends State<hpForm> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
+                    controller: addressController,
                     validator: (String value) {
                       if (value.length < 3)
                         return 'The address should contain more than two letters';
@@ -101,6 +137,7 @@ class _hpFormState extends State<hpForm> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
+                    controller: phnNumberController,
                     validator: (String value) {
                       if (value.length != 10)
                         return 'Please input a valid phone number';
@@ -117,18 +154,26 @@ class _hpFormState extends State<hpForm> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: RaisedButton(
-                    color: Colors.deepPurple,
+                    color: Colors.blue,
                     child: Text(
                       "Submit",
                       style: TextStyle(fontSize: 15.0, color: Colors.white),
                     ),
                     onPressed: () {
                       setState(() {
-                        if (_formKey.currentState.validate())
-                          AlertDialog(
-                            title: Text('Form Submitted Sucessfully'),
-                            content: Text('Success'),
+                        if (_formKey.currentState.validate()){
+                          Child newEntry  = new Child(
+                              childNameController.text,
+                              this._currentSelectedDistrict,
+                              ashaBlockController.text,
+                              addressController.text,
+                              phnNumberController.text,
                           );
+                          String  jsonEntry = json.encode(newEntry);
+                          
+                          writeToFile(jsonEntry);
+
+                        }
                       });
                     },
                   ),
