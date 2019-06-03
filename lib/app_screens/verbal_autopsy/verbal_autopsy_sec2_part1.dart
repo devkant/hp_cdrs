@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     title: 'Section 2: Neonatal Death',
-    home: verbalAutopsySec2(),
+    home: verbalAutopsySec2Part1(),
   ));
 }
 
-class verbalAutopsySec2 extends StatefulWidget {
+class verbalAutopsySec2Part1 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsySec2State();
+    return _verbalAutopsySec2Part1State();
   }
 }
 
-class _verbalAutopsySec2State extends State<verbalAutopsySec2> {
+class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
   var _formKey = GlobalKey<FormState>();
 
   //radio lists
@@ -111,490 +111,490 @@ class _verbalAutopsySec2State extends State<verbalAutopsySec2> {
               padding: EdgeInsets.all(10.0),
               child: SingleChildScrollView(
                   child: Column(children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          children: <Widget>[
 
 
-                        //1st form element
-                        Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child:
+                            //1st form element
+                            Padding(
+                                padding: EdgeInsets.only(right: 10.0),
+                                child:
                                 Text('13A.', style: TextStyle(fontSize: 16.0))),
-                        Flexible(
-                            child: Text(
-                                'Did he/she die from an injury or accident?',
-                                style: TextStyle(fontSize: 16.0))),
-                      ],
-                    )),
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Yes',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'Yes',
-                            groupValue: _currentSelectedInjuryRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onInjuryRadioSelect(newRadioSelected);
-                            },
-                          ),
-                          Text(
-                            'No',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'No',
-                            groupValue: _currentSelectedInjuryRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onInjuryRadioSelect(newRadioSelected);
-                            },
-                          ),
-                          Text(
-                            'Unknown',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'Unknown',
-                            groupValue: _currentSelectedInjuryRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onInjuryRadioSelect(newRadioSelected);
-                            },
-                          )
-                        ])),
+                            Flexible(
+                                child: Text(
+                                    'Did he/she die from an injury or accident?',
+                                    style: TextStyle(fontSize: 16.0))),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Yes',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'Yes',
+                                groupValue: _currentSelectedInjuryRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onInjuryRadioSelect(newRadioSelected);
+                                },
+                              ),
+                              Text(
+                                'No',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'No',
+                                groupValue: _currentSelectedInjuryRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onInjuryRadioSelect(newRadioSelected);
+                                },
+                              ),
+                              Text(
+                                'Unknown',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'Unknown',
+                                groupValue: _currentSelectedInjuryRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onInjuryRadioSelect(newRadioSelected);
+                                },
+                              )
+                            ])),
 
 
                     //2nd form element
                     Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(right: 10.0),
-                        child: Text(
-                          '13B.',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                      ),
-                      Text(
-                        'If yes, what kind of injury or accident?',
-                        style: TextStyle(fontSize: 16.0),
-                      )
-                    ],
-                  ),
-                ),
-                injuryKindDropDownFun(),
-
-
-                //3rd form element
-                Padding(
-                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom:10.0),
-                    child: Text(
-                      'Details of pregnancy and delivery',
-                      style: TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.w500),
-                    )),
-
-
-                //4th form element
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(right: 10.0),
-                        child: Text(
-                          '14A.',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                      ),
-                      Flexible(
-                          child: Text(
-                        'How many months long was the pregnancy?',
-                        style: TextStyle(fontSize: 16.0),
-                      )),
-                      Flexible(
-                          child: TextFormField(
-                              controller: pregnancyMonthsController,
-                              validator: (String value) {
-                                if (value.isEmpty) return 'Please input months';
-                              },
-                              keyboardType: TextInputType.numberWithOptions(),
-                              decoration: InputDecoration(
-                                  labelText: 'Months',
-                                  hintText: 'Months',
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10.0)))))
-                    ],
-                  ),
-                ),
-
-
-                //5th form element
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(right: 10.0),
-                        child: Text(
-                          '14B.',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                      ),
-                      Flexible(
-                          child: Text(
-                        'Mother\'s age (in years):',
-                        style: TextStyle(fontSize: 16.0),
-                      )),
-                      Flexible(
-                          child: TextFormField(
-                              controller: motherAgeController,
-                              validator: (String value) {
-                                if (value.isEmpty)
-                                  return 'Please input the age';
-                              },
-                              keyboardType: TextInputType.numberWithOptions(),
-                              decoration: InputDecoration(
-                                  labelText: 'Age',
-                                  hintText: 'Age',
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10.0)))))
-                    ],
-                  ),
-                ),
-
-
-                //6th form element
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child:
-                                Text('15. ', style: TextStyle(fontSize: 16.0))),
-                        Flexible(
-                            child: Text(
-                                'Did the mother receive 2 doses of Td during pregnancy?',
-                                style: TextStyle(fontSize: 16.0))),
-                      ],
-                    )),
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(
                         children: <Widget>[
-                          Text(
-                            'Yes',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'Yes',
-                            groupValue: _currentSelectedDosesRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onDosesRadioSelect(newRadioSelected);
-                            },
+                          Padding(
+                            padding: EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              '13B.',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
                           ),
                           Text(
-                            'No',
+                            'If yes, what kind of injury or accident?',
                             style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'No',
-                            groupValue: _currentSelectedDosesRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onDosesRadioSelect(newRadioSelected);
-                            },
-                          ),
-                          Text(
-                            'Unknown',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'Unknown',
-                            groupValue: _currentSelectedDosesRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onDosesRadioSelect(newRadioSelected);
-                            },
                           )
-                        ])),
+                        ],
+                      ),
+                    ),
+                    injuryKindDropDownFun(),
+
+
+                    //3rd form element
+                    Padding(
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom:10.0),
+                        child: Text(
+                          'Details of pregnancy and delivery',
+                          style: TextStyle(
+                              fontSize: 18.0, fontWeight: FontWeight.w500),
+                        )),
+
+
+                    //4th form element
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              '14A.',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                          ),
+                          Flexible(
+                              child: Text(
+                                'How many months long was the pregnancy?',
+                                style: TextStyle(fontSize: 16.0),
+                              )),
+                          Flexible(
+                              child: TextFormField(
+                                  controller: pregnancyMonthsController,
+                                  validator: (String value) {
+                                    if (value.isEmpty) return 'Please input months';
+                                  },
+                                  keyboardType: TextInputType.numberWithOptions(),
+                                  decoration: InputDecoration(
+                                      labelText: 'Months',
+                                      hintText: 'Months',
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(10.0)))))
+                        ],
+                      ),
+                    ),
+
+
+                    //5th form element
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              '14B.',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                          ),
+                          Flexible(
+                              child: Text(
+                                'Mother\'s age (in years):',
+                                style: TextStyle(fontSize: 16.0),
+                              )),
+                          Flexible(
+                              child: TextFormField(
+                                  controller: motherAgeController,
+                                  validator: (String value) {
+                                    if (value.isEmpty)
+                                      return 'Please input the age';
+                                  },
+                                  keyboardType: TextInputType.numberWithOptions(),
+                                  decoration: InputDecoration(
+                                      labelText: 'Age',
+                                      hintText: 'Age',
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(10.0)))))
+                        ],
+                      ),
+                    ),
+
+
+                    //6th form element
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.only(right: 10.0),
+                                child:
+                                Text('15. ', style: TextStyle(fontSize: 16.0))),
+                            Flexible(
+                                child: Text(
+                                    'Did the mother receive 2 doses of Td during pregnancy?',
+                                    style: TextStyle(fontSize: 16.0))),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Yes',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'Yes',
+                                groupValue: _currentSelectedDosesRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onDosesRadioSelect(newRadioSelected);
+                                },
+                              ),
+                              Text(
+                                'No',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'No',
+                                groupValue: _currentSelectedDosesRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onDosesRadioSelect(newRadioSelected);
+                                },
+                              ),
+                              Text(
+                                'Unknown',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'Unknown',
+                                groupValue: _currentSelectedDosesRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onDosesRadioSelect(newRadioSelected);
+                                },
+                              )
+                            ])),
 
 
                     //7th form element
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child:
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.only(right: 10.0),
+                                child:
                                 Text('16A.', style: TextStyle(fontSize: 16.0))),
-                        Flexible(
-                            child: Text(
-                                'Were there any complications during '
-                                'the pregnancy, or during labour?',
-                                style: TextStyle(fontSize: 16.0))),
-                      ],
-                    )),
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Yes',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'Yes',
-                            groupValue: _currentSelectedComplicationsRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onComplicationsRadioSelect(newRadioSelected);
-                            },
-                          ),
-                          Text(
-                            'No',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'No',
-                            groupValue: _currentSelectedComplicationsRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onComplicationsRadioSelect(newRadioSelected);
-                            },
-                          ),
-                          Text(
-                            'Unknown',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'Unknown',
-                            groupValue: _currentSelectedComplicationsRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onComplicationsRadioSelect(newRadioSelected);
-                            },
-                          )
-                        ])),
+                            Flexible(
+                                child: Text(
+                                    'Were there any complications during '
+                                        'the pregnancy, or during labour?',
+                                    style: TextStyle(fontSize: 16.0))),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Yes',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'Yes',
+                                groupValue: _currentSelectedComplicationsRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onComplicationsRadioSelect(newRadioSelected);
+                                },
+                              ),
+                              Text(
+                                'No',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'No',
+                                groupValue: _currentSelectedComplicationsRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onComplicationsRadioSelect(newRadioSelected);
+                                },
+                              ),
+                              Text(
+                                'Unknown',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'Unknown',
+                                groupValue: _currentSelectedComplicationsRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onComplicationsRadioSelect(newRadioSelected);
+                                },
+                              )
+                            ])),
 
 
                     //8th form element
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child:
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.only(right: 10.0),
+                                child:
                                 Text('16B.', style: TextStyle(fontSize: 16.0))),
-                        Flexible(
-                            child: Text(
-                                'If yes, what complication(s) occurred?',
-                                style: TextStyle(fontSize: 16.0))),
-                      ],
-                    )),
+                            Flexible(
+                                child: Text(
+                                    'If yes, what complication(s) occurred?',
+                                    style: TextStyle(fontSize: 16.0))),
+                          ],
+                        )),
 
 
-                //9th form element
-                complicationsCheckFun(),
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child:
+                    //9th form element
+                    complicationsCheckFun(),
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.only(right: 10.0),
+                                child:
                                 Text('17. ', style: TextStyle(fontSize: 16.0))),
-                        Flexible(
-                            child: Text(
-                                'Was the child a single or multiple birth?',
-                                style: TextStyle(fontSize: 16.0))),
-                      ],
-                    )),
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Single',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'Single',
-                            groupValue: _currentSelectedSingleMultipleRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onSingleMultipleRadioSelect(newRadioSelected);
-                            },
-                          ),
-                          Text(
-                            'Multiple',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'Multiple',
-                            groupValue: _currentSelectedSingleMultipleRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onSingleMultipleRadioSelect(newRadioSelected);
-                            },
-                          ),
-                          Text(
-                            'Unknown',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'Unknown',
-                            groupValue: _currentSelectedSingleMultipleRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onSingleMultipleRadioSelect(newRadioSelected);
-                            },
-                          )
-                        ])),
+                            Flexible(
+                                child: Text(
+                                    'Was the child a single or multiple birth?',
+                                    style: TextStyle(fontSize: 16.0))),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Single',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'Single',
+                                groupValue: _currentSelectedSingleMultipleRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onSingleMultipleRadioSelect(newRadioSelected);
+                                },
+                              ),
+                              Text(
+                                'Multiple',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'Multiple',
+                                groupValue: _currentSelectedSingleMultipleRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onSingleMultipleRadioSelect(newRadioSelected);
+                                },
+                              ),
+                              Text(
+                                'Unknown',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'Unknown',
+                                groupValue: _currentSelectedSingleMultipleRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onSingleMultipleRadioSelect(newRadioSelected);
+                                },
+                              )
+                            ])),
 
 
                     //10th form element
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.only(right: 10.0),
-                        child: Text('18. ', style: TextStyle(fontSize: 16.0))),
-                    Flexible(
-                        child: Text(
-                      'Where was the baby born?',
-                      style: TextStyle(fontSize: 16.0),
-                    )),
-                  ]),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: DropdownButton<String>(
-                    items: _bornPlaceList.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    value: _currentSelectedBornPlace,
-                    onChanged: (String newValueSelected) {
-                      _onBornPlaceSelected(newValueSelected);
-                    },
-                  ),
-                ),
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.only(right: 10.0),
+                            child: Text('18. ', style: TextStyle(fontSize: 16.0))),
+                        Flexible(
+                            child: Text(
+                              'Where was the baby born?',
+                              style: TextStyle(fontSize: 16.0),
+                            )),
+                      ]),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: DropdownButton<String>(
+                        items: _bornPlaceList.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        value: _currentSelectedBornPlace,
+                        onChanged: (String newValueSelected) {
+                          _onBornPlaceSelected(newValueSelected);
+                        },
+                      ),
+                    ),
 
 
                     //11th form element
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.only(right: 10.0),
-                        child: Text('19. ', style: TextStyle(fontSize: 16.0))),
-                    Flexible(
-                        child: Text(
-                      'Who attended the delivery?',
-                      style: TextStyle(fontSize: 16.0),
-                    )),
-                  ]),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: DropdownButton<String>(
-                    items: _deliveryAttendantList.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    value: _currentSelectedDeliveryAttendant,
-                    onChanged: (String newValueSelected) {
-                      _onDeliveryAttendantSelected(newValueSelected);
-                    },
-                  ),
-                ),
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.only(right: 10.0),
+                            child: Text('19. ', style: TextStyle(fontSize: 16.0))),
+                        Flexible(
+                            child: Text(
+                              'Who attended the delivery?',
+                              style: TextStyle(fontSize: 16.0),
+                            )),
+                      ]),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: DropdownButton<String>(
+                        items: _deliveryAttendantList.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        value: _currentSelectedDeliveryAttendant,
+                        onChanged: (String newValueSelected) {
+                          _onDeliveryAttendantSelected(newValueSelected);
+                        },
+                      ),
+                    ),
 
 
                     //12th form element
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child:
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.only(right: 10.0),
+                                child:
                                 Text('20. ', style: TextStyle(fontSize: 16.0))),
-                        Flexible(
-                            child: Text(
-                                'Was the child a single or multiple birth?',
-                                style: TextStyle(fontSize: 16.0))),
-                      ],
-                    )),
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Yes',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'Yes',
-                            groupValue: _currentSelectedDisinfectionRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onDisinfectionRadioSelect(newRadioSelected);
-                            },
-                          ),
-                          Text(
-                            'No',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'No',
-                            groupValue: _currentSelectedDisinfectionRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onDisinfectionRadioSelect(newRadioSelected);
-                            },
-                          ),
-                          Text(
-                            'Unknown',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'Unknown',
-                            groupValue: _currentSelectedDisinfectionRadio,
-                            onChanged: (String newRadioSelected) {
-                              _onDisinfectionRadioSelect(newRadioSelected);
-                            },
-                          )
-                        ])),
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: RaisedButton(
-                    color: Colors.blue,
-                    child: Text(
-                      "Next",
-                      style: TextStyle(fontSize: 15.0, color: Colors.white),
+                            Flexible(
+                                child: Text(
+                                    'Was the child a single or multiple birth?',
+                                    style: TextStyle(fontSize: 16.0))),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Yes',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'Yes',
+                                groupValue: _currentSelectedDisinfectionRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onDisinfectionRadioSelect(newRadioSelected);
+                                },
+                              ),
+                              Text(
+                                'No',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'No',
+                                groupValue: _currentSelectedDisinfectionRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onDisinfectionRadioSelect(newRadioSelected);
+                                },
+                              ),
+                              Text(
+                                'Unknown',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              Radio(
+                                value: 'Unknown',
+                                groupValue: _currentSelectedDisinfectionRadio,
+                                onChanged: (String newRadioSelected) {
+                                  _onDisinfectionRadioSelect(newRadioSelected);
+                                },
+                              )
+                            ])),
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: RaisedButton(
+                        color: Colors.blue,
+                        child: Text(
+                          "Next",
+                          style: TextStyle(fontSize: 15.0, color: Colors.white),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            if (_formKey.currentState.validate())
+                              AlertDialog(
+                                title: Text('Form Submitted Sucessfully'),
+                                content: Text('Success'),
+                              );
+                          });
+                        },
+                      ),
                     ),
-                    onPressed: () {
-                      setState(() {
-                        if (_formKey.currentState.validate())
-                          AlertDialog(
-                            title: Text('Form Submitted Sucessfully'),
-                            content: Text('Success'),
-                          );
-                      });
-                    },
-                  ),
-                ),
-              ]))),
+                  ]))),
         ));
   }
 
