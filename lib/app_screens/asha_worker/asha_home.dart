@@ -4,6 +4,18 @@ import 'dart:io';
 import 'dart:async';
 import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
+import 'package:hp_cdrs/model/classes/class_asha.dart';
+import 'package:hp_cdrs/app_screens/asha_worker/asha_page.dart';
+
+void  main(){
+  runApp(MaterialApp(
+    initialRoute: '/',
+    routes: <String, WidgetBuilder>{
+      '/': (context) => AshaHomeScreen(),
+      '/AshaForm': (context) => hpForm(),
+    },
+  ));
+}
 
 class AshaHomeScreen extends StatefulWidget {
   @override
@@ -11,10 +23,11 @@ class AshaHomeScreen extends StatefulWidget {
 }
 
 class _AshaHomeScreenState extends State<AshaHomeScreen> {
-  Map formsMap;
-  List<Widget>  formsArray  = [];
 
-  void initstate(){
+  List<String>  _forms  = <String>[];
+
+
+  void initState(){
     super.initState();
     getFormsFromFile();
   }
@@ -34,19 +47,18 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
     final file = await _localFile;
 
 
-    String  forms = await file.readAsString();
-    formsMap  = json.decode(forms);
-    print('forms'+formsMap.length.toString());
+    String  jsonForms = await file.readAsString();
+    _forms  = List.generate(_forms.length, (i)  =>  jsonForms);
+    jsonForms =  jsonForms.replaceAll('}{', '}_{');
+    List<String>  temp  = jsonForms.split("_");
+    print(temp);
 
-    if(formsMap.isNotEmpty){
-      print("there are form in file");
-      for(var i=0;i<formsMap.length;i++)  {
+    for(int i=0;i<temp.length;i++) {
+      _forms.add(temp[i]);
+    }
+    final jsonResponse  = json.decode(_forms[0]);
+    print(jsonResponse);
 
-      }
-    }
-    else{
-      print("there are no form in file");
-    }
   }
 
   @override
@@ -57,13 +69,16 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
       ),
       drawer: BasicDrawer(),
       body: ListView(
-          children: <Widget>[
-            ListTile(
-              title: foe,
-            ),
-
-          ],
+        children: _forms.map((form) =>  Text(form)).toList(),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        tooltip: 'Add new Entry',
+        onPressed: () {
+          Navigator.of(context).pushNamed("/AshaForm");
+        },
+      ),
+
 
     );
   }
