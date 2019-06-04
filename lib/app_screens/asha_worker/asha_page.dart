@@ -3,9 +3,14 @@ import 'package:hp_cdrs/model/classes/class_asha.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
+import 'package:hp_cdrs/app_screens/asha_worker/asha_home.dart';
+
+
 
 
 class hpForm extends StatefulWidget {
+
+
   @override
   State<StatefulWidget> createState() {
     return _hpFormState();
@@ -19,11 +24,14 @@ class _hpFormState extends State<hpForm> {
   var _currentSelectedDistrict = '';
 
 
+
   @override
   void initState() {
     super.initState();
     _currentSelectedDistrict = _districtName[0];
   }
+
+  //testing code
 
 
   TextEditingController childNameController = TextEditingController();
@@ -47,7 +55,7 @@ class _hpFormState extends State<hpForm> {
     final file = await _localFile;
 
     // Write the file
-    return file.writeAsString('$json');
+    return file.writeAsString('$json',mode: FileMode.append);
   }
 
 
@@ -160,21 +168,22 @@ class _hpFormState extends State<hpForm> {
                       style: TextStyle(fontSize: 15.0, color: Colors.white),
                     ),
                     onPressed: () {
-                      setState(() {
                         if (_formKey.currentState.validate()){
                           Child newEntry  = new Child(
-                              childNameController.text,
-                              this._currentSelectedDistrict,
-                              ashaBlockController.text,
-                              addressController.text,
-                              phnNumberController.text,
+                              childNameController.text.toString(),
+                              this._currentSelectedDistrict.toString(),
+                              ashaBlockController.text.toString(),
+                              addressController.text.toString(),
+                              phnNumberController.text.toString(),
                           );
                           String  jsonEntry = json.encode(newEntry);
+                          print(jsonEntry);
                           
                           writeToFile(jsonEntry);
 
+
                         }
-                      });
+                        Navigator.pop(context);
                     },
                   ),
                 )
