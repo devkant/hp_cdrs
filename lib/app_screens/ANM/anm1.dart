@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-import 'form2.dart';
+import 'anm2.dart';
 
 void main() {
   runApp(MaterialApp(
