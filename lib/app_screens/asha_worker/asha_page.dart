@@ -181,9 +181,10 @@ class _hpFormState extends State<hpForm> {
                           
                           writeToFile(jsonEntry);
 
+                          Navigator.pop(context);
 
                         }
-                        Navigator.pop(context);
+
                     },
                   ),
                 )
