@@ -77,7 +77,7 @@ class _verbalAutopsyFormSec2Part2State extends State<_verbalAutopsyFormSec2Part2
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Section 2: Neonatal Death',
+          'Section 2: Neonatal Death (Pg 2/6)',
           style: TextStyle(fontSize: 20.0),
         ),
       ),
