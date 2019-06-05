@@ -64,7 +64,7 @@ class _verbalAutopsyFormSec2Part2State extends State<_verbalAutopsyFormSec2Part2
     _currentSelectedBabyMalformationsRadio = _yesNoRadioList[1];
     _currentSelectedCryStopRadio = _yesNoRadioList[1];
     _currentSelectedOtherDrinkRadio = _yesNoRadioList[0];
-    _currentSelectedSuckleRadio = _yesNoRadioList[0];
+    _currentSelectedSuckleRadio = _yesNoRadioList[1];
 
 
     _currentSelectedBirthSize = _birthSizeList[2];
