@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 void main() {
   runApp(MaterialApp(
@@ -83,7 +82,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
 
 
                   //1st user input element start
-                  questionElement('33A.', 'Did s/he have diarrhoea (frequent'
+                  questionElement('33A.', 'Did he/she have diarrhoea (frequent'
                       ' liquid stools)?'),
 
                   Padding(
@@ -183,7 +182,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
 
                   //4th user input element
                   questionElement('34B.', 'If yes, for how many '
-                      'completed days did s/he vomit?'),
+                      'completed days did he/she vomit?'),
 
                   vomitDaysRadio(),
 
@@ -191,7 +190,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
 
 
                   //5th user input element
-                  questionElement('35A.', 'Did s/he have redness around, or '
+                  questionElement('35A.', 'Did he/she have redness around, or '
                       'discharge from, the umbilical cord stump?'),
 
                   Padding(
@@ -237,7 +236,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
 
 
                   //6th user input element
-                  questionElement('35B.', 'Did s/he have redness around,'
+                  questionElement('35B.', 'Did he/she have redness around,'
                       ' or discharge from, the umbilical cord stump?'),
 
                   Padding(
