@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
+
 
 void main() {
   runApp(MaterialApp(
@@ -77,7 +77,7 @@ class _verbalAutopsyFormSec2Part2State extends State<_verbalAutopsyFormSec2Part2
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Section 2: Neonatal Death (Pg 2/6)',
+          'Section 2: Neonatal Death (Pg 2/5)',
           style: TextStyle(fontSize: 20.0),
         ),
       ),
@@ -218,7 +218,7 @@ class _verbalAutopsyFormSec2Part2State extends State<_verbalAutopsyFormSec2Part2
                           ])),
 
 
-                 //3rd user input element
+                  //3rd user input element
                   Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Row(children: <Widget>[
