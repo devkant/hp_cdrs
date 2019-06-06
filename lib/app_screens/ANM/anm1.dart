@@ -4,7 +4,7 @@ import 'anm2.dart';
 
 void main() {
   runApp(MaterialApp(
-    title: "Nothing",
+    title: "ANM Form",
     home: ANMWorker(),
   ));
 }
@@ -30,11 +30,11 @@ class _ANMWorkerState extends State<ANMWorker> {
   var _currentOrderOfBirth = '1';
   var _category = ['General', 'SC', 'ST', 'OBC'];
   var _currentCategory = 'General';
-  var _BPL = ['Yes', 'No'];
+  var _bpl = ['No', 'Yes'];
   var _currentBPL = 'No';
-  var _growthCurve = ['Green zone', 'Yellow zone', 'Orange zone', 'None'];
+  var _growthCurve = ['None', 'Green zone', 'Yellow zone', 'Orange zone'];
   var _currentGrowthCurve = 'None';
-  var _pastIllness = ['Yes', 'No'];
+  var _pastIllness = ['No', 'Yes'];
   var _currentPastIllness = 'No';
   var _districtName = [
     'Bilaspur',
@@ -50,23 +50,29 @@ class _ANMWorkerState extends State<ANMWorker> {
     'Solan',
     'Una',
   ];
-  var _currentSelectedDistrict = 'Hamirpur';
-  bool _constValue1 = false;
-  bool _constValue2 = false;
-  bool _constValue3 = false;
-  bool _constValue4 = false;
-  bool _constValue5 = false;
-  bool _constValue6 = false;
+  var _currentSelectedDistrict = 'Bilaspur';
+  bool _bcg = false;
+  bool _penta1 = false;
+  bool _penta2 = false;
+  bool _penta3 = false;
+  bool _mr1 = false;
+  bool _mrBooster = false;
 
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController childNameController = TextEditingController();
+  TextEditingController tehsilController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController illnessController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: Text("Section A: Background Information")),
+      appBar: AppBar(title: Text("A: Background Information")),
       body: Form(
-        key: formKey,
+        key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
@@ -88,18 +94,32 @@ class _ANMWorkerState extends State<ANMWorker> {
 
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
-                  child: TextFormField(
-                    validator: (String value) {
-                      final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
-                      if (!nameExp.hasMatch(value))
-                        return 'Please enter only alphabetical values';
-                    },
-                    decoration: InputDecoration(
-                        labelText: "Name of Child",
-                        hintText: "Name",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0))),
-                    keyboardType: TextInputType.text,
+                  child: Row(
+                    children: <Widget>[
+
+                      Text(
+                        "1. ",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+
+                      Expanded(
+                        child: TextFormField(
+                          controller: childNameController,
+                          validator: (String value) {
+                            final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
+                            if (!nameExp.hasMatch(value))
+                              return 'Please enter only alphabetical values';
+                          },
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 20.0),
+                              labelText: "Name of Child",
+                              hintText: "Name",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0))),
+                          keyboardType: TextInputType.text,
+                        ),
+                      ),
+                    ],
                   ),
                 ), //Name
 
@@ -108,7 +128,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "Age:  ",
+                        "2. Age:  ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -137,7 +157,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "Sex:  ",
+                        "3. Sex:  ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -166,7 +186,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "District:  ",
+                        "4. District:  ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -191,35 +211,61 @@ class _ANMWorkerState extends State<ANMWorker> {
                 ), //districtAddress
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
-                  child: TextFormField(
-                    validator: (String val) {
-                      if (val.isEmpty) {
-                        return 'Please enter a valid input';
-                      }
-                    },
-                    decoration: InputDecoration(
-                        labelText: "Block/Tehsil",
-                        hintText: "Block/Tehsil",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0))),
-                    keyboardType: TextInputType.text,
+                  child: Row(
+                    children: <Widget>[
+
+                      Text(
+                        "5. ",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+
+                      Expanded(
+                        child: TextFormField(
+                          controller: tehsilController,
+                          validator: (String val) {
+                            if (val.isEmpty) {
+                              return 'Please enter a valid input';
+                            }
+                          },
+                          decoration: InputDecoration(
+                              labelText: "Block/Tehsil",
+                              hintText: "Block/Tehsil",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0))),
+                          keyboardType: TextInputType.text,
+                        ),
+                      ),
+                    ],
                   ),
                 ), //Tehsil
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
-                  child: TextFormField(
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    validator: (String val) {
-                      if (val.isEmpty) {
-                        return 'Please enter a valid input';
-                      }
-                    },
-                    decoration: InputDecoration(
-                        labelText: "Address",
-                        hintText: "Address",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0))),
+                  child: Row(
+                    children: <Widget>[
+
+                      Text(
+                        "6. ",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+
+                      Expanded(
+                        child: TextFormField(
+                          controller: addressController,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          validator: (String val) {
+                            if (val.isEmpty) {
+                              return 'Please enter a valid input';
+                            }
+                          },
+                          decoration: InputDecoration(
+                              labelText: "Address",
+                              hintText: "Address",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0))),
+                        ),
+                      ),
+                    ],
                   ),
                 ), //Address
 
@@ -228,7 +274,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "Order of Birth:  ",
+                        "7. Order of Birth:  ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -257,7 +303,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "Category:  ",
+                        "8. Category:  ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -283,6 +329,14 @@ class _ANMWorkerState extends State<ANMWorker> {
 
                 Row(
                   children: <Widget>[
+
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        "9. ",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                    ),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10.0),
@@ -295,7 +349,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: DropdownButton<String>(
-                        items: _BPL.map((String value1) {
+                        items: _bpl.map((String value1) {
                           return DropdownMenuItem<String>(
                             value: value1,
                             child: Text(value1),
@@ -308,86 +362,107 @@ class _ANMWorkerState extends State<ANMWorker> {
                           });
                         },
                       ),
-                    )
+                    ),
                   ],
                 ), //BPL
 
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Text(
-                    "Immunization Status: ",
+                    "10. Immunization Status: ",
                     style: TextStyle(fontSize: 18.0),
                   ),
                 ), //Immunization Status
                 CheckboxListTile(
-                    value: _constValue1,
+                    value: _bcg,
                     title: Text("BCG"),
                     activeColor: Colors.red,
                     onChanged: (value) {
                       setState(() {
-                        _constValue1 = value;
+                        _bcg = value;
                       });
                     }),
                 CheckboxListTile(
-                    value: _constValue2,
+                    value: _penta1,
                     title: Text("Penta 1"),
                     activeColor: Colors.red,
                     onChanged: (value) {
                       setState(() {
-                        _constValue2 = value;
+                        _penta1 = value;
                       });
                     }),
                 CheckboxListTile(
-                    value: _constValue3,
+                    value: _penta2,
                     title: Text("Penta 2"),
                     activeColor: Colors.red,
                     onChanged: (value) {
                       setState(() {
-                        _constValue3 = value;
+                        _penta2 = value;
                       });
                     }),
                 CheckboxListTile(
-                    value: _constValue4,
+                    value: _penta3,
                     title: Text("Penta 3"),
                     activeColor: Colors.red,
                     onChanged: (value) {
                       setState(() {
-                        _constValue4 = value;
+                        _penta3 = value;
                       });
                     }),
                 CheckboxListTile(
-                    value: _constValue5,
+                    value: _mr1,
                     title: Text("MR 1"),
                     activeColor: Colors.red,
                     onChanged: (value) {
                       setState(() {
-                        _constValue5 = value;
+                        _mr1 = value;
                       });
                     }),
                 CheckboxListTile(
-                    value: _constValue6,
+                    value: _mrBooster,
                     title: Text("MR Booster"),
                     activeColor: Colors.red,
                     onChanged: (value) {
                       setState(() {
-                        _constValue6 = value;
+                        _mrBooster = value;
                       });
                     }),
 
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        labelText: "Weight",
-                        hintText: "In Kgs(if recorded in the MCP Card)",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0))),
-                    keyboardType: TextInputType.number,
+                  child: Row(
+                    children: <Widget>[
+
+                      Text(
+                        "11. ",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                      Flexible(
+                        child: TextField(
+                          controller: weightController,
+                          decoration: InputDecoration(
+                              labelText: "Weight",
+                              hintText: "In Kgs(if recorded in the MCP Card)",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0))),
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                    ],
                   ),
                 ), //Weight
 
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        "12. ",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                    ),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10.0),
@@ -398,7 +473,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 10.0),
+                      padding: EdgeInsets.only(top: 0.0),
                       child: DropdownButton<String>(
                         items: _growthCurve.map((String value1) {
                           return DropdownMenuItem<String>(
@@ -422,7 +497,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "Any Past Illness: ",
+                        "13. Any Past Illness: ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -446,15 +521,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                   ],
                 ), //Past Illness
 
-                TextField(
-                  decoration: InputDecoration(
-                      labelText: "If Yes",
-                      hintText: "nature of illness",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0))),
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                ), //Nature of Illness
+                natureOfIllnessFun(), //Nature of Illness
 
                 Center(
                   child: Padding(
@@ -462,17 +529,17 @@ class _ANMWorkerState extends State<ANMWorker> {
                     child: RaisedButton(
                       color: Colors.blue,
                       textColor: Colors.white,
+                      splashColor: Colors.greenAccent,
                       elevation: 4.0,
                       child: Text(
                         'Next Section',
                         style: TextStyle(fontSize: 20.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        if (!formKey.currentState.validate()) { }
-                        else {
+                        if (_formKey.currentState.validate()) {
                           setState(() {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) => form2()));
+                                builder: (BuildContext context) => Form2()));
                           });
                         }
                       },
@@ -485,5 +552,30 @@ class _ANMWorkerState extends State<ANMWorker> {
         ),
       ),
     );
+  }
+
+  Widget natureOfIllnessFun() {
+    if( _currentPastIllness == 'Yes') {
+      return TextFormField(
+        validator: (String val) {
+          if (val.isEmpty) {
+            return 'Please enter a valid input';
+          }
+        },
+        controller: illnessController,
+        decoration: InputDecoration(
+            labelText: "If Yes",
+            hintText: "nature of illness",
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0)
+            )
+        ),
+        keyboardType: TextInputType.multiline,
+        maxLines: null,
+      );
+    }
+    else {
+      return Center(child: Text(""));
+    }
   }
 }

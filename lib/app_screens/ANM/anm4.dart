@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'anm3.dart';
 import 'anm5.dart';
 
 /*
@@ -19,20 +18,59 @@ class Form4 extends StatefulWidget {
 
 class _Form4State extends State<Form4> {
 
-  bool _isChecked1 = false;
-  bool _isChecked2 = false;
-  bool _isChecked3 = false;
-  bool _isChecked4 = false;
-  bool _isChecked5 = false;
-  bool _isChecked6 = false;
-  bool _isChecked7 = false;
-  bool _isChecked8 = false;
+  bool _diarrhoea = false;
+  bool _pneumonia = false;
+  bool _malaria = false;
+  bool _measles = false;
+  bool _septicemia = false;
+  bool _meningitis = false;
+  bool _injury = false;
+  bool _noIdentifiableCause = false;
+  bool _anyOtherCause = false;
+
+  TextEditingController otherCause = TextEditingController();
+
+  Widget noCause() {
+    if( _anyOtherCause == false && _diarrhoea == false && _pneumonia == false && _malaria == false && _measles == false && _septicemia == false && _meningitis == false && _injury == false) {
+      return Column(
+        children: <Widget>[
+
+          Row(
+            children: <Widget>[
+
+              Text(
+                "9. ",
+                style: TextStyle(fontSize: 18.0),
+              ),
+
+              Expanded(
+                child:CheckboxListTile(
+                  value: _noIdentifiableCause,
+                  title: Text("No identifiable cause"),
+                  activeColor: Colors.red,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _noIdentifiableCause = value;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ), //No identifiable cause
+
+        ],
+      );
+    }
+    else {
+      return Text("");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Probable cause of death"),
+        title: Text("D: Probable causes of death"),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -41,7 +79,6 @@ class _Form4State extends State<Form4> {
             padding: EdgeInsets.only(top: 10.0),
             child: Column(
               children: <Widget>[
-
                 /*
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
@@ -52,111 +89,199 @@ class _Form4State extends State<Form4> {
                 ),
                 */
 
-                CheckboxListTile(
-                  value: _isChecked1,
-                  title: Text("Diarrhoea"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked1 = value;
-                    });
-                  },
+                Row(
+                  children: <Widget>[
+
+                    Text(
+                      "1. ",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+
+                    Expanded(
+                      child:CheckboxListTile(
+                        value: _diarrhoea,
+                        title: Text("Diarrhoea"),
+                        activeColor: Colors.red,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _diarrhoea = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ), //Diarrhoea
 
-                CheckboxListTile(
-                  value: _isChecked2,
-                  title: Text("Pneumonia"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked2 = value;
-                    });
-                  },
-                ), //Pneumonia
+                Row(
+                  children: <Widget>[
 
-                CheckboxListTile(
-                  value: _isChecked3,
-                  title: Text("Malaria"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked3 = value;
-                    });
-                  },
+                    Text(
+                      "2. ",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+
+                    Expanded(
+                      child:CheckboxListTile(
+                        value: _pneumonia,
+                        title: Text("Pneumonia"),
+                        activeColor: Colors.red,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _pneumonia = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),  //Pneumonia
+
+                Row(
+                  children: <Widget>[
+
+                    Text(
+                      "3. ",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+
+                    Expanded(
+                      child: CheckboxListTile(
+                        value: _malaria,
+                        title: Text("Malaria"),
+                        activeColor: Colors.red,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _malaria = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ), //Malaria
 
-                CheckboxListTile(
-                  value: _isChecked4,
-                  title: Text("Measles"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked4 = value;
-                    });
-                  },
-                ), //Measles
+                Row(
+                  children: <Widget>[
 
-                CheckboxListTile(
-                  value: _isChecked5,
-                  title: Text("Septicemia (Infection)"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked5 = value;
-                    });
-                  },
-                ), //Septicemia (Infection)
+                    Text(
+                      "4. ",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
 
-                CheckboxListTile(
-                  value: _isChecked6,
-                  title: Text("Meningitis"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked6 = value;
-                    });
-                  },
+                    Expanded(
+                      child:CheckboxListTile(
+                        value: _measles,
+                        title: Text("Measles"),
+                        activeColor: Colors.red,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _measles = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),  //Measles
+
+                Row(
+                  children: <Widget>[
+
+                    Text(
+                      "5. ",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+
+                    Expanded(
+                      child:CheckboxListTile(
+                        value: _septicemia,
+                        title: Text("Septicemia (Infection)"),
+                        activeColor: Colors.red,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _septicemia = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),  //Septicemia (Infection)
+
+                Row(
+                  children: <Widget>[
+
+                    Text(
+                      "6. ",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+
+                    Expanded(
+                      child:CheckboxListTile(
+                        value: _meningitis,
+                        title: Text("Meningitis"),
+                        activeColor: Colors.red,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _meningitis = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ), //Meningitis
 
-                CheckboxListTile(
-                  value: _isChecked7,
-                  title: Text("Injury"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked7 = value;
-                    });
-                  },
+                Row(
+                  children: <Widget>[
+
+                    Text(
+                      "7. ",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+
+                    Expanded(
+                      child:CheckboxListTile(
+                        value: _injury,
+                        title: Text("Injury"),
+                        activeColor: Colors.red,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _injury = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ), //Injury
 
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: "Any other Cause",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0)
-                      )
-                  ),
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
+                Row(
+                  children: <Widget>[
+
+                    Text(
+                      "8. ",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+
+                    Expanded(
+                      child: TextField(
+                        controller: otherCause,
+                        decoration: InputDecoration(
+                            labelText: "Any other Cause",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0))),
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        onChanged:(text) { _anyOtherCause = true; } ,
+                      ),
+                    ),
+
+                  ],
                 ), //Any other cause
 
-                CheckboxListTile(
-                  value: _isChecked8,
-                  title: Text("No identifiable cause"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked8 = value;
-                    });
-                  },
-                ), //No identifiable cause
+                noCause(),
 
                 Padding(
                   padding: EdgeInsets.only(top: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-
+                      /*
                       RaisedButton(
                         color: Colors.blue,
                         elevation: 4.0,
@@ -169,9 +294,11 @@ class _Form4State extends State<Form4> {
                               builder: (BuildContext context) => Form3()));
                         },
                       ),
+                      */
                       RaisedButton(
                         color: Colors.blue,
                         elevation: 4.0,
+                        splashColor: Colors.greenAccent,
                         child: Text(
                           'Next Section',
                           style: TextStyle(fontSize: 20.0, color: Colors.white),
@@ -184,7 +311,6 @@ class _Form4State extends State<Form4> {
                     ],
                   ),
                 ),
-
               ],
             ),
           ),

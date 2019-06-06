@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'anm2.dart';
 import 'anm4.dart';
 
-/*void main() {
+/*
+void main() {
   runApp(MaterialApp(
     title: "Form3",
     home: Form3(),
   ));
-}*/
+}
+*/
 
 class Form3 extends StatefulWidget {
   @override
@@ -21,17 +22,17 @@ class _Form3State extends State<Form3> {
   var _currentTreatment = 'Yes';
   var _phf = ['PHC', 'CHC', 'DH', 'SDH/Taluq Hospital', 'None'];
   var _currentphf = 'None';
-  bool _isChecked1 = false;
-  bool _isChecked2 = false;
-  bool _isChecked3 = false;
-  bool _isChecked4 = false;
-  bool _isChecked5 = false;
+  bool _privateHospital = false;
+  bool _allopathicPractitioner = false;
+  bool _ayushPractitioner = false;
+  bool _unqualifiedProvider = false;
+  bool _traditionalHealer = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Details of treatment"),
+        title: Text("C: Details of treatment"),
       ),
       body: Container(
         child: Padding(
@@ -54,9 +55,14 @@ class _Form3State extends State<Form3> {
                 child: Row(
                   children: <Widget>[
 
+                    Text(
+                      "1. ",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+
                     Expanded(
                       child: Text(
-                        "Whether treatment for illness was taken:  ",
+                        "Whether treatment for illness was provided:  ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -81,115 +87,7 @@ class _Form3State extends State<Form3> {
                 ),
               ),
 
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Text(
-                  "If yes, where was the child treated: ",
-                  style: TextStyle(fontSize: 18.0),
-                ),
-              ),
-
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Row(
-                  children: <Widget>[
-
-                    Expanded(
-                      child: Text(
-                        "Public Health Facility:  ",
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                    ),
-
-                    DropdownButton<String> (
-                      items: _phf.map((String value1) {
-                        return DropdownMenuItem<String>(
-                          value: value1,
-                          child: Text(value1),
-                        );
-                      }).toList(),
-
-                      value: _currentphf,
-
-                      onChanged: (String newValueSelected) {
-                        setState(() {
-                          this._currentphf = newValueSelected;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: CheckboxListTile(
-                  value: _isChecked1,
-                  title: Text("Private Hospital/Nursing Home"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked1 = value;
-                    });
-                  },
-                ),
-              ), //Private Hosp.
-
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: CheckboxListTile(
-                  value: _isChecked2,
-                  title: Text("Qualified allopathic private practitioner"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked2 = value;
-                    });
-                  },
-                ),
-              ), //QAPP
-
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: CheckboxListTile(
-                  value: _isChecked3,
-                  title: Text("AYUSH Practitioner"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked3 = value;
-                    });
-                  },
-                ),
-              ),  //AYUSH
-
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: CheckboxListTile(
-                  value: _isChecked4,
-                  title: Text("Unqualified Provider(quack, informal provider"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked4 = value;
-                    });
-                  },
-                ),
-              ), //Unqualified Provider
-
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: CheckboxListTile(
-                  value: _isChecked5,
-                  title: Text("Traditional Healer"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isChecked5 = value;
-                    });
-                  },
-                ),
-              ), //Traditional Healer
+              treatmentForIllnessFun(),
 
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
@@ -197,6 +95,7 @@ class _Form3State extends State<Form3> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
 
+                    /*
                     RaisedButton(
                       color: Colors.blue,
                       elevation: 4.0,
@@ -209,9 +108,11 @@ class _Form3State extends State<Form3> {
                             builder: (BuildContext context) => form2()));
                       },
                     ),
+                    */
                     RaisedButton(
                       color: Colors.blue,
                       elevation: 4.0,
+                      splashColor: Colors.greenAccent,
                       child: Text(
                         'Next Section',
                         style: TextStyle(fontSize: 20.0, color: Colors.white),
@@ -230,5 +131,143 @@ class _Form3State extends State<Form3> {
         ),
       ),
     );
+  }
+
+  Widget treatmentForIllnessFun() {
+    if( _currentTreatment == "Yes") {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: Row(
+              children: <Widget>[
+
+                /*
+                Text(
+                  "15. ",
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                */
+
+                Expanded(
+                  child: Text(
+                    "If yes, then where was the child treated: ",
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: Row(
+              children: <Widget>[
+
+                Expanded(
+                  child: Text(
+                    "Public Health Facility:  ",
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                ),
+
+                DropdownButton<String> (
+                  items: _phf.map((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(value1),
+                    );
+                  }).toList(),
+
+                  value: _currentphf,
+
+                  onChanged: (String newValueSelected) {
+                    setState(() {
+                      this._currentphf = newValueSelected;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: CheckboxListTile(
+              value: _privateHospital,
+              title: Text("Private Hospital/Nursing Home"),
+              activeColor: Colors.red,
+              onChanged: (bool value) {
+                setState(() {
+                  _privateHospital = value;
+                });
+              },
+            ),
+          ), //Private Hosp.
+
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: CheckboxListTile(
+              value: _allopathicPractitioner,
+              title: Text("Qualified allopathic private practitioner"),
+              activeColor: Colors.red,
+              onChanged: (bool value) {
+                setState(() {
+                  _allopathicPractitioner = value;
+                });
+              },
+            ),
+          ), //QAPP
+
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: CheckboxListTile(
+              value: _ayushPractitioner,
+              title: Text("AYUSH Practitioner"),
+              activeColor: Colors.red,
+              onChanged: (bool value) {
+                setState(() {
+                  _ayushPractitioner = value;
+                });
+              },
+            ),
+          ),  //AYUSH
+
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: CheckboxListTile(
+              value: _unqualifiedProvider,
+              title: Text("Unqualified Provider(quack, informal provider"),
+              activeColor: Colors.red,
+              onChanged: (bool value) {
+                setState(() {
+                  _unqualifiedProvider = value;
+                });
+              },
+            ),
+          ), //Unqualified Provider
+
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: CheckboxListTile(
+              value: _traditionalHealer,
+              title: Text("Traditional Healer"),
+              activeColor: Colors.red,
+              onChanged: (bool value) {
+                setState(() {
+                  _traditionalHealer = value;
+                });
+              },
+            ),
+          ), //Traditional Healer
+
+        ],
+      );
+    }
+    else {
+      return Text("");
+    }
   }
 }
