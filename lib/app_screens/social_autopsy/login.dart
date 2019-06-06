@@ -73,7 +73,7 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
                             );
                           }
                         },
-                        child: Text('Proceed'),
+                        child: Text('Proceed', style: TextStyle(color: Colors.white),),
                         color: Colors.blue,
                       )
                     ],
