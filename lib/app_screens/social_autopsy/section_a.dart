@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/user.dart';
+import 'package:hp_cdrs/app_screens/social_autopsy/section_b_1.dart';
 
 class SocialAutopsyA extends StatefulWidget {
   @override
@@ -24,7 +25,14 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
       if (_user.isBelowPovertyLine < 0)
         _showSnackBar('Please fill your BPL status');
       else
-        form.save();
+        {
+          form.save();
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => (SocialAutopsyB1())),
+          );
+        }
     }
     else
       _autoValidate = true;
@@ -68,7 +76,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                             child: TextFormField(
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
-                                  labelText: 'Name of key Informant',
+                                  labelText: '1) Name of key Informant',
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0))),
                                 validator: (String value) { _validateName(value); },
@@ -79,7 +87,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                             child: TextFormField(
                               keyboardType: TextInputType.numberWithOptions(),
                               decoration: InputDecoration(
-                                  labelText: 'Telephone/Mobile Number',
+                                  labelText: '2) Telephone/Mobile Number',
                                   border: OutlineInputBorder(
                                       borderRadius:
                                           BorderRadius.circular(8.0))),
@@ -96,7 +104,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   labelText:
-                                      'Total Number of Family members of deceased',
+                                      '3) Total Number of Family members of deceased',
                                   border: OutlineInputBorder(
                                       borderRadius:
                                           BorderRadius.circular(8.0))),
@@ -112,7 +120,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                             child: TextFormField(
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
-                                  labelText: 'Number of children < 5 years',
+                                  labelText: '4) Number of children <= 5 years',
                                   border: OutlineInputBorder(
                                       borderRadius:
                                           BorderRadius.circular(8.0))),
@@ -127,7 +135,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                             padding: EdgeInsets.only(top: 10.0),
                             child: TextFormField(
                               decoration: InputDecoration(
-                                  labelText: 'Caste',
+                                  labelText: '5) Caste',
                                   border: OutlineInputBorder(
                                       borderRadius:
                                           BorderRadius.circular(8.0))),
@@ -138,7 +146,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                             padding: EdgeInsets.only(top: 10.0),
                             child: TextFormField(
                               decoration: InputDecoration(
-                                  labelText: 'Religion',
+                                  labelText: '6) Religion',
                                   border: OutlineInputBorder(
                                       borderRadius:
                                       BorderRadius.circular(8.0))),
@@ -152,23 +160,21 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                         Padding(
                           padding: EdgeInsets.only(right:10.0, top: 10.0, bottom: 10.0),
                           child: Row(
-                            //mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Text('Do you have Below'"\n"'Poverty Line (BPL) card:'),
-                              Padding(
-                                padding: EdgeInsets.only(left: 10.0),
-                              child: Text('Yes')),
+                              Text('7) Do you have Below'"\n"'Poverty Line (BPL) card:'),
                                   Radio(
                                     value: 1,
                                     groupValue: _user.isBelowPovertyLine,
                                     onChanged: _handleRadioValueChange1,
                                   ),
-                                  Text('No'),
+                                  Text('Yes'),
                                   Radio(
                                     value: 0,
                                     groupValue: _user.isBelowPovertyLine,
                                     onChanged: _handleRadioValueChange1,
-                                  )
+                                  ),
+                              Text('No'),
                                 ],
                               )
                           ),
@@ -176,7 +182,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                           onPressed: () {
                             _handleSubmitted();
                             },
-                          child: Text('Proceed', ),
+                          child: Text('Proceed to the next section', style: TextStyle(color: Colors.white), ),
                           color: Colors.blue,
                           splashColor: Colors.green,
                         )

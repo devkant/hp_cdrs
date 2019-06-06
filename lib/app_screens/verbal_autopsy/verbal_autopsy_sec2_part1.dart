@@ -103,7 +103,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Section 2: Neonatal Death'),
+          title: Text('Section 2: Neonatal Death (Pg 1/5)'),
         ),
         body: Form(
           key: _formKey,

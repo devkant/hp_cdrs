@@ -39,7 +39,7 @@ class _hpFormState extends State<hpForm> {
   TextEditingController addressController = TextEditingController();
   TextEditingController phnNumberController = TextEditingController();
 
-  Future<String> get _localPath async {
+  /*Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
 
     return directory.path;
@@ -56,7 +56,7 @@ class _hpFormState extends State<hpForm> {
 
     // Write the file
     return file.writeAsString('$json',mode: FileMode.append);
-  }
+  }*/
 
 
 
@@ -176,13 +176,7 @@ class _hpFormState extends State<hpForm> {
                               addressController.text.toString(),
                               phnNumberController.text.toString(),
                           );
-                          String  jsonEntry = json.encode(newEntry);
-                          print(jsonEntry);
-                          
-                          writeToFile(jsonEntry);
-
-                          Navigator.pop(context);
-
+                          Navigator.of(context).pop(newEntry);
                         }
 
                     },
