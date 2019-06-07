@@ -84,7 +84,7 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text('${entries.length}'),
+        title:  Text('Forms Pending'),
       ),
       drawer: BasicDrawer(),
       body: ListView.builder(
@@ -92,7 +92,8 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
           itemBuilder: (BuildContext  context,  int index)  {
             return  Card(
               child: ListTile(
-                title: Text(entries[index].name),
+                title: Text("Name: "+entries[index].name),
+                leading: Icon(Icons.contacts),
               ),
             );
           }
