@@ -76,7 +76,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
 
 
                   //1st user input element start
-                  questionElement('39. ', 'Did s/he have a'
+                  questionElement('39. ', 'Did he/she have a'
                       ' bulging fontanelle (describe)?'),
 
                   Padding(
@@ -310,7 +310,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                     child: RaisedButton(
                       color: Colors.blue,
                       child: Text(
-                        "Submit",
+                        "Next",
                         style: TextStyle(fontSize: 15.0, color: Colors.white),
                       ),
                       onPressed: () {
