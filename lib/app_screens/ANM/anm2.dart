@@ -45,7 +45,7 @@ class _Form2State extends State<Form2> {
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Text(
                   "Duration of symptoms:",
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),
                 ),
               ),
 
