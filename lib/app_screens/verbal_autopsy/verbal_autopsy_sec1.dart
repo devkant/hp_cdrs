@@ -89,6 +89,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
   //controller obj for text fields
   TextEditingController respondentNameController = TextEditingController();
   TextEditingController deceasedAddressController = TextEditingController();
+  TextEditingController deceasedPincodeController = TextEditingController();
   TextEditingController respondentWordsController = TextEditingController();
 
   @override
@@ -173,7 +174,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '1.',
+                              '1. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -200,7 +201,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '2.',
+                              '2. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Text(
@@ -232,7 +233,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                         children: <Widget>[
                           Padding(
                               padding: EdgeInsets.only(right: 10.0),
-                              child: Text('3.', style: TextStyle(fontSize: 16.0))),
+                              child: Text('3. ', style: TextStyle(fontSize: 16.0))),
                           Flexible(
                               child: Text(
                                   'Did the respondent live with the deceased during '
@@ -288,7 +289,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '4.',
+                              '4. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -323,7 +324,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '5.',
+                              '5. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -357,7 +358,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '6.',
+                              '6. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -398,7 +399,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                       Padding(
                           padding: EdgeInsets.only(right: 10.0),
                           child: Text(
-                            '7.',
+                            '7. ',
                             style: TextStyle(fontSize: 16.0),
                           )),
                       Padding(
@@ -441,7 +442,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                       Padding(
                           padding: EdgeInsets.only(right: 10.0),
                           child: Text(
-                            '8.',
+                            '8. ',
                             style: TextStyle(fontSize: 16.0),
                           )),
                       Padding(
@@ -492,7 +493,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                           Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '9.',
+                              '9. ',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -530,7 +531,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                           Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '10.',
+                              '10. ',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -568,7 +569,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                           Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '11.',
+                              '11A.',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -592,6 +593,49 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                   ),
 
 
+                  Padding(
+                      padding:
+                      EdgeInsets.only(right: 10.0, top: 10.0, bottom: 10.0),
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              '11B.',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              'Pincode:',
+                              style: TextStyle(fontSize: 16.0),
+                            ),),
+
+                          Flexible(
+                            child: TextFormField(
+                              controller: deceasedPincodeController,
+                              decoration: InputDecoration(
+                                  hintText: 'Pincode',
+                                  labelText: 'Pincode',
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0))
+                              ),
+                              validator: (String value) {
+                                if (value.length != 6) return 'Please fill a valid pincode';
+                              },
+                              keyboardType: TextInputType.numberWithOptions(),
+
+                            ),),
+                        ],
+                      )),
+
+
+
+
+
+
+
                   //12th user input element start
                   Padding(
                       padding:
@@ -600,7 +644,7 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '12.',
+                              '12. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -648,6 +692,8 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
                       maxLines: null,
                     ),
                   ),
+
+
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: RaisedButton(
