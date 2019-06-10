@@ -26,6 +26,8 @@ class _verbalAutopsyFormSec3State
 
   DateTime _interviewDate = DateTime.now();
 
+  bool _knowledgeCheck = false;
+
 
   Future<Null> _selectInterviewDate(BuildContext context) async {
     final DateTime pickedDOB = await showDatePicker(
@@ -171,6 +173,20 @@ class _verbalAutopsyFormSec3State
 
 
 
+                  Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: CheckboxListTile(
+                        value: _knowledgeCheck,
+                        title: Text('I hereby state that all the details filled'
+                            ' above are best and true to my knowledge.'),
+                        onChanged: (bool value) {
+                          setState(() {
+                            _knowledgeCheck = value;
+                          });
+                        }),
+                  ),
+
+
 
 
                   Padding(
@@ -183,7 +199,7 @@ class _verbalAutopsyFormSec3State
                       ),
                       onPressed: () {
                         setState(() {
-                          if (_formKey.currentState.validate())
+                          if (_formKey.currentState.validate() && _knowledgeCheck == true)
                             AlertDialog(
                               title: Text('Form Submitted Sucessfully'),
                               content: Text('Success'),
