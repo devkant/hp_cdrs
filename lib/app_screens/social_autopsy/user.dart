@@ -29,4 +29,9 @@ class User {
   String reasonForSeekingCare = '' ;
   int adviceOnHospitalTreatment = -1;
   int conditionOfInfantAtConsultation = -1;
+  String dischargedAgainstMedicalAdvice;
+  String diedBeforeDischarge;
+  String dissatisfactionTreatment;
+  String dangerSigns;
+
 }
