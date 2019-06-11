@@ -78,7 +78,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                       padding: EdgeInsets.all(10.0),
                       child: Center(
                           child: Text(
-                            "Details of sickness at time of death:",
+                            "Details of sickness at time of death",
                             style:
                             TextStyle(
                                 fontSize: 18.0, fontWeight: FontWeight.w500),
@@ -401,7 +401,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
-                            child: Text('Did s/he have a cough?'
+                            child: Text('Did he/she have a cough?'
                               ,style: TextStyle(fontSize: 16.0),
                             )
                         )
@@ -460,7 +460,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
-                            child: Text('Did s/he have grunting (demonstrate)?'
+                            child: Text('Did he/she have grunting (demonstrate)?'
                               ,style: TextStyle(fontSize: 16.0),
                             )
                         )
