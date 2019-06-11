@@ -49,6 +49,7 @@ class _verbalAutopsy5YrSec3State
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
           'Section 3: Written narrative in local language',
