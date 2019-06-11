@@ -18,6 +18,7 @@ class _verbalAutopsy5YrSec3 extends StatefulWidget {
 class _verbalAutopsy5YrSec3State
     extends State<_verbalAutopsy5YrSec3> {
   var _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController langCodeController = TextEditingController();
   TextEditingController narrativeController = TextEditingController();
@@ -199,11 +200,10 @@ class _verbalAutopsy5YrSec3State
                       ),
                       onPressed: () {
                         setState(() {
-                          if (_formKey.currentState.validate() && _knowledgeCheck == true)
-                            AlertDialog(
-                              title: Text('Form Submitted Sucessfully'),
-                              content: Text('Success'),
-                            );
+                          if ( _knowledgeCheck == false) {
+                            // The checkbox wasn't checked
+                            showSnackBar('Please check the checkbox to proceed');
+                          }
                         });
                       },
                     ),
@@ -214,4 +214,18 @@ class _verbalAutopsy5YrSec3State
       ),
     );
   }
+
+  void showSnackBar(String message){
+    var snackBar = SnackBar(
+//      backgroundColor: Colors.blue,
+      content: Text(message,
+        style: TextStyle(fontSize: 16.0,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+
 }
