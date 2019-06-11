@@ -18,6 +18,7 @@ class _verbalAutopsyFormSec3 extends StatefulWidget {
 class _verbalAutopsyFormSec3State
     extends State<_verbalAutopsyFormSec3> {
   var _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController langCodeController = TextEditingController();
   TextEditingController narrativeController = TextEditingController();
@@ -27,7 +28,6 @@ class _verbalAutopsyFormSec3State
   DateTime _interviewDate = DateTime.now();
 
   bool _knowledgeCheck = false;
-
 
   Future<Null> _selectInterviewDate(BuildContext context) async {
     final DateTime pickedDOB = await showDatePicker(
@@ -48,6 +48,7 @@ class _verbalAutopsyFormSec3State
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
           'Section 3: Written narrative in local language',
@@ -199,11 +200,10 @@ class _verbalAutopsyFormSec3State
                       ),
                       onPressed: () {
                         setState(() {
-                          if (_formKey.currentState.validate() && _knowledgeCheck == true)
-                            AlertDialog(
-                              title: Text('Form Submitted Sucessfully'),
-                              content: Text('Success'),
-                            );
+                          if ( _knowledgeCheck == false) {
+                            // The checkbox wasn't checked
+                            showSnackBar('Please check the checkbox to proceed');
+                          }
                         });
                       },
                     ),
@@ -214,4 +214,18 @@ class _verbalAutopsyFormSec3State
       ),
     );
   }
+
+
+  void showSnackBar(String message){
+    var snackBar = SnackBar(
+//      backgroundColor: Colors.blue,
+      content: Text(message,
+        style: TextStyle(fontSize: 16.0,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
 }
