@@ -328,7 +328,7 @@ class _verbalAutopsyFormSec2Part2State extends State<_verbalAutopsyFormSec2Part2
                               'What was the birth weight (in grams) ?',
                               style: TextStyle(fontSize: 16.0),
                             )),
-                        dropDownChildWeight()
+                        childWeight()
                       ],
                     ),
                   ),
@@ -707,7 +707,7 @@ class _verbalAutopsyFormSec2Part2State extends State<_verbalAutopsyFormSec2Part2
 
 
   //optional menu functions
-  Widget dropDownChildWeight(){
+  Widget childWeight(){
 
     if(_weightCheck == false) {
       return Flexible(
