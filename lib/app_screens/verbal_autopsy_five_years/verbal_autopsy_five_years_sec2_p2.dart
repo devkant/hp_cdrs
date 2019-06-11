@@ -81,7 +81,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                       padding: EdgeInsets.all(10.0),
                       child: Center(
                           child: Text(
-                            "Details of sickness at time of death:",
+                            "Details of sickness at time of death",
                             style:
                             TextStyle(
                                 fontSize: 18.0, fontWeight: FontWeight.w500),
