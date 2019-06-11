@@ -414,7 +414,7 @@ class _verbalAutopsyFormSec2Part2State extends State<_verbalAutopsyFormSec2Part2
                             )),
                         Flexible(
                             child: Text('If yes, how many completed '
-                                'days after birth did s/he stop crying?'
+                                'days after birth did he/she stop crying?'
                               ,style: TextStyle(fontSize: 16.0),
                             )
                         )
