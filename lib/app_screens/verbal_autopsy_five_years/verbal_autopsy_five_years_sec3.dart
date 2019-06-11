@@ -4,19 +4,19 @@ import 'dart:async';
 void main() {
   runApp(MaterialApp(
     title: 'Verbal Autopsy Form Section 3',
-    home: _verbalAutopsyFormSec3(),
+    home: _verbalAutopsy5YrSec3(),
   ));
 }
 
-class _verbalAutopsyFormSec3 extends StatefulWidget {
+class _verbalAutopsy5YrSec3 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsyFormSec3State();
+    return _verbalAutopsy5YrSec3State();
   }
 }
 
-class _verbalAutopsyFormSec3State
-    extends State<_verbalAutopsyFormSec3> {
+class _verbalAutopsy5YrSec3State
+    extends State<_verbalAutopsy5YrSec3> {
   var _formKey = GlobalKey<FormState>();
 
   TextEditingController langCodeController = TextEditingController();
