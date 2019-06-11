@@ -401,9 +401,10 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                           ],
                         )),
 
+                    complicationsCheckFun(),
+
 
                     //9th form element
-                    complicationsCheckFun(),
                     Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Row(
