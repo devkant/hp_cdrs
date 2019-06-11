@@ -847,7 +847,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                     child: RaisedButton(
                       color: Colors.blue,
                       child: Text(
-                        "Next",
+                        "Proceed to Section 3",
                         style: TextStyle(fontSize: 15.0, color: Colors.white),
                       ),
                       onPressed: () {
