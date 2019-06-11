@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
-    title: 'Section 2: Neonatal Death',
-    home: verbalAutopsySec2Part1(),
+    title: 'Section 2: Child Death',
+    home: verbalAutopsy5YrSec2Part1(),
   ));
 }
 
-class verbalAutopsySec2Part1 extends StatefulWidget {
+class verbalAutopsy5YrSec2Part1 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsySec2Part1State();
+    return _verbalAutopsy5YrSec2Part1State();
   }
 }
 
-class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
+class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
   var _formKey = GlobalKey<FormState>();
 
   //radio lists
@@ -72,7 +72,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Section 2: Child death (Pg 1/5)'),
+          title: Text('Section 2: Child death (Pg 1/4)'),
         ),
         body: Form(
           key: _formKey,
