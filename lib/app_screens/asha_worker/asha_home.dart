@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'package:hp_cdrs/model/classes/class_asha.dart';
 import 'package:hp_cdrs/app_screens/asha_worker/asha_page.dart';
-import 'package:json_table/json_table.dart';
+
 
 void  main(){
   runApp(MaterialApp(

@@ -4,7 +4,11 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:hp_cdrs/app_screens/asha_worker/asha_home.dart';
-
+import 'package:connectivity/connectivity.dart';
+import 'package:http/http.dart' as http;
+import 'package:hp_cdrs/model/classes/class_asha.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 
 
 
@@ -176,6 +180,15 @@ class _hpFormState extends State<hpForm> {
                               addressController.text.toString(),
                               phnNumberController.text.toString(),
                           );
+                          var data  = {
+                            'name': newEntry.name,
+                            'district' :  newEntry.district,
+                            'block' : newEntry.block,
+                            'address':  newEntry.address,
+                            'phoneNumber':newEntry.phoneNumber,
+                          };
+
+                          sendData('http://13.126.72.137/api/test',data);
                           Navigator.of(context).pop(newEntry);
                         }
 
@@ -187,6 +200,8 @@ class _hpFormState extends State<hpForm> {
           )),
     );
   }
+
+
 
   void _onDropDownDistrictSelected(String newSelectedDistrict) {
     setState(() {
