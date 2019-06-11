@@ -45,7 +45,8 @@ class _verbalAutopsyFormSec1State extends State<_verbalAutopsyFormSec1> {
     'Literate with class 12th',
     'Literate Middle',
     'Graduate & above',
-    'Literate, matrix class 10th'
+    'Literate, matrix class 10th',
+    'Unknown'
   ];
   var _respondentCategory = ['General', 'OBC', 'SC', 'ST'];
   var _respondentReligion = [
