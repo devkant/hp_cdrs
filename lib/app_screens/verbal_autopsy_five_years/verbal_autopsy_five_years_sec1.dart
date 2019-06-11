@@ -4,18 +4,18 @@ import 'dart:async';
 void main() {
   runApp(MaterialApp(
     title: 'Verbal Autopsy Form Section 1',
-    home: _verbalAutopsy5YrSec1(),
+    home: _verbalAutopsy5YrFormSec1(),
   ));
 }
 
-class _verbalAutopsy5YrSec1 extends StatefulWidget {
+class _verbalAutopsy5YrFormSec1 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsy5YrSec1State();
+    return _verbalAutopsy5YrFormSec1State();
   }
 }
 
-class _verbalAutopsy5YrSec1State extends State<_verbalAutopsy5YrSec1> {
+class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
   var _formKey = GlobalKey<FormState>();
 
 
@@ -45,7 +45,8 @@ class _verbalAutopsy5YrSec1State extends State<_verbalAutopsy5YrSec1> {
     'Literate with class 12th',
     'Literate Middle',
     'Graduate & above',
-    'Literate, matrix class 10th'
+    'Literate, matrix class 10th',
+    'Unknown'
   ];
   var _respondentCategory = ['General', 'OBC', 'SC', 'ST'];
   var _respondentReligion = [
@@ -161,7 +162,7 @@ class _verbalAutopsy5YrSec1State extends State<_verbalAutopsy5YrSec1> {
                       padding: EdgeInsets.all(10.0),
                       child: Center(
                           child: Text(
-                            "Details of respondent:",
+                            "Details of respondent",
                             style:
                             TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
                           ))),
@@ -386,7 +387,7 @@ class _verbalAutopsy5YrSec1State extends State<_verbalAutopsy5YrSec1> {
                   Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Text(
-                        'Details of deceased:',
+                        'Details of deceased',
                         style:
                         TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
                       )),
