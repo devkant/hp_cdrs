@@ -203,6 +203,9 @@ class _verbalAutopsyFormSec3State
                           if ( _knowledgeCheck == false) {
                             // The checkbox wasn't checked
                             showSnackBar('Please check the checkbox to proceed');
+                            if(_formKey.currentState.validate()){
+
+                            }
                           }
                         });
                       },
