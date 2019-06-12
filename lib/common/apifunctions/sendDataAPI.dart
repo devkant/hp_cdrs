@@ -1,6 +1,8 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:hp_cdrs/common/functions/getToken.dart';
+import 'dart:convert';
 
 const String  _storageKeyMobileToken = "token";
 
@@ -16,30 +18,45 @@ Future<bool>  sendData(String url,Map data) async{
   }
 }
 
-Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-Future<String> _getMobileToken() async {
-  final SharedPreferences prefs = await _prefs;
-
-  return prefs.getString(_storageKeyMobileToken) ?? '';
-}
-
-Future<String> createPost(String url, Map data) async {
-
+Future<Post> createPost(String url, Map data) async {
+  final token = await getToken();
   final response  = await http.post(
     url,
     body: data,
     headers: {
-      'TOKEN':  '132123213'//await _getMobileToken()
+      'auTOKEN':  token
     },
   );
 
   if  (response.statusCode==200){
-    print("done");
+    print("success");
   }else{
-    print("error");
+    print("sending of failed");
   }
 
-  return  "success";
+  return  Post.fromJson(json.decode(response.body));
 
+}
+
+class Post {
+  final String success;
+
+
+  Post({this.success});
+
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+      success: json['success'],
+
+    );
+  }
+
+  Map toMap() {
+    var map = new Map<String, dynamic>();
+    map["success"] = success;
+
+
+    return map;
+  }
 }
