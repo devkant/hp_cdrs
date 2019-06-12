@@ -1,11 +1,11 @@
 //change this commited in Login Page
-
+import 'package:shared_preferences/shared_preferences.dart';
 import "package:flutter/material.dart";
 import 'package:hp_cdrs/app_screens/loginPage.dart';
 import 'package:hp_cdrs/app_screens/splashScreen.dart';
 import 'package:hp_cdrs/app_screens/homeScreen.dart';
 
-void main() =>  runApp(MyApp());
+/*void main() =>  runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   var _splashShown = false;
@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "CDRS",
       routes: <String,WidgetBuilder>{
-        "/HomeScreen":(BuildContext context)  =>  HomeScreen(),
         "/LoginPage" :(BuildContext context)  =>  LoginPage(),
       },
       home: SplashScreen(),
@@ -24,6 +23,14 @@ class MyApp extends StatelessWidget {
   }
 
 
+}*/
+
+Future<void> main() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var name = prefs.getString('LastUser');
+  var role  = prefs.getString('LastUserId');
+  print(name);
+  runApp(MaterialApp(home: name == null ? LoginPage() : HomeScreen(role)));
 }
 
 
