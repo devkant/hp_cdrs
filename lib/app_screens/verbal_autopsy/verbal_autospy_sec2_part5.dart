@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     title: 'Verbal Autopsy Form Section 2',
-    home: _verbalAutopsyFormSec2Part4(),
+    home: _verbalAutopsyFormSec2Part5(),
   ));
 }
 
-class _verbalAutopsyFormSec2Part4 extends StatefulWidget {
+class _verbalAutopsyFormSec2Part5 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsyFormSec2Part4State();
+    return _verbalAutopsyFormSec2Part5State();
   }
 }
 
-class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4> {
+class _verbalAutopsyFormSec2Part5State extends State<_verbalAutopsyFormSec2Part5> {
   var _formKey = GlobalKey<FormState>();
 
 
