@@ -25,7 +25,7 @@ Future<Post> createPost(String url, Map data) async {
     url,
     body: data,
     headers: {
-      'auTOKEN':  token
+      'authToken':  token
     },
   );
 

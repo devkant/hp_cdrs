@@ -77,6 +77,12 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
     print(fileContent);
   }
 
+  void clearFile(){
+    if(fileExists){
+      jsonFile.writeAsStringSync("");
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {

@@ -27,8 +27,6 @@ class _hpFormState extends State<hpForm> {
     'Kullu', 'Lahaul & Spiti', 'Mandi', 'Shimla', 'Sirmaur', 'Solan', 'Una'];
   var _currentSelectedDistrict = '';
 
-
-
   @override
   void initState() {
     super.initState();
@@ -171,7 +169,7 @@ class _hpFormState extends State<hpForm> {
                       "Submit",
                       style: TextStyle(fontSize: 15.0, color: Colors.white),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                         if (_formKey.currentState.validate()){
                           Child newEntry  = new Child(
                               childNameController.text.toString(),
@@ -187,9 +185,13 @@ class _hpFormState extends State<hpForm> {
                             'address':  newEntry.address,
                             'phoneNumber':newEntry.phoneNumber,
                           };
+                          bool status  = await sendData('http://13.126.72.137/api/test',data);
+                          if(status){
+                            Navigator.of(context).pop(null);
+                          }
+                          else
+                            Navigator.of(context).pop(newEntry);
 
-                          sendData('http://13.126.72.137/api/test',data);
-                          Navigator.of(context).pop(newEntry);
                         }
 
                     },
