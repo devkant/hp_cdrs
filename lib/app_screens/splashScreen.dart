@@ -1,58 +1,108 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:hp_cdrs/common/platform/platformScaffold.dart';
-
-
 
 class SplashScreen extends StatefulWidget {
   @override
-  _SplashScreenState createState() =>  _SplashScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final int splashDuration = 2;
-
-  startTime() async {
-    return Timer(
-        Duration(seconds: splashDuration),
-            () {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(Duration(seconds: 3),
+            (){
           SystemChannels.textInput.invokeMethod('TextInput.hide');
           Navigator.of(context).pushReplacementNamed('/LoginPage');
         }
     );
   }
-
-  @override
-  void initState() {
-    super.initState();
-    startTime();
-  }
-
   @override
   Widget build(BuildContext context) {
-    var drawer = Drawer();
-
-    return PlatformScaffold(drawer: drawer,
-        body: Container(
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Container(
             decoration: BoxDecoration(color: Colors.blueAccent),
-            child: Column(
-              children: <Widget>[
-                Expanded(child:
-                Container(decoration: BoxDecoration(color: Colors.blueAccent),
-                  alignment: FractionalOffset(0.5, 0.3),
-                  child:
-                  Text("CDRS App", style: TextStyle(fontSize: 40.0, color: Colors.white),),
-                ),
-                ),
-                Container(margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0),
-                  child:
-                  Text("© Made by IIITUNA", style: TextStyle(fontSize: 16.0, color: Colors.white,),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircleAvatar(
+                        backgroundColor: Colors.blueAccent,
+                        radius: 60.0,
+                        child: Image(
+                          image: AssetImage('assets/hpgovt.png'),
+                          height: 120.0,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10.0),
+                      ),
+                      Text(
+                        'Himachal Pradesh Government',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.w400
+                        ),
+                      )
+                    ],
                   ),
                 ),
-              ],
-            )
-        )
+              ),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'CDRS',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 50.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 50.0),
+                    ),
+                    CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text(
+                      '@Developed by IIIT Una',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        fontSize: 25.0,
+                        color: Colors.amberAccent,
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }
+

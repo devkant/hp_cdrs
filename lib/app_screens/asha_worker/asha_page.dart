@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hp_cdrs/model/classes/class_asha.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'dart:convert';
+import 'package:hp_cdrs/app_screens/asha_worker/asha_home.dart';
+import 'package:connectivity/connectivity.dart';
+import 'package:http/http.dart' as http;
+import 'package:hp_cdrs/model/classes/class_asha.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'ASHA Form',
-    home: hpForm(),
-  ));
-}
+
 
 class hpForm extends StatefulWidget {
+
+
   @override
   State<StatefulWidget> createState() {
     return _hpFormState();
@@ -21,17 +28,41 @@ class _hpFormState extends State<hpForm> {
   var _currentSelectedDistrict = '';
 
 
+
   @override
   void initState() {
     super.initState();
     _currentSelectedDistrict = _districtName[0];
   }
 
+  //testing code
+
 
   TextEditingController childNameController = TextEditingController();
   TextEditingController ashaBlockController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phnNumberController = TextEditingController();
+
+  /*Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/asha.txt');
+  }
+
+
+  Future<File> writeToFile(String json) async {
+    final file = await _localFile;
+
+    // Write the file
+    return file.writeAsString('$json',mode: FileMode.append);
+  }*/
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -141,13 +172,26 @@ class _hpFormState extends State<hpForm> {
                       style: TextStyle(fontSize: 15.0, color: Colors.white),
                     ),
                     onPressed: () {
-                      setState(() {
-                        if (_formKey.currentState.validate())
-                          AlertDialog(
-                            title: Text('Form Submitted Sucessfully'),
-                            content: Text('Success'),
+                        if (_formKey.currentState.validate()){
+                          Child newEntry  = new Child(
+                              childNameController.text.toString(),
+                              this._currentSelectedDistrict.toString(),
+                              ashaBlockController.text.toString(),
+                              addressController.text.toString(),
+                              phnNumberController.text.toString(),
                           );
-                      });
+                          var data  = {
+                            'name': newEntry.name,
+                            'district' :  newEntry.district,
+                            'block' : newEntry.block,
+                            'address':  newEntry.address,
+                            'phoneNumber':newEntry.phoneNumber,
+                          };
+
+                          sendData('http://13.126.72.137/api/test',data);
+                          Navigator.of(context).pop(newEntry);
+                        }
+
                     },
                   ),
                 )
@@ -156,6 +200,8 @@ class _hpFormState extends State<hpForm> {
           )),
     );
   }
+
+
 
   void _onDropDownDistrictSelected(String newSelectedDistrict) {
     setState(() {
