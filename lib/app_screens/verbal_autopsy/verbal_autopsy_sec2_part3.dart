@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'verbal_autopsy_sec2_part4.dart';
+import 'user.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Verbal Autopsy Form Section 2',
-    home: _verbalAutopsyFormSec2Part3(),
-  ));
-}
+//void main() {
+//  runApp(MaterialApp(
+//    title: 'Verbal Autopsy Form Section 2',
+//    home: _verbalAutopsyFormSec2Part3(),
+//  ));
+//}
 
-class _verbalAutopsyFormSec2Part3 extends StatefulWidget {
+class verbalAutopsySec2Part3 extends StatefulWidget {
+  final user verbal_Autopsy_Obj;
+  verbalAutopsySec2Part3({Key key, @required this.verbal_Autopsy_Obj}):super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsyFormSec2Part3State();
+    return _verbalAutopsySec2Part3State();
   }
 }
 
-class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3> {
+class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
   var _formKey = GlobalKey<FormState>();
 
 
@@ -29,29 +33,29 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
 
 
   //selection radio variable (stores the value of selected input)
-  var _currentSelectedFeverRadio = '';
-  var _currentSelectedFeverDaysRadio = '';
-  var _currentSelectedBreathingDifficultyRadio = '';
-  var _currentSelectedBreathingDifficultyDaysRadio = '';
-  var _currentSelectedFastBreathingRadio = '';
-  var _currentSelectedFastBreathingDaysRadio = '';
-  var _currentSelectedInDrawingChestRadio = '';
-  var _currentSelectedCoughRadio = '';
-  var _currentSelectedGruntingRadio = '';
-  var _currentSelectedNostrilFlareRadio = '';
+//  var _currentSelectedFeverRadio = '';
+//  var _currentSelectedFeverDaysRadio = '';
+//  var _currentSelectedBreathingDifficultyRadio = '';
+//  var _currentSelectedBreathingDifficultyDaysRadio = '';
+//  var _currentSelectedFastBreathingRadio = '';
+//  var _currentSelectedFastBreathingDaysRadio = '';
+//  var _currentSelectedInDrawingChestRadio = '';
+//  var _currentSelectedCoughRadio = '';
+//  var _currentSelectedGruntingRadio = '';
+//  var _currentSelectedNostrilFlareRadio = '';
 
 
 
   @override
   void initState() {
     super.initState();
-    _currentSelectedFeverRadio = _yesNoRadioList[1];
-    _currentSelectedBreathingDifficultyRadio = _yesNoRadioList[1];
-    _currentSelectedFastBreathingRadio = _yesNoRadioList[1];
-    _currentSelectedInDrawingChestRadio = _yesNoRadioList[1];
-    _currentSelectedCoughRadio = _yesNoRadioList[1];
-    _currentSelectedGruntingRadio = _yesNoRadioList[1];
-    _currentSelectedNostrilFlareRadio = _yesNoRadioList[1];
+    widget.verbal_Autopsy_Obj.fever = _yesNoRadioList[1];
+    widget.verbal_Autopsy_Obj.difficultyBreathing = _yesNoRadioList[1];
+    widget.verbal_Autopsy_Obj.fastBreathing = _yesNoRadioList[1];
+    widget.verbal_Autopsy_Obj.inDrawingChest = _yesNoRadioList[1];
+    widget.verbal_Autopsy_Obj.cough = _yesNoRadioList[1];
+    widget.verbal_Autopsy_Obj.grunting = _yesNoRadioList[1];
+    widget.verbal_Autopsy_Obj.nostrilsFlare = _yesNoRadioList[1];
 
   }
 
@@ -62,7 +66,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
       appBar: AppBar(
         title: Text(
           'Section 2: Neonatal Death (Pg 3/5)',
-          style: TextStyle(fontSize: 20.0),
+          style: TextStyle(fontSize: 18.0),
         ),
       ),
       body: Form(
@@ -113,7 +117,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedFeverRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.fever,
                               onChanged: (String newRadioSelected) {
                                 _onFeverRadioSelect(newRadioSelected);
                               },
@@ -124,7 +128,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedFeverRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.fever,
                               onChanged: (String newRadioSelected) {
                                 _onFeverRadioSelect(newRadioSelected);
                               },
@@ -135,7 +139,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedFeverRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.fever,
                               onChanged: (String newRadioSelected) {
                                 _onFeverRadioSelect(newRadioSelected);
                               },
@@ -194,7 +198,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedBreathingDifficultyRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.difficultyBreathing,
                               onChanged: (String newRadioSelected) {
                                 _onBreathingDifficultyRadioSelect(newRadioSelected);
                               },
@@ -205,7 +209,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedBreathingDifficultyRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.difficultyBreathing,
                               onChanged: (String newRadioSelected) {
                                 _onBreathingDifficultyRadioSelect(newRadioSelected);
                               },
@@ -216,7 +220,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedBreathingDifficultyRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.difficultyBreathing,
                               onChanged: (String newRadioSelected) {
                                 _onBreathingDifficultyRadioSelect(newRadioSelected);
                               },
@@ -276,7 +280,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedFastBreathingRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.fastBreathing,
                               onChanged: (String newRadioSelected) {
                                 _onFastBreathingRadioSelect(newRadioSelected);
                               },
@@ -287,7 +291,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedFastBreathingRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.fastBreathing,
                               onChanged: (String newRadioSelected) {
                                 _onFastBreathingRadioSelect(newRadioSelected);
                               },
@@ -298,7 +302,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedFastBreathingRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.fastBreathing,
                               onChanged: (String newRadioSelected) {
                                 _onFastBreathingRadioSelect(newRadioSelected);
                               },
@@ -359,7 +363,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedInDrawingChestRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.inDrawingChest,
                               onChanged: (String newRadioSelected) {
                                 _onInDrawingChestRadioSelect(newRadioSelected);
                               },
@@ -370,7 +374,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedInDrawingChestRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.inDrawingChest,
                               onChanged: (String newRadioSelected) {
                                 _onInDrawingChestRadioSelect(newRadioSelected);
                               },
@@ -381,7 +385,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedInDrawingChestRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.inDrawingChest,
                               onChanged: (String newRadioSelected) {
                                 _onInDrawingChestRadioSelect(newRadioSelected);
                               },
@@ -418,7 +422,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedCoughRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.cough,
                               onChanged: (String newRadioSelected) {
                                 _onCoughRadioSelect(newRadioSelected);
                               },
@@ -429,7 +433,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedCoughRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.cough,
                               onChanged: (String newRadioSelected) {
                                 _onCoughRadioSelect(newRadioSelected);
                               },
@@ -440,7 +444,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedCoughRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.cough,
                               onChanged: (String newRadioSelected) {
                                 _onCoughRadioSelect(newRadioSelected);
                               },
@@ -477,7 +481,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedGruntingRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.grunting,
                               onChanged: (String newRadioSelected) {
                                 _onGruntingRadioSelect(newRadioSelected);
                               },
@@ -488,7 +492,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedGruntingRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.grunting,
                               onChanged: (String newRadioSelected) {
                                 _onGruntingRadioSelect(newRadioSelected);
                               },
@@ -499,7 +503,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedGruntingRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.grunting,
                               onChanged: (String newRadioSelected) {
                                 _onGruntingRadioSelect(newRadioSelected);
                               },
@@ -536,7 +540,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedNostrilFlareRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.nostrilsFlare,
                               onChanged: (String newRadioSelected) {
                                 _onNostrilFlareRadioSelect(newRadioSelected);
                               },
@@ -547,7 +551,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedNostrilFlareRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.nostrilsFlare,
                               onChanged: (String newRadioSelected) {
                                 _onNostrilFlareRadioSelect(newRadioSelected);
                               },
@@ -558,7 +562,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedNostrilFlareRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.nostrilsFlare,
                               onChanged: (String newRadioSelected) {
                                 _onNostrilFlareRadioSelect(newRadioSelected);
                               },
@@ -578,13 +582,14 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                         style: TextStyle(fontSize: 15.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        setState(() {
-                          if (_formKey.currentState.validate())
-                            AlertDialog(
-                              title: Text('Form Submitted Sucessfully'),
-                              content: Text('Success'),
-                            );
-                        });
+                        if (_formKey.currentState.validate()) {
+                          setState(() {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    verbalAutopsySec2Part4(
+                                      verbal_Autopsy_Obj: widget.verbal_Autopsy_Obj,)));
+                          });
+                        }
                       },
                     ),
                   ),
@@ -598,68 +603,68 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
 
   void _onFeverRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedFeverRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.fever = newRadioSelected;
     });
   }
 
   void _onFeverDaysRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedFeverDaysRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.feverDays = newRadioSelected;
     });
   }
 
   void _onBreathingDifficultyRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedBreathingDifficultyRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.difficultyBreathing = newRadioSelected;
     });
   }
 
   void _onBreathingDifficultyDaysRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedBreathingDifficultyDaysRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.difficultyBreathingDays = newRadioSelected;
     });
   }
 
   void _onFastBreathingRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedFastBreathingRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.fastBreathing = newRadioSelected;
     });
   }
 
   void _onFastBreathingDaysRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedFastBreathingDaysRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.fastBreathingDays = newRadioSelected;
     });
   }
 
   void _onInDrawingChestRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedInDrawingChestRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.inDrawingChest = newRadioSelected;
     });
   }
 
   void _onCoughRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedCoughRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.cough = newRadioSelected;
     });
   }
 
   void _onGruntingRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedGruntingRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.grunting = newRadioSelected;
     });
   }
 
   void _onNostrilFlareRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedNostrilFlareRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.nostrilsFlare = newRadioSelected;
     });
   }
 
 
   Widget feverDaysRadio(){
 
-    if(_currentSelectedFeverRadio == 'Yes'){
+    if(widget.verbal_Autopsy_Obj.fever == 'Yes'){
       return Padding(
           padding: EdgeInsets.all(10.0),
           child: Row(
@@ -671,7 +676,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                 ),
                 Radio(
                   value: 'Less than 1 day',
-                  groupValue: _currentSelectedFeverDaysRadio,
+                  groupValue: widget.verbal_Autopsy_Obj.feverDays,
                   onChanged: (String newRadioSelected) {
                     _onFeverDaysRadioSelect(newRadioSelected);
                   },
@@ -682,7 +687,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                 ),
                 Radio(
                   value: '01-28 days',
-                  groupValue: _currentSelectedFeverDaysRadio,
+                  groupValue: widget.verbal_Autopsy_Obj.feverDays,
                   onChanged: (String newRadioSelected) {
                     _onFeverDaysRadioSelect(newRadioSelected);
                   },
@@ -690,7 +695,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
               ]));}
 
     else {
-      _currentSelectedFeverDaysRadio = null;
+      widget.verbal_Autopsy_Obj.feverDays = null;
       return Text('--Not Required--');
     }
   }
@@ -698,7 +703,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
 
   Widget breathingDifficultyDaysRadio(){
 
-    if(_currentSelectedBreathingDifficultyRadio == 'Yes'){
+    if(widget.verbal_Autopsy_Obj.difficultyBreathing == 'Yes'){
       return Padding(
           padding: EdgeInsets.all(10.0),
           child: Row(
@@ -710,7 +715,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                 ),
                 Radio(
                   value: 'Less than 1 day',
-                  groupValue: _currentSelectedBreathingDifficultyDaysRadio,
+                  groupValue: widget.verbal_Autopsy_Obj.difficultyBreathingDays,
                   onChanged: (String newRadioSelected) {
                     _onBreathingDifficultyDaysRadioSelect(newRadioSelected);
                   },
@@ -721,7 +726,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                 ),
                 Radio(
                   value: '01-28 days',
-                  groupValue: _currentSelectedBreathingDifficultyDaysRadio,
+                  groupValue: widget.verbal_Autopsy_Obj.difficultyBreathingDays,
                   onChanged: (String newRadioSelected) {
                     _onBreathingDifficultyDaysRadioSelect(newRadioSelected);
                   },
@@ -729,14 +734,14 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
               ]));}
 
     else {
-      _currentSelectedBreathingDifficultyDaysRadio = null;
+      widget.verbal_Autopsy_Obj.difficultyBreathingDays = null;
       return Text('--Not Required--');
     }
   }
 
   Widget fastBreathingDaysRadio(){
 
-    if(_currentSelectedFastBreathingRadio == 'Yes'){
+    if(widget.verbal_Autopsy_Obj.fastBreathing == 'Yes'){
       return Padding(
           padding: EdgeInsets.all(10.0),
           child: Row(
@@ -748,7 +753,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                 ),
                 Radio(
                   value: 'Less than 1 day',
-                  groupValue: _currentSelectedFastBreathingDaysRadio,
+                  groupValue: widget.verbal_Autopsy_Obj.fastBreathingDays,
                   onChanged: (String newRadioSelected) {
                     _onFastBreathingDaysRadioSelect(newRadioSelected);
                   },
@@ -759,7 +764,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
                 ),
                 Radio(
                   value: '01-28 days',
-                  groupValue: _currentSelectedFastBreathingDaysRadio,
+                  groupValue: widget.verbal_Autopsy_Obj.fastBreathingDays,
                   onChanged: (String newRadioSelected) {
                     _onFastBreathingDaysRadioSelect(newRadioSelected);
                   },
@@ -767,7 +772,7 @@ class _verbalAutopsyFormSec2Part3State extends State<_verbalAutopsyFormSec2Part3
               ]));}
 
     else {
-      _currentSelectedFastBreathingDaysRadio = null;
+      widget.verbal_Autopsy_Obj.fastBreathingDays = null;
       return Text('--Not Required--');
     }
   }
