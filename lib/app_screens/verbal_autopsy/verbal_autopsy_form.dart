@@ -1,40 +1,51 @@
 import 'package:flutter/material.dart';
+import 'verbal_autopsy_sec1.dart';
+import 'user.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Verbal Autopsy Form',
-    home: _verbalAutopsyForm(),
-  ));
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    final verbal_Autopsy_Obj = user();
+    return MaterialApp(
+      home: verbalAutopsyForm(verbal_Autopsy_Obj: verbal_Autopsy_Obj),
+    );
+  }
 }
 
-class _verbalAutopsyForm extends StatefulWidget {
+
+class verbalAutopsyForm extends StatefulWidget {
+  final user verbal_Autopsy_Obj;
+  verbalAutopsyForm({Key key, @required this.verbal_Autopsy_Obj}):super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _verbalAutopsyFormState();
   }
 }
 
-class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
+class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
   var _formKey = GlobalKey<FormState>();
-  var _currentItemSelected = '';
+//  var _currentSelectedDistrict = '';
 
   @override
   void initState() {
     super.initState();
-    _currentItemSelected = _districtName[0];
+    widget.verbal_Autopsy_Obj.district = _districtName[0];
   }
 
   var _districtName = ['Bilaspur', 'Chamba', 'Hamirpur', 'Kangra', 'Kinnaur',
     'Kullu', 'Lahaul & Spiti', 'Mandi', 'Shimla', 'Sirmaur', 'Solan', 'Una'];
-  TextEditingController blockController = TextEditingController();
-  TextEditingController villageController = TextEditingController();
-  TextEditingController phcController = TextEditingController();
-  TextEditingController subCenterController = TextEditingController();
-  TextEditingController rhcController = TextEditingController();
-  TextEditingController yearController = TextEditingController();
-  TextEditingController householdHeadController = TextEditingController();
-  TextEditingController nameOfDeceasedController = TextEditingController();
-  TextEditingController nameMotherOfDeceasedController = TextEditingController();
+//  String blockController = '';
+//  String villageController = '';
+//  String phcController = '';
+//  String subCenterController = '';
+  String rhcController = '';
+  String yearController = '';
+//  String headController = '';
+//  String nameController = '';
+//  String nameMotherDeceasedController = '';
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +92,7 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: _currentItemSelected,
+                            value: widget.verbal_Autopsy_Obj.district,
                             onChanged: (String newSelectedValue) {
                               _onDropDownItemSelected(newSelectedValue);
                             },
@@ -92,7 +103,7 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: blockController,
+                        onSaved: (value){widget.verbal_Autopsy_Obj.block = value;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -109,7 +120,7 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: villageController,
+                        onSaved: (value){widget.verbal_Autopsy_Obj.village = value;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -126,7 +137,7 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: phcController,
+                        onSaved: (value){widget.verbal_Autopsy_Obj.phc = value;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -143,7 +154,7 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: subCenterController,
+                        onSaved: (value){widget.verbal_Autopsy_Obj.subCenter = value;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -160,7 +171,8 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: rhcController,
+                        onSaved: (value){rhcController = value;
+                        widget.verbal_Autopsy_Obj.rhc = num.parse(rhcController);;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -177,7 +189,8 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: yearController,
+                        onSaved: (value){yearController = value;
+                        widget.verbal_Autopsy_Obj.year = num.parse(yearController);},
                         keyboardType: TextInputType.numberWithOptions(),
                         validator: (String value) {
                           if (value.length!=4) return 'Please fill a valid input';
@@ -196,7 +209,7 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
                         textCapitalization: TextCapitalization.words,
-                        controller: householdHeadController,
+                        onSaved: (value){widget.verbal_Autopsy_Obj.head = value;},
                         validator: (String value) {
                           final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
                           if (!nameExp.hasMatch(value))
@@ -215,7 +228,7 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: nameOfDeceasedController,
+                        onSaved: (value){widget.verbal_Autopsy_Obj.name = value;},
                         validator: (String value) {
                           final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
                           if (!nameExp.hasMatch(value))
@@ -234,7 +247,7 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: nameMotherOfDeceasedController,
+                        onSaved: (value){widget.verbal_Autopsy_Obj.mother = value;},
                         validator: (String value) {
                           final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
                           if (!nameExp.hasMatch(value))
@@ -260,13 +273,14 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
                           style: TextStyle(fontSize: 15.0, color: Colors.white),
                         ),
                         onPressed: () {
-                          setState(() {
-                            if (_formKey.currentState.validate())
-                              AlertDialog(
-                                title: Text('Form Submitted Sucessfully'),
-                                content: Text('Success'),
-                              );
-                          });
+                          if (_formKey.currentState.validate()) {
+                            setState(() {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      verbalAutopsySec1(
+                                        verbal_Autopsy_Obj: widget.verbal_Autopsy_Obj,)));
+                            });
+                          }
                         },
                       ),
                     )
@@ -279,7 +293,7 @@ class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
 
   void _onDropDownItemSelected(String newSelectedValue) {
     setState(() {
-      this._currentItemSelected = newSelectedValue;
+      this.widget.verbal_Autopsy_Obj.district = newSelectedValue;
     });
   }
 }
