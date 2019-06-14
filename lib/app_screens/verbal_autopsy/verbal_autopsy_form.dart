@@ -172,7 +172,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
                         onSaved: (value){rhcController = value;
-                        widget.verbal_Autopsy_Obj.rhc = num.parse(rhcController);;},
+                        widget.verbal_Autopsy_Obj.rhc = num.parse(rhcController);},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -262,6 +262,8 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                       ),
                     ),
 
+                    //for testing purpose
+//                    Text('${widget.verbal_Autopsy_Obj.block}'),
 
                     Padding(
                       padding: EdgeInsets.all(10.0),
@@ -274,6 +276,8 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
+                            final FormState form = _formKey.currentState;
+                            form.save();
                             setState(() {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) =>
