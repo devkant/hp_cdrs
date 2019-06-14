@@ -30,7 +30,7 @@ class _verbalAutopsySec3State
 
 //  DateTime _interviewDate = DateTime.now();
 
-//  bool _knowledgeCheck = false;
+  bool _knowledgeCheck = false;
 
 
   @override
@@ -113,12 +113,12 @@ class _verbalAutopsySec3State
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: CheckboxListTile(
-                        value: widget.verbal_Autopsy_Obj.knowledgeCheck,
+                        value: _knowledgeCheck,
                         title: Text('I hereby state that all the details filled'
                             ' above are best and true to my knowledge.'),
                         onChanged: (bool value) {
                           setState(() {
-                            widget.verbal_Autopsy_Obj.knowledgeCheck = value;
+                            _knowledgeCheck = value;
                           });
                         }),
                   ),
@@ -136,7 +136,7 @@ class _verbalAutopsySec3State
                       ),
                       onPressed: () {
                         setState(() {
-                          if ( widget.verbal_Autopsy_Obj.knowledgeCheck == false) {
+                          if ( _knowledgeCheck == false) {
                             // The checkbox wasn't checked
                             showSnackBar('Please check the checkbox to proceed');
                           }
