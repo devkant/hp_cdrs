@@ -27,16 +27,50 @@ class verbalAutopsyForm extends StatefulWidget {
 
 class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
   var _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 //  var _currentSelectedDistrict = '';
 
   @override
   void initState() {
     super.initState();
-    widget.verbal_Autopsy_Obj.district = _districtName[0];
+//    widget.verbal_Autopsy_Obj.district = _districtName[0];
+//    widget.verbal_Autopsy_Obj.block = _bilaspurBlocks[0];
   }
 
-  var _districtName = ['Bilaspur', 'Chamba', 'Hamirpur', 'Kangra', 'Kinnaur',
-    'Kullu', 'Lahaul & Spiti', 'Mandi', 'Shimla', 'Sirmaur', 'Solan', 'Una'];
+  var _districtName = ['BILASPUR', 'CHAMBA', 'HAMIRPUR', 'KANGRA', 'KINNAUR',
+    'KULLU', 'LAHUL AND SPITI', 'MANDI', 'SHIMLA', 'SIRMOUR', 'SOLAN', 'UNA'];
+
+  var _bilaspurBlocks = ["SADAR","GHUMARWIN","JHANDUTTA"];
+
+  var _chambaBlocks = ["TISSA","CHAMBA","MEHLA","BHATTIYAT","SALOONI",
+    "BHARMOUR","PANGI"];
+
+  var _hamirpurBlocks = ["BAMSON","BHORANJ","BIJHARI","HAMIRPUR",
+    "NADAUN","SUJNAPUR"];
+
+  var _kangraBlocks = ["RAIT","PANCHRUKHI","DEHRA","FATEHPUR","INDORA",
+    "NAGROTA BAGWAN","NURPUR","NAGROTA SURIAN","BAIJNATH","BHAWARNA",
+    "KANGRA","LAMBAGAON","SULLAH","PRAGPUR","DHARAMSHALA"];
+
+  var _kinnaurBlocks = ["NICHAR","POOH","KALPA"];
+
+  var _kulluBlocks = ["ANNI","NAGGAR","NIRMAND"];
+
+  var _lahulBlocks = ["LAHAUL","SPITI"];
+
+  var _mandiBlocks = ["BALH","CHAUNTRA","DHARAMPUR","DRANG","GOHAR",
+    "GOPALPUR","KARSOG","SADAR MANDI","SERAJ","SUNDERNAGAR"];
+
+  var _shimlaBlocks = ["NARKANDA","THEOG","BASANTPUR","NANKHARI","CHHOHARA",
+    "MASHOBRA","CHOPAL","JUBBAL & KOTHKAI","ROHRU","RAMPUR"];
+
+  var _sirmourBlocks = ["NAHAN","PAONTA","PACHHAD","RAJGARH","SANGRAH","SHILLAI"];
+
+  var _solanBlocks = ["DHARAMPUR","KANDAGHAT","KUNIHAR","NALAGARH","SOLAN"];
+
+  var _unaBlocks = ["AMB","BANGANA","GAGRET","HAROLI","UNA"];
+
+
 //  String blockController = '';
 //  String villageController = '';
 //  String phcController = '';
@@ -50,6 +84,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text('Verbal Autopsy Form'),
         ),
@@ -60,6 +95,18 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
+
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Center(
+                        child:
+                        Text('${widget.verbal_Autopsy_Obj.applicationNumber}',
+                          style: TextStyle(
+                              fontSize: 20.0, fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                    ),
 
 
                     Padding(
@@ -86,6 +133,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                       Padding(
                           padding: EdgeInsets.only(left: 10.0),
                           child: DropdownButton<String>(
+                            hint: Text('Select here'),
                             items: _districtName.map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -94,27 +142,27 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                             }).toList(),
                             value: widget.verbal_Autopsy_Obj.district,
                             onChanged: (String newSelectedValue) {
-                              _onDropDownItemSelected(newSelectedValue);
+                              setState(() {
+                                _onDropDownDistrictSelected(newSelectedValue);
+                              });
+
                             },
                           )),
                     ]),
 
 
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: TextFormField(
-                        onSaved: (value){widget.verbal_Autopsy_Obj.block = value;},
-                        validator: (String value) {
-                          if (value.isEmpty) return 'Please fill a valid input';
-                        },
-                        decoration: InputDecoration(
-                            labelText: 'Block/Tehsil',
-                            hintText: 'Block/Tehsil',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            )),
+                    Row(children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text('Block:', style: TextStyle(fontSize: 18.0),),
                       ),
-                    ),
+
+
+                      Padding(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: blocksWidgetFun(),
+                      ),
+                    ]),
 
 
                     Padding(
@@ -275,7 +323,14 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                           style: TextStyle(fontSize: 15.0, color: Colors.white),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState.validate()) {
+                          if (widget.verbal_Autopsy_Obj.district == null ||
+                              widget.verbal_Autopsy_Obj.block == null) {
+                            // The checkbox wasn't checked
+                            showSnackBar('Please select the block & district to proceed');
+                          }
+                          if (_formKey.currentState.validate() && (
+                              widget.verbal_Autopsy_Obj.district != null &&
+                                  widget.verbal_Autopsy_Obj.block != null)) {
                             final FormState form = _formKey.currentState;
                             form.save();
                             setState(() {
@@ -295,9 +350,123 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
   }
 
 
-  void _onDropDownItemSelected(String newSelectedValue) {
+  void _onDropDownDistrictSelected(String newSelectedValue) {
     setState(() {
       this.widget.verbal_Autopsy_Obj.district = newSelectedValue;
+      this.widget.verbal_Autopsy_Obj.block = null;
     });
   }
+
+  Widget blocksDropDownFun(List<String> passedList){
+
+    return DropdownButton<String>(
+      hint: Text("Select here"),
+      items: passedList.map((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      value: widget.verbal_Autopsy_Obj.block,
+      onChanged: (String newSelectedValue) {
+        setState(() {
+          this.widget.verbal_Autopsy_Obj.block = newSelectedValue;
+        });
+      },
+    );
+  }
+
+  void showSnackBar(String message){
+    var snackBar = SnackBar(
+//      backgroundColor: Colors.blue,
+      content: Text(message,
+        style: TextStyle(fontSize: 16.0,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+  Widget blocksWidgetFun(){
+
+    if(widget.verbal_Autopsy_Obj.district == null){
+
+      return
+        DropdownButton<String>(
+          disabledHint: Text('Select here'),
+          items: null,
+          onChanged: (String newValueSelected){
+            setState(() {
+              widget.verbal_Autopsy_Obj.block = null;
+            });
+          },
+        );
+    }
+
+    else {
+      switch (widget.verbal_Autopsy_Obj.district) {
+        case 'BILASPUR':
+          return
+            blocksDropDownFun(_bilaspurBlocks);
+          break;
+
+        case 'CHAMBA':
+          return
+            blocksDropDownFun(_chambaBlocks);
+          break;
+
+        case 'HAMIRPUR':
+          return
+            blocksDropDownFun(_hamirpurBlocks);
+          break;
+
+        case 'KANGRA':
+          return
+            blocksDropDownFun(_kangraBlocks);
+          break;
+
+        case 'KINNAUR':
+          return
+            blocksDropDownFun(_kinnaurBlocks);
+          break;
+
+        case 'KULLU':
+          return
+            blocksDropDownFun(_kulluBlocks);
+          break;
+
+        case 'LAHUL AND SPITI':
+          return
+            blocksDropDownFun(_lahulBlocks);
+          break;
+
+        case 'MANDI':
+          return
+            blocksDropDownFun(_mandiBlocks);
+          break;
+
+        case 'SHIMLA':
+          return
+            blocksDropDownFun(_shimlaBlocks);
+          break;
+
+        case 'SIRMOUR':
+          return
+            blocksDropDownFun(_sirmourBlocks);
+          break;
+
+        case 'SOLAN':
+          return
+            blocksDropDownFun(_solanBlocks);
+          break;
+
+        case 'UNA':
+          return
+            blocksDropDownFun(_unaBlocks);
+          break;
+      }
+    }
+  }
+
 }
