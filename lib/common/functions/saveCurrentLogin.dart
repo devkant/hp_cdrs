@@ -7,15 +7,15 @@ saveCurrentLogin(Map responseJson) async {
 
   var user;
   if ((responseJson != null && !responseJson.isEmpty)) {
-    user = LoginModel.fromJson(responseJson).userName;
+    user = LoginModel.fromJson(responseJson).name;
   } else {
     user = "";
   }
-  var token = (responseJson != null && !responseJson.isEmpty) ? LoginModel.fromJson(responseJson).token : "";
-  var pk = (responseJson != null && !responseJson.isEmpty) ? LoginModel.fromJson(responseJson).userId : 0;
+  var token = (responseJson != null && !responseJson.isEmpty) ? LoginModel.fromJson(responseJson).authToken : "";
+  var role = (responseJson != null && !responseJson.isEmpty) ? LoginModel.fromJson(responseJson).role : "";
 
   await preferences.setString('LastUser', (user != null && user.length > 0) ? user : "");
   await preferences.setString('LastToken', (token != null && token.length > 0) ? token : "");
-  await preferences.setInt('LastUserId', (pk != null && pk > 0) ? pk : 0);
+  await preferences.setString('LastUserId', (role != null && role.length > 0) ? role : "");
 
 }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -9,17 +8,16 @@ import 'package:hp_cdrs/common/functions/saveLogout.dart';
 import 'package:hp_cdrs/model/json/loginModel.dart';
 
 Future<LoginModel> requestLogoutAPI(BuildContext context) async {
-  final url = "";
+  final url = "http://13.126.72.137/api/logout";
 
-  var token;
+  var token = await getToken();
 
-  await getToken().then((result) {
-    token = result;
-  });
 
   final response = await http.post(
     url,
-    headers: {HttpHeaders.authorizationHeader: "Token $token"},
+    headers: {
+    'authToken':  token
+    },
   );
 
   if (response.statusCode == 200) {

@@ -1,24 +1,16 @@
 import "package:flutter/material.dart";
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
-import 'package:hp_cdrs/common/functions/showDialogSingleButton.dart';
 import 'package:hp_cdrs/common/apifunctions/requestLoginAPI.dart';
-import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
-import 'package:http/http.dart' as http;
-
 
 class LoginPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState(){
-    return  new LoginPageState();
-  }
+  State<StatefulWidget> createState() => LoginPageState();
 }
 
 class LoginPageState extends State<LoginPage> {
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  String _welcomeString = "";
   @override
   void initstate(){
     super.initState();
@@ -47,42 +39,77 @@ class LoginPageState extends State<LoginPage> {
             title: Text("Child Death Reporting App"),
           ),
           backgroundColor: Colors.white,
-          body: new Container(
-              child: new Padding(
+          body:  Container(
+              child:  Padding(
                   padding: const EdgeInsets.all(40.0),
                   child: SingleChildScrollView(
-                    child: new Column(
+                    child: Column(
                       children: <Widget>[
-                        Image(
-                          image: new AssetImage("assets/hpgovet.jpg"),
-
+                        CircleAvatar(
+                          radius:60.0,
+                          backgroundColor: Colors.white,
+                          child: Image(
+                            image: AssetImage('assets/hpgovt.png'),
+                            height: 120.0,
+                          ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(10.0),
                         ),
-
+                        Text(
+                          'LOGIN HERE',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w400
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                        ),
                         TextFormField(
+                          validator: (value)  {
+                            if (value.length == 0 || double.parse(value) == 0.0) {
+                              return ('Enter valid');
+                            }
+                          },
+
                           controller: _userNameController,
+                          style: TextStyle(fontSize: 15.0),
                           decoration: InputDecoration(
-                              labelText: "Username",
-                              hintText: "Enter Username",
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0))),
+                              border: UnderlineInputBorder(
+                                  borderRadius: BorderRadius.horizontal(
+                                      left: Radius.circular(20.0),
+                                      right: Radius.circular(20.0)
+                                  ),
+                                  borderSide: BorderSide(width: 20.0, color: Colors.blue)
+                              ),
+                              labelText: 'Username',
+                              hintText: 'Enter Username',
+                              contentPadding: EdgeInsets.only(left: 20.0,bottom: 10.0)
+                          ),
                           keyboardType: TextInputType.text,
                         ),
                         Padding(padding: const EdgeInsets.all(20.0)),
                         TextFormField(
                           controller: _passwordController,
-                          decoration: new InputDecoration(
-                              labelText: "Password",
-                              hintText: "Enter Password",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              )),
                           keyboardType: TextInputType.text,
                           obscureText: true,
+                          style: TextStyle(fontSize: 15.0),
+                          decoration: InputDecoration(
+                              border: UnderlineInputBorder(
+                                  borderRadius: BorderRadius.horizontal(
+                                      left: Radius.circular(20.0),
+                                      right: Radius.circular(20.0)
+                                  ),
+                                  borderSide: BorderSide(width: 20.0, color: Colors.blue)
+                              ),
+                              labelText: 'Password',
+                              hintText: 'Enter Password',
+                              contentPadding: EdgeInsets.only(left: 20.0,bottom: 10.0)
+                          ),
                         ),
-                        Padding(padding: const EdgeInsets.all(40.0)),
+                        Padding(padding: const EdgeInsets.all(20.0)),
                         RaisedButton(
                           color: Colors.blue,
                           child: new Text(
@@ -105,9 +132,5 @@ class LoginPageState extends State<LoginPage> {
           )
       ),
     );
-
-
-
-
   }
 }

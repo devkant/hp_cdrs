@@ -1,8 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-getToken() async {
+Future<String>getToken() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
 
-  String getToken = await preferences.getString("LastToken");
+  String getToken = preferences.getString("LastToken");
   return getToken;
 }

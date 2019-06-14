@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hp_cdrs/common/apifunctions/requestLogoutAPI.dart';
+import 'package:hp_cdrs/app_screens/loginPage.dart';
 
 
 class BasicDrawer extends StatefulWidget {
@@ -27,7 +28,8 @@ class _BasicDrawerState extends State<BasicDrawer>  {
               color: Colors.black, fontSize: 20.0),),
             onTap: () {
               requestLogoutAPI(context);
-              Navigator.of(context).pushReplacementNamed('/LoginScreen');
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (BuildContext ctx) => LoginPage()));
             },
           ),
         ],),

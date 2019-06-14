@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
-
+import 'package:http/http.dart' as  http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hp_cdrs/common/platform/platformScaffold.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
+import 'package:hp_cdrs/app_screens/asha_worker/asha_home.dart';
 
 
 class HomeScreen extends StatefulWidget {
+  final String role;
+  HomeScreen(this.role,{Key key}):super(key:key);
   @override
   _HomeScreenState createState() =>  _HomeScreenState();
 }
@@ -27,27 +30,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-      appBar: AppBar(title: Text("Home Screen", style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation:
-        Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 6.0,
-      ),
-      drawer:
-      BasicDrawer(),
-      backgroundColor: Colors.white,
-      body: Container(
-        padding: EdgeInsets.all(32.0),
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Text('This is the Home screen-- Login Successful'),
-
-            ],
-          ),
-        ),
-      ),
-    );
+    if(widget.role=="104"){
+      return AshaHomeScreen();
+    }
   }
+}
+
+class User{
+  String name;
+  String  role;
+
+  User(this.name,this.role);
 }
