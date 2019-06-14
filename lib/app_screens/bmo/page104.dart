@@ -29,7 +29,7 @@ class _ListviewState extends State<Listview> {
 
   Map user;
   List appli=[];
-  List pendingAppli=[];
+  List Appli104=[];
 
   Future getData() async {
     http.Response response = await http.get("http://13.126.72.137/api/104PreviousForms");
@@ -41,11 +41,11 @@ class _ListviewState extends State<Listview> {
     print(appli.length);
     for(int i=0;i<appli.length;i++){
       print(appli[i]["anmAssigned"]);
-      if(appli[i]["anmAssigned"]!=null){
-        pendingAppli.add(appli[i]);
+      if(appli[i]["anmAssigned"]==null){
+        Appli104.add(appli[i]);
       }
     };
-    print(pendingAppli);
+    print(Appli104);
   }
 
   @override
@@ -61,22 +61,22 @@ class _ListviewState extends State<Listview> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: pendingAppli == null ? 0 : pendingAppli.length,
+        itemCount: Appli104 == null ? 0 : Appli104.length,
         itemBuilder: (BuildContext context, index) {
           if(true) {
             return ListTile(
               trailing: CircleAvatar(
                 backgroundImage: AssetImage("assets/hpgovt.png"),
               ),
-              title: Text("${pendingAppli[index]["application"]}",
+              title: Text("${Appli104[index]["application"]}",
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.w700,
                 ),),
-              subtitle: Text("${pendingAppli[index]["name"]}"),
+              subtitle: Text("${Appli104[index]["name"]}"),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => DetailPage(appli[index]))
+                    builder: (context) => DetailPage(Appli104[index]))
                 );
               },
             );
