@@ -3,11 +3,12 @@ class user{
 
   //form pg 1
 
+  String applicationNumber = 'APPLICATION NUMBER';
   //drop down
-  String district='';
+  String district = null;
 
   //textfield
-  String block = '';
+  String block = null;
   String village = '';
   String phc = '';
   String subCenter = '';
@@ -20,8 +21,8 @@ class user{
 
   //form pg 2
   //date vars
-  String dob = '';
-  String dod = '';
+  String dob = null;
+  String dod = null;
 
   //radios
   var liveWith = '';
@@ -38,7 +39,7 @@ class user{
   //textfields
   String respondent = '';
   String address = '';
-  num pin;  //not in schema atm
+  num pin;
   String probableCause = '';
 
 
@@ -78,7 +79,7 @@ class user{
   var CompletedDays = '';
 
   //checkbox
-  bool weightCheck = false; //not in schema atm
+//  bool weightCheck = false;
 
   //drop downs
   var size = '';
@@ -121,8 +122,6 @@ class user{
 
   //form pg 8
   String narrativeLanguageCode = '';
-  String symptoms = ''; //not in schema atm
-
-  bool knowledgeCheck = false; //not in schema atm
+  String symptoms = '';
 
 }
