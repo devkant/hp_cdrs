@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:hp_cdrs/model/classes/class_asha.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'dart:async';
 import 'dart:convert';
 import 'package:hp_cdrs/app_screens/asha_worker/asha_home.dart';
-
+import 'package:connectivity/connectivity.dart';
+import 'package:http/http.dart' as http;
+import 'package:hp_cdrs/model/classes/class_asha.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
+import 'package:hp_cdrs/connectionStatus.dart';
 
 
 
@@ -18,17 +24,29 @@ class hpForm extends StatefulWidget {
 }
 
 class _hpFormState extends State<hpForm> {
+
+  StreamSubscription _connectionChangeStream;
+  bool isOffline = false;
+
   var _formKey = GlobalKey<FormState>();
-  var _districtName = ['Bilaspur', 'Chamba', 'Hamirpur', 'Kangra', 'Kinnaur',
-    'Kullu', 'Lahaul & Spiti', 'Mandi', 'Shimla', 'Sirmaur', 'Solan', 'Una'];
+  var _districtName = ['BILASPUR', 'CHAMBA', 'HAMIRPUR', 'KANGRA', 'KINNAUR',
+    'KULLU', 'LAHAUL AND SPITI', 'MANDI', 'SHIMLA', 'SIRMAUR', 'SOLAN', 'UNA'];
   var _currentSelectedDistrict = '';
-
-
 
   @override
   void initState() {
     super.initState();
+
+    ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
+    _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
+
     _currentSelectedDistrict = _districtName[0];
+  }
+
+  void connectionChanged(dynamic hasConnection) {
+    setState(() {
+      isOffline = !hasConnection;
+    });
   }
 
   //testing code
@@ -41,19 +59,14 @@ class _hpFormState extends State<hpForm> {
 
   /*Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
-
     return directory.path;
   }
-
   Future<File> get _localFile async {
     final path = await _localPath;
     return File('$path/asha.txt');
   }
-
-
   Future<File> writeToFile(String json) async {
     final file = await _localFile;
-
     // Write the file
     return file.writeAsString('$json',mode: FileMode.append);
   }*/
@@ -111,20 +124,9 @@ class _hpFormState extends State<hpForm> {
                 ]),
                 Padding(
                   padding: EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    controller: ashaBlockController,
-                    validator: (String value) {
-                      if (value.length < 3)
-                        return 'Block name should contain more than two letters';
-                    },
-                    decoration: InputDecoration(
-                        labelText: 'Block/Tehsil',
-                        hintText: 'Block/Tehsil',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        )),
-                  ),
+                  child: block(),
                 ),
+
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
@@ -167,17 +169,31 @@ class _hpFormState extends State<hpForm> {
                       "Submit",
                       style: TextStyle(fontSize: 15.0, color: Colors.white),
                     ),
-                    onPressed: () {
-                        if (_formKey.currentState.validate()){
-                          Child newEntry  = new Child(
-                              childNameController.text.toString(),
-                              this._currentSelectedDistrict.toString(),
-                              ashaBlockController.text.toString(),
-                              addressController.text.toString(),
-                              phnNumberController.text.toString(),
-                          );
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()){
+                        Child newEntry  = new Child(
+                          childNameController.text.toString(),
+                          this._currentSelectedDistrict.toString(),
+                          ashaBlockController.text.toString(),
+                          addressController.text.toString(),
+                          phnNumberController.text.toString(),
+                        );
+                        var data  = {
+                          'name': newEntry.name,
+                          'district' :  newEntry.district,
+                          'block' : newEntry.block,
+                          'address':  newEntry.address,
+                          'phoneNumber':newEntry.phoneNumber,
+                        };
+                        var status  = await sendData('http://13.126.72.137/api/test',data);
+                        if(!isOffline && status){
+                          Navigator.of(context).pop(null);
+                        }
+                        else{
                           Navigator.of(context).pop(newEntry);
                         }
+
+                      }
 
                     },
                   ),
@@ -186,7 +202,25 @@ class _hpFormState extends State<hpForm> {
             ),
           )),
     );
+
   }
+
+  Widget  block() {
+    if(_currentSelectedDistrict ==  'HAMIRPUR'){
+      return  DropdownButton<String>(
+          items: _districtName.map((String value1) {
+            return DropdownMenuItem<String>(
+              value: value1,
+              child: Text(value1),
+            );
+          }).toList(),
+          value: _currentSelectedDistrict,
+          onChanged: (String newSelectedDistrict) {
+            _onDropDownDistrictSelected(newSelectedDistrict);
+          });
+    }
+  }
+
 
   void _onDropDownDistrictSelected(String newSelectedDistrict) {
     setState(() {
