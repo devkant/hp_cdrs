@@ -3,15 +3,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:hp_cdrs/common/functions/getToken.dart';
 import 'dart:convert';
+import 'package:hp_cdrs/common/functions/checkInternet.dart';
 
 const String  _storageKeyMobileToken = "token";
 
 Future<bool>  sendData(String url,Map data) async{
+  var internet  = await checkInternet();
   var connectivityResult = await (Connectivity().checkConnectivity());
-  if (connectivityResult == ConnectivityResult.mobile ||  connectivityResult == ConnectivityResult.wifi) {
-    print("Connected to Mobile Network");
-    createPost(url, data);
-    return true;
+  if (connectivityResult == ConnectivityResult.mobile ||  connectivityResult == ConnectivityResult.wifi && internet==true ) {
+    print("internet available");
+      createPost(url, data);
+      return true;
   } else {
     print("Unable to connect. Please Check Internet Connection");
     return false;
