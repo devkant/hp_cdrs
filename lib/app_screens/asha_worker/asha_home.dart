@@ -6,6 +6,8 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'package:hp_cdrs/model/classes/class_asha.dart';
 import 'package:hp_cdrs/app_screens/asha_worker/asha_page.dart';
+import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
+import 'package:hp_cdrs/connectionStatus.dart';
 
 
 void  main(){
@@ -24,6 +26,10 @@ class AshaHomeScreen extends StatefulWidget {
 }
 
 class _AshaHomeScreenState extends State<AshaHomeScreen> {
+
+  StreamSubscription _connectionChangeStream;
+  bool isOffline = false;
+
   List <dynamic>_forms  = [];
   List<Child> entries = [];
   String jsonData;
@@ -36,6 +42,11 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
 
   @override
   void initState() {
+    print(jsonData);
+    ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
+    _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
+
+
     super.initState();
     getApplicationDocumentsDirectory().then((Directory directory) {
       dir = directory;
@@ -47,12 +58,33 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
       List<String> jsonList  = jsonData.split('_');
       for(int i=0;i<jsonList.length;i++){
         var temp  = json.decode(jsonList[i]);
-          Child tempEntry = new Child(temp['name'],temp['district'],temp['block'],temp['address'],temp['phoneNumber']);
-          entries.add(tempEntry);
+        Child tempEntry = new Child(temp['name'],temp['district'],temp['block'],temp['address'],temp['phoneNumber']);
+        var data  = {
+          'name': tempEntry.name,
+          'district' :  tempEntry.district,
+          'block' : tempEntry.block,
+          'address':  tempEntry.address,
+          'phoneNumber':tempEntry.phoneNumber,
+        };
 
-        print(temp);
+        if(isOffline){
+          entries.add(tempEntry);
+        }
+        else{
+          sendData('http://13.126.72.137/api/test', data);
+        }
+
+        if(i==(jsonList.length-1) && !isOffline){
+          clearFile();
+        }
       }
       print(jsonList);
+    });
+  }
+
+  void connectionChanged(dynamic hasConnection) {
+    setState(() {
+      isOffline = !hasConnection;
     });
   }
 
@@ -61,7 +93,7 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
     File file = new File(dir.path + "/" + fileName);
     file.createSync();
     fileExists = true;
-    file.writeAsStringSync(json.encode(content));
+    file.writeAsStringSync(json.encode(content),mode: FileMode.append);
   }
 
   void writeToFile(Child entry) {
@@ -79,9 +111,10 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
 
   void clearFile(){
     if(fileExists){
-      jsonFile.writeAsStringSync("");
+      jsonFile.writeAsStringSync('');
     }
   }
+
 
 
   @override
