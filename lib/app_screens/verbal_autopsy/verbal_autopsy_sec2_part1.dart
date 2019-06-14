@@ -84,7 +84,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
     widget.verbal_Autopsy_Obj.injury = _yesNoRadioList[1];
     widget.verbal_Autopsy_Obj.td = _yesNoRadioList[1];
     widget.verbal_Autopsy_Obj.complications = _yesNoRadioList[1];
-    widget.verbal_Autopsy_Obj.singleOrMultiple = _singleMultipleList[1];
+    widget.verbal_Autopsy_Obj.singleOrMultiple = _singleMultipleList[0];
     widget.verbal_Autopsy_Obj.umbilicalCord = _yesNoRadioList[1];
 
     widget.verbal_Autopsy_Obj.birthPlace = _bornPlaceList[0];
