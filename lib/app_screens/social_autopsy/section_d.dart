@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/user.dart';
 
 class SocialAutopsyD extends StatefulWidget {
+  final User user;
+  SocialAutopsyD({Key key, this.user}) : super(key: key);
   @override
   State createState() => SocialAutopsyDState();
 }
@@ -9,7 +11,48 @@ class SocialAutopsyD extends StatefulWidget {
 class SocialAutopsyDState extends State<SocialAutopsyD> {
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  var _user = User();
+  bool _autoValidate = false;
+  Map<String, dynamic> _categories = {
+    "responseBody": [
+      {"category_name": 'Available / Savings'},
+      {"category_name": 'Borrowed'},
+      {"category_name": 'Aold Assets'},
+      {"category_name": 'Community fund'},
+      {"category_name": 'Govt. scheme'},
+      {"category_name": 'Other'},
+      {"category_name": "Don't know"},
+    ],
+  };
+
+  void _onCategorySelected(bool selected, String checkValue) {
+    if (selected == true) {
+      setState(() {
+        widget.user.moneyArrangement.add(checkValue);
+      });
+    } else {
+      setState(() {
+        widget.user.moneyArrangement.remove(checkValue);
+      });
+    }
+  }
+
+  void _handleSubmitted() {
+    final FormState form = _formKey.currentState;
+    if (form.validate()) {
+      if(widget.user.moneyArrangement.isEmpty)
+        _showSnackBar('Please check atleast one checkbox');
+      else
+        form.save();
+    }
+    _autoValidate = true;
+  }
+
+  void _showSnackBar(message) {
+    final snackBar = new SnackBar(
+      content: new Text(message),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +64,25 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
         body: Container(
             child: Builder(
                 builder: (context) => Form(
-                        child: SingleChildScrollView(
-                            child: Column(children: <Widget>[
-                              _question18(),
-                              _question19(),
+                    key: this._formKey,
+                    autovalidate: _autoValidate,
+                    child: SingleChildScrollView(
+                        child: Column(children: <Widget>[
+                      _question18(),
+                      _question19(),
+                      Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: RaisedButton(
+                          onPressed: () {
+                            _handleSubmitted();
+                          },
+                          child: Text(
+                            'Submit',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          color: Colors.blue,
+                        ),
+                      ),
                     ]))))));
   }
 
@@ -34,53 +92,95 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
         color: Colors.green.shade50,
         margin: EdgeInsets.all(10.0),
         child: SingleChildScrollView(
-            child: Column(
-          children: <Widget>[
-            ListTile(
-              leading: Text(
-                '18',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              title: Text(
-                'Can you tell regarding the total amount that you had to spend on your child?',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+            child: Column(children: <Widget>[
+          ListTile(
+            leading: Text(
+              '18',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
-            ListTile(
-              leading: Text('1'),
-              title: Text(
-                  'Treatment(medicines, consultation, home treatment etc.'),
+            title: Text(
+              'Can you tell regarding the total amount that you had to spend on your child?',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0)),
-                    hintText: 'Type here..')),
-            ListTile(
-              leading: Text('2'),
-              title: Text('Transport'),
-            ),
-            TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0)),
-                    hintText: 'Type here..')),
-            ListTile(
-              leading: Text('3'),
-              title: Text('Others'),
-            ),
-            TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0)),
-                    hintText: 'Type here..')),
-
-
-          ],
-        )));
+          ),
+          ListTile(
+            leading: Icon(Icons.label),
+            title:
+                Text('Treatment(medicines, consultation, home treatment etc.'),
+          ),
+          TextFormField(
+            textAlign: TextAlign.center,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0)),
+                hintText: 'Type here..'),
+            onSaved: (value) {
+              widget.user.treatmentCost = num.parse(value);
+            },
+            validator: (value) {
+              if(value.isEmpty)
+                return 'Fill the Treatment Cost field';
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.label),
+            title: Text('Transport'),
+          ),
+          TextFormField(
+            textAlign: TextAlign.center,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0)),
+                hintText: 'Type here..'),
+            onSaved: (value) {
+              widget.user.transportCost = num.parse(value);
+            },
+            validator: (value) {
+              if(value.isEmpty)
+                return 'Fill the Transport Cost field';
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.label),
+            title: Text('Others'),
+          ),
+          TextFormField(
+            textAlign: TextAlign.center,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0)),
+                hintText: 'Type here..'),
+            onSaved: (value) {
+              widget.user.otherCost = num.parse(value);
+            },
+            validator: (value) {
+              if(value.isEmpty)
+                return 'Fill the Other Cost field';
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.label),
+            title: Text('Total'),
+          ),
+          TextFormField(
+            textAlign: TextAlign.center,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0)),
+                hintText: 'Type here..'),
+            onSaved: (value) {
+              widget.user.totalCost = num.parse(value);
+            },
+            validator: (value) {
+              if(value.isEmpty)
+                return 'Fill the Total Cost field';
+            },
+          ),
+        ])));
   }
 
   Widget _question19() {
@@ -90,74 +190,74 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
         margin: EdgeInsets.all(10.0),
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
-              ListTile(
-                leading: Text('19'),
-                title: Text('How did you(the family) arrange this money?'),
-                subtitle: Text('Multiple answers allowed. Check all that apply.'),
-              ),
-              CheckboxListTile(
-                title: Text('Available / Savings'),
-                value: _user.moneyArrangement['available'],
-                onChanged: (bool value) {
-                  setState(() {
-                    _user.moneyArrangement['available'] = value;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: Text('Borrowed'),
-                value: _user.moneyArrangement['borrowed'],
-                onChanged: (bool value) {
-                  setState(() {
-                    _user.moneyArrangement['borrowed'] = value;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: Text('Sold Assets'),
-                value: _user.moneyArrangement['sold assets'],
-                onChanged: (bool value) {
-                  setState(() {
-                    _user.moneyArrangement['sold assets'] = value;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: Text('Community Fund'),
-                value: _user.moneyArrangement['community fund'],
-                onChanged: (bool value) {
-                  setState(() {
-                    _user.moneyArrangement['community fund'] = value;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: Text('Govt. Scheme'),
-                value: _user.moneyArrangement['govt scheme'],
-                onChanged: (bool value) {
-                  setState(() {
-                    _user.moneyArrangement['govt scheme'] = value;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: Text('Other'),
-                value: _user.moneyArrangement['other'],
-                onChanged: (bool value) {
-                  setState(() {
-                    _user.moneyArrangement['other'] = value;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: Text("Don't Know"),
-                value: _user.moneyArrangement["don't know"],
-                onChanged: (bool value) {
-                  setState(() {
-                    _user.moneyArrangement["don't know"] = value;
-                  });
-                },
-              ),
-            ])));
+          ListTile(
+            leading: Text('19'),
+            title: Text('How did you(the family) arrange this money?'),
+            subtitle: Text('Multiple answers allowed. Check all that apply.'),
+          ),
+          CheckboxListTile(
+            value: widget.user.moneyArrangement
+                .contains(_categories['responseBody'][0]['category_name']),
+            onChanged: (bool selected) {
+              _onCategorySelected(
+                  selected, _categories['responseBody'][0]['category_name']);
+            },
+            title: Text(_categories['responseBody'][0]['category_name']),
+          ),
+          CheckboxListTile(
+            value: widget.user.moneyArrangement
+                .contains(_categories['responseBody'][1]['category_name']),
+            onChanged: (bool selected) {
+              _onCategorySelected(
+                  selected, _categories['responseBody'][1]['category_name']);
+            },
+            title: Text(_categories['responseBody'][1]['category_name']),
+          ),
+          CheckboxListTile(
+            value: widget.user.moneyArrangement
+                .contains(_categories['responseBody'][2]['category_name']),
+            onChanged: (bool selected) {
+              _onCategorySelected(
+                  selected, _categories['responseBody'][2]['category_name']);
+            },
+            title: Text(_categories['responseBody'][2]['category_name']),
+          ),
+          CheckboxListTile(
+            value: widget.user.moneyArrangement
+                .contains(_categories['responseBody'][3]['category_name']),
+            onChanged: (bool selected) {
+              _onCategorySelected(
+                  selected, _categories['responseBody'][3]['category_name']);
+            },
+            title: Text(_categories['responseBody'][3]['category_name']),
+          ),
+          CheckboxListTile(
+            value: widget.user.moneyArrangement
+                .contains(_categories['responseBody'][4]['category_name']),
+            onChanged: (bool selected) {
+              _onCategorySelected(
+                  selected, _categories['responseBody'][4]['category_name']);
+            },
+            title: Text(_categories['responseBody'][4]['category_name']),
+          ),
+          CheckboxListTile(
+            value: widget.user.moneyArrangement
+                .contains(_categories['responseBody'][5]['category_name']),
+            onChanged: (bool selected) {
+              _onCategorySelected(
+                  selected, _categories['responseBody'][5]['category_name']);
+            },
+            title: Text(_categories['responseBody'][5]['category_name']),
+          ),
+          CheckboxListTile(
+            value: widget.user.moneyArrangement
+                .contains(_categories['responseBody'][6]['category_name']),
+            onChanged: (bool selected) {
+              _onCategorySelected(
+                  selected, _categories['responseBody'][6]['category_name']);
+            },
+            title: Text(_categories['responseBody'][6]['category_name']),
+          ),
+        ])));
   }
 }
