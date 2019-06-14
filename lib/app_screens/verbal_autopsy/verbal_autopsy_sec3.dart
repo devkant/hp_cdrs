@@ -71,6 +71,7 @@ class _verbalAutopsySec3State
                         Flexible(
                             child: TextFormField(
                                 onSaved: (value){widget.verbal_Autopsy_Obj.narrativeLanguageCode = value;},
+                                keyboardType: TextInputType.numberWithOptions(),
                                 validator: (String value) {
                                   if (value.isEmpty) return 'Please input the Code';
                                 },
