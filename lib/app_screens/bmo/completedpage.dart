@@ -6,12 +6,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 
-class page104 extends StatefulWidget {
+class completed extends StatefulWidget {
   @override
-  _page104State createState() => _page104State();
+  _completedState createState() => _completedState();
 }
 
-class _page104State extends State<page104> {
+class _completedState extends State<completed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +29,7 @@ class _ListviewState extends State<Listview> {
 
   Map user;
   List appli;
+  List completed;
 
   Future getData() async {
     http.Response response = await http.get("http://13.126.72.137/api/104PreviousForms");
@@ -38,6 +39,13 @@ class _ListviewState extends State<Listview> {
       appli = user["docs"];
       debugPrint(appli.toString());
     });
+
+    for(int i=0;i<appli.length;i++){
+      print(appli[i]["mo"]);
+      if(appli[i]["mo"]!=null){
+        completed.add(appli[i]);
+      }
+    };
   }
 
   @override
@@ -52,19 +60,19 @@ class _ListviewState extends State<Listview> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: appli == null ? 0 : appli.length,
+        itemCount: completed == null ? 0 : completed.length,
         itemBuilder: (BuildContext context, index) {
-          if(!user.containsKey("anmAssigned")) {
+          if(true) {
             return ListTile(
-              title: Text("${appli[index]["application"]}",
+              title: Text("${completed[index]["application"]}",
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.w700,
                 ),),
-              subtitle: Text("${appli[index]["ashaName"]}"),
+              subtitle: Text("${completed[index]["ashaName"]}"),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => DetailPage(appli[index]))
+                    builder: (context) => DetailPage(completed[index]))
                 );
               },
             );

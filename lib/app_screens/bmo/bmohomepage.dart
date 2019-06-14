@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hp_cdrs/app_screens/bmo/page104.dart';
+import 'package:hp_cdrs/app_screens/bmo/completedpage.dart';
+import 'package:hp_cdrs/app_screens/bmo/pendingpage.dart';
 
 void main()=>runApp(MyApp());
 
@@ -48,8 +50,8 @@ class _BMOhomepageState extends State<BMOhomepage> with SingleTickerProviderStat
             body: TabBarView(
               children: <Widget>[
                 page104(),
-                page104(),
-                page104()
+                pending(),
+                completed(),
               ],
             )
         ),
