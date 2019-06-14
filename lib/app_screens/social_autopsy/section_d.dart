@@ -16,7 +16,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
     "responseBody": [
       {"category_name": 'Available / Savings'},
       {"category_name": 'Borrowed'},
-      {"category_name": 'Aold Assets'},
+      {"category_name": 'Sold Assets'},
       {"category_name": 'Community fund'},
       {"category_name": 'Govt. scheme'},
       {"category_name": 'Other'},
