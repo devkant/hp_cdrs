@@ -21,6 +21,7 @@ class verbalAutopsySec2Part1 extends StatefulWidget {
 
 class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
   var _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   //radio lists
   var _yesNoRadioList = ['Yes', 'No', 'Unknown'];
@@ -83,8 +84,8 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
     widget.verbal_Autopsy_Obj.injury = _yesNoRadioList[1];
     widget.verbal_Autopsy_Obj.td = _yesNoRadioList[1];
     widget.verbal_Autopsy_Obj.complications = _yesNoRadioList[1];
-    widget.verbal_Autopsy_Obj.singleOrMultiple = _singleMultipleList[0];
-    widget.verbal_Autopsy_Obj.umbilicalCord = _yesNoRadioList[0];
+    widget.verbal_Autopsy_Obj.singleOrMultiple = _singleMultipleList[1];
+    widget.verbal_Autopsy_Obj.umbilicalCord = _yesNoRadioList[1];
 
     widget.verbal_Autopsy_Obj.birthPlace = _bornPlaceList[0];
     widget.verbal_Autopsy_Obj.attendedDelivery = _deliveryAttendantList[0];
@@ -92,46 +93,26 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
 
 
   Map<String, dynamic> _categories = {
-    "responseCode": "1",
-    "responseText": "List categories.",
     "responseBody": [
-      {"category_id": "1",
+      {"category_name": "Mother had fits"},
 
-        "category_name": "Mother had fits"},
+      {"category_name": "Excessive (more than normal)"
+          " bleeding before/during delivery"},
 
-      {"category_id": "2",
+      {"category_name": "Water broke one or"
+          " more days before contractions started"},
 
-        "category_name": "Excessive (more than normal)"
-            " bleeding before/during delivery"},
+      {"category_name": "Prolonged/difficult "
+          "labour (12 hours or more)"},
 
-      {"category_id": "3",
+      {"category_name": "Operative delivery"},
 
-        "category_name": "Water broke one or"
-            " more days before contractions started"},
+      {"category_name": "Mother had fever"},
 
-      {"category_id": "4 ",
+      {"category_name": "Baby had cord around neck"},
 
-        "category_name": "Prolonged/difficult "
-            "labour (12 hours or more)"},
-
-      {"category_id": "5",
-
-        "category_name": "Operative delivery"},
-
-      {"category_id": "6",
-
-        "category_name": "Mother had fever"},
-
-      {"category_id": "7",
-
-        "category_name": "Baby had cord around neck"},
-
-      {"category_id": "8",
-
-        "category_name": "Instrumental Delivery"},
+      {"category_name": "Instrumental Delivery"},
     ],
-    "responseTotalResult":
-    8 // Total result is 3 here because we have 3 categories in responseBody.
   };
 
 
@@ -143,6 +124,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text('Section 2: Neonatal Death (Pg 1/5)', style: TextStyle(fontSize: 18.0),),
         ),
@@ -634,7 +616,19 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                           style: TextStyle(fontSize: 15.0, color: Colors.white),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState.validate()) {
+                          if (widget.verbal_Autopsy_Obj.injury == 'Yes' &&
+                              widget.verbal_Autopsy_Obj.kindOfInjury == null) {
+                            // The checkbox wasn't checked
+                            showSnackBar('Please select option 13B');
+                          }
+                          if ((_formKey.currentState.validate() &&
+                              widget.verbal_Autopsy_Obj.injury == 'Yes' &&
+                              widget.verbal_Autopsy_Obj.kindOfInjury != null) ||
+                              (_formKey.currentState.validate() &&
+                                  widget.verbal_Autopsy_Obj.injury != 'Yes')
+                          ) {
+                            final FormState form = _formKey.currentState;
+                            form.save();
                             setState(() {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) =>
@@ -837,4 +831,17 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
       });
     }
   }
+
+  void showSnackBar(String message){
+    var snackBar = SnackBar(
+//      backgroundColor: Colors.blue,
+      content: Text(message,
+        style: TextStyle(fontSize: 16.0,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
 }
