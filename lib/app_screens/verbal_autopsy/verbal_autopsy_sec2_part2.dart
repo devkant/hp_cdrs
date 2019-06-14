@@ -47,7 +47,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
 //  var _currentSelectedNormalSuckStopRadio = '';
 
 
-//  bool _weightCheck = false;
+  bool weightCheck = false;
 
 
   //selection drop down menu variable (stores the value of selected input)
@@ -331,28 +331,35 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                               'What was the birth weight (in grams) ?',
                               style: TextStyle(fontSize: 16.0),
                             )),
-                        Flexible(
-                            child: TextFormField(
-                                onSaved: (value){birthWeight = value;
-                                widget.verbal_Autopsy_Obj.weight = num.parse(birthWeight);},
-                                keyboardType: TextInputType.numberWithOptions(),
-                                decoration: InputDecoration(
-                                    labelText: 'Weight',
-                                    hintText: 'Weight (in grams)',
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(10.0)))))
+
+                        childWeight(),
+//          Flexible(
+//              child: TextFormField(
+//                validator: (String value) {
+//                    if (value.isEmpty) return 'Please fill a valid input';
+//                },
+//                  onSaved: (value){birthWeight = value;
+//                  widget.verbal_Autopsy_Obj.weight = num.parse(birthWeight);},
+//                  keyboardType: TextInputType.numberWithOptions(),
+//                  decoration: InputDecoration(
+//                      labelText: 'Weight',
+//                      hintText: 'Weight (in grams)',
+//                      border: OutlineInputBorder(
+//                          borderRadius:
+//                          BorderRadius.circular(10.0)))))
                       ],
                     ),
                   ),
-//                  CheckboxListTile(
-//                      value: widget.verbal_Autopsy_Obj.weightCheck,
-//                      title: Text('Unknown'),
-//                      onChanged: (bool value) {
-//                        setState(() {
-//                          widget.verbal_Autopsy_Obj.weightCheck = value;
-//                        });
-//                      }),
+                  CheckboxListTile(
+                      value: weightCheck,
+                      title: Text('Unknown'),
+                      onChanged: (bool value) {
+                        setState(() {
+                          weightCheck = value;
+                          if(weightCheck == true)
+                            widget.verbal_Autopsy_Obj.weight = null;
+                        });
+                      }),
 
 
 
@@ -632,6 +639,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                   suckStopRadio(),
 
 
+//                  Text('${widget.verbal_Autopsy_Obj.weight}'),
 
 
                   //13th user input element
@@ -644,14 +652,15 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                         style: TextStyle(fontSize: 15.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        if (_formKey.currentState.validate()) {
+                        if(_formKey.currentState.validate()) {
                           final FormState form = _formKey.currentState;
                           form.save();
                           setState(() {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (BuildContext context) =>
                                     verbalAutopsySec2Part3(
-                                      verbal_Autopsy_Obj: widget.verbal_Autopsy_Obj,)));
+                                      verbal_Autopsy_Obj: widget
+                                          .verbal_Autopsy_Obj,)));
                           });
                         }
                       },
@@ -723,31 +732,31 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
 
 
   //optional menu functions
-//  Widget childWeight(){
-//
-//    if(widget.verbal_Autopsy_Obj.weightCheck == false) {
-//      return Flexible(
-//          child: TextFormField(
-//              onSaved: (value){birthWeight = value;
-//              widget.verbal_Autopsy_Obj.weight = num.parse(birthWeight);},
-//              validator: (String value) {
-//                if (value.isEmpty) return 'Please input weight';
-//              },
-//              keyboardType: TextInputType.numberWithOptions(),
-//              decoration: InputDecoration(
-//                  labelText: 'Weight',
-//                  hintText: 'Weight (in grams)',
-//                  border: OutlineInputBorder(
-//                      borderRadius:
-//                      BorderRadius.circular(10.0)))));
-//    }
-//    else {
-//      birthWeight = null;
-//      if(birthWeight != null)
-//      widget.verbal_Autopsy_Obj.weight = num.parse(birthWeight);
-//      return Text('');
-//    }
-//  }
+  Widget childWeight(){
+
+    if(weightCheck == false) {
+      return Flexible(
+          child: TextFormField(
+              onSaved: (value){birthWeight = value;
+              widget.verbal_Autopsy_Obj.weight = num.parse(birthWeight);},
+              validator: (String value) {
+                if (value.isEmpty) return 'Please input weight';
+              },
+              keyboardType: TextInputType.numberWithOptions(),
+              decoration: InputDecoration(
+                  labelText: 'Weight',
+                  hintText: 'Weight (in grams)',
+                  border: OutlineInputBorder(
+                      borderRadius:
+                      BorderRadius.circular(10.0)))));
+    }
+    else {
+      birthWeight = null;
+      if(birthWeight != null)
+        widget.verbal_Autopsy_Obj.weight = num.parse(birthWeight);
+      return Text('');
+    }
+  }
 
   Widget cryStopRadio(){
 
