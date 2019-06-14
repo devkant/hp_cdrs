@@ -102,8 +102,8 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
   void initState() {
     super.initState();
     widget.verbal_Autopsy_Obj.liveWith = _liveWithRadioList[1];
-    widget.verbal_Autopsy_Obj.sex = _deceasedSexList[1];
-    widget.verbal_Autopsy_Obj.ageInDays = _completedDaysRadio[1];
+    widget.verbal_Autopsy_Obj.sex = _deceasedSexList[0];
+    widget.verbal_Autopsy_Obj.ageInDays = _completedDaysRadio[0];
 
     widget.verbal_Autopsy_Obj.relationship = _relationWithDeceased[0];
     widget.verbal_Autopsy_Obj.respondentEducation =
@@ -169,7 +169,6 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
           child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  Text('${widget.verbal_Autopsy_Obj.block}'),
 
                   Padding(
                       padding: EdgeInsets.all(10.0),
