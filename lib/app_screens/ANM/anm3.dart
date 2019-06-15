@@ -1,115 +1,136 @@
 import 'package:flutter/material.dart';
+import 'package:hp_cdrs/app_screens/ANM/user.dart';
 
 import 'anm4.dart';
 
-/*
+
 void main() {
   runApp(MaterialApp(
     title: "Form3",
     home: Form3(),
   ));
 }
-*/
+
 
 class Form3 extends StatefulWidget {
+
+  //user data
+  final User user;
+  Form3({Key key,this.user}):super(key:key);
+
   @override
   _Form3State createState() => _Form3State();
 }
 
 class _Form3State extends State<Form3> {
 
-  var _treatment = ['Yes', 'No'];
-  var _currentTreatment = 'Yes';
-  var _phf = ['PHC', 'CHC', 'DH', 'SDH/Taluq Hospital', 'None'];
-  var _currentphf = 'None';
-  bool _privateHospital = false;
-  bool _allopathicPractitioner = false;
-  bool _ayushPractitioner = false;
-  bool _unqualifiedProvider = false;
-  bool _traditionalHealer = false;
+  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  var dropdownTreatment = ['Yes', 'No'];
+
+  Map<String, dynamic> _categories = {
+    "responseCode": "1",
+    "responseText": "List categories.",
+    "responseBody": [
+
+      {"category_id": "1",
+
+        "category_name": "PHC"},
+
+      {"category_id": "2",
+
+        "category_name": "CHC"},
+
+      {"category_id": "3",
+
+        "category_name": "DH"},
+
+      {"category_id": "4",
+
+        "category_name": "SDH/ Taluq Hospital"},
+
+      {"category_id": "5",
+
+        "category_name": "Private Hospital/Nursing Home"},
+
+      {"category_id": "6",
+
+        "category_name": "Qualified allopathic private practioner"},
+
+      {"category_id": "7",
+
+        "category_name": "AYUSH Practioner"},
+
+      {"category_id": "8",
+
+        "category_name": "Unqualified Provider(quack, informalprovider)"},
+
+      {"category_id": "9",
+
+        "category_name": "Traditional Healer"},
+
+    ],
+    "responseTotalResult":
+    9 // Total result is 3 here because we have 3 categories in responseBody.
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("C: Details of treatment"),
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: <Widget>[
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: <Widget>[
 
-              /*
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Text(
-                  "Details of treatment",
-                  style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w500),
-                ),
-              ),
-              */
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: Row(
+                      children: <Widget>[
 
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Row(
-                  children: <Widget>[
+                        Text(
+                          "1. ",
+                          style: TextStyle(fontSize: 18.0),
+                        ),
 
-                    Text(
-                      "1. ",
-                      style: TextStyle(fontSize: 18.0),
+                        Expanded(
+                          child: Text(
+                            "Whether treatment for illness was provided:  ",
+                            style: TextStyle(fontSize: 18.0),
+                          ),
+                        ),
+
+                        DropdownButton<String>(
+                          items: dropdownTreatment.map((String value2) {
+                            return DropdownMenuItem<String>(
+                              value: value2,
+                              child: Text(value2),
+                            );
+                          }).toList(),
+                          value: widget.user.treatmentTaken,
+                          onChanged: (String newValueSelected) {
+                            setState(() {
+                              this.widget.user.treatmentTaken = newValueSelected;
+                            });
+                          },
+                        ),
+                      ],
                     ),
+                  ),
 
-                    Expanded(
-                      child: Text(
-                        "Whether treatment for illness was provided:  ",
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                    ),
+                  treatmentForIllnessFun(),
 
-                    DropdownButton<String>(
-                      items: _treatment.map((String value1) {
-                        return DropdownMenuItem<String>(
-                          value: value1,
-                          child: Text(value1),
-                        );
-                      }).toList(),
-
-                      value: _currentTreatment,
-
-                      onChanged: (String newValueSelected) {
-                        setState(() {
-                          this._currentTreatment = newValueSelected;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-
-              treatmentForIllnessFun(),
-
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-
-                    /*
-                    RaisedButton(
-                      color: Colors.blue,
-                      elevation: 4.0,
-                      child: Text(
-                        'Previous page',
-                        style: TextStyle(fontSize: 20.0, color: Colors.white),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => form2()));
-                      },
-                    ),
-                    */
-                    RaisedButton(
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: RaisedButton(
                       color: Colors.blue,
                       elevation: 4.0,
                       splashColor: Colors.greenAccent,
@@ -118,15 +139,24 @@ class _Form3State extends State<Form3> {
                         style: TextStyle(fontSize: 20.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => Form4()));
+                        final FormState form = _formKey.currentState;
+                        form.save();
+                        if(widget.user.treatmentTaken == 'Yes' && widget.user.treatmentLocation.isEmpty) {
+                          _showSnackBar("Please check the checkbox to proceed");
+                        }
+                        else {
+                          //debugPrint('${widget.user.treatmentLocation.length}');
+                          //debugPrint('${widget.user.treatmentLocation}');
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => Form4(user: widget.user,)));
+                        }
                       },
                     ),
-                  ],
-                ),
-              ),
+                  ),
 
-            ],
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -134,7 +164,7 @@ class _Form3State extends State<Form3> {
   }
 
   Widget treatmentForIllnessFun() {
-    if( _currentTreatment == "Yes") {
+    if( widget.user.treatmentTaken == "Yes") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -144,16 +174,9 @@ class _Form3State extends State<Form3> {
             child: Row(
               children: <Widget>[
 
-                /*
-                Text(
-                  "15. ",
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                */
-
                 Expanded(
                   child: Text(
-                    "If yes, then where was the child treated: ",
+                    "2. If yes, then where was the child treated: ",
                     style: TextStyle(fontSize: 18.0),
                   ),
                 ),
@@ -162,104 +185,118 @@ class _Form3State extends State<Form3> {
           ),
 
           Padding(
-            padding: EdgeInsets.only(top: 10.0),
-            child: Row(
-              children: <Widget>[
+            padding: EdgeInsets.only(top: 15.0, left: 20.0),
+            child: Text(
+              "Public Health Facility:  ",
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ),
 
-                Expanded(
-                  child: Text(
-                    "Public Health Facility:  ",
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child:  CheckboxListTile(
+              value: widget.user.treatmentLocation.contains(_categories['responseBody'][0]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,_categories['responseBody'][0]['category_name']);
+                debugPrint('${widget.user.treatmentLocation}');
+              },
+              title: Text(_categories['responseBody'][0]['category_name']),
+            ),
+          ),
 
-                DropdownButton<String> (
-                  items: _phf.map((String value1) {
-                    return DropdownMenuItem<String>(
-                      value: value1,
-                      child: Text(value1),
-                    );
-                  }).toList(),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child:  CheckboxListTile(
+              value: widget.user.treatmentLocation.contains(_categories['responseBody'][1]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,_categories['responseBody'][1]['category_name']);
+                debugPrint('${widget.user.treatmentLocation}');
+              },
+              title: Text(_categories['responseBody'][1]['category_name']),
+            ),
+          ),
 
-                  value: _currentphf,
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child:  CheckboxListTile(
+              value: widget.user.treatmentLocation.contains(_categories['responseBody'][2]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,_categories['responseBody'][2]['category_name']);
+                debugPrint('${widget.user.treatmentLocation}');
+              },
+              title: Text(_categories['responseBody'][2]['category_name']),
+            ),
+          ),
 
-                  onChanged: (String newValueSelected) {
-                    setState(() {
-                      this._currentphf = newValueSelected;
-                    });
-                  },
-                ),
-              ],
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child:  CheckboxListTile(
+              value: widget.user.treatmentLocation.contains(_categories['responseBody'][3]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,_categories['responseBody'][3]['category_name']);
+                debugPrint('${widget.user.treatmentLocation}');
+              },
+              title: Text(_categories['responseBody'][3]['category_name']),
             ),
           ),
 
           Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: CheckboxListTile(
-              value: _privateHospital,
-              title: Text("Private Hospital/Nursing Home"),
-              activeColor: Colors.red,
-              onChanged: (bool value) {
-                setState(() {
-                  _privateHospital = value;
-                });
+              value: widget.user.treatmentLocation.contains(_categories['responseBody'][4]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,_categories['responseBody'][4]['category_name']);
+                debugPrint('${widget.user.treatmentLocation}');
               },
+              title: Text(_categories['responseBody'][4]['category_name']),
             ),
           ), //Private Hosp.
 
           Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: CheckboxListTile(
-              value: _allopathicPractitioner,
-              title: Text("Qualified allopathic private practitioner"),
-              activeColor: Colors.red,
-              onChanged: (bool value) {
-                setState(() {
-                  _allopathicPractitioner = value;
-                });
+              value: widget.user.treatmentLocation.contains(_categories['responseBody'][5]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,_categories['responseBody'][5]['category_name']);
+                debugPrint('${widget.user.treatmentLocation}');
               },
+              title: Text(_categories['responseBody'][5]['category_name']),
             ),
           ), //QAPP
 
           Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: CheckboxListTile(
-              value: _ayushPractitioner,
-              title: Text("AYUSH Practitioner"),
-              activeColor: Colors.red,
-              onChanged: (bool value) {
-                setState(() {
-                  _ayushPractitioner = value;
-                });
+              value: widget.user.treatmentLocation.contains(_categories['responseBody'][6]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,_categories['responseBody'][6]['category_name']);
+                debugPrint('${widget.user.treatmentLocation}');
               },
+              title: Text(_categories['responseBody'][6]['category_name']),
             ),
           ),  //AYUSH
 
           Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: CheckboxListTile(
-              value: _unqualifiedProvider,
-              title: Text("Unqualified Provider(quack, informal provider"),
-              activeColor: Colors.red,
-              onChanged: (bool value) {
-                setState(() {
-                  _unqualifiedProvider = value;
-                });
+              value: widget.user.treatmentLocation.contains(_categories['responseBody'][7]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,_categories['responseBody'][7]['category_name']);
+                debugPrint('${widget.user.treatmentLocation}');
               },
+              title: Text(_categories['responseBody'][7]['category_name']),
             ),
           ), //Unqualified Provider
 
           Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: CheckboxListTile(
-              value: _traditionalHealer,
-              title: Text("Traditional Healer"),
-              activeColor: Colors.red,
-              onChanged: (bool value) {
-                setState(() {
-                  _traditionalHealer = value;
-                });
+              value: widget.user.treatmentLocation.contains(_categories['responseBody'][8]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,_categories['responseBody'][8]['category_name']);
+                debugPrint('${widget.user.treatmentLocation}');
               },
+              title: Text(_categories['responseBody'][8]['category_name']),
             ),
           ), //Traditional Healer
 
@@ -267,7 +304,28 @@ class _Form3State extends State<Form3> {
       );
     }
     else {
+      widget.user.treatmentLocation.clear();
       return Text("");
     }
   }
+
+  void _onCategorySelected(bool selected, category_name) {
+    if (selected == true) {
+      setState(() {
+        widget.user.treatmentLocation.add(category_name);
+      });
+    } else {
+      setState(() {
+        widget.user.treatmentLocation.remove(category_name);
+      });
+    }
+  }
+
+  void _showSnackBar(message) {
+    var snackBar = SnackBar (
+      content: Text(message),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
 }

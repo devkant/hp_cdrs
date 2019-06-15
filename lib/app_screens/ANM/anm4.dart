@@ -1,39 +1,309 @@
 import 'package:flutter/material.dart';
+import 'package:hp_cdrs/app_screens/ANM/user.dart';
 
 import 'anm5.dart';
 
-/*
+
 void main() {
   runApp(MaterialApp(
     title: "ANM Form 4",
     home: Form4(),
   ));
 }
-*/
+
 
 class Form4 extends StatefulWidget {
+
+  //user data
+  final User user;
+  Form4({Key key,this.user}):super(key:key);
+
   @override
   _Form4State createState() => _Form4State();
 }
 
 class _Form4State extends State<Form4> {
 
-  bool _diarrhoea = false;
-  bool _pneumonia = false;
-  bool _malaria = false;
-  bool _measles = false;
-  bool _septicemia = false;
-  bool _meningitis = false;
-  bool _injury = false;
-  bool _noIdentifiableCause = false;
-  bool _anyOtherCause = false;
+  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  TextEditingController otherCause = TextEditingController();
+  var dropdownCause = ['Yes', 'No'];
 
-  Widget noCause() {
-    if( _anyOtherCause == false && _diarrhoea == false && _pneumonia == false && _malaria == false && _measles == false && _septicemia == false && _meningitis == false && _injury == false) {
+  Map<String, dynamic> _categories = {
+    "responseCode": "1",
+    "responseText": "List categories.",
+    "responseBody": [
+      {"category_id": "1",
+
+        "category_name": "Diarrhoea"},
+
+      {"category_id": "2",
+
+        "category_name": "Pneumonia"},
+
+      {"category_id": "3",
+
+        "category_name": "Malaria"},
+
+      {"category_id": "4 ",
+
+        "category_name": "Measles"},
+
+      {"category_id": "5",
+
+        "category_name": "Septicemia (Infection)"},
+
+      {"category_id": "6",
+
+        "category_name": "Meningitis"},
+
+      {"category_id": "7",
+
+        "category_name": "Injury"},
+
+    ],
+    "responseTotalResult":
+    8 // Total result is 3 here because we have 3 categories in responseBody.
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: Text("D: Probable causes of death"),
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Container(
+            padding: EdgeInsets.all(20.0),
+            child: Padding(
+              padding: EdgeInsets.only(top: 10.0),
+              child: Column(
+                children: <Widget>[
+
+                  Row(
+                    children: <Widget>[
+
+                      Text(
+                        "1. ",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+
+                      Expanded(
+                        child: Text(
+                          "Any Identifiable Cause: ",
+                          style: TextStyle(fontSize: 18.0),
+                        ),
+                      ),
+
+                      DropdownButton<String>(
+                        items: dropdownCause.map((String value2) {
+                          return DropdownMenuItem<String>(
+                            value: value2,
+                            child: Text(value2),
+                          );
+                        }).toList(),
+                        value: widget.user.probable,
+                        onChanged: (String newValueSelected) {
+                          setState(() {
+                            this.widget.user.probable = newValueSelected;
+                          });
+                        },
+                      ),
+
+                    ],
+                  ),
+
+                  causesOfDeath(),
+
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: RaisedButton(
+                      color: Colors.blue,
+                      elevation: 4.0,
+                      splashColor: Colors.greenAccent,
+                      child: Text(
+                        'Next Section',
+                        style: TextStyle(fontSize: 20.0, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        final FormState form = _formKey.currentState;
+                        form.save();
+                        if(widget.user.probable == 'Yes' && widget.user.disease.isEmpty) {
+                          _showSnackBar("Please check the checkbox to proceed");
+                        }
+                        else {
+                          //debugPrint('${widget.user.disease.length}');
+                          //debugPrint('${widget.user.disease}');
+                          //debugPrint('${widget.user.probable}');
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => Form5(user: widget.user,)));
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget causesOfDeath() {
+    if( widget.user.probable == 'Yes') {
       return Column(
         children: <Widget>[
+
+          Row(
+            children: <Widget>[
+
+              Text(
+                "2.",
+                style: TextStyle(fontSize: 18.0),
+              ),
+
+              Expanded(
+                child:CheckboxListTile(
+                  value: widget.user.disease.contains(_categories['responseBody'][0]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][0]['category_name']);
+                    debugPrint('${widget.user.disease}');
+                  },
+                  title: Text(_categories['responseBody'][0]['category_name']),
+                ),
+              ),
+            ],
+          ),
+
+          Row(
+            children: <Widget>[
+
+              Text(
+                "3.",
+                style: TextStyle(fontSize: 18.0),
+              ),
+
+              Expanded(
+                child:CheckboxListTile(
+                  value: widget.user.disease.contains(_categories['responseBody'][1]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][1]['category_name']);
+                    debugPrint('${widget.user.disease}');
+                  },
+                  title: Text(_categories['responseBody'][1]['category_name']),
+                ),
+              ),
+            ],
+          ),
+
+          Row(
+            children: <Widget>[
+
+              Text(
+                "4.",
+                style: TextStyle(fontSize: 18.0),
+              ),
+
+              Expanded(
+                child:CheckboxListTile(
+                  value: widget.user.disease.contains(_categories['responseBody'][2]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][2]['category_name']);
+                    debugPrint('${widget.user.disease}');
+                  },
+                  title: Text(_categories['responseBody'][2]['category_name']),
+                ),
+              ),
+            ],
+          ),
+
+          Row(
+            children: <Widget>[
+
+              Text(
+                "5.",
+                style: TextStyle(fontSize: 18.0),
+              ),
+
+              Expanded(
+                child:CheckboxListTile(
+                  value: widget.user.disease.contains(_categories['responseBody'][3]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][3]['category_name']);
+                    debugPrint('${widget.user.disease}');
+                  },
+                  title: Text(_categories['responseBody'][3]['category_name']),
+                ),
+              ),
+            ],
+          ),
+
+          Row(
+            children: <Widget>[
+
+              Text(
+                "6.",
+                style: TextStyle(fontSize: 18.0),
+              ),
+
+              Expanded(
+                child:CheckboxListTile(
+                  value: widget.user.disease.contains(_categories['responseBody'][4]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][4]['category_name']);
+                    debugPrint('${widget.user.disease}');
+                  },
+                  title: Text(_categories['responseBody'][4]['category_name']),
+                ),
+              ),
+            ],
+          ),
+
+          Row(
+            children: <Widget>[
+
+              Text(
+                "7.",
+                style: TextStyle(fontSize: 18.0),
+              ),
+
+              Expanded(
+                child:CheckboxListTile(
+                  value: widget.user.disease.contains(_categories['responseBody'][5]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][5]['category_name']);
+                    debugPrint('${widget.user.disease}');
+                  },
+                  title: Text(_categories['responseBody'][5]['category_name']),
+                ),
+              ),
+            ],
+          ),
+
+          Row(
+            children: <Widget>[
+
+              Text(
+                "8.",
+                style: TextStyle(fontSize: 18.0),
+              ),
+
+              Expanded(
+                child:CheckboxListTile(
+                  value: widget.user.disease.contains(_categories['responseBody'][6]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][6]['category_name']);
+                    debugPrint('${widget.user.disease}');
+                  },
+                  title: Text(_categories['responseBody'][6]['category_name']),
+                ),
+              ),
+            ],
+          ),
 
           Row(
             children: <Widget>[
@@ -44,278 +314,48 @@ class _Form4State extends State<Form4> {
               ),
 
               Expanded(
-                child:CheckboxListTile(
-                  value: _noIdentifiableCause,
-                  title: Text("No identifiable cause"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _noIdentifiableCause = value;
-                    });
+                child: TextFormField(
+                  onSaved: (String value) {
+                    if( value != '') {
+                      widget.user.disease.add(value);
+                    }
                   },
+                  decoration: InputDecoration(
+                      labelText: "Any other Cause",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0))),
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
                 ),
               ),
             ],
-          ), //No identifiable cause
+          ), //Any other cause
 
         ],
       );
     }
     else {
+      widget.user.disease.clear();
       return Text("");
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("D: Probable causes of death"),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(20.0),
-          child: Padding(
-            padding: EdgeInsets.only(top: 10.0),
-            child: Column(
-              children: <Widget>[
-                /*
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Text(
-                    "Probable cause of death",
-                    style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w500),
-                  ),
-                ),
-                */
+  void _onCategorySelected(bool selected, category_name) {
+    if (selected == true) {
+      setState(() {
+        widget.user.disease.add(category_name);
+      });
+    } else {
+      setState(() {
+        widget.user.disease.remove(category_name);
+      });
+    }
+  }
 
-                Row(
-                  children: <Widget>[
-
-                    Text(
-                      "1. ",
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-
-                    Expanded(
-                      child:CheckboxListTile(
-                        value: _diarrhoea,
-                        title: Text("Diarrhoea"),
-                        activeColor: Colors.red,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _diarrhoea = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ), //Diarrhoea
-
-                Row(
-                  children: <Widget>[
-
-                    Text(
-                      "2. ",
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-
-                    Expanded(
-                      child:CheckboxListTile(
-                        value: _pneumonia,
-                        title: Text("Pneumonia"),
-                        activeColor: Colors.red,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _pneumonia = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),  //Pneumonia
-
-                Row(
-                  children: <Widget>[
-
-                    Text(
-                      "3. ",
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-
-                    Expanded(
-                      child: CheckboxListTile(
-                        value: _malaria,
-                        title: Text("Malaria"),
-                        activeColor: Colors.red,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _malaria = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ), //Malaria
-
-                Row(
-                  children: <Widget>[
-
-                    Text(
-                      "4. ",
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-
-                    Expanded(
-                      child:CheckboxListTile(
-                        value: _measles,
-                        title: Text("Measles"),
-                        activeColor: Colors.red,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _measles = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),  //Measles
-
-                Row(
-                  children: <Widget>[
-
-                    Text(
-                      "5. ",
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-
-                    Expanded(
-                      child:CheckboxListTile(
-                        value: _septicemia,
-                        title: Text("Septicemia (Infection)"),
-                        activeColor: Colors.red,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _septicemia = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),  //Septicemia (Infection)
-
-                Row(
-                  children: <Widget>[
-
-                    Text(
-                      "6. ",
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-
-                    Expanded(
-                      child:CheckboxListTile(
-                        value: _meningitis,
-                        title: Text("Meningitis"),
-                        activeColor: Colors.red,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _meningitis = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ), //Meningitis
-
-                Row(
-                  children: <Widget>[
-
-                    Text(
-                      "7. ",
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-
-                    Expanded(
-                      child:CheckboxListTile(
-                        value: _injury,
-                        title: Text("Injury"),
-                        activeColor: Colors.red,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _injury = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ), //Injury
-
-                Row(
-                  children: <Widget>[
-
-                    Text(
-                      "8. ",
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-
-                    Expanded(
-                      child: TextField(
-                        controller: otherCause,
-                        decoration: InputDecoration(
-                            labelText: "Any other Cause",
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0))),
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        onChanged:(text) { _anyOtherCause = true; } ,
-                      ),
-                    ),
-
-                  ],
-                ), //Any other cause
-
-                noCause(),
-
-                Padding(
-                  padding: EdgeInsets.only(top: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      /*
-                      RaisedButton(
-                        color: Colors.blue,
-                        elevation: 4.0,
-                        child: Text(
-                          'Previous page',
-                          style: TextStyle(fontSize: 20.0, color: Colors.white),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) => Form3()));
-                        },
-                      ),
-                      */
-                      RaisedButton(
-                        color: Colors.blue,
-                        elevation: 4.0,
-                        splashColor: Colors.greenAccent,
-                        child: Text(
-                          'Next Section',
-                          style: TextStyle(fontSize: 20.0, color: Colors.white),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) => Form5()));
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+  void _showSnackBar(message) {
+    var snackBar = SnackBar(
+      content: Text(message),
     );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 }
