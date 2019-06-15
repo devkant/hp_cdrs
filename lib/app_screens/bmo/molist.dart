@@ -4,14 +4,14 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
-class Anmlist extends StatefulWidget {
+class Molist extends StatefulWidget {
   @override
-  _AnmlistState createState() => _AnmlistState();
+  _MolistState createState() => _MolistState();
 }
 
-class _AnmlistState extends State<Anmlist> {
-  final String uri = 'http://13.126.72.137/api/anm';
+class _MolistState extends State<Molist> {
+  final String uri = 'http://13.126.72.137/api/anm';//provide the url for mo list now it is given
+                                            // for anm.
 
   Future<List<Users>> _fetchUsers() async {
     var response = await http.get(uri);
