@@ -24,10 +24,6 @@ class BMOhomepage extends StatefulWidget {
 
 class _BMOhomepageState extends State<BMOhomepage> with SingleTickerProviderStateMixin{
 
-  @override
-  void initState() {
-    _IsSearching = false;
-  }
   Widget appBarTitle =  Text(
     'Block Medical Officer( H.P. )',
     style: TextStyle(
