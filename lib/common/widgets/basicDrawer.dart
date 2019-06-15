@@ -12,8 +12,7 @@ class BasicDrawer extends StatefulWidget {
 class _BasicDrawerState extends State<BasicDrawer>  {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
+    return Drawer(
         child: ListView(children: <Widget>[
           UserAccountsDrawerHeader(
             //accountName: ,
@@ -39,7 +38,6 @@ class _BasicDrawerState extends State<BasicDrawer>  {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }
