@@ -16,7 +16,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
     "responseBody": [
       {"category_name": 'Available / Savings'},
       {"category_name": 'Borrowed'},
-      {"category_name": 'Aold Assets'},
+      {"category_name": 'Sold Assets'},
       {"category_name": 'Community fund'},
       {"category_name": 'Govt. scheme'},
       {"category_name": 'Other'},
@@ -27,11 +27,11 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   void _onCategorySelected(bool selected, String checkValue) {
     if (selected == true) {
       setState(() {
-        widget.user.moneyArrangement.add(checkValue);
+        widget.user.availableSavings.add(checkValue);
       });
     } else {
       setState(() {
-        widget.user.moneyArrangement.remove(checkValue);
+        widget.user.availableSavings.remove(checkValue);
       });
     }
   }
@@ -39,10 +39,12 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   void _handleSubmitted() {
     final FormState form = _formKey.currentState;
     if (form.validate()) {
-      if(widget.user.moneyArrangement.isEmpty)
+      if(widget.user.availableSavings.isEmpty)
         _showSnackBar('Please check atleast one checkbox');
       else
-        form.save();
+        {
+          form.save();
+        }
     }
     _autoValidate = true;
   }
@@ -70,6 +72,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
                         child: Column(children: <Widget>[
                       _question18(),
                       _question19(),
+
                       Padding(
                         padding: EdgeInsets.all(20.0),
                         child: RaisedButton(
@@ -116,7 +119,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
                     borderRadius: BorderRadius.circular(8.0)),
                 hintText: 'Type here..'),
             onSaved: (value) {
-              widget.user.treatmentCost = num.parse(value);
+              widget.user.treatment = num.parse(value);
             },
             validator: (value) {
               if(value.isEmpty)
@@ -135,7 +138,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
                     borderRadius: BorderRadius.circular(8.0)),
                 hintText: 'Type here..'),
             onSaved: (value) {
-              widget.user.transportCost = num.parse(value);
+              widget.user.transport = num.parse(value);
             },
             validator: (value) {
               if(value.isEmpty)
@@ -154,7 +157,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
                     borderRadius: BorderRadius.circular(8.0)),
                 hintText: 'Type here..'),
             onSaved: (value) {
-              widget.user.otherCost = num.parse(value);
+              widget.user.othersamount = num.parse(value);
             },
             validator: (value) {
               if(value.isEmpty)
@@ -173,7 +176,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
                     borderRadius: BorderRadius.circular(8.0)),
                 hintText: 'Type here..'),
             onSaved: (value) {
-              widget.user.totalCost = num.parse(value);
+              widget.user.total = num.parse(value);
             },
             validator: (value) {
               if(value.isEmpty)
@@ -196,7 +199,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
             subtitle: Text('Multiple answers allowed. Check all that apply.'),
           ),
           CheckboxListTile(
-            value: widget.user.moneyArrangement
+            value: widget.user.availableSavings
                 .contains(_categories['responseBody'][0]['category_name']),
             onChanged: (bool selected) {
               _onCategorySelected(
@@ -205,7 +208,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
             title: Text(_categories['responseBody'][0]['category_name']),
           ),
           CheckboxListTile(
-            value: widget.user.moneyArrangement
+            value: widget.user.availableSavings
                 .contains(_categories['responseBody'][1]['category_name']),
             onChanged: (bool selected) {
               _onCategorySelected(
@@ -214,7 +217,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
             title: Text(_categories['responseBody'][1]['category_name']),
           ),
           CheckboxListTile(
-            value: widget.user.moneyArrangement
+            value: widget.user.availableSavings
                 .contains(_categories['responseBody'][2]['category_name']),
             onChanged: (bool selected) {
               _onCategorySelected(
@@ -223,7 +226,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
             title: Text(_categories['responseBody'][2]['category_name']),
           ),
           CheckboxListTile(
-            value: widget.user.moneyArrangement
+            value: widget.user.availableSavings
                 .contains(_categories['responseBody'][3]['category_name']),
             onChanged: (bool selected) {
               _onCategorySelected(
@@ -232,7 +235,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
             title: Text(_categories['responseBody'][3]['category_name']),
           ),
           CheckboxListTile(
-            value: widget.user.moneyArrangement
+            value: widget.user.availableSavings
                 .contains(_categories['responseBody'][4]['category_name']),
             onChanged: (bool selected) {
               _onCategorySelected(
@@ -241,7 +244,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
             title: Text(_categories['responseBody'][4]['category_name']),
           ),
           CheckboxListTile(
-            value: widget.user.moneyArrangement
+            value: widget.user.availableSavings
                 .contains(_categories['responseBody'][5]['category_name']),
             onChanged: (bool selected) {
               _onCategorySelected(
@@ -250,7 +253,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
             title: Text(_categories['responseBody'][5]['category_name']),
           ),
           CheckboxListTile(
-            value: widget.user.moneyArrangement
+            value: widget.user.availableSavings
                 .contains(_categories['responseBody'][6]['category_name']),
             onChanged: (bool selected) {
               _onCategorySelected(
