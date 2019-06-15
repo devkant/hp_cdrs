@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  grouped_buttons: ^1.0.4
   flutter:
     sdk: flutter
   shared_preferences: ^0.5.2+1
