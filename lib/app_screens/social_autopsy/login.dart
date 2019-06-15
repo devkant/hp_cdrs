@@ -3,13 +3,15 @@ import 'package:hp_cdrs/app_screens/social_autopsy/user.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/section_a.dart';
 
 class SocialAutopsyLogin extends StatefulWidget {
+  final User user;
+  SocialAutopsyLogin({Key key, this.user}):super(key:key);
   @override
   State createState() => SocialAutopsyLoginState();
 }
 
 class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
   final _formKey = GlobalKey<FormState>();
-  var _user = User();
+  //var user = User();
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +24,17 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
           padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
           child: Builder(
             builder: (context) => Form(
-                key: _formKey,
+                key: this._formKey,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16.0)),
+                Padding(
+                    padding: EdgeInsets.only(top: 10.0, bottom: 30.0),
+                    child: Text(widget.user.applicationNumber, textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
+                ),
                       Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: TextFormField(
@@ -42,11 +48,11 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
                               }
                             },
                             onSaved: (value) {
-                              _user.referenceID = value;
+                              widget.user.referenceId = value;
                             },
                           )),
                       Padding(
-                          padding: EdgeInsets.only(top: 10.0),
+                          padding: EdgeInsets.only(top: 10.0, bottom: 20.0),
                           child: TextFormField(
                             decoration: InputDecoration(
                                 labelText: 'MCTS Number',
@@ -58,7 +64,7 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
                               }
                             },
                             onSaved: (value) {
-                              _user.mctsNumber = value;
+                              widget.user.MCTS = value;
                             },
                           )),
                       RaisedButton(
@@ -69,7 +75,7 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => (SocialAutopsyA())),
+                                  builder: (context) => (SocialAutopsyA(user:widget.user))),
                             );
                           }
                         },
