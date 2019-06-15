@@ -68,6 +68,12 @@ class LoginPageState extends State<LoginPage> {
                           padding: const EdgeInsets.all(15.0),
                         ),
                         TextFormField(
+                          validator: (value)  {
+                            if (value.length == 0 || double.parse(value) == 0.0) {
+                              return ('Enter valid');
+                            }
+                          },
+
                           controller: _userNameController,
                           style: TextStyle(fontSize: 15.0),
                           decoration: InputDecoration(
@@ -103,7 +109,7 @@ class LoginPageState extends State<LoginPage> {
                               contentPadding: EdgeInsets.only(left: 20.0,bottom: 10.0)
                           ),
                         ),
-                        Padding(padding: const EdgeInsets.all(40.0)),
+                        Padding(padding: const EdgeInsets.all(20.0)),
                         RaisedButton(
                           color: Colors.blue,
                           child: new Text(
@@ -119,30 +125,6 @@ class LoginPageState extends State<LoginPage> {
                           },
                           splashColor: Colors.blue,
                         ),
-                        Container(
-                          child: FlatButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: Text(
-                              'Forgot Password ?',
-                              style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.blue
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: FlatButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: Text(
-                              'New Registration',
-                              style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.blue
-                              ),
-                            ),
-                          ),
-                        )
                       ],
                     ),
                   )
