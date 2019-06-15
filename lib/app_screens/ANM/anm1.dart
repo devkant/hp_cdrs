@@ -26,20 +26,6 @@ class _ANMWorkerState extends State<ANMWorker> {
 
   //Dropdown
   var dropdownGender = ['Male', 'Female'];
-  /*var dropdownDistrict = [
-    'Bilaspur',
-    'Chamba',
-    'Hamirpur',
-    'Kangra',
-    'Kinnaur',
-    'Kullu',
-    'Lahaul and Spiti',
-    'Mandi',
-    'Shimla',
-    'Sirmaur',
-    'Solan',
-    'Una',
-  ];*/
   var dropdownOrderOfBirth = ['1', '2', '3', '4', '5 or more'];
   var dropdownCaste = ['SC', 'ST', 'OBC', 'General'];
   var dropdownBPL = ['Yes', 'No'];
