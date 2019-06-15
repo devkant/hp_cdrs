@@ -28,8 +28,8 @@ class Listview extends StatefulWidget {
 class _ListviewState extends State<Listview> {
 
   Map user;
-  List appli;
-  List pending;
+  List appli=[];
+  List pending=[];
 
   Future getData() async {
     http.Response response = await http.get("http://13.126.72.137/api/104PreviousForms");

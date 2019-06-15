@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
+import 'package:hp_cdrs/app_screens/verbal_autopsy/verbal_autopsy_form.dart';
 
 void  main(){
   runApp(MaterialApp(
     initialRoute: '/',
     routes: <String, WidgetBuilder>{
       '/': (context) => Dashboard(),
+      '/Neonate': (context) => verbalAutopsyForm(),
 
     },
   ));
@@ -32,15 +34,16 @@ class _DashboardState extends State<Dashboard> {
           crossAxisCount: 2,
           padding: EdgeInsets.all(3.0),
           children: <Widget>[
-            makeDashboardItem("Social Autopsy", Icons.contacts),
-            makeDashboardItem("Verbal Autopsy", Icons.people),
+            makeDashboardItem("Verbal Autopsy\n(Neonate Form)", Icons.child_care,'/Neonate'),
+            makeDashboardItem("  Verbal Autopsy\n(Post Neonate Form)", Icons.child_friendly,"/"),
+            makeDashboardItem("Social Autopsy", Icons.people, ""),
           ],
         ),
       ),
     );
   }
 
-  Card makeDashboardItem(String title, IconData icon) {
+  Card makeDashboardItem(String title, IconData icon,String route) {
     return Card(
         elevation: 1.0,
         margin: new EdgeInsets.all(8.0),
@@ -48,7 +51,7 @@ class _DashboardState extends State<Dashboard> {
           decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
           child: new InkWell(
             onTap: () {
-              //TODO
+              Navigator.pushNamed(context, route);
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -66,7 +69,7 @@ class _DashboardState extends State<Dashboard> {
                 new Center(
                   child: new Text(title,
                       style:
-                      new TextStyle(fontSize: 18.0, color: Colors.black)),
+                      new TextStyle(fontSize: 15.0, color: Colors.black)),
                 )
               ],
             ),

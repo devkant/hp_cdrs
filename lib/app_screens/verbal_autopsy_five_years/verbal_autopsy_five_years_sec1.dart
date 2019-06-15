@@ -1,41 +1,34 @@
 import 'package:flutter/material.dart';
-import 'verbal_autopsy_sec2_part1.dart';
 import 'dart:async';
-import 'user.dart';
 
-//void main() {
-//  runApp(MaterialApp(
-//    title: 'Verbal Autopsy Form Section 1',
-//    home: _verbalAutopsyFormSec1(),
-//  ));
-//}
+void main() {
+  runApp(MaterialApp(
+    title: 'Verbal Autopsy Form Section 1',
+    home: _verbalAutopsy5YrFormSec1(),
+  ));
+}
 
-class verbalAutopsySec1 extends StatefulWidget {
-  final user verbal_Autopsy_Obj;
-
-  verbalAutopsySec1({Key key, @required this.verbal_Autopsy_Obj})
-      : super(key: key);
-
+class _verbalAutopsy5YrFormSec1 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsySec1State();
+    return _verbalAutopsy5YrFormSec1State();
   }
 }
 
-class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
+class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
   var _formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   //date time obj declarations
   DateTime _deceasedDOB = DateTime.now();
   DateTime _deceasedDOD = DateTime.now();
-  var displayDOB = 'Select date';
-  var displayDOD = 'Select date';
+
 
   //list declarations for radio buttons
-  var _liveWithRadioList = ['Yes', 'No', 'Unknown'];
-  var _deceasedSexList = ['Male', 'Female'];
-  var _completedDaysRadio = ['Less than 1 day', '01-28 days'];
+  var _respondentRadioList = ['Yes', 'No', 'Unknown'];
+  var _deceasedRadioList = ['Male', 'Female'];
+  var _completedDaysRadio = ['Less than 1 year', 'More than 1 year'];
+
 
   //list declarations for drop down menus
   var _relationWithDeceased = [
@@ -46,7 +39,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
     'Neighbor/No Reation',
     'Unknown'
   ];
-  var _respondentEducationDropList = [
+  var _respondentEducation = [
     'Illiterate & literate with no formal education',
     'Literate, primary or below',
     'Literate with class 12th',
@@ -67,7 +60,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
     'Others',
     'Unknown'
   ];
-  var _placeOfDeathDropList = [
+  var _placeOfDeath = [
     'Home',
     'Private Hospital',
     'PHC/CHC/Rural Hospital',
@@ -79,40 +72,41 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
     'Unknown'
   ];
 
+
   //selection radio variable (stores the value of selected input)
-//  var _respondent = '';
-//  var _currentDeceasedRadio = '';
-//  var _currentCompletedDaysRadio = '';
+  var _currentRespondentRadio = '';
+  var _currentDeceasedRadio = '';
+  var _currentCompletedDaysRadio = '';
+
 
   //selection drop down menu variable (stores the value of selected input)
-//  var _relationship = '';
-//  var _currentSelectedRespondentEducation = '';
-//  var _currentSelectedRespondentCategory = '';
-//  var _currentSelectedRespondentReligion = '';
-//  var _currentSelectedPlaceOfDeath = '';
+  var _currentSelectedRespondentRelation = '';
+  var _currentSelectedRespondentEducation = '';
+  var _currentSelectedRespondentCategory = '';
+  var _currentSelectedRespondentReligion = '';
+  var _currentSelectedPlaceOfDeath = '';
+
 
   //controller obj for text fields
-//  String respondentNameController = '';
-//  String deceasedAddressController = '';
-  String PincodeController = '';
-
-//  String respondentWordsController = '';
+  TextEditingController respondentNameController = TextEditingController();
+  TextEditingController deceasedAddressController = TextEditingController();
+  TextEditingController deceasedPincodeController = TextEditingController();
+  TextEditingController respondentWordsController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    widget.verbal_Autopsy_Obj.liveWith = _liveWithRadioList[1];
-    widget.verbal_Autopsy_Obj.sex = _deceasedSexList[0];
-    widget.verbal_Autopsy_Obj.ageInDays = _completedDaysRadio[0];
+    _currentRespondentRadio = _respondentRadioList[0];
+    _currentDeceasedRadio = _deceasedRadioList[0];
+    _currentCompletedDaysRadio = _completedDaysRadio[0];
 
-    widget.verbal_Autopsy_Obj.relationship = _relationWithDeceased[0];
-    widget.verbal_Autopsy_Obj.respondentEducation =
-    _respondentEducationDropList[0];
-    widget.verbal_Autopsy_Obj.category = _respondentCategory[0];
-    widget.verbal_Autopsy_Obj.religion = _respondentReligion[0];
-    widget.verbal_Autopsy_Obj.placeOfDeath = _placeOfDeathDropList[0];
-
+    _currentSelectedRespondentRelation = _relationWithDeceased[0];
+    _currentSelectedRespondentEducation = _respondentEducation[0];
+    _currentSelectedRespondentCategory = _respondentCategory[0];
+    _currentSelectedRespondentReligion = _respondentReligion[0];
+    _currentSelectedPlaceOfDeath = _placeOfDeath[0];
   }
+
 
   //date picker class for dob & dod
   Future<Null> _selectDOBDate(BuildContext context) async {
@@ -123,13 +117,10 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
       lastDate: DateTime(2025),
     );
 
-    if (pickedDOB != null) {
-//      print('Date Selected');
+    if (pickedDOB != null && pickedDOB != _deceasedDOB) {
+      print('Date Selected');
       setState(() {
         _deceasedDOB = pickedDOB;
-        displayDOB = "${_deceasedDOB.day}"
-            "/${_deceasedDOB.month}"
-            "/${_deceasedDOB.year}";
       });
     }
   }
@@ -141,13 +132,10 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
         firstDate: DateTime(2018),
         lastDate: DateTime(2025));
 
-    if (pickedDOD != null) {
-//      print('Date Selected');
+    if (pickedDOD != null && pickedDOD != _deceasedDOB) {
+      print('Date Selected');
       setState(() {
         _deceasedDOD = pickedDOD;
-        displayDOD = displayDOD = "${_deceasedDOD.day}"
-            "/${_deceasedDOD.month}"
-            "/${_deceasedDOD.year}";
       });
     }
   }
@@ -155,11 +143,10 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
-          'Section 1: Details of Respondent' "\n" '& Deceased',
-          style: TextStyle(fontSize: 18.0),
+          'Section 1: Details for Respondent & Deceased',
+          style: TextStyle(fontSize: 17.0),
         ),
       ),
       body: Form(
@@ -170,14 +157,16 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
               child: Column(
                 children: <Widget>[
 
+
                   Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Center(
                           child: Text(
-                            "Details of respondent:",
+                            "Details of respondent",
                             style:
                             TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
                           ))),
+
 
                   //1st user input element start
                   Padding(
@@ -196,9 +185,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                                 if (!nameExp.hasMatch(value))
                                   return 'Please enter only alphabetical values';
                               },
-                              onSaved: (value) {
-                                widget.verbal_Autopsy_Obj.respondent = value;
-                              },
+                              controller: respondentNameController,
                               decoration: InputDecoration(
                                   labelText: 'Name of Respondent',
                                   hintText: 'Name of Respondent',
@@ -206,6 +193,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                                       borderRadius: BorderRadius.circular(10.0))),
                             ))
                       ])),
+
 
                   //2nd user input element start
                   Padding(
@@ -231,12 +219,13 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                           child: Text(value),
                         );
                       }).toList(),
-                      value: widget.verbal_Autopsy_Obj.relationship,
+                      value: _currentSelectedRespondentRelation,
                       onChanged: (String newValueSelected) {
                         _onDropDownRelationSelected(newValueSelected);
                       },
                     ),
                   ),
+
 
                   //3rd user input element start
                   Padding(
@@ -264,9 +253,9 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: widget.verbal_Autopsy_Obj.liveWith,
+                              groupValue: _currentRespondentRadio,
                               onChanged: (String newRadioSelected) {
-                                _onliveWithRadioSelect(newRadioSelected);
+                                _onRespondentRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -275,9 +264,9 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: widget.verbal_Autopsy_Obj.liveWith,
+                              groupValue: _currentRespondentRadio,
                               onChanged: (String newRadioSelected) {
-                                _onliveWithRadioSelect(newRadioSelected);
+                                _onRespondentRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -286,12 +275,13 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: widget.verbal_Autopsy_Obj.liveWith,
+                              groupValue: _currentRespondentRadio,
                               onChanged: (String newRadioSelected) {
-                                _onliveWithRadioSelect(newRadioSelected);
+                                _onRespondentRadioSelect(newRadioSelected);
                               },
                             )
                           ])),
+
 
                   //4th user input element start
                   Padding(
@@ -314,18 +304,19 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: DropdownButton<String>(
-                      items: _respondentEducationDropList.map((String value) {
+                      items: _respondentEducation.map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
                         );
                       }).toList(),
-                      value: widget.verbal_Autopsy_Obj.respondentEducation,
+                      value: _currentSelectedRespondentEducation,
                       onChanged: (String newValueSelected) {
                         _onDropDownEducationSelected(newValueSelected);
                       },
                     ),
                   ),
+
 
                   //5th user input element start
                   Padding(
@@ -352,13 +343,14 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: widget.verbal_Autopsy_Obj.category,
+                            value: _currentSelectedRespondentCategory,
                             onChanged: (String newValueSelected) {
                               _onDropDownCategorySelected(newValueSelected);
                             },
                           ),
                         ),
                       ])),
+
 
                   //6th user input element start
                   Padding(
@@ -385,7 +377,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: widget.verbal_Autopsy_Obj.religion,
+                            value: _currentSelectedRespondentReligion,
                             onChanged: (String newValueSelected) {
                               _onDropDownReligionSelected(newValueSelected);
                             },
@@ -399,6 +391,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                         style:
                         TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
                       )),
+
 
                   //7th user input element start
                   Padding(
@@ -423,9 +416,9 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                       ),
                       Radio(
                         value: 'Male',
-                        groupValue: widget.verbal_Autopsy_Obj.sex,
+                        groupValue: _currentDeceasedRadio,
                         onChanged: (String newRadioSelected) {
-                          _onSexRadioSelect(newRadioSelected);
+                          _onDeceasedRadioSelect(newRadioSelected);
                         },
                       ),
                       Text(
@@ -434,13 +427,14 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                       ),
                       Radio(
                         value: 'Female',
-                        groupValue: widget.verbal_Autopsy_Obj.sex,
+                        groupValue: _currentDeceasedRadio,
                         onChanged: (String newRadioSelected) {
-                          _onSexRadioSelect(newRadioSelected);
+                          _onDeceasedRadioSelect(newRadioSelected);
                         },
                       ),
                     ]),
                   ),
+
 
                   //8th user input element start
                   Padding(
@@ -455,7 +449,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                       Padding(
                         padding: EdgeInsets.only(right: 10.0),
                         child: Text(
-                          "Age in completed days:",
+                          "Age in completed months:",
                           style: TextStyle(fontSize: 16.0),
                         ),
                       ),
@@ -467,29 +461,30 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'Less than 1 day',
+                            'Less than 1 year',
                             style: TextStyle(fontSize: 16.0),
                           ),
                           Radio(
-                            value: 'Less than 1 day',
-                            groupValue: widget.verbal_Autopsy_Obj.ageInDays,
+                            value: 'Less than 1 year',
+                            groupValue: _currentCompletedDaysRadio,
                             onChanged: (String newRadioSelected) {
                               _onCompletedDaysRadioSelect(newRadioSelected);
                             },
                           ),
                           Text(
-                            '01-28 days',
+                            'More than 1 year',
                             style: TextStyle(fontSize: 16.0),
                           ),
                           Radio(
-                            value: '01-28 days',
-                            groupValue: widget.verbal_Autopsy_Obj.ageInDays,
+                            value: 'More than 1 year',
+                            groupValue: _currentCompletedDaysRadio,
                             onChanged: (String newRadioSelected) {
                               _onCompletedDaysRadioSelect(newRadioSelected);
                             },
                           )
                         ],
                       )),
+
 
                   //9th user input element start
                   Padding(
@@ -512,22 +507,21 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                             child: RaisedButton(
                                 color: Colors.white,
                                 elevation: 2.0,
-                                child: Text('$displayDOB',
+                                child: Text(
+                                  "${_deceasedDOB.day}/${_deceasedDOB.month}"
+                                      "/${_deceasedDOB.year}",
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 onPressed: () {
-                                  setState(() {
-                                    _selectDOBDate(context);
-                                    widget.verbal_Autopsy_Obj.dob =
-                                        _deceasedDOB.toString();
-                                  });
+                                  _selectDOBDate(context);
                                 }),
                           )
                         ],
                       )),
+
 
                   //10th user input element start
                   Padding(
@@ -551,22 +545,21 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                             child: RaisedButton(
                                 color: Colors.white,
                                 elevation: 2.0,
-                                child: Text('$displayDOD',
+                                child: Text(
+                                  "${_deceasedDOD.day}/${_deceasedDOD.month}"
+                                      "/${_deceasedDOD.year}",
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 onPressed: () {
-                                  setState(() {
-                                    _selectDODDate(context);
-                                    widget.verbal_Autopsy_Obj.dod =
-                                        _deceasedDOD.toString();
-                                  });
+                                  _selectDODDate(context);
                                 }),
                           )
                         ],
                       )),
+
 
                   //11th user input element start
                   Padding(
@@ -590,9 +583,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: TextFormField(
-                      onSaved: (value) {
-                        widget.verbal_Autopsy_Obj.address = value;
-                      },
+                      controller: deceasedAddressController,
                       decoration: InputDecoration(hintText: 'Your Text Here'),
                       validator: (String value) {
                         if (value.isEmpty) return 'Please fill a valid input';
@@ -601,6 +592,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                       maxLines: null,
                     ),
                   ),
+
 
                   Padding(
                       padding:
@@ -619,29 +611,31 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                             child: Text(
                               'Pincode:',
                               style: TextStyle(fontSize: 16.0),
-                            ),
-                          ),
+                            ),),
+
                           Flexible(
                             child: TextFormField(
-                              onSaved: (value) {
-                                PincodeController = value;
-                                widget.verbal_Autopsy_Obj.pin =
-                                    num.parse(PincodeController);
-                              },
+                              controller: deceasedPincodeController,
                               decoration: InputDecoration(
                                   hintText: 'Pincode',
                                   labelText: 'Pincode',
                                   border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0))),
+                                      borderRadius: BorderRadius.circular(10.0))
+                              ),
                               validator: (String value) {
-                                if (value.length != 6)
-                                  return 'Please fill a valid pincode';
+                                if (value.length != 6) return 'Please fill a valid pincode';
                               },
                               keyboardType: TextInputType.numberWithOptions(),
-                            ),
-                          ),
+
+                            ),),
                         ],
                       )),
+
+
+
+
+
+
 
                   //12th user input element start
                   Padding(
@@ -663,19 +657,20 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                         Padding(
                           padding: EdgeInsets.all(10.0),
                           child: DropdownButton<String>(
-                            items: _placeOfDeathDropList.map((String value) {
+                            items: _placeOfDeath.map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: widget.verbal_Autopsy_Obj.placeOfDeath,
+                            value: _currentSelectedPlaceOfDeath,
                             onChanged: (String newValueSelected) {
                               _onDropDownPlaceOfDeathSelected(newValueSelected);
                             },
                           ),
                         ),
                       ])),
+
 
                   //extra user input element start
                   Padding(
@@ -689,9 +684,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: TextFormField(
-                      onSaved: (value) {
-                        widget.verbal_Autopsy_Obj.probableCause = value;
-                      },
+                      controller: respondentWordsController,
                       decoration: InputDecoration(hintText: 'Your Text Here'),
                       validator: (String value) {
                         if (value.isEmpty) return 'Please fill a valid input';
@@ -700,6 +693,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                       maxLines: null,
                     ),
                   ),
+
 
                   Padding(
                     padding: EdgeInsets.all(10.0),
@@ -710,24 +704,13 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                         style: TextStyle(fontSize: 15.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        if (widget.verbal_Autopsy_Obj.dob == null ||
-                            widget.verbal_Autopsy_Obj.dod == null) {
-                          // The checkbox wasn't checked
-                          showSnackBar('Please select the date of birth and date of death to proceed');
-                        }
-                        if (_formKey.currentState.validate() &&
-                            widget.verbal_Autopsy_Obj.dod != null &&
-                            widget.verbal_Autopsy_Obj.dob != null) {
-                          final FormState form = _formKey.currentState;
-                          form.save();
-                          setState(() {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    verbalAutopsySec2Part1(
-                                      verbal_Autopsy_Obj: widget.verbal_Autopsy_Obj,
-                                    )));
-                          });
-                        }
+                        setState(() {
+                          if (_formKey.currentState.validate())
+                            AlertDialog(
+                              title: Text('Form Submitted Sucessfully'),
+                              content: Text('Success'),
+                            );
+                        });
                       },
                     ),
                   ),
@@ -738,63 +721,51 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
     );
   }
 
-  void _onliveWithRadioSelect(String newRadioSelected) {
+  void _onRespondentRadioSelect(String newRadioSelected) {
     setState(() {
-      this.widget.verbal_Autopsy_Obj.liveWith = newRadioSelected;
+      this._currentRespondentRadio = newRadioSelected;
     });
   }
 
-  void _onSexRadioSelect(String newRadioSelected) {
+  void _onDeceasedRadioSelect(String newRadioSelected) {
     setState(() {
-      this.widget.verbal_Autopsy_Obj.sex = newRadioSelected;
+      this._currentDeceasedRadio = newRadioSelected;
     });
   }
 
   void _onCompletedDaysRadioSelect(String newRadioSelected) {
     setState(() {
-      this.widget.verbal_Autopsy_Obj.ageInDays = newRadioSelected;
+      this._currentCompletedDaysRadio = newRadioSelected;
     });
   }
 
   void _onDropDownRelationSelected(String newValueSelected) {
     setState(() {
-      this.widget.verbal_Autopsy_Obj.relationship = newValueSelected;
+      this._currentSelectedRespondentRelation = newValueSelected;
     });
   }
 
   void _onDropDownReligionSelected(String newValueSelected) {
     setState(() {
-      this.widget.verbal_Autopsy_Obj.religion = newValueSelected;
+      this._currentSelectedRespondentReligion = newValueSelected;
     });
   }
 
   void _onDropDownCategorySelected(String newValueSelected) {
     setState(() {
-      this.widget.verbal_Autopsy_Obj.category = newValueSelected;
+      this._currentSelectedRespondentCategory = newValueSelected;
     });
   }
 
   void _onDropDownEducationSelected(String newValueSelected) {
     setState(() {
-      this.widget.verbal_Autopsy_Obj.respondentEducation = newValueSelected;
+      this._currentSelectedRespondentEducation = newValueSelected;
     });
   }
 
   void _onDropDownPlaceOfDeathSelected(String newValueSelected) {
     setState(() {
-      this.widget.verbal_Autopsy_Obj.placeOfDeath = newValueSelected;
+      this._currentSelectedPlaceOfDeath = newValueSelected;
     });
-  }
-
-  void showSnackBar(String message){
-    var snackBar = SnackBar(
-//      backgroundColor: Colors.blue,
-      content: Text(message,
-        style: TextStyle(fontSize: 16.0,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-    );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 }
