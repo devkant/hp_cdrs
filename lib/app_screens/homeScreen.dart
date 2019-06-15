@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hp_cdrs/common/platform/platformScaffold.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/asha_worker/asha_home.dart';
+import 'package:hp_cdrs/app_screens/bmo/bmohomepage.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -32,6 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     if(widget.role=="104"){
       return AshaHomeScreen();
+    }
+    else if(widget.role=="bmo"){
+      return  BMOhomepage();
     }
   }
 }
