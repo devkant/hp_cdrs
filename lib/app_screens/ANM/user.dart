@@ -2,8 +2,8 @@ class User {
 
   //form 1
   String name;
-  Age age;
-  Address address;
+  var age = Age();
+  var address = Address();
   int weight = 0;
   String natureOfIllness;
 
@@ -51,6 +51,6 @@ class Age {
 class Address {
   String area;
   int pincode;
-  var district = 'Select here';
-  var block = 'Select here';
+  var district = null;
+  var block = null;
 }
