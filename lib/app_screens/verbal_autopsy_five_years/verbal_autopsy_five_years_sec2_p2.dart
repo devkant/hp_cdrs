@@ -1,61 +1,60 @@
 import 'package:flutter/material.dart';
-import 'verbal_autopsy_sec2_part4.dart';
-import 'user.dart';
 
-//void main() {
-//  runApp(MaterialApp(
-//    title: 'Verbal Autopsy Form Section 2',
-//    home: _verbalAutopsyFormSec2Part3(),
-//  ));
-//}
+void main() {
+  runApp(MaterialApp(
+    title: 'Verbal Autopsy Form Section 2',
+    home: _verbalAutopsy5YrSec2Part2(),
+  ));
+}
 
-class verbalAutopsySec2Part3 extends StatefulWidget {
-  final user verbal_Autopsy_Obj;
-  verbalAutopsySec2Part3({Key key, @required this.verbal_Autopsy_Obj}):super(key: key);
+class _verbalAutopsy5YrSec2Part2 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsySec2Part3State();
+    return _verbalAutopsy5YrSec2Part2State();
   }
 }
 
-class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
+class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> {
   var _formKey = GlobalKey<FormState>();
 
 
   //list declarations for radio buttons
   var _yesNoRadioList = ['Yes', 'No', 'Unknown'];
-  var _daysRadioList = ['Less than 1 day', '01-28 days'];
+//  var _daysRadioList = ['Less than 1 day', '01-28 days'];
 
 
   //list declarations for drop down menus
-  var _birthSizeList = ['Very small', 'Smaller than average',
-    'Average', 'Larger than average', 'Unknown'];
+
 
 
   //selection radio variable (stores the value of selected input)
-//  var _currentSelectedFeverRadio = '';
-//  var _currentSelectedFeverDaysRadio = '';
-//  var _currentSelectedBreathingDifficultyRadio = '';
-//  var _currentSelectedBreathingDifficultyDaysRadio = '';
-//  var _currentSelectedFastBreathingRadio = '';
-//  var _currentSelectedFastBreathingDaysRadio = '';
-//  var _currentSelectedInDrawingChestRadio = '';
-//  var _currentSelectedCoughRadio = '';
-//  var _currentSelectedGruntingRadio = '';
-//  var _currentSelectedNostrilFlareRadio = '';
+  var _currentSelectedFeverRadio = '';
+  var _currentSelectedChillRadio = '';
+  var _currentSelectedFitsRadio = '';
+  var _currentSelectedUnconsciousRadio = '';
+  var _currentSelectedBodyStiffnessRadio = '';
+  var _currentSelectedStiffNeckRadio = '';
+  var _currentSelectedDiarrhoeaRadio = '';
+  var _currentSelectedBloodinStoolsRadio = '';
 
+
+
+  TextEditingController feverDaysController = TextEditingController();
+  TextEditingController diarrhoeaDaysController = TextEditingController();
 
 
   @override
   void initState() {
     super.initState();
-    widget.verbal_Autopsy_Obj.fever = _yesNoRadioList[1];
-    widget.verbal_Autopsy_Obj.difficultyBreathing = _yesNoRadioList[1];
-    widget.verbal_Autopsy_Obj.fastBreathing = _yesNoRadioList[1];
-    widget.verbal_Autopsy_Obj.inDrawingChest = _yesNoRadioList[1];
-    widget.verbal_Autopsy_Obj.cough = _yesNoRadioList[1];
-    widget.verbal_Autopsy_Obj.grunting = _yesNoRadioList[1];
-    widget.verbal_Autopsy_Obj.nostrilsFlare = _yesNoRadioList[1];
+    _currentSelectedFeverRadio = _yesNoRadioList[1];
+    _currentSelectedChillRadio = _yesNoRadioList[1];
+    _currentSelectedFitsRadio = _yesNoRadioList[1];
+    _currentSelectedUnconsciousRadio = _yesNoRadioList[1];
+    _currentSelectedBodyStiffnessRadio = _yesNoRadioList[1];
+    _currentSelectedStiffNeckRadio = _yesNoRadioList[1];
+    _currentSelectedDiarrhoeaRadio = _yesNoRadioList[1];
+    _currentSelectedBloodinStoolsRadio = _yesNoRadioList[1];
+
 
   }
 
@@ -65,8 +64,8 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Section 2: Neonatal Death (Pg 3/5)',
-          style: TextStyle(fontSize: 18.0),
+          'Section 2: Child Death (Pg 2/4)',
+          style: TextStyle(fontSize: 20.0),
         ),
       ),
       body: Form(
@@ -96,7 +95,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '28A.',
+                              '15A.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -117,7 +116,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: widget.verbal_Autopsy_Obj.fever,
+                              groupValue: _currentSelectedFeverRadio,
                               onChanged: (String newRadioSelected) {
                                 _onFeverRadioSelect(newRadioSelected);
                               },
@@ -128,7 +127,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: widget.verbal_Autopsy_Obj.fever,
+                              groupValue: _currentSelectedFeverRadio,
                               onChanged: (String newRadioSelected) {
                                 _onFeverRadioSelect(newRadioSelected);
                               },
@@ -139,7 +138,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: widget.verbal_Autopsy_Obj.fever,
+                              groupValue: _currentSelectedFeverRadio,
                               onChanged: (String newRadioSelected) {
                                 _onFeverRadioSelect(newRadioSelected);
                               },
@@ -155,33 +154,30 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '28B.',
+                              '15B.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
-                            child: Text('If yes, how many completed days did the fever last?'
+                            child: Text('If yes, how many completed '
+                                'days did the fever last?'
                               ,style: TextStyle(fontSize: 16.0),
-                            )
-                        )
+                            )),
+                        feverCompletedDays(),
                       ])),
 
-                  feverDaysRadio(),
 
-
-
-
-                  //3rd user input element
                   Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '29A.',
+                              '15C.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
-                            child: Text('Did he/she have any difficulty with breathing?'
+                            child: Text('Was the fever accompanied by'
+                                ' chills/rigors?'
                               ,style: TextStyle(fontSize: 16.0),
                             )
                         )
@@ -198,9 +194,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: widget.verbal_Autopsy_Obj.difficultyBreathing,
+                              groupValue: _currentSelectedChillRadio,
                               onChanged: (String newRadioSelected) {
-                                _onBreathingDifficultyRadioSelect(newRadioSelected);
+                                _onChillRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -209,9 +205,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: widget.verbal_Autopsy_Obj.difficultyBreathing,
+                              groupValue: _currentSelectedChillRadio,
                               onChanged: (String newRadioSelected) {
-                                _onBreathingDifficultyRadioSelect(newRadioSelected);
+                                _onChillRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -220,50 +216,26 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: widget.verbal_Autopsy_Obj.difficultyBreathing,
+                              groupValue: _currentSelectedChillRadio,
                               onChanged: (String newRadioSelected) {
-                                _onBreathingDifficultyRadioSelect(newRadioSelected);
+                                _onChillRadioSelect(newRadioSelected);
                               },
                             )
                           ])),
 
 
-
-                  //4th user input element
                   Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '29B.',
+                              '16 .',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
-                            child: Text('If yes, how many completed'
-                                ' days did the difficulty with breathing last?'
-                              ,style: TextStyle(fontSize: 16.0),
-                            )
-                        )
-                      ])),
-
-                  breathingDifficultyDaysRadio(),
-
-
-
-
-                  //5th user input element
-                  Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child: Text(
-                              '30A.',
-                              style: TextStyle(fontSize: 16.0),
-                            )),
-                        Flexible(
-                            child: Text('Did he/she have fast breathing?'
+                            child: Text('Did she/he have'
+                                ' convulsions or fits?'
                               ,style: TextStyle(fontSize: 16.0),
                             )
                         )
@@ -280,9 +252,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: widget.verbal_Autopsy_Obj.fastBreathing,
+                              groupValue: _currentSelectedFitsRadio,
                               onChanged: (String newRadioSelected) {
-                                _onFastBreathingRadioSelect(newRadioSelected);
+                                _onFitsRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -291,9 +263,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: widget.verbal_Autopsy_Obj.fastBreathing,
+                              groupValue: _currentSelectedFitsRadio,
                               onChanged: (String newRadioSelected) {
-                                _onFastBreathingRadioSelect(newRadioSelected);
+                                _onFitsRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -302,51 +274,27 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: widget.verbal_Autopsy_Obj.fastBreathing,
+                              groupValue: _currentSelectedFitsRadio,
                               onChanged: (String newRadioSelected) {
-                                _onFastBreathingRadioSelect(newRadioSelected);
+                                _onFitsRadioSelect(newRadioSelected);
                               },
                             )
                           ])),
 
 
 
-
-                  //6th user input element
                   Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '30B.',
+                              '17 .',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
-                            child: Text('If yes, for how many'
-                                ' completed days did the fast breathing last?'
-                              ,style: TextStyle(fontSize: 16.0),
-                            )
-                        )
-                      ])),
-
-                  fastBreathingDaysRadio(),
-
-
-
-
-                  //7th user input element
-                  Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child: Text(
-                              '31. ',
-                              style: TextStyle(fontSize: 16.0),
-                            )),
-                        Flexible(
-                            child: Text('Did he/she have in-drawing of the chest?'
+                            child: Text('Was she/he unconscious during the'
+                                ' illness that led to death?'
                               ,style: TextStyle(fontSize: 16.0),
                             )
                         )
@@ -363,9 +311,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: widget.verbal_Autopsy_Obj.inDrawingChest,
+                              groupValue: _currentSelectedUnconsciousRadio,
                               onChanged: (String newRadioSelected) {
-                                _onInDrawingChestRadioSelect(newRadioSelected);
+                                _onUnconsciousRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -374,9 +322,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: widget.verbal_Autopsy_Obj.inDrawingChest,
+                              groupValue: _currentSelectedUnconsciousRadio,
                               onChanged: (String newRadioSelected) {
-                                _onInDrawingChestRadioSelect(newRadioSelected);
+                                _onUnconsciousRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -385,27 +333,26 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: widget.verbal_Autopsy_Obj.inDrawingChest,
+                              groupValue: _currentSelectedUnconsciousRadio,
                               onChanged: (String newRadioSelected) {
-                                _onInDrawingChestRadioSelect(newRadioSelected);
+                                _onUnconsciousRadioSelect(newRadioSelected);
                               },
                             )
                           ])),
 
 
-
-                  //8th user input element
                   Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '32A.',
+                              '18 .',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
-                            child: Text('Did he/she have a cough?'
+                            child: Text('Did she/he develop'
+                                ' stiffness of the whole body?'
                               ,style: TextStyle(fontSize: 16.0),
                             )
                         )
@@ -422,9 +369,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: widget.verbal_Autopsy_Obj.cough,
+                              groupValue: _currentSelectedBodyStiffnessRadio,
                               onChanged: (String newRadioSelected) {
-                                _onCoughRadioSelect(newRadioSelected);
+                                _onBodyStiffnessRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -433,9 +380,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: widget.verbal_Autopsy_Obj.cough,
+                              groupValue: _currentSelectedBodyStiffnessRadio,
                               onChanged: (String newRadioSelected) {
-                                _onCoughRadioSelect(newRadioSelected);
+                                _onBodyStiffnessRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -444,27 +391,26 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: widget.verbal_Autopsy_Obj.cough,
+                              groupValue: _currentSelectedBodyStiffnessRadio,
                               onChanged: (String newRadioSelected) {
-                                _onCoughRadioSelect(newRadioSelected);
+                                _onBodyStiffnessRadioSelect(newRadioSelected);
                               },
                             )
                           ])),
 
 
-
-                  //9th user input element
                   Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '32B.',
+                              '19 .',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
-                            child: Text('Did he/she have grunting (demonstrate)?'
+                            child: Text('Did she/he have'
+                                ' a stiff neck (demonstrate)?'
                               ,style: TextStyle(fontSize: 16.0),
                             )
                         )
@@ -481,9 +427,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: widget.verbal_Autopsy_Obj.grunting,
+                              groupValue: _currentSelectedStiffNeckRadio,
                               onChanged: (String newRadioSelected) {
-                                _onGruntingRadioSelect(newRadioSelected);
+                                _onStiffNeckRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -492,9 +438,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: widget.verbal_Autopsy_Obj.grunting,
+                              groupValue: _currentSelectedStiffNeckRadio,
                               onChanged: (String newRadioSelected) {
-                                _onGruntingRadioSelect(newRadioSelected);
+                                _onStiffNeckRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -503,27 +449,25 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: widget.verbal_Autopsy_Obj.grunting,
+                              groupValue: _currentSelectedStiffNeckRadio,
                               onChanged: (String newRadioSelected) {
-                                _onGruntingRadioSelect(newRadioSelected);
+                                _onStiffNeckRadioSelect(newRadioSelected);
                               },
                             )
                           ])),
 
-
-
-                  //10th user input element
                   Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '32C.',
+                              '20A.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
-                            child: Text('Did his/her nostrils flare with breathing?'
+                            child: Text('Did she/he have diarrhoea'
+                                ' (more frequent or more liquid stools)?'
                               ,style: TextStyle(fontSize: 16.0),
                             )
                         )
@@ -540,9 +484,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: widget.verbal_Autopsy_Obj.nostrilsFlare,
+                              groupValue: _currentSelectedDiarrhoeaRadio,
                               onChanged: (String newRadioSelected) {
-                                _onNostrilFlareRadioSelect(newRadioSelected);
+                                _onDiarrhoeaRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -551,9 +495,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: widget.verbal_Autopsy_Obj.nostrilsFlare,
+                              groupValue: _currentSelectedDiarrhoeaRadio,
                               onChanged: (String newRadioSelected) {
-                                _onNostrilFlareRadioSelect(newRadioSelected);
+                                _onDiarrhoeaRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -562,12 +506,89 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: widget.verbal_Autopsy_Obj.nostrilsFlare,
+                              groupValue: _currentSelectedDiarrhoeaRadio,
                               onChanged: (String newRadioSelected) {
-                                _onNostrilFlareRadioSelect(newRadioSelected);
+                                _onDiarrhoeaRadioSelect(newRadioSelected);
                               },
                             )
                           ])),
+
+
+                  Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              '20B.',
+                              style: TextStyle(fontSize: 16.0),
+                            )),
+                        Flexible(
+                            child: Text('If yes, how many completed days?'
+                              ,style: TextStyle(fontSize: 16.0),
+                            )),
+                        diarrhoeaCompletedDays(),
+                      ])),
+
+
+                  Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              '20C.',
+                              style: TextStyle(fontSize: 16.0),
+                            )),
+                        Flexible(
+                            child: Text('Was there blood in the stools?'
+                              ,style: TextStyle(fontSize: 16.0),
+                            )
+                        )
+                      ])),
+
+                  Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Yes',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                            Radio(
+                              value: 'Yes',
+                              groupValue: _currentSelectedBloodinStoolsRadio,
+                              onChanged: (String newRadioSelected) {
+                                _onBloodinStoolsRadioSelect(newRadioSelected);
+                              },
+                            ),
+                            Text(
+                              'No',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                            Radio(
+                              value: 'No',
+                              groupValue: _currentSelectedBloodinStoolsRadio,
+                              onChanged: (String newRadioSelected) {
+                                _onBloodinStoolsRadioSelect(newRadioSelected);
+                              },
+                            ),
+                            Text(
+                              'Unknown',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                            Radio(
+                              value: 'Unknown',
+                              groupValue: _currentSelectedBloodinStoolsRadio,
+                              onChanged: (String newRadioSelected) {
+                                _onBloodinStoolsRadioSelect(newRadioSelected);
+                              },
+                            )
+                          ])),
+
+
+
 
 
 
@@ -582,14 +603,13 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                         style: TextStyle(fontSize: 15.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          setState(() {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    verbalAutopsySec2Part4(
-                                      verbal_Autopsy_Obj: widget.verbal_Autopsy_Obj,)));
-                          });
-                        }
+                        setState(() {
+                          if (_formKey.currentState.validate())
+                            AlertDialog(
+                              title: Text('Form Submitted Sucessfully'),
+                              content: Text('Success'),
+                            );
+                        });
                       },
                     ),
                   ),
@@ -603,178 +623,97 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
 
   void _onFeverRadioSelect(String newRadioSelected){
     setState(() {
-      this.widget.verbal_Autopsy_Obj.fever = newRadioSelected;
+      this._currentSelectedFeverRadio = newRadioSelected;
     });
   }
 
-  void _onFeverDaysRadioSelect(String newRadioSelected){
+  void _onChillRadioSelect(String newRadioSelected){
     setState(() {
-      this.widget.verbal_Autopsy_Obj.feverDays = newRadioSelected;
+      this._currentSelectedChillRadio = newRadioSelected;
     });
   }
 
-  void _onBreathingDifficultyRadioSelect(String newRadioSelected){
+  void _onFitsRadioSelect(String newRadioSelected){
     setState(() {
-      this.widget.verbal_Autopsy_Obj.difficultyBreathing = newRadioSelected;
+      this._currentSelectedFitsRadio = newRadioSelected;
     });
   }
 
-  void _onBreathingDifficultyDaysRadioSelect(String newRadioSelected){
+  void _onUnconsciousRadioSelect(String newRadioSelected){
     setState(() {
-      this.widget.verbal_Autopsy_Obj.difficultyBreathingDays = newRadioSelected;
+      this._currentSelectedUnconsciousRadio = newRadioSelected;
     });
   }
-
-  void _onFastBreathingRadioSelect(String newRadioSelected){
+  void _onBodyStiffnessRadioSelect(String newRadioSelected){
     setState(() {
-      this.widget.verbal_Autopsy_Obj.fastBreathing = newRadioSelected;
+      this._currentSelectedBodyStiffnessRadio = newRadioSelected;
     });
   }
 
-  void _onFastBreathingDaysRadioSelect(String newRadioSelected){
+  void _onStiffNeckRadioSelect(String newRadioSelected){
     setState(() {
-      this.widget.verbal_Autopsy_Obj.fastBreathingDays = newRadioSelected;
+      this._currentSelectedStiffNeckRadio = newRadioSelected;
     });
   }
 
-  void _onInDrawingChestRadioSelect(String newRadioSelected){
+  void _onDiarrhoeaRadioSelect(String newRadioSelected){
     setState(() {
-      this.widget.verbal_Autopsy_Obj.inDrawingChest = newRadioSelected;
+      this._currentSelectedDiarrhoeaRadio = newRadioSelected;
     });
   }
 
-  void _onCoughRadioSelect(String newRadioSelected){
+  void _onBloodinStoolsRadioSelect(String newRadioSelected){
     setState(() {
-      this.widget.verbal_Autopsy_Obj.cough = newRadioSelected;
-    });
-  }
-
-  void _onGruntingRadioSelect(String newRadioSelected){
-    setState(() {
-      this.widget.verbal_Autopsy_Obj.grunting = newRadioSelected;
-    });
-  }
-
-  void _onNostrilFlareRadioSelect(String newRadioSelected){
-    setState(() {
-      this.widget.verbal_Autopsy_Obj.nostrilsFlare = newRadioSelected;
+      this._currentSelectedBloodinStoolsRadio = newRadioSelected;
     });
   }
 
 
-  Widget feverDaysRadio(){
 
-    if(widget.verbal_Autopsy_Obj.fever == 'Yes'){
-      return Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Less than 1 day',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Radio(
-                  value: 'Less than 1 day',
-                  groupValue: widget.verbal_Autopsy_Obj.feverDays,
-                  onChanged: (String newRadioSelected) {
-                    _onFeverDaysRadioSelect(newRadioSelected);
-                  },
-                ),
-                Text(
-                  '01-28 days',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Radio(
-                  value: '01-28 days',
-                  groupValue: widget.verbal_Autopsy_Obj.feverDays,
-                  onChanged: (String newRadioSelected) {
-                    _onFeverDaysRadioSelect(newRadioSelected);
-                  },
-                ),
-              ]));}
+  Widget feverCompletedDays(){
 
+    if(_currentSelectedFeverRadio == 'Yes') {
+      return Flexible(
+          child: TextFormField(
+              controller: feverDaysController,
+              validator: (String value) {
+                if (value.isEmpty) return 'Please input days';
+              },
+              keyboardType: TextInputType.numberWithOptions(),
+              decoration: InputDecoration(
+                  labelText: 'No. of days',
+                  hintText: 'No. of days',
+                  border: OutlineInputBorder(
+                      borderRadius:
+                      BorderRadius.circular(10.0)))));
+    }
     else {
-      widget.verbal_Autopsy_Obj.feverDays = null;
-      return Text('--Not Required--');
+      feverDaysController = null;
+      return Text('--Not required--');
     }
   }
 
 
-  Widget breathingDifficultyDaysRadio(){
+  Widget diarrhoeaCompletedDays(){
 
-    if(widget.verbal_Autopsy_Obj.difficultyBreathing == 'Yes'){
-      return Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Less than 1 day',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Radio(
-                  value: 'Less than 1 day',
-                  groupValue: widget.verbal_Autopsy_Obj.difficultyBreathingDays,
-                  onChanged: (String newRadioSelected) {
-                    _onBreathingDifficultyDaysRadioSelect(newRadioSelected);
-                  },
-                ),
-                Text(
-                  '01-28 days',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Radio(
-                  value: '01-28 days',
-                  groupValue: widget.verbal_Autopsy_Obj.difficultyBreathingDays,
-                  onChanged: (String newRadioSelected) {
-                    _onBreathingDifficultyDaysRadioSelect(newRadioSelected);
-                  },
-                ),
-              ]));}
-
+    if(_currentSelectedDiarrhoeaRadio == 'Yes') {
+      return Flexible(
+          child: TextFormField(
+              controller: diarrhoeaDaysController,
+              validator: (String value) {
+                if (value.isEmpty) return 'Please input days';
+              },
+              keyboardType: TextInputType.numberWithOptions(),
+              decoration: InputDecoration(
+                  labelText: 'No. of days',
+                  hintText: 'No. of days',
+                  border: OutlineInputBorder(
+                      borderRadius:
+                      BorderRadius.circular(10.0)))));
+    }
     else {
-      widget.verbal_Autopsy_Obj.difficultyBreathingDays = null;
-      return Text('--Not Required--');
+      diarrhoeaDaysController = null;
+      return Text('--Not required--');
     }
   }
-
-  Widget fastBreathingDaysRadio(){
-
-    if(widget.verbal_Autopsy_Obj.fastBreathing == 'Yes'){
-      return Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Less than 1 day',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Radio(
-                  value: 'Less than 1 day',
-                  groupValue: widget.verbal_Autopsy_Obj.fastBreathingDays,
-                  onChanged: (String newRadioSelected) {
-                    _onFastBreathingDaysRadioSelect(newRadioSelected);
-                  },
-                ),
-                Text(
-                  '01-28 days',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Radio(
-                  value: '01-28 days',
-                  groupValue: widget.verbal_Autopsy_Obj.fastBreathingDays,
-                  onChanged: (String newRadioSelected) {
-                    _onFastBreathingDaysRadioSelect(newRadioSelected);
-                  },
-                ),
-              ]));}
-
-    else {
-      widget.verbal_Autopsy_Obj.fastBreathingDays = null;
-      return Text('--Not Required--');
-    }
-  }
-
 }
