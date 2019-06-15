@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     title: 'Verbal Autopsy Form',
-    home: _verbalAutopsyForm(),
+    home: verbalAutopsyForm(),
   ));
 }
 
-class _verbalAutopsyForm extends StatefulWidget {
+class verbalAutopsyForm extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsyFormState();
+    return verbalAutopsyFormState();
   }
 }
 
-class _verbalAutopsyFormState extends State<_verbalAutopsyForm> {
+class verbalAutopsyFormState extends State<verbalAutopsyForm> {
   var _formKey = GlobalKey<FormState>();
   var _currentItemSelected = '';
 
