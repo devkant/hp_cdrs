@@ -119,8 +119,8 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
     final DateTime pickedDOB = await showDatePicker(
       context: context,
       initialDate: _deceasedDOB,
-      firstDate: DateTime(2019, 6, 1),
-      lastDate: DateTime(2019, 8, 1),
+      firstDate: DateTime(2019, 4, 1),
+      lastDate: DateTime.now(),
     );
 
     if (pickedDOB != null) {
@@ -136,10 +136,11 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
 
   Future<Null> _selectDODDate(BuildContext context) async {
     final DateTime pickedDOD = await showDatePicker(
-        context: context,
-        initialDate: _deceasedDOD,
-        firstDate: DateTime(2019, 6, 1),
-        lastDate: DateTime(2019, 8, 1));
+      context: context,
+      initialDate: _deceasedDOD,
+      firstDate: DateTime(2019, 4, 1),
+      lastDate: DateTime.now(),
+    );
 
     if (pickedDOD != null) {
 //      print('Date Selected');
