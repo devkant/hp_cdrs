@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'user.dart';
+import 'verbal_autopsy_five_years_sec3.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Verbal Autopsy 5 year Form Section 2',
-    home: _verbalAutopsy5YrSec2Part4(),
-  ));
-}
+//void main() {
+//  runApp(MaterialApp(
+//    title: 'Verbal Autopsy 5 year Form Section 2',
+//    home: verbalAutopsy5YrSec2Part4(),
+//  ));
+//}
 
-class _verbalAutopsy5YrSec2Part4 extends StatefulWidget {
+class verbalAutopsy5YrSec2Part4 extends StatefulWidget {
+  final User userObj;
+  verbalAutopsy5YrSec2Part4({Key key, @required this.userObj}):super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsy5YrSec2Part4State();
+    return verbalAutopsy5YrSec2Part4State();
   }
 }
 
-class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> {
+class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
   var _formKey = GlobalKey<FormState>();
 
 
@@ -29,56 +33,72 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
 
 
   //boolean declarations for check boxes
-  bool _coughCheck = false;
-  bool _diarrhoeaCheck = false;
-  bool _earDischargeCheck = false;
-  bool _feverCheck = false;
-  bool _rashesCheck = false;
-  bool _otherCheck = false;
+//  bool _coughCheck = false;
+//  bool _diarrhoeaCheck = false;
+//  bool _earDischargeCheck = false;
+//  bool _feverCheck = false;
+//  bool _rashesCheck = false;
+//  bool _otherCheck = false;
   bool _unknownCheck = false;
+
+  Map<String, dynamic> _categories = {
+    "responseBody": [
+      {"category_name": "Cough"},
+
+      {"category_name": "Diarrhoea"},
+
+      {"category_name": "Ear Discharge"},
+
+      {"category_name": "Fever"},
+
+      {"category_name": "Rashes"},
+
+      {"category_name": "Other"},
+    ],
+  };
 
 
 
   //selection radio variable (stores the value of selected input)
-  var _currentSelectedRashRadio = '';
-  var _currentSelectedRedEyesRadio = '';
-  var _currentSelectedMeaslesRadio = '';
-  var _currentSelectedThinRadio = '';
-  var _currentSelectedSwellingRadio = '';
-  var _currentSelectedPaleRadio = '';
-  var _currentSelectedNormalGrowthRadio = '';
-  var _currentSelectedMultipleIllnessesRadio = '';
-  var _currentSelectedBCGInjectionRadio = '';
-  var _currentSelectedPolioRadio = '';
+//  var _currentSelectedRashRadio = '';
+//  var _currentSelectedRedEyesRadio = '';
+//  var _currentSelectedMeaslesRadio = '';
+//  var _currentSelectedThinRadio = '';
+//  var _currentSelectedSwellingRadio = '';
+//  var _currentSelectedPaleRadio = '';
+//  var _currentSelectedNormalGrowthRadio = '';
+//  var _currentSelectedMultipleIllnessesRadio = '';
+//  var _currentSelectedBCGInjectionRadio = '';
+//  var _currentSelectedPolioRadio = '';
 
 
   //selection drop down variable (stores the value of selected input)
 
-  var _currentSelectedMeaslesInjectionDropDown = '';
+//  var _currentSelectedMeaslesInjectionDropDown = '';
 
 
 
 
-  TextEditingController DPTDozesController = TextEditingController();
+//  TextEditingController DPTDozesController = TextEditingController();
 
 
 
   @override
   void initState() {
     super.initState();
-    _currentSelectedRashRadio = _yesNoRadioList[1];
-    _currentSelectedRedEyesRadio = _yesNoRadioList[1];
-    _currentSelectedMeaslesRadio = _yesNoRadioList[1];
-    _currentSelectedThinRadio = _yesNoRadioList[1];
-    _currentSelectedSwellingRadio = _yesNoRadioList[1];
-    _currentSelectedPaleRadio = _yesNoRadioList[1];
-    _currentSelectedNormalGrowthRadio = _yesNoRadioList[1];
-    _currentSelectedMultipleIllnessesRadio = _yesNoRadioList[1];
-    _currentSelectedBCGInjectionRadio = _yesNoRadioList[0];
-    _currentSelectedPolioRadio = _yesNoRadioList[0];
+    widget.userObj.rashAllOverBody = _yesNoRadioList[1];
+    widget.userObj.redEyes = _yesNoRadioList[1];
+    widget.userObj.measles = _yesNoRadioList[1];
+    widget.userObj.thinWeekPreceedingDeath = _yesNoRadioList[1];
+    widget.userObj.swellingOfHandsFeetOrAbdomenWeekPreceedingDeath = _yesNoRadioList[1];
+    widget.userObj.lackOfBloodWeekPreceedingDeath = _yesNoRadioList[1];
+    widget.userObj.growingNormally = _yesNoRadioList[1];
+    widget.userObj.multipleIllness = _yesNoRadioList[1];
+    widget.userObj.bcgInjection = _yesNoRadioList[0];
+    widget.userObj.polioDrops = _yesNoRadioList[0];
 
 
-    _currentSelectedMeaslesInjectionDropDown = _measlesInjectionList[0];
+    widget.userObj.injectionForMeasles = _measlesInjectionList[0];
 
   }
 
@@ -140,7 +160,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedRashRadio,
+                              groupValue: widget.userObj.rashAllOverBody,
                               onChanged: (String newRadioSelected) {
                                 _onRashRadioSelect(newRadioSelected);
                               },
@@ -151,7 +171,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedRashRadio,
+                              groupValue: widget.userObj.rashAllOverBody,
                               onChanged: (String newRadioSelected) {
                                 _onRashRadioSelect(newRadioSelected);
                               },
@@ -162,7 +182,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedRashRadio,
+                              groupValue: widget.userObj.rashAllOverBody,
                               onChanged: (String newRadioSelected) {
                                 _onRashRadioSelect(newRadioSelected);
                               },
@@ -200,7 +220,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedRedEyesRadio,
+                              groupValue: widget.userObj.redEyes,
                               onChanged: (String newRadioSelected) {
                                 _onRedEyesRadioSelect(newRadioSelected);
                               },
@@ -211,7 +231,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedRedEyesRadio,
+                              groupValue: widget.userObj.redEyes,
                               onChanged: (String newRadioSelected) {
                                 _onRedEyesRadioSelect(newRadioSelected);
                               },
@@ -222,7 +242,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedRedEyesRadio,
+                              groupValue: widget.userObj.redEyes,
                               onChanged: (String newRadioSelected) {
                                 _onRedEyesRadioSelect(newRadioSelected);
                               },
@@ -257,7 +277,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedMeaslesRadio,
+                              groupValue: widget.userObj.measles,
                               onChanged: (String newRadioSelected) {
                                 _onMeaslesRadioSelect(newRadioSelected);
                               },
@@ -268,7 +288,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedMeaslesRadio,
+                              groupValue: widget.userObj.measles,
                               onChanged: (String newRadioSelected) {
                                 _onMeaslesRadioSelect(newRadioSelected);
                               },
@@ -279,7 +299,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedMeaslesRadio,
+                              groupValue: widget.userObj.measles,
                               onChanged: (String newRadioSelected) {
                                 _onMeaslesRadioSelect(newRadioSelected);
                               },
@@ -315,7 +335,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedThinRadio,
+                              groupValue: widget.userObj.thinWeekPreceedingDeath,
                               onChanged: (String newRadioSelected) {
                                 _onThinRadioSelect(newRadioSelected);
                               },
@@ -326,7 +346,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedThinRadio,
+                              groupValue: widget.userObj.thinWeekPreceedingDeath,
                               onChanged: (String newRadioSelected) {
                                 _onThinRadioSelect(newRadioSelected);
                               },
@@ -337,7 +357,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedThinRadio,
+                              groupValue: widget.userObj.thinWeekPreceedingDeath,
                               onChanged: (String newRadioSelected) {
                                 _onThinRadioSelect(newRadioSelected);
                               },
@@ -373,7 +393,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedSwellingRadio,
+                              groupValue: widget.userObj.swellingOfHandsFeetOrAbdomenWeekPreceedingDeath,
                               onChanged: (String newRadioSelected) {
                                 _onSwellingRadioSelect(newRadioSelected);
                               },
@@ -384,7 +404,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedSwellingRadio,
+                              groupValue: widget.userObj.swellingOfHandsFeetOrAbdomenWeekPreceedingDeath,
                               onChanged: (String newRadioSelected) {
                                 _onSwellingRadioSelect(newRadioSelected);
                               },
@@ -395,7 +415,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedSwellingRadio,
+                              groupValue: widget.userObj.swellingOfHandsFeetOrAbdomenWeekPreceedingDeath,
                               onChanged: (String newRadioSelected) {
                                 _onSwellingRadioSelect(newRadioSelected);
                               },
@@ -432,7 +452,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedPaleRadio,
+                              groupValue: widget.userObj.lackOfBloodWeekPreceedingDeath,
                               onChanged: (String newRadioSelected) {
                                 _onPaleRadioSelect(newRadioSelected);
                               },
@@ -443,7 +463,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedPaleRadio,
+                              groupValue: widget.userObj.lackOfBloodWeekPreceedingDeath,
                               onChanged: (String newRadioSelected) {
                                 _onPaleRadioSelect(newRadioSelected);
                               },
@@ -454,7 +474,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedPaleRadio,
+                              groupValue: widget.userObj.lackOfBloodWeekPreceedingDeath,
                               onChanged: (String newRadioSelected) {
                                 _onPaleRadioSelect(newRadioSelected);
                               },
@@ -462,63 +482,6 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                           ])),
 
 
-                  Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child: Text(
-                              '29. ',
-                              style: TextStyle(fontSize: 16.0),
-                            )),
-                        Flexible(
-                            child: Text('During the weeks preceding'
-                                ' death, did she/he suffer from'
-                                ' lack of blood or appear pale?'
-                              ,style: TextStyle(fontSize: 16.0),
-                            )
-                        )
-                      ])),
-
-                  Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'Yes',
-                              style: TextStyle(fontSize: 16.0),
-                            ),
-                            Radio(
-                              value: 'Yes',
-                              groupValue: _currentSelectedPaleRadio,
-                              onChanged: (String newRadioSelected) {
-                                _onPaleRadioSelect(newRadioSelected);
-                              },
-                            ),
-                            Text(
-                              'No',
-                              style: TextStyle(fontSize: 16.0),
-                            ),
-                            Radio(
-                              value: 'No',
-                              groupValue: _currentSelectedPaleRadio,
-                              onChanged: (String newRadioSelected) {
-                                _onPaleRadioSelect(newRadioSelected);
-                              },
-                            ),
-                            Text(
-                              'Unknown',
-                              style: TextStyle(fontSize: 16.0),
-                            ),
-                            Radio(
-                              value: 'Unknown',
-                              groupValue: _currentSelectedPaleRadio,
-                              onChanged: (String newRadioSelected) {
-                                _onPaleRadioSelect(newRadioSelected);
-                              },
-                            )
-                          ])),
 
                   Padding(
                       padding: EdgeInsets.all(10.0),
@@ -549,7 +512,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedNormalGrowthRadio,
+                              groupValue: widget.userObj.growingNormally,
                               onChanged: (String newRadioSelected) {
                                 _onNormalGrowthRadioSelect(newRadioSelected);
                               },
@@ -560,7 +523,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedNormalGrowthRadio,
+                              groupValue: widget.userObj.growingNormally,
                               onChanged: (String newRadioSelected) {
                                 _onNormalGrowthRadioSelect(newRadioSelected);
                               },
@@ -571,7 +534,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedNormalGrowthRadio,
+                              groupValue: widget.userObj.growingNormally,
                               onChanged: (String newRadioSelected) {
                                 _onNormalGrowthRadioSelect(newRadioSelected);
                               },
@@ -606,7 +569,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedMultipleIllnessesRadio,
+                              groupValue: widget.userObj.multipleIllness,
                               onChanged: (String newRadioSelected) {
                                 _onMultipleIllnessesRadioSelect(newRadioSelected);
                               },
@@ -617,9 +580,10 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedMultipleIllnessesRadio,
+                              groupValue: widget.userObj.multipleIllness,
                               onChanged: (String newRadioSelected) {
                                 _onMultipleIllnessesRadioSelect(newRadioSelected);
+                                widget.userObj.symptomsOfIllness.clear();
                               },
                             ),
                             Text(
@@ -628,9 +592,10 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedMultipleIllnessesRadio,
+                              groupValue: widget.userObj.multipleIllness,
                               onChanged: (String newRadioSelected) {
                                 _onMultipleIllnessesRadioSelect(newRadioSelected);
+                                widget.userObj.symptomsOfIllness.clear();
                               },
                             )
                           ])),
@@ -681,7 +646,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedBCGInjectionRadio,
+                              groupValue: widget.userObj.bcgInjection,
                               onChanged: (String newRadioSelected) {
                                 _onBCGInjectionRadioSelect(newRadioSelected);
                               },
@@ -692,7 +657,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedBCGInjectionRadio,
+                              groupValue: widget.userObj.bcgInjection,
                               onChanged: (String newRadioSelected) {
                                 _onBCGInjectionRadioSelect(newRadioSelected);
                               },
@@ -703,7 +668,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedBCGInjectionRadio,
+                              groupValue: widget.userObj.bcgInjection,
                               onChanged: (String newRadioSelected) {
                                 _onBCGInjectionRadioSelect(newRadioSelected);
                               },
@@ -728,7 +693,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             )),
                         Flexible(
                             child: TextFormField(
-                                controller: DPTDozesController,
+                                onSaved: (String value){widget.userObj.dpt3Doses = num.parse(value);},
                                 validator: (String value) {
                                   if (value.isEmpty)
                                     return 'Please input no. of dozes';
@@ -773,7 +738,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedPolioRadio,
+                              groupValue: widget.userObj.polioDrops,
                               onChanged: (String newRadioSelected) {
                                 _onPolioRadioSelect(newRadioSelected);
                               },
@@ -784,7 +749,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedPolioRadio,
+                              groupValue: widget.userObj.polioDrops,
                               onChanged: (String newRadioSelected) {
                                 _onPolioRadioSelect(newRadioSelected);
                               },
@@ -795,7 +760,7 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedPolioRadio,
+                              groupValue: widget.userObj.polioDrops,
                               onChanged: (String newRadioSelected) {
                                 _onPolioRadioSelect(newRadioSelected);
                               },
@@ -828,18 +793,18 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                           child: Text(value),
                         );
                       }).toList(),
-                      value: _currentSelectedMeaslesInjectionDropDown,
+                      value: widget.userObj.injectionForMeasles,
                       onChanged: (String newValueSelected) {
                         setState(() {
-                          this._currentSelectedMeaslesInjectionDropDown = newValueSelected;
+                          this.widget.userObj.injectionForMeasles = newValueSelected;
                         });
                       },
                     ),
                   ),
 
 
-
-
+                  //for testing purpose
+//                  Text('${widget.userObj.symptomsOfIllness}'),
 
 
                   Padding(
@@ -847,17 +812,21 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
                     child: RaisedButton(
                       color: Colors.blue,
                       child: Text(
-                        "Proceed to Section 3",
+                        "Next",
                         style: TextStyle(fontSize: 15.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        setState(() {
-                          if (_formKey.currentState.validate())
-                            AlertDialog(
-                              title: Text('Form Submitted Sucessfully'),
-                              content: Text('Success'),
-                            );
-                        });
+                        if (_formKey.currentState.validate()) {
+                          final FormState form = _formKey.currentState;
+                          form.save();
+                          setState(() {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    verbalAutopsy5YrSec3(
+                                      userObj: widget.userObj,
+                                    )));
+                          });
+                        }
                       },
                     ),
                   ),
@@ -871,77 +840,77 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
 
   void _onRashRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedRashRadio = newRadioSelected;
+      this.widget.userObj.rashAllOverBody = newRadioSelected;
     });
   }
 
   void _onRedEyesRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedRedEyesRadio = newRadioSelected;
+      this.widget.userObj.redEyes = newRadioSelected;
     });
   }
 
   void _onMeaslesRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedMeaslesRadio = newRadioSelected;
+      this.widget.userObj.measles = newRadioSelected;
     });
   }
 
 
   void _onThinRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedThinRadio = newRadioSelected;
+      this.widget.userObj.thinWeekPreceedingDeath = newRadioSelected;
     });
   }
 
   void _onSwellingRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedSwellingRadio = newRadioSelected;
+      this.widget.userObj.swellingOfHandsFeetOrAbdomenWeekPreceedingDeath = newRadioSelected;
     });
   }
 
   void _onPaleRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedPaleRadio = newRadioSelected;
+      this.widget.userObj.lackOfBloodWeekPreceedingDeath = newRadioSelected;
     });
   }
 
   void _onNormalGrowthRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedNormalGrowthRadio = newRadioSelected;
+      this.widget.userObj.growingNormally = newRadioSelected;
     });
   }
 
   void _onMultipleIllnessesRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedMultipleIllnessesRadio = newRadioSelected;
+      this.widget.userObj.multipleIllness  = newRadioSelected;
     });
   }
 
   void _onBCGInjectionRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedBCGInjectionRadio = newRadioSelected;
+      this.widget.userObj.bcgInjection = newRadioSelected;
     });
   }
 
   void _onPolioRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedPolioRadio = newRadioSelected;
+      this.widget.userObj.polioDrops = newRadioSelected;
     });
   }
 
 
   Widget illnessesCheckContainerFun(){
 
-    if(_currentSelectedMultipleIllnessesRadio == 'Yes'){
+    if(widget.userObj.multipleIllness == 'Yes'){
       return Container(
           decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(5.0)),
           child: Column(
               children: <Widget>[
-                unknownIllnessCheckFun(),
                 illnessesCheck(),
+                unknownIllnessCheckFun(),
               ]
           )
       );
@@ -957,17 +926,20 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
 
   Widget unknownIllnessCheckFun(){
 
-    if(_currentSelectedMultipleIllnessesRadio == 'Yes') {
+    if(widget.userObj.multipleIllness == 'Yes') {
       return CheckboxListTile(
           value: _unknownCheck,
           title: Text('Unknown'),
           onChanged: (bool value) {
             setState(() {
               _unknownCheck = value;
+              widget.userObj.symptomsOfIllness.clear();
+              widget.userObj.symptomsOfIllness.add('Unknown');
+              if(_unknownCheck == false)
+                widget.userObj.symptomsOfIllness.removeLast();
             });
           });
     }
-
     else{
       _unknownCheck = false;
       return Text('');
@@ -975,67 +947,93 @@ class _verbalAutopsy5YrSec2Part4State extends State<_verbalAutopsy5YrSec2Part4> 
   }
 
 
+  void _onCategorySelected(bool selected, category_name) {
+    if (selected == true) {
+      setState(() {
+        widget.userObj.symptomsOfIllness.add(category_name);
+      });
+    } else {
+      setState(() {
+        widget.userObj.symptomsOfIllness.remove(category_name);
+      });
+    }
+  }
+
+
   Widget illnessesCheck() {
 
-    if (_currentSelectedMultipleIllnessesRadio == 'Yes'
+    if (widget.userObj.multipleIllness == 'Yes'
         && _unknownCheck == false) {
       return Column(children: <Widget>[
         CheckboxListTile(
-            value: _coughCheck,
-            title: Text('Cough'),
-            onChanged: (bool value) {
-              setState(() {
-                _coughCheck = value;
-              });
-            }),
+          value: widget.userObj.symptomsOfIllness
+              .contains(_categories['responseBody'][0]['category_name']),
+          onChanged: (bool selected) {
+            _onCategorySelected(selected,
+                _categories['responseBody'][0]['category_name']);
+            debugPrint('${widget.userObj.symptomsOfIllness}');
+          },
+          title: Text(_categories['responseBody'][0]['category_name']),
+        ),
         CheckboxListTile(
-            value: _diarrhoeaCheck,
-            title: Text('Diarrhoea'),
-            onChanged: (bool value) {
-              setState(() {
-                _diarrhoeaCheck = value;
-              });
-            }),
+          value: widget.userObj.symptomsOfIllness
+              .contains(_categories['responseBody'][1]['category_name']),
+          onChanged: (bool selected) {
+            _onCategorySelected(selected,
+                _categories['responseBody'][1]['category_name']);
+            debugPrint('${widget.userObj.symptomsOfIllness}');
+          },
+          title: Text(_categories['responseBody'][1]['category_name']),
+        ),
+
         CheckboxListTile(
-            value: _earDischargeCheck,
-            title: Text('Ear Discharge'),
-            onChanged: (bool value) {
-              setState(() {
-                _earDischargeCheck = value;
-              });
-            }),
+          value: widget.userObj.symptomsOfIllness
+              .contains(_categories['responseBody'][2]['category_name']),
+          onChanged: (bool selected) {
+            _onCategorySelected(selected,
+                _categories['responseBody'][2]['category_name']);
+            debugPrint('${widget.userObj.symptomsOfIllness}');
+          },
+          title: Text(_categories['responseBody'][2]['category_name']),
+        ),
+
         CheckboxListTile(
-            value: _feverCheck,
-            title: Text('Fever'),
-            onChanged: (bool value) {
-              setState(() {
-                _feverCheck = value;
-              });
-            }),
+          value: widget.userObj.symptomsOfIllness
+              .contains(_categories['responseBody'][3]['category_name']),
+          onChanged: (bool selected) {
+            _onCategorySelected(selected,
+                _categories['responseBody'][3]['category_name']);
+            debugPrint('${widget.userObj.symptomsOfIllness}');
+          },
+          title: Text(_categories['responseBody'][3]['category_name']),
+        ),
+
         CheckboxListTile(
-            value: _rashesCheck,
-            title: Text('Rashes'),
-            onChanged: (bool value) {
-              setState(() {
-                _rashesCheck = value;
-              });
-            }),
+          value: widget.userObj.symptomsOfIllness
+              .contains(_categories['responseBody'][4]['category_name']),
+          onChanged: (bool selected) {
+            _onCategorySelected(selected,
+                _categories['responseBody'][4]['category_name']);
+            debugPrint('${widget.userObj.symptomsOfIllness}');
+          },
+          title: Text(_categories['responseBody'][4]['category_name']),
+        ),
+
         CheckboxListTile(
-            value: _otherCheck,
-            title: Text('Other'),
-            onChanged: (bool value) {
-              setState(() {
-                _feverCheck = value;
-              });
-            }),
+          value: widget.userObj.symptomsOfIllness
+              .contains(_categories['responseBody'][5]['category_name']),
+          onChanged: (bool selected) {
+            _onCategorySelected(selected,
+                _categories['responseBody'][5]['category_name']);
+            debugPrint('${widget.userObj.symptomsOfIllness}');
+          },
+          title: Text(_categories['responseBody'][5]['category_name']),
+        ),
+
       ]);
-    } else {
-      _coughCheck = false;
-      _diarrhoeaCheck = false;
-      _earDischargeCheck = false;
-      _feverCheck = false;
-      _rashesCheck = false;
-      _otherCheck = false;
+    }
+
+    else{
       return Text('');
     }
   }
