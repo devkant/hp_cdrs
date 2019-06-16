@@ -4,14 +4,14 @@ class Child {
   final String  district;
   final String  block;
   final String  address;
-  final String  phoneNumber;
+  final String  ashaName;
 
   Child(
     this.name,
     this.district,
     this.block,
     this.address,
-    this.phoneNumber,
+    this.ashaName,
   );
 
   Child.fromJson(Map<String,dynamic> json)
@@ -19,7 +19,7 @@ class Child {
         district  = json['district'],
         block = json['block'],
         address = json['address'],
-        phoneNumber = json['phoneNumber'];
+        ashaName = json['ashaName'];
 
 
 
@@ -28,7 +28,7 @@ class Child {
     'district': district,
     'block' : block,
     'address' : address,
-    'phoneNumber':  phoneNumber,
+    'ashaName':  ashaName,
   };
 
 }

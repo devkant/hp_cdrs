@@ -148,14 +148,9 @@ class _hpFormState extends State<hpForm> {
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
                     controller: phnNumberController,
-                    validator: (String value) {
-                      if (value.length != 10)
-                        return 'Please input a valid phone number';
-                    },
-                    keyboardType: TextInputType.numberWithOptions(),
                     decoration: InputDecoration(
-                        labelText: 'Phone Number',
-                        hintText: 'Phone Number',
+                        labelText: 'Asha Name',
+                        hintText: 'Asha Name',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         )),
@@ -181,11 +176,11 @@ class _hpFormState extends State<hpForm> {
                         var data  = {
                           'name': newEntry.name,
                           'district' :  newEntry.district,
-                          'block' : newEntry.block,
+                          'block' : "HAMIRPUR",
                           'address':  newEntry.address,
-                          'phoneNumber':newEntry.phoneNumber,
+                          'ashaName':newEntry.ashaName,
                         };
-                        var status  = await sendData('http://13.126.72.137/api/test',data);
+                        var status  = await sendData('http://13.126.72.137/api/asha',data);
                         if(!isOffline && status){
                           Navigator.of(context).pop(null);
                         }

@@ -54,24 +54,24 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
       fileExists = jsonFile.existsSync();
       if (fileExists) this.setState(() => jsonData = jsonFile.readAsStringSync());
       jsonData  = jsonData.replaceAll('}{','}_{');
-      print(jsonData);
       List<String> jsonList  = jsonData.split('_');
       for(int i=0;i<jsonList.length;i++){
         var temp  = json.decode(jsonList[i]);
+        print(temp);
         Child tempEntry = new Child(temp['name'],temp['district'],temp['block'],temp['address'],temp['phoneNumber']);
         var data  = {
           'name': tempEntry.name,
           'district' :  tempEntry.district,
           'block' : tempEntry.block,
           'address':  tempEntry.address,
-          'phoneNumber':tempEntry.phoneNumber,
+          'phoneNumber':tempEntry.ashaName,
         };
 
-        if(isOffline){
+        if(isOffline ){
           entries.add(tempEntry);
         }
         else{
-          sendData('http://13.126.72.137/api/test', data);
+          sendData('http://13.126.72.137/api/asha', data);
         }
 
         if(i==(jsonList.length-1) && !isOffline){
