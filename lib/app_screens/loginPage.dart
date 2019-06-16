@@ -22,30 +22,10 @@ class LoginPageState extends State<LoginPage> {
     await preferences.setString('LastScreenRoute', lastRoute);
   }
 
-  _displayDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('TextField in Dialog'),
-            content: TextField(
-              decoration: InputDecoration(hintText: "TextField in Dialog"),
-            ),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text('CANCEL'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
-  }
 
   @override
   Widget build(BuildContext context) {
-    var drawer  = Drawer();
+
     return WillPopScope(
       onWillPop: () {
         if(Navigator.canPop(context)){
@@ -157,7 +137,7 @@ class LoginPageState extends State<LoginPage> {
                               ),
 
                             ),
-                            onPressed: _displayDialog(context),
+
                           )
                         )
                       ],

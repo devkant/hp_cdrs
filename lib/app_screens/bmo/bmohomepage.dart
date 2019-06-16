@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:hp_cdrs/app_screens/bmo/page104.dart';
 import 'package:hp_cdrs/app_screens/bmo/completedpage.dart';
 import 'package:hp_cdrs/app_screens/bmo/pendingpage.dart';
+import 'package:hp_cdrs/common/apifunctions/requestLogoutAPI.dart';
+import 'package:hp_cdrs/app_screens/loginPage.dart';
+import 'package:hp_cdrs/app_screens/bmo/anmlist.dart';
+import 'package:hp_cdrs/app_screens/bmo/molist.dart';
 
 void main()=>runApp(MyApp());
 
@@ -24,10 +30,6 @@ class BMOhomepage extends StatefulWidget {
 
 class _BMOhomepageState extends State<BMOhomepage> with SingleTickerProviderStateMixin{
 
-  @override
-  void initState() {
-    _IsSearching = false;
-  }
   Widget appBarTitle =  Text(
     'Block Medical Officer( H.P. )',
     style: TextStyle(
@@ -53,7 +55,49 @@ class _BMOhomepageState extends State<BMOhomepage> with SingleTickerProviderStat
                 pending(),
                 completed(),
               ],
-            )
+            ),
+          drawer: Drawer(
+            child: ListView(children: <Widget>[
+              UserAccountsDrawerHeader(
+                //accountName: ,
+                currentAccountPicture: CircleAvatar(
+                  backgroundImage: AssetImage("assets/hpgovt.png"),
+                ),
+              ),
+              ListTile(title: Text("MO", style: TextStyle(
+                  color: Colors.black, fontSize: 20.0),),
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (BuildContext ctx) => Molist()));
+                },
+              ),
+              ListTile(title: Text("ANMs", style: TextStyle(
+                  color: Colors.black, fontSize: 20.0),),
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (BuildContext ctx) => Anmlist()));
+                },
+              ),
+              ListTile(title: Text("About", style: TextStyle(
+                  color: Colors.black, fontSize: 20.0),),
+                onTap: () {
+                  SystemChannels.textInput.invokeMethod('TextInput.hide');
+//              Here I have not implemented an actual about screen, but if you did you would navigate to it's route
+//              Navigator.of(context).pushReplacementNamed('/AboutScreen');
+                },
+              ),
+              ListTile(title: Text("Logout", style: TextStyle(
+                  color: Colors.black, fontSize: 20.0),),
+                onTap: () {
+                  requestLogoutAPI(context);
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (BuildContext ctx) => LoginPage()));
+                },
+              ),
+            ],
+            ),
+          ),
+
         ),
       ),
     );
