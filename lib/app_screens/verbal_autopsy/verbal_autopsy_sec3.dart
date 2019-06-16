@@ -160,6 +160,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                             showSnackBar('Please check the checkbox to proceed');
                           }
                           if(_formKey.currentState.validate() && _knowledgeCheck  ==  true){
+                            _formKey.currentState.save();
                             var data  = createMap(widget.verbal_Autopsy_Obj);
                             print(data);
                             var status  = await sendData('http://13.126.72.137/api/test',data);

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/user.dart';
+import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
+import 'package:hp_cdrs/connectionStatus.dart';
+import 'dart:async';
+import 'package:hp_cdrs/app_screens/mo/socialAutopsyFormStatus.dart';
 
 class SocialAutopsyD extends StatefulWidget {
   final User user;
@@ -25,6 +29,23 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
     ],
   };
 
+
+  StreamSubscription _connectionChangeStream;
+  bool isOffline = false;
+
+  void  initState() {
+    super.initState();
+    ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
+    _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
+  }
+
+  void connectionChanged(dynamic hasConnection) {
+    setState(() {
+      isOffline = !hasConnection;
+    });
+  }
+
+
   void _onCategorySelected(bool selected, String checkValue) {
     if (selected == true) {
       setState(() {
@@ -38,18 +59,35 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   }
 
   void _handleSubmitted() {
-    final FormState form = _formKey.currentState;
-    if (form.validate()) {
-      if(widget.user.availableSavings.isEmpty)
-        _showSnackBar('Please check atleast one checkbox');
-      else if(_declarationCheck == false)
-        _showSnackBar('Please check the declaration');
-      else
+    setState(()  async{
+      final FormState form = _formKey.currentState;
+      if (form.validate()) {
+        if(widget.user.availableSavings.isEmpty)
+          _showSnackBar('Please check atleast one checkbox');
+        else if(_declarationCheck == false)
+          _showSnackBar('Please check the declaration');
+        else
         {
           form.save();
+          var data  = createMap(widget.user);
+          print(data);
+          var status  = await sendData('',data);
+          if(!isOffline && status){
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    SocialAutopsyFormStatus(
+                      newEntry: null,)));
+          }
+          else{
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    SocialAutopsyFormStatus(
+                      newEntry: widget.user,)));
+          }
         }
-    }
-    _autoValidate = true;
+      }
+      _autoValidate = true;
+    });
   }
 
   void _showSnackBar(message) {
@@ -290,4 +328,93 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
           ),
         ])));
   }
+
+
+  Map createMap(User child) {
+    var data = {
+      'applicationNumber': child.applicationNumber,
+      'referenceId': child.referenceId,
+      'MCTS': child.MCTS,
+      'nameOfInformant': child.nameOfInformant,
+      'telephoneNumber': child.telephoneNumber,
+      'familyMembers': child.familyMembers,
+      'children': child.children,
+      'caste': child.caste,
+      'religion': child.religion,
+      'bplCard': child.bplCard,
+
+      'seekCareOutside': child.seekCareOutside,
+      'wasIllnessSerious': child.wasIllnessSerious,
+      'moneyNotAvailable': child.moneyNotAvailable,
+      'familyMembersNotAbleAccompany': child.familyMembersNotAbleAccompany,
+      'badWeather': child.badWeather,
+      'didNotKnowAboutInfant': child.didNotKnowAboutInfant,
+      'noHopeForSurvival': child.noHopeForSurvival,
+      'transportNotAvailable': child.transportNotAvailable,
+      'others': child.others,
+
+      'quack': child.quack,
+      'traditionalHealer': child.traditionalHealer,
+      'subCentre': child.subCentre,
+      'phc': child.phc,
+      'chc': child.chc,
+      'subDistrictHospital': child.subDistrictHospital,
+      'districtGovtHospital': child.districtGovtHospital,
+      'privateAllopathic': child.privateAllopathic,
+      'doctorAlternateSystem': child.doctorAlternateSystem,
+      'reasonForSeekingCare': child.reasonForSeekingCare,
+      'ashaAdviceOnHospitalTreatment': child.ashaAdviceOnHospitalTreatment,
+      'conditionWhenMedical': child.conditionWhenMedical,
+
+      'Hospital': child.Hospital,
+      'problem': child.problem,
+      'timeTaken': child.timeTaken,
+      'nil': child.nil,
+      'firstAid': child.firstAid,
+      'otherspecify': child.otherspecify,
+      'lackOfSpecialists': child.lackOfSpecialists,
+      'lackOfEquipments': child.lackOfEquipments,
+      'othersreason': child.othersreason,
+      'transportModeInGovt': child.transportModeInGovt,
+      'transportModeInPrivate': child.transportModeInPrivate,
+      'reasonForOtherInstitution': child.reasonForOtherInstitution,
+      'reasonForOtherInstitutionDecision': child.reasonForOtherInstitutionDecision,
+      'timeTakenForTreatment': child.timeTakenForTreatment,
+
+      'informalPayment': child.informalPayment,
+      'mobilizingSpecialists': child.mobilizingSpecialists,
+      'workersNotAvailable': child.workersNotAvailable,
+      'patientRush': child.patientRush,
+      'doctorNotAvailable': child.doctorNotAvailable,
+      'moneyProblem': child.moneyProblem,
+      'investigationsNotDone': child.investigationsNotDone,
+      'otherProblem': child.otherProblem,
+
+      'reasonDischargedAgainstMedicalAdvice': child.reasonDischargedAgainstMedicalAdvice,
+      'dischargedAgainstMedicalAdvice': child.dischargedAgainstMedicalAdvice,
+      'circumstancesDischargeBaby': child.circumstancesDischargeBaby,
+      'dischargeOnBehalf': child.dischargeOnBehalf,
+      'babyDiedBeforeDischarge': child.babyDiedBeforeDischarge,
+      'dischargeDueDissatisfactionTreatment': child.dischargeDueDissatisfactionTreatment,
+      'reasonAgainstdischargedMedicalAdvice': child.reasonAgainstdischargedMedicalAdvice,
+
+      'wasGirlInfant': child.wasGirlInfant,
+      'ifGirlWasBoy': child.ifGirlWasBoy,
+      'alcohol': child.alcohol,
+      'tobacco': child.tobacco,
+      'domesticAbuseMother': child.domesticAbuseMother,
+      'dangerSignsWhenNewborn': child.dangerSignsWhenNewborn,
+      'listItem': child.listItem,
+      'hospitalWhereNewbornTreated': child.hospitalWhereNewbornTreated,
+      'nameOfFacilities': child.nameOfFacilities,
+
+      'treatment': child.treatment,
+      'transport': child.transport,
+      'othersamount': child.othersamount,
+      'total': child.total,
+      'availableSavings': child.availableSavings,
+    };
+    return data;
+  }
+
 }
