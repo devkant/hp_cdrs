@@ -28,23 +28,21 @@ class Listview extends StatefulWidget {
 class _ListviewState extends State<Listview> {
 
   Map user;
-  List appli;
-  List completed;
+  List appli=[];
+  List completed=[];
 
   Future getData() async {
     http.Response response = await http.get("http://13.126.72.137/api/104PreviousForms");
     user = json.decode(response.body);
-
     setState(() {
       appli = user["docs"];
-      debugPrint(appli.toString());
     });
-
+    String display;
     for(int i=0;i<appli.length;i++){
-      print(appli[i]["mo"]);
       if(appli[i]["mo"]!=null){
         completed.add(appli[i]);
       }
+
     };
   }
 
@@ -52,6 +50,7 @@ class _ListviewState extends State<Listview> {
   void initState() {
     super.initState();
     getData();
+
   }
 
 
@@ -59,29 +58,34 @@ class _ListviewState extends State<Listview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: completed == null ? 0 : completed.length,
-        itemBuilder: (BuildContext context, index) {
-          if(true) {
+        body: ListView.builder(
+
+          itemCount: completed == null ? 0 : completed.length,
+          itemBuilder: (BuildContext context, int index) {
             return ListTile(
+
+
+              trailing: CircleAvatar(
+                backgroundImage: AssetImage("assets/hpgovt.png"),
+              ),
               title: Text("${completed[index]["application"]}",
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.w700,
                 ),),
-              subtitle: Text("${completed[index]["ashaName"]}"),
+              subtitle: Text("Medical Officer :  ${completed[index]['mo']}"),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context) => DetailPage(completed[index]))
                 );
               },
             );
-          }
-        },
-      ),
+          },
+        )
     );
   }
 }
+
 
 class DetailPage extends StatelessWidget {
 
@@ -96,44 +100,82 @@ class DetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("104"),
       ),
-      body: ListView(
-        children: <Widget>[
-          Text(appli["application"].toString(),
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w300,
+      body: Padding(
+        padding: EdgeInsets.only(top: 10.0,left: 10.0,bottom: 15.0),
+        child: ListView(
+          children: <Widget>[
+            Text("Application Number : ${appli["application"].toString()}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
             ),
-          ),
-          Text(appli["name"],
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w300,
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("Name : ${appli["name"]}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
             ),
-          ),
-          Text(appli["ashaName"],
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w300,
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("Address : ${appli["address"]}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
             ),
-          ),
-          Text(appli["district"],
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w300,
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("Block : ${appli["block"]}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
             ),
-          ),
-          Text(appli["block"],
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w300,
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("District : ${appli["district"]}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
             ),
-          ),
-
-        ],
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("Asha : ${appli["ashaName"]}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("ANM Assigned : ${appli["anmAssigned"]}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("ANM Officer: ${appli["anm"]}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("MO Assigned : ${appli["moAssigned"]}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("MO : ${appli["mo"]}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
-
-

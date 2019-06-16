@@ -255,4 +255,58 @@ class _Form5State extends State<Form5> {
     }
   }
 
+  Map createMap(User child) {
+    var data = {
+
+      'applicationNumber': child.applicationNumber,
+      // User reference
+
+      //Background Information
+      'name': child.name,
+      'age.years': child.age.years,
+      'age.months': child.age.months,
+      'age.days': child.age.days,
+      'sex': child.gender,
+      'address.pincode': child.address.pincode,
+      'address.district': child.address.district,
+      'address.block': child.address.block,
+      'address.area': child.address.area,
+      'orderOfBirth': child.orderOfBirth,
+      'caste' : child.caste,
+      'immunization': child.immunization,
+      'bplCard': child.bplCard,
+      'weight': child.weight,
+      'growthCurve': child.growthCurve,
+      'pastIllness': child.pastIllness,
+      //natureOfIllness: { type: String },
+
+      // Symptoms during Illness
+      'inabilityToFeed': child.inabilityToFeed,
+      'fever': child.fever,
+      'looseStools': child.looseStools,
+      'vomiting': child.vomiting,
+      'fastBreathing': child.fastBreathing,
+      'convulsions': child.convulsions,
+      'appearanceOfSkinRashes': child.appearanceOfSkinRashes,
+      'injury': child.injury,
+      'otherSymptom': child.otherSymptoms,
+
+      // Details of treatment
+      'treatmentTaken': child.treatmentTaken,
+      'treatmentLocation': child.treatmentLocation,
+
+      'Probable': child.probable,
+      'disease': child.disease,
+
+      // According to the respondent, cause of death
+      'causeOfDeath': child.causeOfDeath,
+
+      // Occurence of delay
+      'delay': child.delay,
+
+      // Advice according to analysis
+      'advice': child.advice,
+
+    };
+  }
 }

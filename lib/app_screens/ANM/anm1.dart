@@ -343,7 +343,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "7. Order of Birth:  ",
+                        "8. Order of Birth:  ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -372,7 +372,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "8. Caste:  ",
+                        "9. Caste:  ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -402,7 +402,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "9. ",
+                        "10. ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -438,7 +438,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Text(
-                    "10. Immunization Status: ",
+                    "11. Immunization Status: ",
                     style: TextStyle(fontSize: 18.0),
                   ),
                 ), //Immunization Status
@@ -498,7 +498,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     children: <Widget>[
 
                       Text(
-                        "11. ",
+                        "12. ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                       Flexible(
@@ -528,7 +528,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "12. ",
+                        "13. ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -566,7 +566,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "13. Any Past Illness: ",
+                        "14. Any Past Illness: ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
