@@ -12,6 +12,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _autoValidate = false;
+  bool _declarationCheck = false;
   Map<String, dynamic> _categories = {
     "responseBody": [
       {"category_name": 'Available / Savings'},
@@ -41,6 +42,8 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
     if (form.validate()) {
       if(widget.user.availableSavings.isEmpty)
         _showSnackBar('Please check atleast one checkbox');
+      else if(_declarationCheck == false)
+        _showSnackBar('Please check the declaration');
       else
         {
           form.save();
@@ -64,6 +67,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
           title: Text('Expenditure History'),
         ),
         body: Container(
+            width: MediaQuery.of(context).size.width,
             child: Builder(
                 builder: (context) => Form(
                     key: this._formKey,
@@ -72,7 +76,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
                         child: Column(children: <Widget>[
                       _question18(),
                       _question19(),
-
+                      _declaration(),
                       Padding(
                         padding: EdgeInsets.all(20.0),
                         child: RaisedButton(
@@ -87,6 +91,29 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
                         ),
                       ),
                     ]))))));
+  }
+
+  Widget _declaration() {
+    return Container(
+        width: MediaQuery.of(context).size.width,
+    color: Colors.green.shade50,
+    margin: EdgeInsets.all(10.0),
+    child: SingleChildScrollView(
+    child: Column(children: <Widget>[
+      Padding(
+        padding: EdgeInsets.all(10.0),
+        child: CheckboxListTile(
+            value: _declarationCheck,
+            title: Text('I hereby state that all the details filled'
+                ' above are best and true to my knowledge.'),
+            onChanged: (bool value) {
+              setState(() {
+                _declarationCheck = value;
+              });
+            }),
+      ),
+      ]
+    )));
   }
 
   Widget _question18() {

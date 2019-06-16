@@ -31,6 +31,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
           title: Text('Treatment seeking history'),
         ),
         body: Container(
+            width: MediaQuery.of(context).size.width,
             child: Builder(
                 builder: (context) => Form(
                   key: this._formKey,
@@ -73,8 +74,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                               onSaved: (value) {
-                                                if(value == null) widget.user.transportModeInGovt.add("");
-                                                else widget.user.transportModeInGovt.add(value);
+                                                if(value != null) widget.user.transportModeInGovt[0] = value;
                                               },))
                                       ]),
                                       TableRow(children: [
@@ -98,8 +98,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.transportModeInGovt.add("");
-                                                  else widget.user.transportModeInGovt.add(value);
+                                                  if(value != null) widget.user.transportModeInGovt[1] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -123,8 +122,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.transportModeInGovt.add("");
-                                                  else widget.user.transportModeInGovt.add(value);
+                                                  if(value != null) widget.user.transportModeInGovt[2] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -148,8 +146,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.transportModeInGovt.add("");
-                                                  else widget.user.transportModeInGovt.add(value);
+                                                  if(value != null) widget.user.transportModeInGovt[3] = value;
                                                 }))
                                       ])
                                     ],
@@ -193,8 +190,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.transportModeInPrivate.add("");
-                                                  else widget.user.transportModeInPrivate.add(value);
+                                                  if(value != null) widget.user.transportModeInPrivate[0] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -218,8 +214,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.transportModeInPrivate.add("");
-                                                  else widget.user.transportModeInPrivate.add(value);
+                                                  if(value != null) widget.user.transportModeInPrivate[1] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -243,8 +238,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.transportModeInPrivate.add("");
-                                                  else widget.user.transportModeInPrivate.add(value);
+                                                  if(value != null) widget.user.transportModeInPrivate[2] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -268,8 +262,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.transportModeInPrivate.add("");
-                                                  else widget.user.transportModeInPrivate.add(value);
+                                                  if(value != null) widget.user.transportModeInPrivate[3] = value;
                                                 }))
                                       ])
                                     ],
@@ -313,8 +306,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.reasonForOtherInstitution.add("");
-                                                  else widget.user.reasonForOtherInstitution.add(value);
+                                                  if(value != null) widget.user.reasonForOtherInstitution[0] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -338,8 +330,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.reasonForOtherInstitution.add("");
-                                                  else widget.user.reasonForOtherInstitution.add(value);
+                                                  if(value != null) widget.user.reasonForOtherInstitution[1] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -363,8 +354,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.reasonForOtherInstitution.add("");
-                                                  else widget.user.reasonForOtherInstitution.add(value);
+                                                  if(value != null) widget.user.reasonForOtherInstitution[2] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -388,8 +378,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.reasonForOtherInstitution.add("");
-                                                  else widget.user.reasonForOtherInstitution.add(value);
+                                                  if(value != null) widget.user.reasonForOtherInstitution[3] = value;
                                                 }))
                                       ])
                                     ],
@@ -433,8 +422,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.reasonForOtherInstitutionDecision.add("");
-                                                  else widget.user.reasonForOtherInstitutionDecision.add(value);
+                                                  if(value != null) widget.user.reasonForOtherInstitutionDecision[0] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -458,8 +446,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.reasonForOtherInstitutionDecision.add("");
-                                                  else widget.user.reasonForOtherInstitutionDecision.add(value);
+                                                  if(value != null) widget.user.reasonForOtherInstitutionDecision[1] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -483,8 +470,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.reasonForOtherInstitutionDecision.add("");
-                                                  else widget.user.reasonForOtherInstitutionDecision.add(value);
+                                                  if(value != null) widget.user.reasonForOtherInstitutionDecision[2] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -508,8 +494,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.reasonForOtherInstitutionDecision.add("");
-                                                  else widget.user.reasonForOtherInstitutionDecision.add(value);
+                                                  if(value != null) widget.user.reasonForOtherInstitutionDecision[3] = value;
                                                 }))
                                       ])
                                     ],
@@ -553,8 +538,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.timeTakenForTreatment.add("");
-                                                  else widget.user.timeTakenForTreatment.add(value);
+                                                  if(value != null) widget.user.timeTakenForTreatment[0] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -577,8 +561,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.timeTakenForTreatment.add("");
-                                                  else widget.user.timeTakenForTreatment.add(value);
+                                                  if(value != null) widget.user.timeTakenForTreatment[1] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -601,8 +584,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.timeTakenForTreatment.add("");
-                                                  else widget.user.timeTakenForTreatment.add(value);
+                                                  if(value != null) widget.user.timeTakenForTreatment[2] = value;
                                                 }))
                                       ]),
                                       TableRow(children: [
@@ -625,8 +607,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                                 .circular(
                                                                     8.0))),
                                                 onSaved: (value) {
-                                                  if(value == null) widget.user.timeTakenForTreatment.add("");
-                                                  else widget.user.timeTakenForTreatment.add(value);
+                                                  if(value != null) widget.user.timeTakenForTreatment[3] = value;
                                                 }))
                                       ])
                                     ],
@@ -718,8 +699,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                     BorderRadius.circular(
                                                         8.0))),
                                         onSaved: (value) {
-                                if(value == null) widget.user.otherProblem.add("");
-                                else widget.user.otherProblem.add(value);
+                                if(value != null) widget.user.otherProblem[0] = value;
                                 }))
                               ]),
                             ),
@@ -738,56 +718,69 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                   title: Text('Informal Payment'),
                                   value: widget.user.informalPayment[1],
                                     onChanged: (value) {
-                                      widget.user.informalPayment[1] = value;
+                                      setState(() {
+                                        widget.user.informalPayment[1] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Mobilizing Specialists'),
                                   value: widget.user.mobilizingSpecialists[1],
                                     onChanged: (value) {
-                                      widget.user.mobilizingSpecialists[1] = value;
+                                      setState(() {
+                                        widget.user.mobilizingSpecialists[1] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Paramedical workers not available'),
                                   value: widget.user.workersNotAvailable[1],
                                     onChanged: (value) {
-                                      widget.user.workersNotAvailable[1] = value;
+                                      setState(() {
+                                        widget.user.workersNotAvailable[1] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Too much patient rush'),
                                   value: widget.user.patientRush[1],
                                     onChanged: (value) {
-                                      widget.user.patientRush[1] = value;
+                                      setState(() {
+                                        widget.user.patientRush[1] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Doctor not available'),
                                   value: widget.user.doctorNotAvailable[1],
                                     onChanged: (value) {
-                                      widget.user.doctorNotAvailable[1] = value;
+                                      setState(() {
+                                        widget.user.doctorNotAvailable[1] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Money Problem'),
                                   value: widget.user.moneyProblem[1],
                                     onChanged: (value) {
-                                      widget.user.moneyProblem[1] = value;
+                                      setState(() {
+                                        widget.user.moneyProblem[1] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Investigations could not be done'),
                                   value: widget.user.investigationsNotDone[1],
                                     onChanged: (value) {
-                                      widget.user.investigationsNotDone[1] = value;
+                                      setState(() {
+                                        widget.user.investigationsNotDone[1] = value;
+                                      });
                                     }
                                 ),
                                 Padding(
                                     padding:
                                     EdgeInsets.symmetric(vertical: 2.0),
                                     child: TextFormField(
-                                        keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
                                             labelText: 'Others (Specify..)',
                                             border: OutlineInputBorder(
@@ -795,8 +788,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                 BorderRadius.circular(
                                                     8.0))),
                                         onSaved: (value) {
-                                          if(value == null) widget.user.otherProblem.add("");
-                                          else widget.user.otherProblem.add(value);
+                                          if(value != null) widget.user.otherProblem[1] = value;
                                         }))
                               ]),
                             ),
@@ -815,56 +807,69 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                   title: Text('Informal Payment'),
                                   value: widget.user.informalPayment[2],
                                     onChanged: (value) {
-                                      widget.user.informalPayment[2] = value;
+                                      setState(() {
+                                        widget.user.informalPayment[2] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Mobilizing Specialists'),
                                   value: widget.user.mobilizingSpecialists[2],
                                     onChanged: (value) {
-                                      widget.user.mobilizingSpecialists[2] = value;
+                                      setState(() {
+                                        widget.user.mobilizingSpecialists[2] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Paramedical workers not available'),
                                   value: widget.user.workersNotAvailable[2] ,
                                     onChanged: (value) {
-                                      widget.user.workersNotAvailable[2] = value;
+                                      setState(() {
+                                        widget.user.workersNotAvailable[2] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Too much patient rush'),
                                   value: widget.user.patientRush[2],
                                     onChanged: (value) {
-                                      widget.user.patientRush[2] = value;
+                                      setState(() {
+                                        widget.user.patientRush[2] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Doctor not available'),
                                   value: widget.user.doctorNotAvailable[2],
                                     onChanged: (value) {
-                                      widget.user.doctorNotAvailable[2] = value;
+                                      setState(() {
+                                        widget.user.doctorNotAvailable[2] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Money Problem'),
                                   value: widget.user.moneyProblem[2],
                                     onChanged: (value) {
-                                      widget.user.moneyProblem[2] = value;
+                                     setState(() {
+                                       widget.user.moneyProblem[2] = value;
+                                     });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Investigations could not be done'),
                                   value: widget.user.investigationsNotDone[2],
                                     onChanged: (value) {
-                                      widget.user.investigationsNotDone[2] = value;
+                                      setState(() {
+                                        widget.user.investigationsNotDone[2] = value;
+                                      });
                                     }
                                 ),
                                 Padding(
                                     padding:
                                     EdgeInsets.symmetric(vertical: 2.0),
                                     child: TextFormField(
-                                        keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
                                             labelText: 'Others (Specify..)',
                                             border: OutlineInputBorder(
@@ -872,8 +877,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                 BorderRadius.circular(
                                                     8.0))),
                                         onSaved: (value) {
-                                          if(value == null) widget.user.otherProblem.add("");
-                                          else widget.user.otherProblem.add(value);
+                                          if(value != null) widget.user.otherProblem[2] = value;
                                         }))
                               ]),
                             ),
@@ -892,56 +896,69 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                   title: Text('Informal Payment'),
                                   value: widget.user.informalPayment[3],
                                     onChanged: (value) {
-                                      widget.user.informalPayment[3] = value;
+                                      setState(() {
+                                        widget.user.informalPayment[3] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Mobilizing Specialists'),
                                   value: widget.user.mobilizingSpecialists[3],
                                     onChanged: (value) {
-                                      widget.user.mobilizingSpecialists[3] = value;
+                                      setState(() {
+                                        widget.user.mobilizingSpecialists[3] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Paramedical workers not available'),
                                   value: widget.user.workersNotAvailable[3],
                                     onChanged: (value) {
-                                      widget.user.workersNotAvailable[3] = value;
+                                      setState(() {
+                                        widget.user.workersNotAvailable[3] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Too much patient rush'),
                                   value: widget.user.patientRush[3],
                                     onChanged: (value) {
-                                      widget.user.patientRush[3] = value;
+                                      setState(() {
+                                        widget.user.patientRush[3] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Doctor not available'),
                                   value: widget.user.doctorNotAvailable[3],
                                     onChanged: (value) {
-                                      widget.user.doctorNotAvailable[3] = value;
+                                      setState(() {
+                                        widget.user.doctorNotAvailable[3] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Money Problem'),
                                   value: widget.user.moneyProblem[3],
                                     onChanged: (value) {
-                                      widget.user.moneyProblem[3] = value;
+                                      setState(() {
+                                        widget.user.moneyProblem[3] = value;
+                                      });
                                     }
                                 ),
                                 CheckboxListTile(
                                   title: Text('Investigations could not be done'),
                                   value: widget.user.investigationsNotDone[3],
                                     onChanged: (value) {
-                                      widget.user.investigationsNotDone[3] = value;
+                                      setState(() {
+                                        widget.user.investigationsNotDone[3] = value;
+                                      });
                                     }
                                 ),
                                 Padding(
                                     padding:
                                     EdgeInsets.symmetric(vertical: 2.0),
                                     child: TextFormField(
-                                        keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
                                             labelText: 'Others (Specify..)',
                                             border: OutlineInputBorder(
@@ -949,8 +966,7 @@ class SocialAutopsyB3State extends State<SocialAutopsyB3> {
                                                 BorderRadius.circular(
                                                     8.0))),
                                         onSaved: (value) {
-                                          if(value == null) widget.user.otherProblem.add("");
-                                          else widget.user.otherProblem.add(value);
+                                          if(value != null) widget.user.otherProblem[3] = value;
                                         }))
                               ]),
                             ),

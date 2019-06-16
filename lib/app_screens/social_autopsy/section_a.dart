@@ -24,17 +24,17 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
   void _handleSubmitted() {
     final FormState form = _formKey.currentState;
     if (form.validate()) {
-      if (widget.user.bplCard == '')
-        _showSnackBar('Please fill your BPL status');
-      else
-        {
+//      if (widget.user.bplCard == '')
+//        _showSnackBar('Please fill your BPL status');
+//      else
+//        {
           form.save();
           Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => (SocialAutopsyB1(user:widget.user))),
           );
-        }
+//        }
     }
     else
       _autoValidate = true;
@@ -62,9 +62,9 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
         key: _scaffoldKey,
         appBar: AppBar(
           title: Text('Background Information'),
-          backgroundColor: Colors.cyan,
         ),
         body: Container(
+          width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
           child: Builder(
             builder: (context) => Form(
@@ -87,7 +87,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                         Padding(
                             padding: EdgeInsets.only(top: 10.0),
                             child: TextFormField(
-                              keyboardType: TextInputType.phone,
+                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   labelText: '2) Telephone/Mobile Number',
                                   border: OutlineInputBorder(
