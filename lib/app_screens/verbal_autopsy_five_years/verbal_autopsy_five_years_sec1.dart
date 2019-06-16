@@ -464,8 +464,6 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                           ),
                         ),
 
-
-
                         //8th user input element start
                         Padding(
                           padding: EdgeInsets.all(10.0),
@@ -485,35 +483,6 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                             ),
                           ]),
                         ),
-//                  Padding(
-//                      padding: EdgeInsets.all(10.0),
-//                      child: Row(
-//                        mainAxisAlignment: MainAxisAlignment.center,
-//                        children: <Widget>[
-//                          Text(
-//                            'Less than 1 year',
-//                            style: TextStyle(fontSize: 16.0),
-//                          ),
-//                          Radio(
-//                            value: 'Less than 1 year',
-//                            groupValue: widget.userObj.ageDays,
-//                            onChanged: (String newRadioSelected) {
-//                              _onCompletedDaysRadioSelect(newRadioSelected);
-//                            },
-//                          ),
-//                          Text(
-//                            'More than 1 year',
-//                            style: TextStyle(fontSize: 16.0),
-//                          ),
-//                          Radio(
-//                            value: 'More than 1 year',
-//                            groupValue: widget.userObj.ageDays,
-//                            onChanged: (String newRadioSelected) {
-//                              _onCompletedDaysRadioSelect(newRadioSelected);
-//                            },
-//                          )
-//                        ],
-//                      )),
 
                         RadioListTile(
                           title: Text('Less than 1 year'),
