@@ -14,6 +14,6 @@ Future<void> main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var name = prefs.getString('LastUser');
   var role  = prefs.getString('LastUserId');
-  print(name);
-  runApp(MaterialApp(home: name == null ? LoginPage() : HomeScreen(role)));
+  print(role);
+  runApp(MaterialApp(home: role == null ? LoginPage() : HomeScreen(role)));
 }
