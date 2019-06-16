@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'user.dart';
+import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
+import 'package:hp_cdrs/connectionStatus.dart';
+import 'dart:async';
+import 'package:hp_cdrs/app_screens/mo/neoFormStatus.dart';
 
 
 //void main() {
@@ -18,10 +22,12 @@ class verbalAutopsySec3 extends StatefulWidget {
   }
 }
 
-class _verbalAutopsySec3State
-    extends State<verbalAutopsySec3> {
+class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
   var _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  StreamSubscription _connectionChangeStream;
+  bool isOffline = false;
 
 //  String langCodeController = '';
 //  String narrativeController = '';
@@ -31,6 +37,18 @@ class _verbalAutopsySec3State
 //  DateTime _interviewDate = DateTime.now();
 
   bool _knowledgeCheck = false;
+
+  void  initState() {
+    super.initState();
+    ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
+    _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
+  }
+
+  void connectionChanged(dynamic hasConnection) {
+    setState(() {
+      isOffline = !hasConnection;
+    });
+  }
 
 
   @override
@@ -136,13 +154,27 @@ class _verbalAutopsySec3State
                         style: TextStyle(fontSize: 15.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        setState(() {
+                        setState(() async{
                           if ( _knowledgeCheck == false) {
                             // The checkbox wasn't checked
                             showSnackBar('Please check the checkbox to proceed');
                           }
-                          if(_formKey.currentState.validate()){
-
+                          if(_formKey.currentState.validate() && _knowledgeCheck  ==  true){
+                            var data  = createMap(widget.verbal_Autopsy_Obj);
+                            print(data);
+                            var status  = await sendData('http://13.126.72.137/api/test',data);
+                            if(!isOffline && status){
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      neoFormsStatus(
+                                        newEntry: null,)));
+                            }
+                            else{
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      neoFormsStatus(
+                                        newEntry: widget.verbal_Autopsy_Obj,)));
+                            }
                           }
                         });
                       },
@@ -166,6 +198,98 @@ class _verbalAutopsySec3State
       ),
     );
     _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+  Map createMap(user child){
+    var data  = {
+      'applicationNumber' : child.applicationNumber,
+      'district': child.district,
+      'block': child.block,
+      'village': child.village,
+      'phc': child.phc,
+      'subCenter': child.subCenter,
+      'rhc': child.rhc,
+      'year': child.year,
+      'head': child.head,
+      'name': child.name,
+      'mother': child.mother,
+
+      // Details of respondent
+      'respondent': child.respondent,
+      'relationship': child.relationship,
+      'liveWith': child.liveWith,
+      'respondentEducation': child.respondentEducation,
+      'category': child.category,
+      'religion': child.religion,
+
+      // Details of deceased
+      'sex': child.sex,
+      'ageInDays': child.ageInDays,
+      'dob': child.dob,
+      'dod': child.dod,
+      'address': child.address,
+      'pin': child.pin,
+      'placeOfDeath': child.placeOfDeath,
+      'probableCause': child.probableCause,
+
+      // Neonatal
+      'injury': child.injury,
+      'kindOfInjury': child.kindOfInjury,
+      'pregnancyDuration': child.pregnancyDuration,
+      'mothersAge': child.mothersAge,
+      'td': child.td,
+      'complications': child.complications,
+      'complicationsType': child.complicationsType,
+      'singleOrMultiple': child.singleOrMultiple,
+      'birthPlace': child.birthPlace,
+      'attendedDelivery': child.attendedDelivery,
+      'umbilicalCord': child.umbilicalCord,
+
+      // After Birth
+      'moveCryBreathe': child.moveCryBreathe,
+      'bruises': child.bruises,
+      'malformations': child.malformations,
+      'size': child.size,
+      'weight': child.weight,
+      'stopCry': child.stopCry,
+      'daysAfterStoppedCrying': child.daysAfterStoppedCrying,
+      'firstBreastfed': child.firstBreastfed,
+      'otherThanBreastMilk': child.otherThanBreastMilk,
+      'suckleNormally': child.suckleNormally,
+      'StopSuckingInNormalWay': child.StopSuckingInNormalWay,
+      'CompletedDays': child.CompletedDays,
+
+      // Details of sickness at death
+      'fever': child.fever,
+      'feverDays': child.feverDays,
+      'difficultyBreathing': child.difficultyBreathing,
+      'difficultyBreathingDays': child.difficultyBreathingDays,
+      'fastBreathing': child.fastBreathing,
+      'fastBreathingDays': child.fastBreathingDays,
+      'inDrawingChest': child.inDrawingChest,
+      'cough': child.cough,
+      'grunting': child.grunting,
+      'nostrilsFlare': child.nostrilsFlare,
+      'diarrhoea': child.diarrhoea,
+      'diarrhoeaDays': child.diarrhoeaDays,
+      'vomit': child.vomit,
+      'vomitDays': child.vomitDays,
+      'rednessAroundUmbilicalCord': child.rednessAroundUmbilicalCord,
+      'pustulesRashes': child.pustulesRashes,
+      'yellowEyesOrSkin': child.yellowEyesOrSkin,
+      'spasmsOrFits': child.spasmsOrFits,
+      'unresponsiveOrUnconscious': child.unresponsiveOrUnconscious,
+      'bulgingFontanelle': child.bulgingFontanelle,
+      'cold': child.cold,
+      'legsDiscoloured': child.legsDiscoloured,
+      'yellow': child.yellow,
+      'blood' : child.blood,
+      'narrativeLanguageCode': child.narrativeLanguageCode,
+
+      'symptoms': child.symptoms,
+//date: { day: { type: Number }, month: { type: Number }, year: { type: Number } }
+    };
+    return data;
   }
 
 }
