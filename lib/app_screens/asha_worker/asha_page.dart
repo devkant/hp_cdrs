@@ -31,6 +31,7 @@ class _hpFormState extends State<hpForm> {
   var _formKey = GlobalKey<FormState>();
   var _districtName = ['BILASPUR', 'CHAMBA', 'HAMIRPUR', 'KANGRA', 'KINNAUR',
     'KULLU', 'LAHAUL AND SPITI', 'MANDI', 'SHIMLA', 'SIRMAUR', 'SOLAN', 'UNA'];
+
   var _currentSelectedDistrict = '';
 
   @override
@@ -104,28 +105,31 @@ class _hpFormState extends State<hpForm> {
                 ),
                 Row(children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.only(left:20.0),
-                      child:Text('District:', style:
-                      TextStyle(fontSize: 18.0),)
+                    padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                    child: Text('District:', style: TextStyle(fontSize: 18.0),),
                   ),
+
+
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0),
                       child: DropdownButton<String>(
-                          items: _districtName.map((String value1) {
-                            return DropdownMenuItem<String>(
-                              value: value1,
-                              child: Text(value1),
-                            );
-                          }).toList(),
-                          value: _currentSelectedDistrict,
-                          onChanged: (String newSelectedDistrict) {
-                            _onDropDownDistrictSelected(newSelectedDistrict);
-                          }))
+                        hint: Text('Select here'),
+                        items: _districtName.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        value: _currentSelectedDistrict,
+                        onChanged: (String newSelectedValue) {
+                          setState(() {
+                            _onDropDownDistrictSelected(newSelectedValue);
+                          });
+
+                        },
+                      )),
                 ]),
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: block(),
-                ),
+
 
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -203,22 +207,6 @@ class _hpFormState extends State<hpForm> {
           )),
     );
 
-  }
-
-  Widget  block() {
-    if(_currentSelectedDistrict ==  'HAMIRPUR'){
-      return  DropdownButton<String>(
-          items: _districtName.map((String value1) {
-            return DropdownMenuItem<String>(
-              value: value1,
-              child: Text(value1),
-            );
-          }).toList(),
-          value: _currentSelectedDistrict,
-          onChanged: (String newSelectedDistrict) {
-            _onDropDownDistrictSelected(newSelectedDistrict);
-          });
-    }
   }
 
 
