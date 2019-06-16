@@ -4,13 +4,21 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 import 'package:hp_cdrs/app_screens/verbal_autopsy/user.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
+import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
+import 'package:hp_cdrs/app_screens/verbal_autopsy/verbal_autopsy_form.dart';
 
-class FormsStatus extends StatefulWidget {
+class neoFormsStatus extends StatefulWidget {
+  final user newEntry;
+  neoFormsStatus({Key key, @required this.newEntry}):super(key: key);
   @override
-  _FormsStatusState createState() => _FormsStatusState();
+  State<StatefulWidget> createState() {
+    return _neoFormsStatusState();
+  }
 }
 
-class _FormsStatusState extends State<FormsStatus> {
+class _neoFormsStatusState extends State<neoFormsStatus> {
 
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
@@ -28,8 +36,42 @@ class _FormsStatusState extends State<FormsStatus> {
   void  initState(){
     super.initState();
 
+    if(widget.newEntry!=null){
+      setState(() {
+        entries.add(widget.newEntry);
+        writeToFile(widget.newEntry);
+      });
+    }
+
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
     _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
+
+    getApplicationDocumentsDirectory().then((Directory directory){
+      dir = directory;
+      jsonFile = new File(dir.path + "/" + fileName);
+      fileExists = jsonFile.existsSync();
+      if (fileExists) this.setState(() => jsonData = jsonFile.readAsStringSync());
+      jsonData  = jsonData.replaceAll('}{','}_{');
+      List<String> jsonList  = jsonData.split('_');
+      for(int i=0;i<jsonList.length;i++)  {
+        var temp  = json.decode(jsonList[i]);
+        print(temp);
+        if(isOffline ){
+          entries.add(temp);
+        }
+        else{
+          sendData('http://13.126.72.137/api/asha', temp);
+        }
+
+        if(i==(jsonList.length-1) && !isOffline){
+          clearFile();
+        }
+      }
+      print(jsonList);
+
+
+
+    });
 
 
   }
@@ -69,10 +111,39 @@ class _FormsStatusState extends State<FormsStatus> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Forms Pending'),
+        title:  Text('Forms Pending'),
       ),
+      drawer: BasicDrawer(),
+      body: ListView.builder(
+          itemCount: entries.length,
+          itemBuilder: (BuildContext  context,  int index)  {
+            return  Card(
+              child: ListTile(
+                title: Text("Name: "+entries[index].name),
+                leading: Icon(Icons.contacts),
+              ),
+            );
+          }
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        tooltip: 'Add new Entry',
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => verbalAutopsyForm(),
+            ),
+          );
+
+
+        },
+      ),
+
     );
   }
 }
