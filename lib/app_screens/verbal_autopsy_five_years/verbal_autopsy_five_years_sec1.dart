@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'user.dart';
+import 'verbal_autopsy_five_years_sec2_p1.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Verbal Autopsy Form Section 1',
-    home: _verbalAutopsy5YrFormSec1(),
-  ));
-}
+//void main() {
+//  runApp(MaterialApp(
+//    title: 'Verbal Autopsy Form Section 1',
+//    home: verbalAutopsy5YrSec1(),
+//  ));
+//}
 
-class _verbalAutopsy5YrFormSec1 extends StatefulWidget {
+class verbalAutopsy5YrSec1 extends StatefulWidget {
+  final User userObj;
+  verbalAutopsy5YrSec1({Key key, @required this.userObj}):super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsy5YrFormSec1State();
+    return _verbalAutopsy5YrSec1State();
   }
 }
 
-class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
+class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
   var _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 
   //date time obj declarations
@@ -25,10 +30,12 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
 
 
   //list declarations for radio buttons
-  var _respondentRadioList = ['Yes', 'No', 'Unknown'];
-  var _deceasedRadioList = ['Male', 'Female'];
+  var _yesNoList = ['Yes', 'No', 'Unknown'];
+  var _deceasedSexRadioList = ['Male', 'Female'];
   var _completedDaysRadio = ['Less than 1 year', 'More than 1 year'];
 
+  var displayDOB = 'Select here';
+  var displayDOD = 'Select here';
 
   //list declarations for drop down menus
   var _relationWithDeceased = [
@@ -74,37 +81,37 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
 
 
   //selection radio variable (stores the value of selected input)
-  var _currentRespondentRadio = '';
-  var _currentDeceasedRadio = '';
-  var _currentCompletedDaysRadio = '';
+//  var _currentRespondentRadio = '';
+//  var _currentDeceasedRadio = '';
+//  var _currentCompletedDaysRadio = '';
 
 
   //selection drop down menu variable (stores the value of selected input)
-  var _currentSelectedRespondentRelation = '';
-  var _currentSelectedRespondentEducation = '';
-  var _currentSelectedRespondentCategory = '';
-  var _currentSelectedRespondentReligion = '';
-  var _currentSelectedPlaceOfDeath = '';
+//  var _currentSelectedRespondentRelation = '';
+//  var _currentSelectedRespondentEducation = '';
+//  var _currentSelectedRespondentCategory = '';
+//  var _currentSelectedRespondentReligion = '';
+//  var _currentSelectedPlaceOfDeath = '';
 
 
   //controller obj for text fields
-  TextEditingController respondentNameController = TextEditingController();
-  TextEditingController deceasedAddressController = TextEditingController();
-  TextEditingController deceasedPincodeController = TextEditingController();
-  TextEditingController respondentWordsController = TextEditingController();
+//  TextEditingController respondentNameController = TextEditingController();
+//  TextEditingController deceasedAddressController = TextEditingController();
+//  TextEditingController deceasedPincodeController = TextEditingController();
+//  TextEditingController respondentWordsController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _currentRespondentRadio = _respondentRadioList[0];
-    _currentDeceasedRadio = _deceasedRadioList[0];
-    _currentCompletedDaysRadio = _completedDaysRadio[0];
+    widget.userObj.liveWith = _yesNoList[0];
+    widget.userObj.sex = _deceasedSexRadioList[0];
+    widget.userObj.ageDays = _completedDaysRadio[0];
 
-    _currentSelectedRespondentRelation = _relationWithDeceased[0];
-    _currentSelectedRespondentEducation = _respondentEducation[0];
-    _currentSelectedRespondentCategory = _respondentCategory[0];
-    _currentSelectedRespondentReligion = _respondentReligion[0];
-    _currentSelectedPlaceOfDeath = _placeOfDeath[0];
+    widget.userObj.relationship = _relationWithDeceased[0];
+    widget.userObj.respondentEducation = _respondentEducation[0];
+    widget.userObj.category = _respondentCategory[0];
+    widget.userObj.religionHead = _respondentReligion[0];
+    widget.userObj.placeDeath = _placeOfDeath[0];
   }
 
 
@@ -113,29 +120,36 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
     final DateTime pickedDOB = await showDatePicker(
       context: context,
       initialDate: _deceasedDOB,
-      firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
+      firstDate: DateTime(2014, 6, 1),
+      lastDate: DateTime.now(),
     );
 
-    if (pickedDOB != null && pickedDOB != _deceasedDOB) {
-      print('Date Selected');
+    if (pickedDOB != null) {
+//      print('Date Selected');
       setState(() {
         _deceasedDOB = pickedDOB;
+        displayDOB = "${_deceasedDOB.day}"
+            "/${_deceasedDOB.month}"
+            "/${_deceasedDOB.year}";
       });
     }
   }
 
   Future<Null> _selectDODDate(BuildContext context) async {
     final DateTime pickedDOD = await showDatePicker(
-        context: context,
-        initialDate: _deceasedDOD,
-        firstDate: DateTime(2018),
-        lastDate: DateTime(2025));
+      context: context,
+      initialDate: _deceasedDOD,
+      firstDate: DateTime(2014, 6, 1),
+      lastDate: DateTime.now(),
+    );
 
-    if (pickedDOD != null && pickedDOD != _deceasedDOB) {
-      print('Date Selected');
+    if (pickedDOD != null) {
+//      print('Date Selected');
       setState(() {
         _deceasedDOD = pickedDOD;
+        displayDOD = displayDOD = "${_deceasedDOD.day}"
+            "/${_deceasedDOD.month}"
+            "/${_deceasedDOD.year}";
       });
     }
   }
@@ -143,6 +157,7 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
           'Section 1: Details for Respondent & Deceased',
@@ -185,7 +200,7 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                                 if (!nameExp.hasMatch(value))
                                   return 'Please enter only alphabetical values';
                               },
-                              controller: respondentNameController,
+                              onSaved: (String value){widget.userObj.respondent = value;},
                               decoration: InputDecoration(
                                   labelText: 'Name of Respondent',
                                   hintText: 'Name of Respondent',
@@ -219,7 +234,7 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                           child: Text(value),
                         );
                       }).toList(),
-                      value: _currentSelectedRespondentRelation,
+                      value: widget.userObj.relationship,
                       onChanged: (String newValueSelected) {
                         _onDropDownRelationSelected(newValueSelected);
                       },
@@ -253,9 +268,9 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentRespondentRadio,
+                              groupValue: widget.userObj.liveWith,
                               onChanged: (String newRadioSelected) {
-                                _onRespondentRadioSelect(newRadioSelected);
+                                _onLiveWithRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -264,9 +279,9 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentRespondentRadio,
+                              groupValue: widget.userObj.liveWith,
                               onChanged: (String newRadioSelected) {
-                                _onRespondentRadioSelect(newRadioSelected);
+                                _onLiveWithRadioSelect(newRadioSelected);
                               },
                             ),
                             Text(
@@ -275,9 +290,9 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentRespondentRadio,
+                              groupValue: widget.userObj.liveWith,
                               onChanged: (String newRadioSelected) {
-                                _onRespondentRadioSelect(newRadioSelected);
+                                _onLiveWithRadioSelect(newRadioSelected);
                               },
                             )
                           ])),
@@ -310,7 +325,7 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                           child: Text(value),
                         );
                       }).toList(),
-                      value: _currentSelectedRespondentEducation,
+                      value: widget.userObj.respondentEducation,
                       onChanged: (String newValueSelected) {
                         _onDropDownEducationSelected(newValueSelected);
                       },
@@ -343,7 +358,7 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: _currentSelectedRespondentCategory,
+                            value: widget.userObj.category,
                             onChanged: (String newValueSelected) {
                               _onDropDownCategorySelected(newValueSelected);
                             },
@@ -377,7 +392,7 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: _currentSelectedRespondentReligion,
+                            value: widget.userObj.religionHead,
                             onChanged: (String newValueSelected) {
                               _onDropDownReligionSelected(newValueSelected);
                             },
@@ -416,9 +431,9 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                       ),
                       Radio(
                         value: 'Male',
-                        groupValue: _currentDeceasedRadio,
+                        groupValue: widget.userObj.sex,
                         onChanged: (String newRadioSelected) {
-                          _onDeceasedRadioSelect(newRadioSelected);
+                          _onDeceasedSexRadioSelect(newRadioSelected);
                         },
                       ),
                       Text(
@@ -427,9 +442,9 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                       ),
                       Radio(
                         value: 'Female',
-                        groupValue: _currentDeceasedRadio,
+                        groupValue: widget.userObj.sex,
                         onChanged: (String newRadioSelected) {
-                          _onDeceasedRadioSelect(newRadioSelected);
+                          _onDeceasedSexRadioSelect(newRadioSelected);
                         },
                       ),
                     ]),
@@ -466,7 +481,7 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                           ),
                           Radio(
                             value: 'Less than 1 year',
-                            groupValue: _currentCompletedDaysRadio,
+                            groupValue: widget.userObj.ageDays,
                             onChanged: (String newRadioSelected) {
                               _onCompletedDaysRadioSelect(newRadioSelected);
                             },
@@ -477,7 +492,7 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                           ),
                           Radio(
                             value: 'More than 1 year',
-                            groupValue: _currentCompletedDaysRadio,
+                            groupValue: widget.userObj.ageDays,
                             onChanged: (String newRadioSelected) {
                               _onCompletedDaysRadioSelect(newRadioSelected);
                             },
@@ -507,21 +522,22 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                             child: RaisedButton(
                                 color: Colors.white,
                                 elevation: 2.0,
-                                child: Text(
-                                  "${_deceasedDOB.day}/${_deceasedDOB.month}"
-                                      "/${_deceasedDOB.year}",
+                                child: Text('$displayDOB',
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 onPressed: () {
-                                  _selectDOBDate(context);
+                                  setState(() {
+                                    _selectDOBDate(context);
+                                    widget.userObj.dob =
+                                        _deceasedDOB.toString();
+                                  });
                                 }),
                           )
                         ],
                       )),
-
 
                   //10th user input element start
                   Padding(
@@ -545,16 +561,18 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                             child: RaisedButton(
                                 color: Colors.white,
                                 elevation: 2.0,
-                                child: Text(
-                                  "${_deceasedDOD.day}/${_deceasedDOD.month}"
-                                      "/${_deceasedDOD.year}",
+                                child: Text('$displayDOD',
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 onPressed: () {
-                                  _selectDODDate(context);
+                                  setState(() {
+                                    _selectDODDate(context);
+                                    widget.userObj.dod =
+                                        _deceasedDOD.toString();
+                                  });
                                 }),
                           )
                         ],
@@ -583,7 +601,7 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: TextFormField(
-                      controller: deceasedAddressController,
+                      onSaved: (String value){widget.userObj.locality = value;},
                       decoration: InputDecoration(hintText: 'Your Text Here'),
                       validator: (String value) {
                         if (value.isEmpty) return 'Please fill a valid input';
@@ -615,7 +633,7 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
 
                           Flexible(
                             child: TextFormField(
-                              controller: deceasedPincodeController,
+                              onSaved: (String value){widget.userObj.pincode = num.parse(value);},
                               decoration: InputDecoration(
                                   hintText: 'Pincode',
                                   labelText: 'Pincode',
@@ -663,7 +681,7 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: _currentSelectedPlaceOfDeath,
+                            value: widget.userObj.placeDeath,
                             onChanged: (String newValueSelected) {
                               _onDropDownPlaceOfDeathSelected(newValueSelected);
                             },
@@ -684,7 +702,7 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: TextFormField(
-                      controller: respondentWordsController,
+                      onSaved: (String value){widget.userObj.respondentThink = value;},
                       decoration: InputDecoration(hintText: 'Your Text Here'),
                       validator: (String value) {
                         if (value.isEmpty) return 'Please fill a valid input';
@@ -704,13 +722,24 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
                         style: TextStyle(fontSize: 15.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        setState(() {
-                          if (_formKey.currentState.validate())
-                            AlertDialog(
-                              title: Text('Form Submitted Sucessfully'),
-                              content: Text('Success'),
-                            );
-                        });
+                        if (widget.userObj.dob == null ||
+                            widget.userObj.dod == null) {
+                          // The checkbox wasn't checked
+                          showSnackBar('Please select the date of birth and date of death to proceed');
+                        }
+                        if (_formKey.currentState.validate() &&
+                            widget.userObj.dod != null &&
+                            widget.userObj.dob != null) {
+                          final FormState form = _formKey.currentState;
+                          form.save();
+                          setState(() {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    verbalAutopsy5YrSec2Part1(
+                                      userObj: widget.userObj,
+                                    )));
+                          });
+                        }
                       },
                     ),
                   ),
@@ -721,51 +750,63 @@ class _verbalAutopsy5YrFormSec1State extends State<_verbalAutopsy5YrFormSec1> {
     );
   }
 
-  void _onRespondentRadioSelect(String newRadioSelected) {
+  void _onLiveWithRadioSelect(String newRadioSelected) {
     setState(() {
-      this._currentRespondentRadio = newRadioSelected;
+      this.widget.userObj.liveWith = newRadioSelected;
     });
   }
 
-  void _onDeceasedRadioSelect(String newRadioSelected) {
+  void _onDeceasedSexRadioSelect(String newRadioSelected) {
     setState(() {
-      this._currentDeceasedRadio = newRadioSelected;
+      this.widget.userObj.sex = newRadioSelected;
     });
   }
 
   void _onCompletedDaysRadioSelect(String newRadioSelected) {
     setState(() {
-      this._currentCompletedDaysRadio = newRadioSelected;
+      this.widget.userObj.ageDays = newRadioSelected;
     });
   }
 
   void _onDropDownRelationSelected(String newValueSelected) {
     setState(() {
-      this._currentSelectedRespondentRelation = newValueSelected;
+      this.widget.userObj.relationship = newValueSelected;
     });
   }
 
   void _onDropDownReligionSelected(String newValueSelected) {
     setState(() {
-      this._currentSelectedRespondentReligion = newValueSelected;
+      this.widget.userObj.religionHead = newValueSelected;
     });
   }
 
   void _onDropDownCategorySelected(String newValueSelected) {
     setState(() {
-      this._currentSelectedRespondentCategory = newValueSelected;
+      this.widget.userObj.category = newValueSelected;
     });
   }
 
   void _onDropDownEducationSelected(String newValueSelected) {
     setState(() {
-      this._currentSelectedRespondentEducation = newValueSelected;
+      this.widget.userObj.respondentEducation = newValueSelected;
     });
   }
 
   void _onDropDownPlaceOfDeathSelected(String newValueSelected) {
     setState(() {
-      this._currentSelectedPlaceOfDeath = newValueSelected;
+      this.widget.userObj.placeDeath = newValueSelected;
     });
+  }
+
+  void showSnackBar(String message){
+    var snackBar = SnackBar(
+//      backgroundColor: Colors.blue,
+      content: Text(message,
+        style: TextStyle(fontSize: 16.0,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 }
