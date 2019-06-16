@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/verbal_autopsy/verbal_autopsy_form.dart';
 import 'package:hp_cdrs/app_screens/verbal_autopsy/user.dart';
+import 'neoFormStatus.dart';
 
 void  main(){
   runApp(MaterialApp(
@@ -20,7 +21,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  final User  = user();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +46,7 @@ class _DashboardState extends State<Dashboard> {
                     onTap: () {
                       Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (BuildContext  context)  =>  verbalAutopsyForm(verbal_Autopsy_Obj:User))
+                              builder: (BuildContext  context)  =>  neoFormsStatus())
                       );
 
                     },

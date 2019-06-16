@@ -19,7 +19,7 @@ class neoFormsStatus extends StatefulWidget {
 }
 
 class _neoFormsStatusState extends State<neoFormsStatus> {
-
+  final User  = user();
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
 
@@ -136,7 +136,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => verbalAutopsyForm(),
+              builder: (context) => verbalAutopsyForm(verbal_Autopsy_Obj:User),
             ),
           );
 
