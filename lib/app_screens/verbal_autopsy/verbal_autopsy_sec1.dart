@@ -119,8 +119,8 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
     final DateTime pickedDOB = await showDatePicker(
       context: context,
       initialDate: _deceasedDOB,
-      firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
+      firstDate: DateTime(2019, 6, 1),
+      lastDate: DateTime(2019, 8, 1),
     );
 
     if (pickedDOB != null) {
@@ -138,8 +138,8 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
     final DateTime pickedDOD = await showDatePicker(
         context: context,
         initialDate: _deceasedDOD,
-        firstDate: DateTime(2018),
-        lastDate: DateTime(2025));
+        firstDate: DateTime(2019, 6, 1),
+        lastDate: DateTime(2019, 8, 1));
 
     if (pickedDOD != null) {
 //      print('Date Selected');
@@ -217,11 +217,12 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                               '2. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
-                        Text(
+                        Flexible(child: Text(
                           'Relationship of respondent with deceased:',
                           style: TextStyle(fontSize: 16.0),
-                        )
+                        ))
                       ])),
+
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: DropdownButton<String>(
@@ -311,6 +312,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                               textAlign: TextAlign.left,
                             ))
                       ])),
+
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: DropdownButton<String>(
@@ -320,6 +322,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                           child: Text(value),
                         );
                       }).toList(),
+                      isExpanded: true,
                       value: widget.verbal_Autopsy_Obj.respondentEducation,
                       onChanged: (String newValueSelected) {
                         _onDropDownEducationSelected(newValueSelected);
@@ -417,29 +420,40 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                           style: TextStyle(fontSize: 16.0),
                         ),
                       ),
-                      Text(
-                        'Male',
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                      Radio(
-                        value: 'Male',
-                        groupValue: widget.verbal_Autopsy_Obj.sex,
-                        onChanged: (String newRadioSelected) {
-                          _onSexRadioSelect(newRadioSelected);
-                        },
-                      ),
-                      Text(
-                        'Female',
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                      Radio(
-                        value: 'Female',
-                        groupValue: widget.verbal_Autopsy_Obj.sex,
-                        onChanged: (String newRadioSelected) {
-                          _onSexRadioSelect(newRadioSelected);
-                        },
-                      ),
                     ]),
+                  ),
+
+                  Padding(padding: EdgeInsets.all(10.0),
+                    child:
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+
+                        Text(
+                          'Male',
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                        Radio(
+                          value: 'Male',
+                          groupValue: widget.verbal_Autopsy_Obj.sex,
+                          onChanged: (String newRadioSelected) {
+                            _onSexRadioSelect(newRadioSelected);
+                          },
+                        ),
+                        Text(
+                          'Female',
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                        Radio(
+                          value: 'Female',
+                          groupValue: widget.verbal_Autopsy_Obj.sex,
+                          onChanged: (String newRadioSelected) {
+                            _onSexRadioSelect(newRadioSelected);
+                          },
+                        ),
+
+                      ],
+                    ),
                   ),
 
                   //8th user input element start
