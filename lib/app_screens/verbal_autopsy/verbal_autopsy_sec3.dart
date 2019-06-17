@@ -160,9 +160,10 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                             showSnackBar('Please check the checkbox to proceed');
                           }
 
-                          if(_formKey.currentState.validate()){
+                          if(_formKey.currentState.validate()) {
                             final FormState form = _formKey.currentState;
                             form.save();
+                          }
                           if(_formKey.currentState.validate() && _knowledgeCheck  ==  true){
                             _formKey.currentState.save();
 
