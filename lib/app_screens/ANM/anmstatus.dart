@@ -1,77 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
-import 'dart:io';
-import 'dart:async';
-import 'package:path_provider/path_provider.dart';
-import 'dart:convert';
-import 'package:hp_cdrs/model/classes/class_asha.dart';
-import 'package:hp_cdrs/app_screens/asha_worker/asha_page.dart';
-import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
+import 'dart:async';
+import 'dart:io';
+import 'dart:convert';
+import 'package:hp_cdrs/app_screens/ANM/user.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
+import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
+import 'package:hp_cdrs/app_screens/ANM/anm1.dart';
 
-
-void  main(){
+void main() {
   runApp(MaterialApp(
-    initialRoute: '/',
-    routes: <String, WidgetBuilder>{
-      '/': (context) => AshaHomeScreen(),
-      '/AshaForm': (context) => hpForm(),
-    },
+    title: "ANM Form",
+    home: Scaffold(
+      body: ANMStatus(),
+    ),
   ));
 }
 
-class AshaHomeScreen extends StatefulWidget {
+class ANMStatus extends StatefulWidget {
+  final User newEntry;
+  ANMStatus({Key key, @required this.newEntry}):super(key: key);
   @override
-  _AshaHomeScreenState createState() => _AshaHomeScreenState();
+  State<StatefulWidget> createState() {
+    return _ANMStatusState();
+  }
 }
 
-class _AshaHomeScreenState extends State<AshaHomeScreen> {
-
+class _ANMStatusState extends State<ANMStatus> {
+  final user  = User();
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
 
   List <dynamic>_forms  = [];
-  List<Child> entries = [];
+  List entries = [];
   String jsonData;
 
   File jsonFile;
   Directory dir;
-  String fileName = "myJSONFile.json";
+  String fileName = "fbi.json";
   bool fileExists = false;
   Map<String, String> fileContent;
 
-  @override
-  void initState() {
-    print(jsonData);
+  void  initState(){
+    super.initState();
+
+    if(widget.newEntry!=null){
+      setState(() {
+        entries.add(widget.newEntry);
+        writeToFile(widget.newEntry);
+      });
+    }
+
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
     _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
 
-
-    super.initState();
-    getApplicationDocumentsDirectory().then((Directory directory) {
+    getApplicationDocumentsDirectory().then((Directory directory){
       dir = directory;
       jsonFile = new File(dir.path + "/" + fileName);
       fileExists = jsonFile.existsSync();
       if (fileExists) this.setState(() => jsonData = jsonFile.readAsStringSync());
       jsonData  = jsonData.replaceAll('}{','}_{');
       List<String> jsonList  = jsonData.split('_');
-      for(int i=0;i<jsonList.length;i++){
+      for(int i=0;i<jsonList.length;i++)  {
         var temp  = json.decode(jsonList[i]);
         print(temp);
-        Child tempEntry = new Child(temp['name'],temp['district'],temp['block'],temp['address'],temp['phoneNumber']);
-        var data  = {
-          'name': tempEntry.name,
-          'district' :  tempEntry.district,
-          'block' : tempEntry.block,
-          'address':  tempEntry.address,
-          'phoneNumber':tempEntry.ashaName,
-        };
-
         if(isOffline ){
-          entries.add(tempEntry);
+          entries.add(temp);
         }
         else{
-          sendData('http://13.126.72.137/api/asha', data);
+          sendData('http://13.126.72.137/api/asha', temp);
         }
 
         if(i==(jsonList.length-1) && !isOffline){
@@ -79,7 +77,12 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
         }
       }
       print(jsonList);
+
+
+
     });
+
+
   }
 
   void connectionChanged(dynamic hasConnection) {
@@ -88,7 +91,7 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
     });
   }
 
-  void createFile(Child content, Directory dir, String fileName) {
+  void createFile(User content, Directory dir, String fileName) {
     print("Creating file!");
     File file = new File(dir.path + "/" + fileName);
     file.createSync();
@@ -96,7 +99,7 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
     file.writeAsStringSync(json.encode(content),mode: FileMode.append);
   }
 
-  void writeToFile(Child entry) {
+  void writeToFile(User entry) {
     print("Writing to file!");
     if (fileExists) {
       print("File exists");
@@ -114,8 +117,6 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
       jsonFile.writeAsStringSync('');
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -141,25 +142,17 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
         child: Icon(Icons.add),
         tooltip: 'Add new Entry',
         onPressed: () {
-          Navigator.push<Child>(
-           context,
-           MaterialPageRoute(
-               builder: (context) => hpForm(),
-           ),
-          ).then((newEntry){
-              if(newEntry!=null){
-                setState(() {
-                  entries.add(newEntry);
-                  writeToFile(newEntry);
-                });
-              }
-            }
-
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ANMWorker(user: user),
+            ),
           );
+
+
         },
       ),
 
     );
   }
-
 }

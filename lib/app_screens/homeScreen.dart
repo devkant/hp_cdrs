@@ -7,6 +7,7 @@ import 'package:hp_cdrs/common/platform/platformScaffold.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/asha_worker/asha_home.dart';
 import 'package:hp_cdrs/app_screens/bmo/bmohomepage.dart';
+import 'package:hp_cdrs/app_screens/mo/dashboard.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -34,8 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
     if(widget.role=="104"){
       return AshaHomeScreen();
     }
-    else if(widget.role=="bmo"){
+    else if(widget.role=="BMO"){
       return  BMOhomepage();
+    }
+    else if(widget.role=="MO")  {
+      return Dashboard();
     }
   }
 }

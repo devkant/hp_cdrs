@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hp_cdrs/app_screens/ANM/user.dart';
 
 import 'anm3.dart';
 
@@ -12,22 +13,19 @@ void main() {
 */
 
 class Form2 extends StatefulWidget {
+
+  //user data
+  final User user;
+  Form2({Key key,this.user}):super(key:key);
+
   @override
   _Form2State createState() => _Form2State();
 }
 
 class _Form2State extends State<Form2> {
 
+  //formkey
   final _formKey = GlobalKey<FormState>();
-
-  TextEditingController inabilityToFeedController = TextEditingController();
-  TextEditingController feverController = TextEditingController();
-  TextEditingController looseStoolsController = TextEditingController();
-  TextEditingController vomitingController = TextEditingController();
-  TextEditingController fastBreathingController = TextEditingController();
-  TextEditingController convulsionsController = TextEditingController();
-  TextEditingController skinRashesController = TextEditingController();
-  TextEditingController injuryController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +43,9 @@ class _Form2State extends State<Form2> {
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Text(
                   "Duration of symptoms:",
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
                 ),
-              ),
+              ), //Duration of Symptom
 
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
@@ -59,7 +57,8 @@ class _Form2State extends State<Form2> {
                     ),
                     Expanded(
                       child: TextFormField(
-                        controller: inabilityToFeedController,
+                        onSaved: (String value) { widget.user.inabilityToFeed = int.parse(value);},
+                        //controller: inabilityToFeedController,
                         validator: (String val) {
                           if (val.isEmpty) {
                             return 'Please enter a valid input';
@@ -89,7 +88,8 @@ class _Form2State extends State<Form2> {
                     ),
                     Expanded(
                       child: TextFormField(
-                        controller: feverController,
+                        onSaved: (String value) { widget.user.fever = int.parse(value);},
+                        //controller: feverController,
                         validator: (String val) {
                           if (val.isEmpty) {
                             return 'Please enter a valid input';
@@ -119,7 +119,7 @@ class _Form2State extends State<Form2> {
                     ),
                     Expanded(
                       child: TextFormField(
-                        controller: looseStoolsController,
+                        onSaved: (String value) { widget.user.looseStools = int.parse(value);},
                         validator: (String val) {
                           if (val.isEmpty) {
                             return 'Please enter a valid input';
@@ -149,7 +149,7 @@ class _Form2State extends State<Form2> {
                     ),
                     Expanded(
                       child: TextFormField(
-                        controller: vomitingController,
+                        onSaved: (String value) { widget.user.vomiting = int.parse(value);},
                         validator: (String val) {
                           if (val.isEmpty) {
                             return 'Please enter a valid input';
@@ -179,7 +179,7 @@ class _Form2State extends State<Form2> {
                     ),
                     Expanded(
                       child: TextFormField(
-                        controller: fastBreathingController,
+                        onSaved: (String value) { widget.user.fastBreathing = int.parse(value);},
                         validator: (String val) {
                           if (val.isEmpty) {
                             return 'Please enter a valid input';
@@ -209,7 +209,7 @@ class _Form2State extends State<Form2> {
                     ),
                     Expanded(
                       child: TextFormField(
-                        controller: convulsionsController,
+                        onSaved: (String value) { widget.user.convulsions = int.parse(value);},
                         validator: (String val) {
                           if (val.isEmpty) {
                             return 'Please enter a valid input';
@@ -239,7 +239,7 @@ class _Form2State extends State<Form2> {
                     ),
                     Expanded(
                       child: TextFormField(
-                        controller: skinRashesController,
+                        onSaved: (String value) { widget.user.appearanceOfSkinRashes = int.parse(value);},
                         validator: (String val) {
                           if (val.isEmpty) {
                             return 'Please enter a valid input';
@@ -269,7 +269,7 @@ class _Form2State extends State<Form2> {
                     ),
                     Expanded(
                       child: TextFormField(
-                        controller: injuryController,
+                        onSaved: (String value) { widget.user.injury = int.parse(value);},
                         validator: (String val) {
                           if (val.isEmpty) {
                             return 'Please enter a valid input';
@@ -299,6 +299,7 @@ class _Form2State extends State<Form2> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        onSaved: (String value) { widget.user.otherSymptoms = value;},
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         decoration: InputDecoration(
@@ -311,45 +312,28 @@ class _Form2State extends State<Form2> {
                     ),
                   ],
                 ),
-              ),
+              ), //anyOtherSymptom
 
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    /*
-                    RaisedButton(
-                      color: Colors.blue,
-                      elevation: 4.0,
-                      child: Text(
-                        'Previous page',
-                        style: TextStyle(fontSize: 20.0, color: Colors.white),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => ANMWorker()));
-                      },
-                    ),
-                    */
-                    RaisedButton(
-                      color: Colors.blue,
-                      elevation: 4.0,
-                      splashColor: Colors.greenAccent,
-                      child: Text(
-                        'Next Section',
-                        style: TextStyle(fontSize: 20.0, color: Colors.white),
-                      ),
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) => Form3()));
-                        }
-                      },
-                    ),
-                  ],
+                child: RaisedButton(
+                  color: Colors.blue,
+                  elevation: 4.0,
+                  splashColor: Colors.greenAccent,
+                  child: Text(
+                    'Next Section',
+                    style: TextStyle(fontSize: 20.0, color: Colors.white),
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      final form = _formKey.currentState;
+                      form.save();
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => Form3(user: widget.user)));
+                    }
+                  },
                 ),
-              ),
+              ), //Next Section
             ],
           ),
         ),

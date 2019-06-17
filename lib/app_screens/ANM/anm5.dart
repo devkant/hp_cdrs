@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hp_cdrs/app_screens/ANM/user.dart';
+import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
+import 'package:hp_cdrs/connectionStatus.dart';
+import 'dart:async';
+import 'package:hp_cdrs/app_screens/ANM/anmstatus.dart';
 
 /*
 void main() {
@@ -10,25 +15,50 @@ void main() {
 */
 
 class Form5 extends StatefulWidget {
+
+  //user data
+  final User user;
+  Form5({Key key,this.user}):super(key:key);
+
   @override
   _Form5State createState() => _Form5State();
 }
 
 class _Form5State extends State<Form5> {
 
-  var _delayHome = false;
-  var _delayTransportation = false;
-  var _delayFacility = false;
-  var _submission = false;
+  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final formKey = GlobalKey<FormState>();
+  StreamSubscription _connectionChangeStream;
+  bool isOffline = false;
 
-  TextEditingController respondentCause = TextEditingController();
-  TextEditingController suggestions = TextEditingController();
+  bool submission = false;
+
+  Map<String, dynamic> _categories = {
+    "responseCode": "1",
+    "responseText": "List categories.",
+    "responseBody": [
+      {"category_id": "1",
+
+        "category_name": "Delay at home"},
+
+      {"category_id": "2",
+
+        "category_name": "Delay in transportation"},
+
+      {"category_id": "3",
+
+        "category_name": "Delay at facility level"},
+
+    ],
+    "responseTotalResult":
+    3 // Total result is 3 here because we have 3 categories in responseBody.
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("E: End details"),
       ),
@@ -36,7 +66,7 @@ class _Form5State extends State<Form5> {
         child: Padding(
           padding: EdgeInsets.all(20.0),
           child: Form(
-            key: formKey,
+            key: _formKey,
             child: Column(
               children: <Widget>[
 
@@ -60,12 +90,12 @@ class _Form5State extends State<Form5> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: TextFormField(
+                    onSaved: (String value) { widget.user.causeOfDeath = value; },
                     validator: (String val) {
                       if (val.isEmpty) {
                         return 'Please enter a valid input';
                       }
                     },
-                    controller: respondentCause,
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     decoration: InputDecoration(
@@ -75,7 +105,7 @@ class _Form5State extends State<Form5> {
                         )
                     ),
                   ),
-                ),
+                ), //Respondent Cause
 
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
@@ -98,37 +128,31 @@ class _Form5State extends State<Form5> {
                 ),
 
                 CheckboxListTile(
-                  value: _delayHome,
-                  title: Text("Delay at home"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _delayHome = value;
-                    });
+                  value: widget.user.delay.contains(_categories['responseBody'][0]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][0]['category_name']);
+                    debugPrint('${widget.user.delay}');
                   },
+                  title: Text(_categories['responseBody'][0]['category_name']),
                 ), //Home
 
                 CheckboxListTile(
-                  value: _delayTransportation,
-                  title: Text("Delay in transportation"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _delayTransportation = value;
-                    });
+                  value: widget.user.delay.contains(_categories['responseBody'][1]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][1]['category_name']);
+                    debugPrint('${widget.user.delay}');
                   },
+                  title: Text(_categories['responseBody'][1]['category_name']),
                 ), //Transportation
 
                 CheckboxListTile(
-                  value: _delayFacility,
-                  title: Text("Dealy at facility level"),
-                  activeColor: Colors.red,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _delayFacility = value;
-                    });
+                  value: widget.user.delay.contains(_categories['responseBody'][2]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][2]['category_name']);
+                    debugPrint('${widget.user.delay}');
                   },
-                ), //Facility level
+                  title: Text(_categories['responseBody'][2]['category_name']),
+                ), //Facility Level
 
                 Row(
                   children: <Widget>[
@@ -149,7 +173,7 @@ class _Form5State extends State<Form5> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: TextFormField(
-                    controller: suggestions,
+                    onSaved: (String value) { widget.user.advice = value;},
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     decoration: InputDecoration(
@@ -159,12 +183,12 @@ class _Form5State extends State<Form5> {
                         )
                     ),
                   ),
-                ),
+                ), //Suggestions
 
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: CheckboxListTile(
-                    value: _submission,
+                    value: submission,
                     title: Text(
                       "I state that all the details filled above are best and true to my knowledge.",
                       style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
@@ -172,7 +196,7 @@ class _Form5State extends State<Form5> {
                     activeColor: Colors.red,
                     onChanged: (bool value) {
                       setState(() {
-                        _submission = value;
+                        submission = value;
                       });
                     },
                   ),
@@ -180,33 +204,23 @@ class _Form5State extends State<Form5> {
 
                 Padding(
                   padding: EdgeInsets.only(top: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      /*
-                      RaisedButton(
-                        color: Colors.blue,
-                        elevation: 4.0,
-                        child: Text(
-                          'Previous page',
-                          style: TextStyle(fontSize: 20.0, color: Colors.white),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) => Form4()));
-                        },
-                      ),
-                      */
-                      RaisedButton(
-                        color: Colors.blue,
-                        elevation: 4.0,
-                        splashColor: Colors.greenAccent,
-                        child: Text(
-                          'Submit',
-                          style: TextStyle(fontSize: 20.0, color: Colors.white),
-                        ),
-                        onPressed: () {
-                          if (formKey.currentState.validate()  && _submission == true) {
+                  child: RaisedButton(
+                    color: Colors.blue,
+                    elevation: 4.0,
+                    splashColor: Colors.greenAccent,
+                    child: Text(
+                      'Submit',
+                      style: TextStyle(fontSize: 20.0, color: Colors.white),
+                    ),
+                    onPressed: () {
+                      setState(() async {
+                        if (_formKey.currentState.validate()) {
+                          if(submission == true) {
+                            final form = _formKey.currentState;
+                            form.save();
+                            var data  = createMap(widget.user);
+                            print(data);
+                            var status  = await sendData('http://13.126.72.137/api/test',data);
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -216,13 +230,25 @@ class _Form5State extends State<Form5> {
                                   );
                                 }
                             );
+                            if(!isOffline && status){
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      ANMStatus(
+                                        newEntry: null,)));
+                            }
+                            else{
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      ANMStatus(
+                                        newEntry: widget.user,)));
+                            }
                           }
                           else {
-
+                            _showSnackBar("Please check the checkbox to proceed");
                           }
-                        },
-                      ),
-                    ],
+                        }
+                      });
+                    },
                   ),
                 ),
 
@@ -234,5 +260,77 @@ class _Form5State extends State<Form5> {
     );
   }
 
+  void _showSnackBar(message) {
+    var snackBar = SnackBar(
+      content: Text(message),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
 
+  void _onCategorySelected(bool selected, category_name) {
+    if (selected == true) {
+      setState(() {
+        widget.user.delay.add(category_name);
+      });
+    } else {
+      setState(() {
+        widget.user.delay.remove(category_name);
+      });
+    }
+  }
+
+  Map createMap(User child) {
+    var data = {
+
+      'applicationNumber': child.applicationNumber,
+      // User reference
+
+      //Background Information
+      'name': child.name,
+      'age.years': child.age.years,
+      'age.months': child.age.months,
+      'age.days': child.age.days,
+      'sex': child.gender,
+      'address.pincode': child.address.pincode,
+      'address.district': child.address.district,
+      'address.block': child.address.block,
+      'address.area': child.address.area,
+      'orderOfBirth': child.orderOfBirth,
+      'caste' : child.caste,
+      'immunization': child.immunization,
+      'bplCard': child.bplCard,
+      'weight': child.weight,
+      'growthCurve': child.growthCurve,
+      'pastIllness': child.pastIllness,
+      //natureOfIllness: { type: String },
+
+      // Symptoms during Illness
+      'inabilityToFeed': child.inabilityToFeed,
+      'fever': child.fever,
+      'looseStools': child.looseStools,
+      'vomiting': child.vomiting,
+      'fastBreathing': child.fastBreathing,
+      'convulsions': child.convulsions,
+      'appearanceOfSkinRashes': child.appearanceOfSkinRashes,
+      'injury': child.injury,
+      'otherSymptom': child.otherSymptoms,
+
+      // Details of treatment
+      'treatmentTaken': child.treatmentTaken,
+      'treatmentLocation': child.treatmentLocation,
+
+      'Probable': child.probable,
+      'disease': child.disease,
+
+      // According to the respondent, cause of death
+      'causeOfDeath': child.causeOfDeath,
+
+      // Occurence of delay
+      'delay': child.delay,
+
+      // Advice according to analysis
+      'advice': child.advice,
+
+    };
+  }
 }

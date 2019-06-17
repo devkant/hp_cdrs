@@ -3,20 +3,9 @@ import 'verbal_autopsy_sec1.dart';
 import 'user.dart';
 
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget{
-  @override
-  Widget build(BuildContext context){
-    final verbal_Autopsy_Obj = user();
-    return MaterialApp(
-      home: verbalAutopsyForm(verbal_Autopsy_Obj: verbal_Autopsy_Obj),
-    );
-  }
-}
-
 
 class verbalAutopsyForm extends StatefulWidget {
+
   final user verbal_Autopsy_Obj;
   verbalAutopsyForm({Key key, @required this.verbal_Autopsy_Obj}):super(key: key);
   @override
@@ -26,6 +15,7 @@ class verbalAutopsyForm extends StatefulWidget {
 }
 
 class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
+
   var _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 //  var _currentSelectedDistrict = '';
@@ -83,6 +73,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(

@@ -1,96 +1,148 @@
 import "package:flutter/material.dart";
+import 'package:hp_cdrs/app_screens/ANM/user.dart';
 
 import 'anm2.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: "ANM Form",
-    home: ANMWorker(),
-  ));
-}
+//void main() {
+//  runApp(MaterialApp(
+//    title: "ANM Form",
+//    home: ANMWorker(),
+//  ));
+//}
 
 class ANMWorker extends StatefulWidget {
+
+  User user = User();
+  ANMWorker({Key key,@ required this.user}):super(key:key);
+
   @override
   _ANMWorkerState createState() => _ANMWorkerState();
 }
 
 class _ANMWorkerState extends State<ANMWorker> {
-  var _age = [
-    '0-28 days',
-    '1-12 months',
-    '1-2 years',
-    '2-3 years',
-    '3-4 years',
-    '4-5 years'
-  ];
-  var _currentItemSelected = '0-28 days';
-  var _sex = ['Male', 'Female'];
-  var _currentsex = 'Male';
-  var _orderOfBirth = ['1', '2', '3', '4', '5 or more'];
-  var _currentOrderOfBirth = '1';
-  var _category = ['General', 'SC', 'ST', 'OBC'];
-  var _currentCategory = 'General';
-  var _bpl = ['No', 'Yes'];
-  var _currentBPL = 'No';
-  var _growthCurve = ['None', 'Green zone', 'Yellow zone', 'Orange zone'];
-  var _currentGrowthCurve = 'None';
-  var _pastIllness = ['No', 'Yes'];
-  var _currentPastIllness = 'No';
-  var _districtName = [
-    'Bilaspur',
-    'Chamba',
-    'Hamirpur',
-    'Kangra',
-    'Kinnaur',
-    'Kullu',
-    'Lahaul and Spiti',
-    'Mandi',
-    'Shimla',
-    'Sirmaur',
-    'Solan',
-    'Una',
-  ];
-  var _currentSelectedDistrict = 'Bilaspur';
-  bool _bcg = false;
-  bool _penta1 = false;
-  bool _penta2 = false;
-  bool _penta3 = false;
-  bool _mr1 = false;
-  bool _mrBooster = false;
 
+  @override
+  void initState() {
+    super.initState();
+
+    widget.user.gender = dropdownGender[0];
+    widget.user.orderOfBirth = dropdownOrderOfBirth[0];
+    widget.user.caste = dropdownCaste[0];
+    widget.user.bplCard = dropdownBPL[0];
+    widget.user.growthCurve = growthCurve[0];
+    widget.user.pastIllness = dropdownPastIllness[0];
+
+  }
+
+  //formkey
   final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  TextEditingController childNameController = TextEditingController();
-  TextEditingController tehsilController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController illnessController = TextEditingController();
-  TextEditingController weightController = TextEditingController();
+  //Dropdown
+  var dropdownGender = ['Male', 'Female'];
+  var dropdownOrderOfBirth = ['1', '2', '3', '4', '5 or more'];
+  var dropdownCaste = ['SC', 'ST', 'OBC', 'General'];
+  var dropdownBPL = ['Yes', 'No'];
+  var growthCurve = ['None', 'Green zone', 'Yellow zone', 'Orange zone'];
+  var dropdownPastIllness = ['No', 'Yes'];
+
+  //defining again due to null errors
+  //var gender;
+//  String area;
+//  int pincode;
+//  var district = null;
+//  var block = null;
+//  var orderOfBirth = '1';
+//  var caste = 'SC';
+//  var bplCard = 'No';
+//  var variableGrowthCurve = 'None';
+//  var pastIllness = 'No';
+//  var immunization = List();
+
+  var _districtName = ['BILASPUR', 'CHAMBA', 'HAMIRPUR', 'KANGRA', 'KINNAUR','KULLU', 'LAHUL AND SPITI', 'MANDI', 'SHIMLA', 'SIRMOUR', 'SOLAN', 'UNA'];
+
+  var _bilaspurBlocks = ["SADAR","GHUMARWIN","JHANDUTTA"];
+
+  var _chambaBlocks = ["TISSA","CHAMBA","MEHLA","BHATTIYAT","SALOONI","BHARMOUR","PANGI"];
+
+  var _hamirpurBlocks = ["BAMSON","BHORANJ","BIJHARI","HAMIRPUR","NADAUN","SUJNAPUR"];
+
+  var _kangraBlocks = ["RAIT","PANCHRUKHI","DEHRA","FATEHPUR","INDORA","NAGROTA BAGWAN","NURPUR","NAGROTA SURIAN","BAIJNATH","BHAWARNA","KANGRA","LAMBAGAON","SULLAH","PRAGPUR","DHARAMSHALA"];
+
+  var _kinnaurBlocks = ["NICHAR","POOH","KALPA"];
+
+  var _kulluBlocks = ["ANNI","NAGGAR","NIRMAND"];
+
+  var _lahulBlocks = ["LAHAUL","SPITI"];
+
+  var _mandiBlocks = ["BALH","CHAUNTRA","DHARAMPUR","DRANG","GOHAR","GOPALPUR","KARSOG","SADAR MANDI","SERAJ","SUNDERNAGAR"];
+
+  var _shimlaBlocks = ["NARKANDA","THEOG","BASANTPUR","NANKHARI","CHHOHARA","MASHOBRA","CHOPAL","JUBBAL & KOTHKAI","ROHRU","RAMPUR"];
+
+  var _sirmourBlocks = ["NAHAN","PAONTA","PACHHAD","RAJGARH","SANGRAH","SHILLAI"];
+
+  var _solanBlocks = ["DHARAMPUR","KANDAGHAT","KUNIHAR","NALAGARH","SOLAN"];
+
+  var _unaBlocks = ["AMB","BANGANA","GAGRET","HAROLI","UNA"];
+
+  Map<String, dynamic> _categories = {
+    "responseCode": "1",
+    "responseText": "List categories.",
+    "responseBody": [
+      {"category_id": "1",
+
+        "category_name": "BCG"},
+
+      {"category_id": "2",
+
+        "category_name": "Penta 1"},
+
+      {"category_id": "3",
+
+        "category_name": "Penta 2"},
+
+      {"category_id": "4 ",
+
+        "category_name": "Penta 3"},
+
+      {"category_id": "5",
+
+        "category_name": "MR 1"},
+
+      {"category_id": "6",
+
+        "category_name": "MR booster"},
+
+
+    ],
+    "responseTotalResult":
+    6 // Total result is 3 here because we have 3 categories in responseBody.
+  };
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(title: Text("A: Background Information")),
       body: Form(
         key: _formKey,
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(20.0),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                /*
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
+
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Center(
                     child: Text(
-                      "Section 1: Background Information",
-                      style: TextStyle(
-                          fontSize: 25.0, fontWeight: FontWeight.w500),
+                      "Application number: ",
+                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
-                */
 
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
@@ -104,14 +156,14 @@ class _ANMWorkerState extends State<ANMWorker> {
 
                       Expanded(
                         child: TextFormField(
-                          controller: childNameController,
+                          onSaved: (String value) {widget.user.name = value;},
                           validator: (String value) {
                             final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
                             if (!nameExp.hasMatch(value))
                               return 'Please enter only alphabetical values';
                           },
                           decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(top: 20.0),
+                            //contentPadding: EdgeInsets.only(top: 20.0),
                               labelText: "Name of Child",
                               hintText: "Name",
                               border: OutlineInputBorder(
@@ -123,33 +175,73 @@ class _ANMWorkerState extends State<ANMWorker> {
                   ),
                 ), //Name
 
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Text(
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+
+                      Text(
                         "2. Age:  ",
                         style: TextStyle(fontSize: 18.0),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: DropdownButton<String>(
-                        items: _age.map((String value1) {
-                          return DropdownMenuItem<String>(
-                            value: value1,
-                            child: Text(value1),
-                          );
-                        }).toList(),
-                        value: _currentItemSelected,
-                        onChanged: (String newValueSelected) {
-                          setState(() {
-                            this._currentItemSelected = newValueSelected;
-                          });
-                        },
-                      ),
-                    )
-                  ],
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: TextFormField(
+                            validator: (String val) {
+                              if (val.isEmpty || int.parse(val)>4) {
+                                return 'Please enter a valid input';
+                              }
+                            },
+                            decoration: InputDecoration(
+                                labelText: "Years",
+                                hintText: "Years",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0))),
+                            keyboardType: TextInputType.number,
+                            onSaved: (String value) {widget.user.age.years = int.parse(value);},
+                          ),
+                        ),
+                      ), //Years
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: TextFormField(
+                            validator: (String val) {
+                              if (val.isEmpty || int.parse(val)>11) {
+                                return 'Please enter a valid input';
+                              }
+                            },
+                            decoration: InputDecoration(
+                                labelText: "Months",
+                                hintText: "Months",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0))),
+                            keyboardType: TextInputType.number,
+                            onSaved: (String value) {widget.user.age.months = int.parse(value);},
+                          ),
+                        ),
+                      ), //Months
+                      Expanded(
+                        child: TextFormField(
+                          validator: (String val) {
+                            if (int.parse(val)>31 || val.isEmpty) {
+                              return 'Please enter a valid input';
+                            }
+                          },
+                          decoration: InputDecoration(
+                              labelText: "Days",
+                              hintText: "Days",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0))),
+                          keyboardType: TextInputType.number,
+                          onSaved: (String value) {widget.user.age.days = int.parse(value);},
+                        ),
+                      ), //Days
+
+                    ],
+                  ),
                 ), //Age
 
                 Row(
@@ -157,87 +249,62 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "3. Sex:  ",
+                        "3. Gender:  ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: DropdownButton<String>(
-                        items: _sex.map((String value2) {
+                        items: dropdownGender.map((String value2) {
                           return DropdownMenuItem<String>(
                             value: value2,
                             child: Text(value2),
                           );
                         }).toList(),
-                        value: _currentsex,
+                        value: widget.user.gender,
                         onChanged: (String newValueSelected) {
                           setState(() {
-                            this._currentsex = newValueSelected;
+                            this.widget.user.gender = newValueSelected;
                           });
                         },
                       ),
                     )
                   ],
-                ), //Sex
+                ), //Gender
 
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Text(
-                        "4. District:  ",
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: DropdownButton<String>(
-                        items: _districtName.map((String value1) {
-                          return DropdownMenuItem<String>(
-                            value: value1,
-                            child: Text(value1),
-                          );
-                        }).toList(),
-                        value: _currentSelectedDistrict,
-                        onChanged: (String newValueSelected) {
-                          setState(() {
-                            this._currentSelectedDistrict = newValueSelected;
-                          });
-                        },
-                      ),
-                    )
-                  ],
-                ), //districtAddress
+                //new district
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
-                  child: Row(
-                    children: <Widget>[
+                  child: Row(children: <Widget>[
+                    Text('4. District:  ', style: TextStyle(fontSize: 18.0),),
 
-                      Text(
-                        "5. ",
-                        style: TextStyle(fontSize: 18.0),
-                      ),
+                    DropdownButton<String>(
+                      hint: Text('Select here'),
+                      items: _districtName.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      value: widget.user.address.district,
+                      onChanged: (String newSelectedValue) {
+                        setState(() {
+                          _onDropDownDistrictSelected(newSelectedValue);
+                        });
+                      },
+                    ),
+                  ]),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Row(children: <Widget>[
+                    Text('5. Block:  ', style: TextStyle(fontSize: 18.0),),
 
-                      Expanded(
-                        child: TextFormField(
-                          controller: tehsilController,
-                          validator: (String val) {
-                            if (val.isEmpty) {
-                              return 'Please enter a valid input';
-                            }
-                          },
-                          decoration: InputDecoration(
-                              labelText: "Block/Tehsil",
-                              hintText: "Block/Tehsil",
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0))),
-                          keyboardType: TextInputType.text,
-                        ),
-                      ),
-                    ],
-                  ),
-                ), //Tehsil
+                    blocksWidgetFun(),
+                  ]),
+                ),
+
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Row(
@@ -250,7 +317,7 @@ class _ANMWorkerState extends State<ANMWorker> {
 
                       Expanded(
                         child: TextFormField(
-                          controller: addressController,
+                          onSaved: (String value) {widget.user.address.area = value;},
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                           validator: (String val) {
@@ -267,30 +334,60 @@ class _ANMWorkerState extends State<ANMWorker> {
                       ),
                     ],
                   ),
-                ), //Address
+                ), //Area
+
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Row(
+                    children: <Widget>[
+
+                      Text(
+                        "7. ",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+
+                      Expanded(
+                        child: TextFormField(
+                          onSaved: (String value) {widget.user.address.pincode = int.parse(value);},
+                          keyboardType: TextInputType.number,
+                          validator: (String val) {
+                            if (val.isEmpty) {
+                              return 'Please enter a valid input';
+                            }
+                          },
+                          decoration: InputDecoration(
+                              labelText: "Pincode",
+                              hintText: "Pincode",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0))),
+                        ),
+                      ),
+                    ],
+                  ),
+                ), //Pincode
 
                 Row(
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "7. Order of Birth:  ",
+                        "8. Order of Birth:  ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: DropdownButton<String>(
-                        items: _orderOfBirth.map((String value1) {
+                        items: dropdownOrderOfBirth.map((String value1) {
                           return DropdownMenuItem<String>(
                             value: value1,
                             child: Text(value1),
                           );
                         }).toList(),
-                        value: _currentOrderOfBirth,
+                        value: widget.user.orderOfBirth,
                         onChanged: (String newValueSelected) {
                           setState(() {
-                            this._currentOrderOfBirth = newValueSelected;
+                            this.widget.user.orderOfBirth = newValueSelected;
                           });
                         },
                       ),
@@ -303,29 +400,29 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "8. Category:  ",
+                        "9. Caste:  ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: DropdownButton<String>(
-                        items: _category.map((String value1) {
+                        items: dropdownCaste.map((String value1) {
                           return DropdownMenuItem<String>(
                             value: value1,
                             child: Text(value1),
                           );
                         }).toList(),
-                        value: _currentCategory,
+                        value: widget.user.caste,
                         onChanged: (String newValueSelected) {
                           setState(() {
-                            this._currentCategory = newValueSelected;
+                            this.widget.user.caste = newValueSelected;
                           });
                         },
                       ),
                     )
                   ],
-                ), //Category
+                ), //Caste
 
                 Row(
                   children: <Widget>[
@@ -333,7 +430,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "9. ",
+                        "10. ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -349,16 +446,16 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: DropdownButton<String>(
-                        items: _bpl.map((String value1) {
+                        items: dropdownBPL.map((String value1) {
                           return DropdownMenuItem<String>(
                             value: value1,
                             child: Text(value1),
                           );
                         }).toList(),
-                        value: _currentBPL,
+                        value: widget.user.bplCard,
                         onChanged: (String newValueSelected) {
                           setState(() {
-                            this._currentBPL = newValueSelected;
+                            this.widget.user.bplCard = newValueSelected;
                           });
                         },
                       ),
@@ -369,64 +466,59 @@ class _ANMWorkerState extends State<ANMWorker> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Text(
-                    "10. Immunization Status: ",
+                    "11. Immunization Status: ",
                     style: TextStyle(fontSize: 18.0),
                   ),
                 ), //Immunization Status
+
                 CheckboxListTile(
-                    value: _bcg,
-                    title: Text("BCG"),
-                    activeColor: Colors.red,
-                    onChanged: (value) {
-                      setState(() {
-                        _bcg = value;
-                      });
-                    }),
+                  value: widget.user.immunization.contains(_categories['responseBody'][0]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][0]['category_name']);
+                    debugPrint('${widget.user.immunization}');
+                  },
+                  title: Text(_categories['responseBody'][0]['category_name']),
+                ),
                 CheckboxListTile(
-                    value: _penta1,
-                    title: Text("Penta 1"),
-                    activeColor: Colors.red,
-                    onChanged: (value) {
-                      setState(() {
-                        _penta1 = value;
-                      });
-                    }),
+                  value: widget.user.immunization.contains(_categories['responseBody'][1]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][1]['category_name']);
+                    debugPrint('${widget.user.immunization}');
+                  },
+                  title: Text(_categories['responseBody'][1]['category_name']),
+                ),
                 CheckboxListTile(
-                    value: _penta2,
-                    title: Text("Penta 2"),
-                    activeColor: Colors.red,
-                    onChanged: (value) {
-                      setState(() {
-                        _penta2 = value;
-                      });
-                    }),
+                  value: widget.user.immunization.contains(_categories['responseBody'][2]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][2]['category_name']);
+                    debugPrint('${widget.user.immunization}');
+                  },
+                  title: Text(_categories['responseBody'][2]['category_name']),
+                ),
                 CheckboxListTile(
-                    value: _penta3,
-                    title: Text("Penta 3"),
-                    activeColor: Colors.red,
-                    onChanged: (value) {
-                      setState(() {
-                        _penta3 = value;
-                      });
-                    }),
+                  value: widget.user.immunization.contains(_categories['responseBody'][3]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][3]['category_name']);
+                    debugPrint('${widget.user.immunization}');
+                  },
+                  title: Text(_categories['responseBody'][3]['category_name']),
+                ),
                 CheckboxListTile(
-                    value: _mr1,
-                    title: Text("MR 1"),
-                    activeColor: Colors.red,
-                    onChanged: (value) {
-                      setState(() {
-                        _mr1 = value;
-                      });
-                    }),
+                  value: widget.user.immunization.contains(_categories['responseBody'][4]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][4]['category_name']);
+                    debugPrint('${widget.user.immunization}');
+                  },
+                  title: Text(_categories['responseBody'][4]['category_name']),
+                ),
                 CheckboxListTile(
-                    value: _mrBooster,
-                    title: Text("MR Booster"),
-                    activeColor: Colors.red,
-                    onChanged: (value) {
-                      setState(() {
-                        _mrBooster = value;
-                      });
-                    }),
+                  value: widget.user.immunization.contains(_categories['responseBody'][5]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][5]['category_name']);
+                    debugPrint('${widget.user.immunization}');
+                  },
+                  title: Text(_categories['responseBody'][5]['category_name']),
+                ),
 
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
@@ -434,15 +526,20 @@ class _ANMWorkerState extends State<ANMWorker> {
                     children: <Widget>[
 
                       Text(
-                        "11. ",
+                        "12. ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                       Flexible(
-                        child: TextField(
-                          controller: weightController,
+                        child: TextFormField(
+                          validator: (String val) {
+                            if (val.isEmpty) {
+                              return 'Please enter a valid input';
+                            }
+                          },
+                          onSaved: (String value) { widget.user.weight = int.parse(value);},
                           decoration: InputDecoration(
                               labelText: "Weight",
-                              hintText: "In Kgs(if recorded in the MCP Card)",
+                              hintText: "In Kgs(if recorded in the MCP Card or 0)",
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0))),
                           keyboardType: TextInputType.number,
@@ -459,7 +556,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "12. ",
+                        "13. ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -475,16 +572,16 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: EdgeInsets.only(top: 0.0),
                       child: DropdownButton<String>(
-                        items: _growthCurve.map((String value1) {
+                        items: growthCurve.map((String value1) {
                           return DropdownMenuItem<String>(
                             value: value1,
                             child: Text(value1),
                           );
                         }).toList(),
-                        value: _currentGrowthCurve,
+                        value: widget.user.growthCurve,
                         onChanged: (String newValueSelected) {
                           setState(() {
-                            this._currentGrowthCurve = newValueSelected;
+                            this.widget.user.growthCurve = newValueSelected;
                           });
                         },
                       ),
@@ -497,23 +594,23 @@ class _ANMWorkerState extends State<ANMWorker> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "13. Any Past Illness: ",
+                        "14. Any Past Illness: ",
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: DropdownButton<String>(
-                        items: _pastIllness.map((String value1) {
+                        items: dropdownPastIllness.map((String value1) {
                           return DropdownMenuItem<String>(
                             value: value1,
                             child: Text(value1),
                           );
                         }).toList(),
-                        value: _currentPastIllness,
+                        value: widget.user.pastIllness,
                         onChanged: (String newValueSelected) {
                           setState(() {
-                            this._currentPastIllness = newValueSelected;
+                            this.widget.user.pastIllness = newValueSelected;
                           });
                         },
                       ),
@@ -536,11 +633,16 @@ class _ANMWorkerState extends State<ANMWorker> {
                         style: TextStyle(fontSize: 20.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        if (_formKey.currentState.validate()) {
+                        if (_formKey.currentState.validate() && widget.user.address.district != null && widget.user.address.block != null) {
                           setState(() {
+                            final form = _formKey.currentState;
+                            form.save();
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) => Form2()));
+                                builder: (BuildContext context) => Form2(user: widget.user)));
                           });
+                        }
+                        else if(widget.user.address.district == null || widget.user.address.block == null) {
+                          _showSnackBar('Please select the block & district to proceed');
                         }
                       },
                     ),
@@ -554,15 +656,120 @@ class _ANMWorkerState extends State<ANMWorker> {
     );
   }
 
+  void _onDropDownDistrictSelected(String newSelectedValue) {
+    setState(() {
+      this.widget.user.address.district = newSelectedValue;
+      this.widget.user.address.block = null;
+    });
+  }
+
+  Widget blocksWidgetFun(){
+    if(widget.user.address.district == null) {
+      return DropdownButton<String>(
+        disabledHint: Text('Select here'),
+        items: null,
+        onChanged: (String newValueSelected){
+          setState(() {
+            widget.user.address.block = null
+            ;
+          });
+        },
+      );
+    }
+
+    else {
+      switch (widget.user.address.district) {
+        case 'BILASPUR':
+          return
+            blocksDropDownFun(_bilaspurBlocks);
+          break;
+
+        case 'CHAMBA':
+          return
+            blocksDropDownFun(_chambaBlocks);
+          break;
+
+        case 'HAMIRPUR':
+          return
+            blocksDropDownFun(_hamirpurBlocks);
+          break;
+
+        case 'KANGRA':
+          return
+            blocksDropDownFun(_kangraBlocks);
+          break;
+
+        case 'KINNAUR':
+          return
+            blocksDropDownFun(_kinnaurBlocks);
+          break;
+
+        case 'KULLU':
+          return
+            blocksDropDownFun(_kulluBlocks);
+          break;
+
+        case 'LAHUL AND SPITI':
+          return
+            blocksDropDownFun(_lahulBlocks);
+          break;
+
+        case 'MANDI':
+          return
+            blocksDropDownFun(_mandiBlocks);
+          break;
+
+        case 'SHIMLA':
+          return
+            blocksDropDownFun(_shimlaBlocks);
+          break;
+
+        case 'SIRMOUR':
+          return
+            blocksDropDownFun(_sirmourBlocks);
+          break;
+
+        case 'SOLAN':
+          return
+            blocksDropDownFun(_solanBlocks);
+          break;
+
+        case 'UNA':
+          return
+            blocksDropDownFun(_unaBlocks);
+          break;
+      }
+    }
+  }
+
+  Widget blocksDropDownFun(List<String> passedList){
+
+    return DropdownButton<String>(
+      hint: Text("Select here"),
+      items: passedList.map((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      value: widget.user.address.block,
+      onChanged: (String newSelectedValue) {
+        setState(() {
+          this.widget.user.address.block = newSelectedValue;
+        });
+      },
+    );
+  }
+
   Widget natureOfIllnessFun() {
-    if( _currentPastIllness == 'Yes') {
+    if( widget.user.pastIllness == 'Yes') {
       return TextFormField(
+        onSaved: (String value) { widget.user.natureOfIllness = value;},
         validator: (String val) {
           if (val.isEmpty) {
             return 'Please enter a valid input';
           }
         },
-        controller: illnessController,
         decoration: InputDecoration(
             labelText: "If Yes",
             hintText: "nature of illness",
@@ -577,5 +784,28 @@ class _ANMWorkerState extends State<ANMWorker> {
     else {
       return Center(child: Text(""));
     }
+  }
+
+  void _onCategorySelected(bool selected, category_name) {
+    if (selected == true) {
+      setState(() {
+        widget.user.immunization.add(category_name);
+      });
+    } else {
+      setState(() {
+        widget.user.immunization.remove(category_name);
+      });
+    }
+  }
+
+  void _showSnackBar(String message){
+    var snackBar = SnackBar(
+//      backgroundColor: Colors.blue,
+      content: Text(message,
+        style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 }

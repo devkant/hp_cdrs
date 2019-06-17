@@ -3,6 +3,8 @@ import 'package:hp_cdrs/app_screens/social_autopsy/user.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/section_b_1.dart';
 
 class SocialAutopsyA extends StatefulWidget {
+  final User user;
+  SocialAutopsyA({Key key, this.user}):super(key:key);
   @override
   State createState() => SocialAutopsyAState();
 }
@@ -11,28 +13,28 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _autoValidate = false;
-  var _user = User();
+  //var user = User();
 
-  void _handleRadioValueChange1(int value) {
+  void _handleRadioValueChange1(String value) {
     setState(() {
-      _user.isBelowPovertyLine = value;
+      widget.user.bplCard = value;
     });
   }
 
   void _handleSubmitted() {
     final FormState form = _formKey.currentState;
     if (form.validate()) {
-      if (_user.isBelowPovertyLine < 0)
-        _showSnackBar('Please fill your BPL status');
-      else
-        {
+//      if (widget.user.bplCard == '')
+//        _showSnackBar('Please fill your BPL status');
+//      else
+//        {
           form.save();
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => (SocialAutopsyB1())),
+                builder: (context) => (SocialAutopsyB1(user:widget.user))),
           );
-        }
+//        }
     }
     else
       _autoValidate = true;
@@ -48,7 +50,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
     String _validateName(value) {
 
       final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
-      if (!nameExp.hasMatch(value))
+      if (!nameExp.hasMatch(value) || value == null)
         return 'Please enter only alphabetical values';
       else
         return null;
@@ -60,13 +62,13 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
         key: _scaffoldKey,
         appBar: AppBar(
           title: Text('Background Information'),
-          backgroundColor: Colors.cyan,
         ),
         body: Container(
+          width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
           child: Builder(
             builder: (context) => Form(
-                  key: _formKey,
+                  key: this._formKey,
                   autovalidate: _autoValidate,
                   child: SingleChildScrollView(
                     child: Column(
@@ -80,12 +82,12 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0))),
                                 validator: (String value) { _validateName(value); },
-                              onSaved: (String value) {_user.respondentName = value; },
+                              onSaved: (String value) {widget.user.nameOfInformant = value; },
                             )),
                         Padding(
                             padding: EdgeInsets.only(top: 10.0),
                             child: TextFormField(
-                              keyboardType: TextInputType.numberWithOptions(),
+                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   labelText: '2) Telephone/Mobile Number',
                                   border: OutlineInputBorder(
@@ -96,7 +98,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                                   return 'Please enter valid Phone Number';
                                 }
                               },
-                              onSaved: (String value) { _user.telephoneNumber = value; },
+                              onSaved: (String value) { widget.user.telephoneNumber = value; },
                             )),
                         Padding(
                             padding: EdgeInsets.only(top: 10.0),
@@ -113,7 +115,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                                   return 'Please enter valid entry';
                                 }
                               },
-                              onSaved: (value) { _user.noOfFamilyMembersDeceased = int.parse(value); },
+                              onSaved: (value) { widget.user.familyMembers = int.parse(value); },
                             )),
                         Padding(
                             padding: EdgeInsets.only(top: 10.0),
@@ -129,7 +131,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                                   return 'Please enter valid entry';
                                 }
                               },
-                              onSaved: (value) { _user.noOfChildren = int.parse(value); },
+                              onSaved: (value) { widget.user.children = int.parse(value); },
                             )),
                         Padding(
                             padding: EdgeInsets.only(top: 10.0),
@@ -140,7 +142,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                                       borderRadius:
                                           BorderRadius.circular(8.0))),
                                 validator: (String value) { _validateName(value); },
-                              onSaved: (value) { _user.caste = value; },
+                              onSaved: (value) { widget.user.caste = value; },
                             )),
                         Padding(
                             padding: EdgeInsets.only(top: 10.0),
@@ -150,12 +152,8 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                                   border: OutlineInputBorder(
                                       borderRadius:
                                       BorderRadius.circular(8.0))),
-                              validator: (String value) {
-                                final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
-                                if (!nameExp.hasMatch(value))
-                                  return 'Please enter only alphabetical values';
-                              },
-                              onSaved: (value) { _user.religion = value; },
+                              validator: (String value) { _validateName(value); },
+                              onSaved: (value) { widget.user.religion = value; },
                             )),
                         Padding(
                           padding: EdgeInsets.only(right:10.0, top: 10.0, bottom: 10.0),
@@ -164,14 +162,14 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                             children: <Widget>[
                               Text('7) Do you have Below'"\n"'Poverty Line (BPL) card:'),
                                   Radio(
-                                    value: 1,
-                                    groupValue: _user.isBelowPovertyLine,
+                                    value: 'yes',
+                                    groupValue: widget.user.bplCard,
                                     onChanged: _handleRadioValueChange1,
                                   ),
                                   Text('Yes'),
                                   Radio(
-                                    value: 0,
-                                    groupValue: _user.isBelowPovertyLine,
+                                    value: 'no',
+                                    groupValue: widget.user.bplCard,
                                     onChanged: _handleRadioValueChange1,
                                   ),
                               Text('No'),
