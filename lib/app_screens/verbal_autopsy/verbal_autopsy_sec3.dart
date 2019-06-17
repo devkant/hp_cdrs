@@ -168,7 +168,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
 
                             print(data);
                             print(isOffline);
-                            var status  = await apiRequest('http://13.126.72.137/api/test',data);
+                            var status  = await apiRequest('http://13.126.72.137/api/neonate',data);
                             if(!isOffline && status){
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) =>
