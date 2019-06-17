@@ -60,7 +60,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
           entries.add(temp);
         }
         else {
-          sendData('', temp);
+          apiRequest('http://13.126.72.137/api/test',temp);
         }
 
         if(i==(jsonList.length-1) && !isOffline){
