@@ -46,7 +46,6 @@ class SocialAutopsyCState extends State<SocialAutopsyC> {
   void _handleSubmitted() {
     final FormState form = _formKey.currentState;
     form.save();
-    print(widget.user.dischargeDueDissatisfactionTreatment);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -78,6 +77,7 @@ class SocialAutopsyCState extends State<SocialAutopsyC> {
           title: Text('Brief Social History of the Family'),
         ),
         body: Container(
+            width: MediaQuery.of(context).size.width,
             child: Builder(
                 builder: (context) => Form(
                   key: this._formKey,
