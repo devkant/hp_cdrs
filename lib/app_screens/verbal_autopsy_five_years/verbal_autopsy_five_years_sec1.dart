@@ -120,7 +120,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
     final DateTime pickedDOB = await showDatePicker(
       context: context,
       initialDate: _deceasedDOB,
-      firstDate: DateTime.now().subtract(Duration(seconds: 5 * 365 * 86400)),
+      firstDate: DateTime.now().subtract(Duration(days: 5 * 370 * 86400)),
       lastDate: DateTime.now(),
     );
 
@@ -139,7 +139,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
     final DateTime pickedDOD = await showDatePicker(
       context: context,
       initialDate: _deceasedDOD,
-      firstDate: DateTime.now().subtract(Duration(seconds: 5 * 365 * 86400)),
+      firstDate: DateTime.now().subtract(Duration(seconds: 5 * 370 * 86400)),
       lastDate: DateTime.now(),
     );
 
