@@ -124,9 +124,10 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
             );
           }
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add),
         tooltip: 'Add new Entry',
+        label: Text("New Form"),
         onPressed: () {
           Navigator.push(
             context,

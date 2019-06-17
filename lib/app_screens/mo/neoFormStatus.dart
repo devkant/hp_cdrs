@@ -60,7 +60,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
           entries.add(temp);
         }
         else{
-          //sendData('http://13.126.72.137/api/asha', temp);
+          apiRequest('http://13.126.72.137/api/test',temp);
         }
 
         if(i==(jsonList.length-1) && !isOffline){
@@ -129,9 +129,11 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
             );
           }
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add),
         tooltip: 'Add new Entry',
+        label: Text("New Form"),
+
         onPressed: () {
           Navigator.push(
             context,
