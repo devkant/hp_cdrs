@@ -3,31 +3,22 @@ import 'package:hp_cdrs/connectionStatus.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
-import 'package:hp_cdrs/app_screens/ANM/user.dart';
+import 'package:hp_cdrs/app_screens/verbal_autopsy_five_years/user.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
-import 'package:hp_cdrs/app_screens/ANM/anm1.dart';
+import 'package:hp_cdrs/app_screens/verbal_autopsy_five_years/verbal_autopsy_five_years.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: "ANM Form",
-    home: Scaffold(
-      body: ANMStatus(),
-    ),
-  ));
-}
-
-class ANMStatus extends StatefulWidget {
+class PostNeoFormsStatus extends StatefulWidget {
   final User newEntry;
-  ANMStatus({Key key, @required this.newEntry}):super(key: key);
+  PostNeoFormsStatus({Key key, @required this.newEntry}):super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _ANMStatusState();
+    return _PostNeoFormsStatusState();
   }
 }
 
-class _ANMStatusState extends State<ANMStatus> {
+class _PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
   final user  = User();
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
@@ -38,7 +29,7 @@ class _ANMStatusState extends State<ANMStatus> {
 
   File jsonFile;
   Directory dir;
-  String fileName = "fbi.json";
+  String fileName = "postNeonate.json";
   bool fileExists = false;
   Map<String, String> fileContent;
 
@@ -69,7 +60,7 @@ class _ANMStatusState extends State<ANMStatus> {
           entries.add(temp);
         }
         else{
-          sendData('http://13.126.72.137/api/temp', temp);
+          //sendData('http://13.126.72.137/api/asha', temp);
         }
 
         if(i==(jsonList.length-1) && !isOffline){
@@ -77,12 +68,7 @@ class _ANMStatusState extends State<ANMStatus> {
         }
       }
       print(jsonList);
-
-
-
     });
-
-
   }
 
   void connectionChanged(dynamic hasConnection) {
@@ -124,7 +110,7 @@ class _ANMStatusState extends State<ANMStatus> {
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text('ANM Forms Pending'),
+        title:  Text('Forms Pending'),
       ),
       drawer: BasicDrawer(),
       body: ListView.builder(
@@ -138,22 +124,21 @@ class _ANMStatusState extends State<ANMStatus> {
             );
           }
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text("New Form"),
-        icon: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
         tooltip: 'Add new Entry',
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ANMWorker(user: user),
+              builder: (context) => verbalAutopsy5YrForm(userObj:user),
             ),
           );
-
-
-        },
+          },
       ),
 
     );
   }
 }
+
+

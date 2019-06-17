@@ -71,7 +71,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
           form.save();
           var data  = createMap(widget.user);
           print(data);
-          var status  = await sendData('',data);
+          var status  = await apiRequest('http://13.126.72.137/api/test',data);
           if(!isOffline && status){
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) =>

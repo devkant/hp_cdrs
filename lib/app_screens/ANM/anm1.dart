@@ -536,7 +536,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                               return 'Please enter a valid input';
                             }
                           },
-                          onSaved: (String value) { widget.user.weight = int.parse(value);},
+                          onSaved: (String value) { widget.user.weight = double.parse(value);},
                           decoration: InputDecoration(
                               labelText: "Weight",
                               hintText: "In Kgs(if recorded in the MCP Card or 0)",
