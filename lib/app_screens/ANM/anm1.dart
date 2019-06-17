@@ -3,22 +3,36 @@ import 'package:hp_cdrs/app_screens/ANM/user.dart';
 
 import 'anm2.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: "ANM Form",
-    home: ANMWorker(),
-  ));
-}
+//void main() {
+//  runApp(MaterialApp(
+//    title: "ANM Form",
+//    home: ANMWorker(),
+//  ));
+//}
 
 class ANMWorker extends StatefulWidget {
 
-  final User user = User();
+  User user = User();
+  ANMWorker({Key key,@ required this.user}):super(key:key);
 
   @override
   _ANMWorkerState createState() => _ANMWorkerState();
 }
 
 class _ANMWorkerState extends State<ANMWorker> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    widget.user.gender = dropdownGender[0];
+    widget.user.orderOfBirth = dropdownOrderOfBirth[0];
+    widget.user.caste = dropdownCaste[0];
+    widget.user.bplCard = dropdownBPL[0];
+    widget.user.growthCurve = growthCurve[0];
+    widget.user.pastIllness = dropdownPastIllness[0];
+
+  }
 
   //formkey
   final _formKey = GlobalKey<FormState>();
@@ -31,6 +45,19 @@ class _ANMWorkerState extends State<ANMWorker> {
   var dropdownBPL = ['Yes', 'No'];
   var growthCurve = ['None', 'Green zone', 'Yellow zone', 'Orange zone'];
   var dropdownPastIllness = ['No', 'Yes'];
+
+  //defining again due to null errors
+  //var gender;
+//  String area;
+//  int pincode;
+//  var district = null;
+//  var block = null;
+//  var orderOfBirth = '1';
+//  var caste = 'SC';
+//  var bplCard = 'No';
+//  var variableGrowthCurve = 'None';
+//  var pastIllness = 'No';
+//  var immunization = List();
 
   var _districtName = ['BILASPUR', 'CHAMBA', 'HAMIRPUR', 'KANGRA', 'KINNAUR','KULLU', 'LAHUL AND SPITI', 'MANDI', 'SHIMLA', 'SIRMOUR', 'SOLAN', 'UNA'];
 
@@ -307,7 +334,8 @@ class _ANMWorkerState extends State<ANMWorker> {
                       ),
                     ],
                   ),
-                ), //Address
+                ), //Area
+
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Row(
@@ -774,8 +802,7 @@ class _ANMWorkerState extends State<ANMWorker> {
     var snackBar = SnackBar(
 //      backgroundColor: Colors.blue,
       content: Text(message,
-        style: TextStyle(fontSize: 16.0,
-          fontWeight: FontWeight.w400,
+        style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w400,
         ),
       ),
     );

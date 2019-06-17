@@ -8,16 +8,13 @@ class verbalAutopsyForm extends StatefulWidget {
 
   final user verbal_Autopsy_Obj;
   verbalAutopsyForm({Key key, @required this.verbal_Autopsy_Obj}):super(key: key);
-
   @override
   State<StatefulWidget> createState() {
     return _verbalAutopsyFormState();
   }
 }
 
-
 class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
-
 
   var _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

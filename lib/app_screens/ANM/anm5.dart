@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hp_cdrs/app_screens/ANM/user.dart';
+import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
+import 'package:hp_cdrs/connectionStatus.dart';
+import 'dart:async';
+import 'package:hp_cdrs/app_screens/ANM/anmstatus.dart';
 
 /*
 void main() {
@@ -24,6 +28,9 @@ class _Form5State extends State<Form5> {
 
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  StreamSubscription _connectionChangeStream;
+  bool isOffline = false;
 
   bool submission = false;
 
@@ -206,24 +213,41 @@ class _Form5State extends State<Form5> {
                       style: TextStyle(fontSize: 20.0, color: Colors.white),
                     ),
                     onPressed: () {
-                      if (_formKey.currentState.validate()  /*&& widget.user.submission == true*/) {
-                        if(submission == true) {
-                          final form = _formKey.currentState;
-                          form.save();
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Alert"),
-                                  content: Text("The form has been submitted"),
-                                );
-                              }
-                          );
+                      setState(() async {
+                        if (_formKey.currentState.validate()) {
+                          if(submission == true) {
+                            final form = _formKey.currentState;
+                            form.save();
+                            var data  = createMap(widget.user);
+                            print(data);
+                            var status  = await sendData('http://13.126.72.137/api/test',data);
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Alert"),
+                                    content: Text("The form has been submitted"),
+                                  );
+                                }
+                            );
+                            if(!isOffline && status){
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      ANMStatus(
+                                        newEntry: null,)));
+                            }
+                            else{
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      ANMStatus(
+                                        newEntry: widget.user,)));
+                            }
+                          }
+                          else {
+                            _showSnackBar("Please check the checkbox to proceed");
+                          }
                         }
-                        else {
-                          _showSnackBar("Please check the checkbox to proceed");
-                        }
-                      }
+                      });
                     },
                   ),
                 ),
