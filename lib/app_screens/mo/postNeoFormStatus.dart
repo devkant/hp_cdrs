@@ -3,23 +3,23 @@ import 'package:hp_cdrs/connectionStatus.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
-import 'package:hp_cdrs/app_screens/verbal_autopsy/user.dart';
+import 'package:hp_cdrs/app_screens/verbal_autopsy_five_years/user.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
-import 'package:hp_cdrs/app_screens/verbal_autopsy/verbal_autopsy_form.dart';
+import 'package:hp_cdrs/app_screens/verbal_autopsy_five_years/verbal_autopsy_five_years.dart';
 
-class neoFormsStatus extends StatefulWidget {
-  final user newEntry;
-  neoFormsStatus({Key key, @required this.newEntry}):super(key: key);
+class PostNeoFormsStatus extends StatefulWidget {
+  final User newEntry;
+  PostNeoFormsStatus({Key key, @required this.newEntry}):super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _neoFormsStatusState();
+    return _PostNeoFormsStatusState();
   }
 }
 
-class _neoFormsStatusState extends State<neoFormsStatus> {
-  final User  = user();
+class _PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
+  final user  = User();
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
 
@@ -29,7 +29,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
 
   File jsonFile;
   Directory dir;
-  String fileName = "neonate.json";
+  String fileName = "postNeonate.json";
   bool fileExists = false;
   Map<String, String> fileContent;
 
@@ -68,14 +68,8 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
         }
       }
       print(jsonList);
-
-
-
     });
-
-
   }
-
 
   void connectionChanged(dynamic hasConnection) {
     setState(() {
@@ -83,7 +77,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
     });
   }
 
-  void createFile(user content, Directory dir, String fileName) {
+  void createFile(User content, Directory dir, String fileName) {
     print("Creating file!");
     File file = new File(dir.path + "/" + fileName);
     file.createSync();
@@ -91,7 +85,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
     file.writeAsStringSync(json.encode(content),mode: FileMode.append);
   }
 
-  void writeToFile(user entry) {
+  void writeToFile(User entry) {
     print("Writing to file!");
     if (fileExists) {
       print("File exists");
@@ -137,14 +131,14 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => verbalAutopsyForm(verbal_Autopsy_Obj:User),
+              builder: (context) => verbalAutopsy5YrForm(userObj:user),
             ),
           );
-
-
-        },
+          },
       ),
 
     );
   }
 }
+
+
