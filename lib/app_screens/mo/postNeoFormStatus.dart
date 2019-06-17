@@ -60,7 +60,7 @@ class _PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
           entries.add(temp);
         }
         else{
-          //sendData('http://13.126.72.137/api/asha', temp);
+          apiRequest('http://13.126.72.137/api/test',temp);
         }
 
         if(i==(jsonList.length-1) && !isOffline){
@@ -110,7 +110,7 @@ class _PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Forms Pending'),
+        title:  Text('Post Neonate Pending'),
       ),
       drawer: BasicDrawer(),
       body: ListView.builder(
@@ -124,8 +124,9 @@ class _PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
             );
           }
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add),
+        label: Text("New Form"),
         tooltip: 'Add new Entry',
         onPressed: () {
           Navigator.push(

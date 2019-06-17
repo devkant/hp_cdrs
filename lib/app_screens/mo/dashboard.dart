@@ -4,6 +4,7 @@ import 'package:hp_cdrs/app_screens/verbal_autopsy/verbal_autopsy_form.dart';
 import 'package:hp_cdrs/app_screens/verbal_autopsy/user.dart';
 import 'neoFormStatus.dart';
 import 'socialAutopsyFormStatus.dart';
+import 'postNeoFormStatus.dart';
 
 void  main(){
   runApp(MaterialApp(
@@ -109,6 +110,45 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                 )
+
+            )
+            ,
+            Card(
+                elevation: 1.0,
+                margin: new EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
+                  child: new InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (BuildContext  context)  =>  PostNeoFormsStatus())
+                      );
+
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      verticalDirection: VerticalDirection.down,
+                      children: <Widget>[
+                        SizedBox(height: 50.0),
+                        Center(
+                            child: Icon(
+                              Icons.child_care,
+                              size: 40.0,
+                              color: Colors.black,
+                            )),
+                        SizedBox(height: 20.0),
+                        new Center(
+                          child: new Text('Verbal Autopsy\n  (Post Neonate)',
+                              style:
+                              new TextStyle(fontSize: 15.0, color: Colors.black)),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+
 
             )
 
