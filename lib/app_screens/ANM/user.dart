@@ -1,6 +1,6 @@
 class User {
 
-  String applicationNumber;
+  String applicationNumber = '13';
   //form 1
   String name;
   var age = Age();

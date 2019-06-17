@@ -138,7 +138,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                   padding: EdgeInsets.all(10.0),
                   child: Center(
                     child: Text(
-                      "Application number: ",
+                      "Application number: ${widget.user.applicationNumber}",
                       style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
                     ),
                   ),
