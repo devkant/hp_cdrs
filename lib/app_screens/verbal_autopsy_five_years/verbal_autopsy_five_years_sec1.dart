@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'user.dart';
-import 'verbal_autopsy_5_yr_sec2_p1.dart';
+import 'verbal_autopsy_five_years_sec2_p1.dart';
 
 //void main() {
 //  runApp(MaterialApp(
