@@ -71,6 +71,7 @@ class _verbalAutopsy5YrSec3State
                         Flexible(
                             child: TextFormField(
                                 onSaved: (value){widget.userObj.code = value;},
+                                keyboardType: TextInputType.numberWithOptions(),
                                 validator: (String value) {
                                   if (value.isEmpty) return 'Please input the Code';
                                 },
