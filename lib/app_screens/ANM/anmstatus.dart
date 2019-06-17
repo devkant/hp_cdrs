@@ -69,7 +69,7 @@ class _ANMStatusState extends State<ANMStatus> {
           entries.add(temp);
         }
         else{
-          sendData('http://13.126.72.137/api/temp', temp);
+          sendData('http://13.126.72.137/api/anmform', temp);
         }
 
         if(i==(jsonList.length-1) && !isOffline){

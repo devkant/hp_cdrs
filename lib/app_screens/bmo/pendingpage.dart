@@ -170,7 +170,7 @@ class DetailPage extends StatelessWidget {
         ),
       ),
       floatingActionButton : FloatingActionButton.extended(
-        onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Molist()git statu));},
+        onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Molist()));},
         icon : Icon(Icons.account_circle,),
         label: Text("Assign MO"),
       ),
