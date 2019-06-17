@@ -69,9 +69,9 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
         else
         {
           form.save();
-          Map<String, dynamic> data  = createMap(widget.user);
+          var data  = createMap(widget.user);
           print(data);
-          var status  = await sendData('http://13.126.72.137/api/test',data);
+          var status  = await apiRequest('http://13.126.72.137/api/test',data);
           if(!isOffline && status){
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) =>
@@ -331,7 +331,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
 
 
   Map createMap(User child) {
-    Map<String, dynamic> data = {
+    var data = {
       'applicationNumber': child.applicationNumber,
       'referenceId': child.referenceId,
       'MCTS': child.MCTS,
