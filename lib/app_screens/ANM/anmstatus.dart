@@ -69,7 +69,7 @@ class _ANMStatusState extends State<ANMStatus> {
           entries.add(temp);
         }
         else{
-          sendData('http://13.126.72.137/api/asha', temp);
+          sendData('http://13.126.72.137/api/temp', temp);
         }
 
         if(i==(jsonList.length-1) && !isOffline){
@@ -124,7 +124,7 @@ class _ANMStatusState extends State<ANMStatus> {
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Forms Pending'),
+        title:  Text('ANM Forms Pending'),
       ),
       drawer: BasicDrawer(),
       body: ListView.builder(
@@ -138,8 +138,9 @@ class _ANMStatusState extends State<ANMStatus> {
             );
           }
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text("New Form"),
+        icon: Icon(Icons.add),
         tooltip: 'Add new Entry',
         onPressed: () {
           Navigator.push(
