@@ -220,7 +220,7 @@ class _Form5State extends State<Form5> {
                             form.save();
                             var data  = createMap(widget.user);
                             print(data);
-                            var status  = await sendData('http://13.126.72.137/api/test',data);
+                            var status  = await apiRequest('http://13.126.72.137/api/anmform',data);
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -282,7 +282,7 @@ class _Form5State extends State<Form5> {
   Map createMap(User child) {
     var data = {
 
-      'applicationNumber': child.applicationNumber,
+      'applicationNumber': '1560779046894',
       // User reference
 
       //Background Information
@@ -302,7 +302,7 @@ class _Form5State extends State<Form5> {
       'weight': child.weight,
       'growthCurve': child.growthCurve,
       'pastIllness': child.pastIllness,
-      //natureOfIllness: { type: String },
+      'natureOfIllness': child.natureOfIllness,
 
       // Symptoms during Illness
       'inabilityToFeed': child.inabilityToFeed,
@@ -332,5 +332,6 @@ class _Form5State extends State<Form5> {
       'advice': child.advice,
 
     };
+    return data;
   }
 }
