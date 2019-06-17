@@ -122,7 +122,8 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                             child: TextFormField(
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
-                                  labelText: '4) Number of children <= 5 years',
+                                  labelText: '4) Number of children',
+                                  hintText: 'Less than equal to years',
                                   border: OutlineInputBorder(
                                       borderRadius:
                                           BorderRadius.circular(8.0))),
