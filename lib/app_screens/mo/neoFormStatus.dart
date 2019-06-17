@@ -60,7 +60,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
           entries.add(temp);
         }
         else{
-          sendData('http://13.126.72.137/api/asha', temp);
+          //sendData('http://13.126.72.137/api/asha', temp);
         }
 
         if(i==(jsonList.length-1) && !isOffline){
