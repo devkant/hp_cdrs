@@ -28,6 +28,7 @@ class ForgotPassState extends State<ForgotPass> {
   String emailRegex = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]'
       r'+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|'
       r'(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  String snackBarMessage = 'Please check your inbox for password reset link';
 
 
   @override
@@ -88,9 +89,9 @@ class ForgotPassState extends State<ForgotPass> {
                             form.save();
                             showSnackBar('Please check your inbox for password reset link');
                             setState(() {
-                              var data = {'email': emailController.text};
-                              sendData('http://13.126.72.137/api/forget', data);
-                              Navigator.pop(context);
+                              Map data = {'email': emailController.text};
+                              sendData('http://13.126.72.137/api/test', data);
+//                              Navigator.pop(context, snackBarMessage);
                             });
                           }
                         },
@@ -115,3 +116,4 @@ class ForgotPassState extends State<ForgotPass> {
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 }
+
