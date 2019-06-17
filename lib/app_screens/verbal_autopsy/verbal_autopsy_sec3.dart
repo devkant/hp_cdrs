@@ -160,9 +160,99 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                             showSnackBar('Please check the checkbox to proceed');
                           }
                           if(_formKey.currentState.validate() && _knowledgeCheck  ==  true){
-                            var data  = createMap(widget.verbal_Autopsy_Obj);
+                            _formKey.currentState.save();
+                            user child  = widget.verbal_Autopsy_Obj;
+                            var data  = {
+                              'applicationNumber' : child.applicationNumber,
+                              'district': child.district,
+                              'block': child.block,
+                              'village': child.village,
+                              'phc': child.phc,
+                              'subCenter': child.subCenter,
+                              'rhc': child.rhc.toString(),
+                              'year': child.year.toString(),
+                              'head': child.head,
+                              'name': child.name,
+                              'mother': child.mother,
+
+                              // Details of respondent
+                              'respondent': child.respondent,
+                              'relationship': child.relationship,
+                              'liveWith': child.liveWith,
+                              'respondentEducation': child.respondentEducation,
+                              'category': child.category,
+                              'religion': child.religion,
+
+                              // Details of deceased
+                              'sex': child.sex,
+                              'ageInDays': child.ageInDays,
+                              'dob': child.dob,
+                              'dod': child.dod,
+                              'address': child.address,
+                              'pin': child.pin.toString(),
+                              'placeOfDeath': child.placeOfDeath,
+                              'probableCause': child.probableCause,
+
+                              // Neonatal
+                              'injury': child.injury,
+                              'kindOfInjury': child.kindOfInjury,
+                              'pregnancyDuration': child.pregnancyDuration.toString(),
+                              'mothersAge': child.mothersAge.toString(),
+                              'td': child.td,
+                              'complications': child.complications,
+                              'complicationsType': child.complicationsType,
+                              'singleOrMultiple': child.singleOrMultiple,
+                              'birthPlace': child.birthPlace,
+                              'attendedDelivery': child.attendedDelivery,
+                              'umbilicalCord': child.umbilicalCord,
+
+                              // After Birth
+                              'moveCryBreathe': child.moveCryBreathe,
+                              'bruises': child.bruises,
+                              'malformations': child.malformations,
+                              'size': child.size,
+                              'weight': child.weight.toString(),
+                              'stopCry': child.stopCry.toString(),
+                              'daysAfterStoppedCrying': child.daysAfterStoppedCrying.toString(),
+                              'firstBreastfed': child.firstBreastfed.toString(),
+                              'otherThanBreastMilk': child.otherThanBreastMilk,
+                              'suckleNormally': child.suckleNormally,
+                              'StopSuckingInNormalWay': child.StopSuckingInNormalWay,
+                              'CompletedDays': child.CompletedDays,
+
+                              // Details of sickness at death
+                              'fever': child.fever,
+                              'feverDays': child.feverDays,
+                              'difficultyBreathing': child.difficultyBreathing,
+                              'difficultyBreathingDays': child.difficultyBreathingDays,
+                              'fastBreathing': child.fastBreathing,
+                              'fastBreathingDays': child.fastBreathingDays,
+                              'inDrawingChest': child.inDrawingChest,
+                              'cough': child.cough,
+                              'grunting': child.grunting,
+                              'nostrilsFlare': child.nostrilsFlare,
+                              'diarrhoea': child.diarrhoea,
+                              'diarrhoeaDays': child.diarrhoeaDays,
+                              'vomit': child.vomit,
+                              'vomitDays': child.vomitDays,
+                              'rednessAroundUmbilicalCord': child.rednessAroundUmbilicalCord,
+                              'pustulesRashes': child.pustulesRashes,
+                              'yellowEyesOrSkin': child.yellowEyesOrSkin,
+                              'spasmsOrFits': child.spasmsOrFits,
+                              'unresponsiveOrUnconscious': child.unresponsiveOrUnconscious,
+                              'bulgingFontanelle': child.bulgingFontanelle,
+                              'cold': child.cold,
+                              'legsDiscoloured': child.legsDiscoloured,
+                              'yellow': child.yellow,
+                              'blood' : child.blood,
+                              'narrativeLanguageCode': child.narrativeLanguageCode,
+
+                              'symptoms': child.symptoms,
+//date: { day: { type: Number }, month: { type: Number }, year: { type: Number } }
+                            };
                             print(data);
-                            var status  = await sendData('http://13.126.72.137/api/test',data);
+                            print(isOffline);
+                            var status  = await apiRequest('http://13.126.72.137/api/test',data);
                             if(!isOffline && status){
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) =>
@@ -200,7 +290,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
-  Map createMap(user child){
+  dynamic createMap(user child){
     var data  = {
       'applicationNumber' : child.applicationNumber,
       'district': child.district,
@@ -208,8 +298,8 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
       'village': child.village,
       'phc': child.phc,
       'subCenter': child.subCenter,
-      'rhc': child.rhc,
-      'year': child.year,
+      'rhc': child.rhc.toString(),
+      'year': child.year.toString(),
       'head': child.head,
       'name': child.name,
       'mother': child.mother,
@@ -228,18 +318,18 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
       'dob': child.dob,
       'dod': child.dod,
       'address': child.address,
-      'pin': child.pin,
+      'pin': child.pin.toString(),
       'placeOfDeath': child.placeOfDeath,
       'probableCause': child.probableCause,
 
       // Neonatal
       'injury': child.injury,
       'kindOfInjury': child.kindOfInjury,
-      'pregnancyDuration': child.pregnancyDuration,
-      'mothersAge': child.mothersAge,
+      'pregnancyDuration': child.pregnancyDuration.toString(),
+      'mothersAge': child.mothersAge.toString(),
       'td': child.td,
       'complications': child.complications,
-      'complicationsType': child.complicationsType,
+      'complicationsType': child.complicationsType.toString(),
       'singleOrMultiple': child.singleOrMultiple,
       'birthPlace': child.birthPlace,
       'attendedDelivery': child.attendedDelivery,
@@ -250,7 +340,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
       'bruises': child.bruises,
       'malformations': child.malformations,
       'size': child.size,
-      'weight': child.weight,
+      'weight': child.weight.toString(),
       'stopCry': child.stopCry,
       'daysAfterStoppedCrying': child.daysAfterStoppedCrying,
       'firstBreastfed': child.firstBreastfed,
