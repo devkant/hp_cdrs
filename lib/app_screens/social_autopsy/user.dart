@@ -2,14 +2,14 @@ class User {
 
   String applicationNumber = "Application Number";
 
-  String referenceId;
-  String MCTS;
-  String nameOfInformant;
-  String telephoneNumber;
-  int familyMembers;
+  String referenceId = "";
+  String MCTS = "";
+  String nameOfInformant = "";
+  String telephoneNumber = "";
+  int familyMembers = 0;
   int children = 0 ;
-  String caste;
-  String religion;
+  String caste = "";
+  String religion = "";
   String bplCard = 'no';
 
 
@@ -65,8 +65,8 @@ class User {
 
   String reasonDischargedAgainstMedicalAdvice = "" ;
   String dischargedAgainstMedicalAdvice = "no";
-  String circumstancesDischargeBaby ;
-  String dischargeOnBehalf ;
+  String circumstancesDischargeBaby = "" ;
+  String dischargeOnBehalf  = "";
   String babyDiedBeforeDischarge = "no";
   String dischargeDueDissatisfactionTreatment = "no";
   String reasonAgainstdischargedMedicalAdvice = "";

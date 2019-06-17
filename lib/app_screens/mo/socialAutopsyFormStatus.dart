@@ -110,7 +110,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Forms Pending'),
+        title:  Text('Social Autopsy - Pending'),
       ),
       drawer: BasicDrawer(),
       body: ListView.builder(
