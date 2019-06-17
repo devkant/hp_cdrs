@@ -88,18 +88,6 @@ class verbalAutopsy5YrFormState extends State<verbalAutopsy5YrForm> {
                 child: Column(
                   children: <Widget>[
 
-
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Center(
-                        child: Text(
-                          '${widget.userObj.applicationNumber}',
-                          style: TextStyle(
-                              fontSize: 20.0, fontWeight: FontWeight.w800),
-                        ),
-                      ),
-                    ),
-
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Center(
@@ -110,6 +98,22 @@ class verbalAutopsy5YrFormState extends State<verbalAutopsy5YrForm> {
                           style: TextStyle(
                               fontSize: 18.0, fontWeight: FontWeight.w800),
                         ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        onSaved: (value){widget.userObj.applicationNumber = value;},
+                        validator: (String value) {
+                          if (value.isEmpty) return 'Please fill a valid input';
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Application number',
+                            hintText: 'Application number',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
                       ),
                     ),
 
