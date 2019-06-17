@@ -220,7 +220,7 @@ class _Form5State extends State<Form5> {
                             form.save();
                             var data  = createMap(widget.user);
                             print(data);
-                            var status  = await sendData('http://13.126.72.137/api/test',data);
+                            var status  = await apiRequest('http://13.126.72.137/api/test',data);
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -332,5 +332,6 @@ class _Form5State extends State<Form5> {
       'advice': child.advice,
 
     };
+    return data;
   }
 }
