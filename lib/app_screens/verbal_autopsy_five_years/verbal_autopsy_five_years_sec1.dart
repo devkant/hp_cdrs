@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'user.dart';
-import 'verbal_autopsy_five_years_sec2_p1.dart';
+import 'verbal_autopsy_5_yr_sec2_p1.dart';
 
 //void main() {
 //  runApp(MaterialApp(
@@ -120,7 +120,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
     final DateTime pickedDOB = await showDatePicker(
       context: context,
       initialDate: _deceasedDOB,
-      firstDate: DateTime(2014, 6, 1),
+      firstDate: DateTime.now().subtract(Duration(seconds: 5 * 365 * 86400)),
       lastDate: DateTime.now(),
     );
 
@@ -139,7 +139,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
     final DateTime pickedDOD = await showDatePicker(
       context: context,
       initialDate: _deceasedDOD,
-      firstDate: DateTime(2014, 6, 1),
+      firstDate: DateTime.now().subtract(Duration(seconds: 5 * 365 * 86400)),
       lastDate: DateTime.now(),
     );
 
@@ -464,6 +464,8 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                           ),
                         ),
 
+
+
                         //8th user input element start
                         Padding(
                           padding: EdgeInsets.all(10.0),
@@ -483,6 +485,35 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                             ),
                           ]),
                         ),
+//                  Padding(
+//                      padding: EdgeInsets.all(10.0),
+//                      child: Row(
+//                        mainAxisAlignment: MainAxisAlignment.center,
+//                        children: <Widget>[
+//                          Text(
+//                            'Less than 1 year',
+//                            style: TextStyle(fontSize: 16.0),
+//                          ),
+//                          Radio(
+//                            value: 'Less than 1 year',
+//                            groupValue: widget.userObj.ageDays,
+//                            onChanged: (String newRadioSelected) {
+//                              _onCompletedDaysRadioSelect(newRadioSelected);
+//                            },
+//                          ),
+//                          Text(
+//                            'More than 1 year',
+//                            style: TextStyle(fontSize: 16.0),
+//                          ),
+//                          Radio(
+//                            value: 'More than 1 year',
+//                            groupValue: widget.userObj.ageDays,
+//                            onChanged: (String newRadioSelected) {
+//                              _onCompletedDaysRadioSelect(newRadioSelected);
+//                            },
+//                          )
+//                        ],
+//                      )),
 
                         RadioListTile(
                           title: Text('Less than 1 year'),
