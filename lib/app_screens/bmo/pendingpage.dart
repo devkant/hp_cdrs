@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:hp_cdrs/app_screens/bmo/molist.dart';
 import 'package:flutter/material.dart';
 
 
@@ -170,7 +170,7 @@ class DetailPage extends StatelessWidget {
         ),
       ),
       floatingActionButton : FloatingActionButton.extended(
-        //onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => page104()));},
+        onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Molist()git statu));},
         icon : Icon(Icons.account_circle,),
         label: Text("Assign MO"),
       ),
