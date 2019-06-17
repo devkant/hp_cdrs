@@ -20,14 +20,20 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
   bool referralInstitutionIINilFirstAidText = false;
   String referralInstitutionIIINilFirstAid = '';
   bool referralInstitutionIIINilFirstAidText = false;
-  String firstHealthFacilitySpecialistAndEquipment = '';
-  bool firstHealthFacilitySpecialistAndEquipmentText = false;
-  String referralInstitutionISpecialistAndEquipment = '';
-  bool referralInstitutionISpecialistAndEquipmentText = false;
-  String referralInstitutionIISpecialistAndEquipment = '';
-  bool referralInstitutionIISpecialistAndEquipmentText = false;
-  String referralInstitutionIIISpecialistAndEquipment = '';
-  bool referralInstitutionIIISpecialistAndEquipmentText = false;
+  TextEditingController testController = TextEditingController();
+
+
+  void _handleSubmitted() {
+    final FormState form = _formKey.currentState;
+    if(form.validate())
+      form.save();
+//    controllerTest();
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => (SocialAutopsyB3(user:widget.user))),
+      );
+  }
 
 
   void _handleRadioValueChange1(String value) {
@@ -35,12 +41,13 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
       firstHealthFacilityNilFirstAid = value;
       if (value == 'NIL') {
         firstHealthFacilityNilFirstAidText = false;
-        widget.user.nil.add('First Health Facility');
-        widget.user.firstAid.remove('First Health Facility');
+        testController.text = '';
+        widget.user.nil[0] = true;
+        widget.user.firstAid[0] = false;
       } else if(value == 'FirstAid') {
         firstHealthFacilityNilFirstAidText = false;
-        widget.user.firstAid.add('First Health Facility');
-        widget.user.nil.remove('First Health Facility');
+        widget.user.firstAid[0] = true;
+        widget.user.nil[0] = false;
       }
       else {firstHealthFacilityNilFirstAidText = true;}
     });
@@ -51,12 +58,12 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
       referralInstitutionINilFirstAid = value;
       if (value == 'NIL') {
         referralInstitutionINilFirstAidText = false;
-        widget.user.nil.add('Referral Institution I');
-        widget.user.firstAid.remove('Referral Institution I');
+        widget.user.nil[1] = true;
+        widget.user.firstAid[1] = false;
       } else if(value == 'FirstAid') {
         referralInstitutionINilFirstAidText = false;
-        widget.user.firstAid.add('Referral Institution I');
-        widget.user.nil.remove('Referral Institution I');
+        widget.user.firstAid[1] = true;
+        widget.user.nil[1] = false;
       }
       else {referralInstitutionINilFirstAidText = true;}
     });
@@ -67,12 +74,12 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
       referralInstitutionIINilFirstAid = value;
       if (value == 'NIL') {
         referralInstitutionIINilFirstAidText = false;
-        widget.user.nil.add('Referral Institution II');
-        widget.user.firstAid.remove('Referral Institution II');
+        widget.user.nil[2] = true;
+        widget.user.firstAid[2] = false;
       } else if(value == 'FirstAid') {
         referralInstitutionIINilFirstAidText = false;
-        widget.user.firstAid.add('Referral Institution II');
-        widget.user.nil.remove('Referral Institution II');
+        widget.user.firstAid[2] = true;
+        widget.user.nil[2] = false;
       }
       else {referralInstitutionIINilFirstAidText = true;}
     });
@@ -83,91 +90,20 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
       referralInstitutionIIINilFirstAid = value;
       if (value == 'NIL') {
         referralInstitutionIIINilFirstAidText = false;
-        widget.user.nil.add('Referral Institution III');
-        widget.user.firstAid.remove('Referral Institution III');
+        widget.user.nil[3] = true;
+        widget.user.firstAid[3] = false;
       } else if(value == 'FirstAid') {
         referralInstitutionIIINilFirstAidText = false;
-        widget.user.firstAid.add('Referral Institution III');
-        widget.user.nil.remove('Referral Institution III');
+        widget.user.firstAid[3] = true;
+        widget.user.nil[3] = false;
       }
       else {referralInstitutionIIINilFirstAidText = true;}
     });
   }
 
-  void _handleRadioValueChange5(String value) {
-    setState(() {
-      firstHealthFacilitySpecialistAndEquipment = value;
-      if (value == 'Specialist') {
-        firstHealthFacilitySpecialistAndEquipmentText= false;
-        widget.user.lackOfSpecialists.add('First Health Facility');
-        widget.user.lackOfEquipments.remove('First Health Facility');
-      } else if(value == 'Equipment') {
-        firstHealthFacilitySpecialistAndEquipmentText= false;
-        widget.user.lackOfEquipments.add('First Health Facility');
-        widget.user.lackOfSpecialists.remove('First Health Facility');
-      }
-      else {firstHealthFacilitySpecialistAndEquipmentText= true;}
-    });
-  }
-
-  void _handleRadioValueChange6(String value) {
-    setState(() {
-      referralInstitutionISpecialistAndEquipment = value;
-      if (value == 'Specialist') {
-        referralInstitutionISpecialistAndEquipmentText= false;
-        widget.user.lackOfSpecialists.add('First Health Facility');
-        widget.user.lackOfEquipments.remove('First Health Facility');
-      } else if(value == 'Equipment') {
-        referralInstitutionISpecialistAndEquipmentText= false;
-        widget.user.lackOfEquipments.add('First Health Facility');
-        widget.user.lackOfSpecialists.remove('First Health Facility');
-      }
-      else {referralInstitutionISpecialistAndEquipmentText= true;}
-    });
-  }
-
-  void _handleRadioValueChange7(String value) {
-    setState(() {
-      referralInstitutionIISpecialistAndEquipment = value;
-      if (value == 'Specialist') {
-        referralInstitutionIISpecialistAndEquipmentText=false;
-            widget.user.lackOfSpecialists.add('First Health Facility');
-        widget.user.lackOfEquipments.remove('First Health Facility');
-      } else if(value == 'Equipment') {
-        referralInstitutionIISpecialistAndEquipmentText=false;
-        widget.user.lackOfEquipments.add('First Health Facility');
-        widget.user.lackOfSpecialists.remove('First Health Facility');
-      }
-      else {referralInstitutionIISpecialistAndEquipmentText= true;}
-    });
-  }
-
-  void _handleRadioValueChange8(String value) {
-    setState(() {
-      referralInstitutionIIISpecialistAndEquipment = value;
-      if (value == 'Specialist') {
-        referralInstitutionIIISpecialistAndEquipmentText= false;
-        widget.user.lackOfSpecialists.add('First Health Facility');
-        widget.user.lackOfEquipments.remove('First Health Facility');
-      } else if(value == 'Equipment') {
-        referralInstitutionIIISpecialistAndEquipmentText= false;
-        widget.user.lackOfEquipments.add('First Health Facility');
-        widget.user.lackOfSpecialists.remove('First Health Facility');
-      }
-      else {referralInstitutionIIISpecialistAndEquipmentText= true;}
-    });
-  }
-
-  void _handleSubmitted() {
-    final FormState form = _formKey.currentState;
-    if(form.validate())
-    form.save();
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => (SocialAutopsyB3(user:widget.user))),
-      );
-  }
+//  void controllerTest(){
+//    widget.user.otherspecify[0] = testController.text;
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -177,6 +113,7 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
           title: Text('Treatment seeking history'),
         ),
         body: Container(
+            width: MediaQuery.of(context).size.width,
             child: Builder(
                 builder: (context) => Form(
                   key: this._formKey,
@@ -588,6 +525,7 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                       child: TextFormField(
                                         enabled: firstHealthFacilityNilFirstAidText,
                                         keyboardType: TextInputType.text,
+                                        controller: testController,
                                         decoration: InputDecoration(
                                             labelText: 'Type..',
                                             border: OutlineInputBorder(
@@ -595,7 +533,7 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                                     BorderRadius.circular(
                                                         8.0))),
                                         onSaved: (value) {
-                                          if(value != null)
+                                          if(value != null && firstHealthFacilityNilFirstAidText)
                                           widget.user.otherspecify[0] = value;
                                         },
                                       ))
@@ -605,6 +543,10 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                           ],
                         ),
                       ),
+
+
+//                      Text('${widget.user.otherspecify[0]}'),
+
                       Container(
                         width: MediaQuery.of(context).size.width,
                         color: Colors.green.shade50,
@@ -672,7 +614,7 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                                       BorderRadius.circular(
                                                           8.0))),
                                         onSaved: (value) {
-                                          if(value != null)
+                                          if(value != null && referralInstitutionINilFirstAidText)
                                             widget.user.otherspecify[1] = value;
                                         },))
                                 ])
@@ -746,7 +688,7 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                                       BorderRadius.circular(
                                                           8.0))),
                                         onSaved: (value) {
-                                          if(value != null)
+                                          if(value != null && referralInstitutionIINilFirstAidText)
                                             widget.user.otherspecify[2] = value;
                                         },))
                                 ])
@@ -820,7 +762,7 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                                       BorderRadius.circular(
                                                           8.0))),
                                         onSaved: (value) {
-                                          if(value != null)
+                                          if(value != null && referralInstitutionIIINilFirstAidText)
                                             widget.user.otherspecify[3] = value;
                                         },))
                                 ])
@@ -851,11 +793,14 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   ),
-                                  RadioListTile(
-                                    value: 'Specialist',
-                                    groupValue: firstHealthFacilitySpecialistAndEquipment,
-                                    onChanged: _handleRadioValueChange5,
-                                  )
+                                Checkbox(
+                                  value: widget.user.lackOfSpecialists[0],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      widget.user.lackOfSpecialists[0] = value;
+                                    });
+                                  },
+                                )
                                 ]),
                                 TableRow(children: [
                                   Text(
@@ -863,10 +808,13 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   ),
-                                  RadioListTile(
-                                    value: 'Equipment',
-                                    groupValue: firstHealthFacilitySpecialistAndEquipment,
-                                    onChanged: _handleRadioValueChange5,
+                                  Checkbox(
+                                    value: widget.user.lackOfEquipments[0],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        widget.user.lackOfEquipments[0] = value;
+                                      });
+                                    },
                                   )
                                 ]),
                                 TableRow(children: [
@@ -875,19 +823,10 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   ),
-                                  RadioListTile(
-                                    value: 'others',
-                                    groupValue: firstHealthFacilitySpecialistAndEquipment,
-                                    onChanged: _handleRadioValueChange5,
-                                  ),
-                                ]),
-                                TableRow(children: [
-                                  Text(''),
                                   Padding(
                                       padding:
                                           EdgeInsets.symmetric(vertical: 2.0),
                                       child: TextFormField(
-                                        enabled: firstHealthFacilitySpecialistAndEquipmentText,
                                           keyboardType: TextInputType.text,
                                           decoration: InputDecoration(
                                               labelText: 'Type..',
@@ -896,8 +835,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                                       BorderRadius.circular(
                                                           8.0))),
                                         onSaved: (value) {
-                                          if(value == null) widget.user.othersreason.add("");
-                                          else widget.user.othersreason.add(value);
+                                            if(value != null)
+                                          widget.user.othersreason[0] = value;
                                         }
                                       ,))
                                 ])
@@ -928,10 +867,14 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   ),
-                                  RadioListTile(
-                                    value: 'Specialist',
-                                    groupValue: referralInstitutionISpecialistAndEquipment,
-                                    onChanged: _handleRadioValueChange6,)
+                                  Checkbox(
+                                    value: widget.user.lackOfSpecialists[1],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        widget.user.lackOfSpecialists[1] = value;
+                                      });
+                                    },
+                                  )
                                 ]),
                                 TableRow(children: [
                                   Text(
@@ -939,30 +882,25 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   ),
-                                  RadioListTile(
-                                    value: 'Equipment',
-                                    groupValue: referralInstitutionISpecialistAndEquipment,
-                                    onChanged: _handleRadioValueChange6,)
+                                  Checkbox(
+                                    value: widget.user.lackOfEquipments[1],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        widget.user.lackOfEquipments[1] = value;
+                                      });
+                                    },
+                                  )
                                 ]),
                                 TableRow(children: [
                                   Text(
-                                    'Others(specify)',
-                                    style: TextStyle(fontSize: 16.0),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                  RadioListTile(
-                                    value: 'others',
-                                    groupValue: referralInstitutionISpecialistAndEquipment,
-                                    onChanged: _handleRadioValueChange6,
-                                  ),
-                                ]),
-                                TableRow(children: [
-                                  Text(''),
+                                  'Others(specify)',
+                                  style: TextStyle(fontSize: 16.0),
+                                  textAlign: TextAlign.left,
+                                ),
                                   Padding(
                                       padding:
                                           EdgeInsets.symmetric(vertical: 2.0),
                                       child: TextFormField(
-                                        enabled: referralInstitutionISpecialistAndEquipmentText,
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
                                               labelText: 'Type..',
@@ -971,8 +909,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                                       BorderRadius.circular(
                                                           8.0))),
                                           onSaved: (value) {
-                                            if(value == null) widget.user.othersreason.add("");
-                                            else widget.user.othersreason.add(value);
+                                            if(value != null)
+                                              widget.user.othersreason[1] = value;
                                           }))
                                 ])
                               ],
@@ -1002,10 +940,14 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   ),
-                                  RadioListTile(
-                                    value: 'Specialist',
-                                    groupValue: referralInstitutionIISpecialistAndEquipment,
-                                    onChanged: _handleRadioValueChange7,)
+                                  Checkbox(
+                                    value: widget.user.lackOfSpecialists[2],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        widget.user.lackOfSpecialists[2] = value;
+                                      });
+                                    },
+                                  )
                                 ]),
                                 TableRow(children: [
                                   Text(
@@ -1013,10 +955,13 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   ),
-                                  RadioListTile(
-                                    value: 'Equipment',
-                                    groupValue: referralInstitutionIISpecialistAndEquipment,
-                                    onChanged: _handleRadioValueChange7,
+                                  Checkbox(
+                                    value: widget.user.lackOfEquipments[2],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        widget.user.lackOfEquipments[2] = value;
+                                      });
+                                    },
                                   )
                                 ]),
                                 TableRow(children: [
@@ -1025,19 +970,10 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   ),
-                                  RadioListTile(
-                                    value: 'others',
-                                    groupValue: referralInstitutionIISpecialistAndEquipment,
-                                    onChanged: _handleRadioValueChange7,
-                                  ),
-                                ]),
-                                TableRow(children: [
-                                  Text(''),
                                   Padding(
                                       padding:
                                           EdgeInsets.symmetric(vertical: 2.0),
                                       child: TextFormField(
-                                        enabled: referralInstitutionIISpecialistAndEquipmentText,
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
                                               labelText: 'Type..',
@@ -1046,8 +982,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                                       BorderRadius.circular(
                                                           8.0))),
                                           onSaved: (value) {
-                                            if(value == null) widget.user.othersreason.add("");
-                                            else widget.user.othersreason.add(value);
+                                            if(value != null)
+                                              widget.user.othersreason[2] = value;
                                           }))
                                 ])
                               ],
@@ -1077,10 +1013,13 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   ),
-                                  RadioListTile(
-                                    value: 'Specialist',
-                                    groupValue: referralInstitutionIIISpecialistAndEquipment,
-                                    onChanged: _handleRadioValueChange8,
+                                  Checkbox(
+                                    value: widget.user.lackOfSpecialists[3],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        widget.user.lackOfSpecialists[3] = value;
+                                      });
+                                    },
                                   )
                                 ]),
                                 TableRow(children: [
@@ -1089,10 +1028,14 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   ),
-                                  RadioListTile(
-                                    value: 'Equipment',
-                                    groupValue: referralInstitutionIIISpecialistAndEquipment,
-                                    onChanged: _handleRadioValueChange8,)
+                                  Checkbox(
+                                    value: widget.user.lackOfEquipments[3],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        widget.user.lackOfEquipments[3] = value;
+                                      });
+                                    },
+                                  )
                                 ]),
                                 TableRow(children: [
                                   Text(
@@ -1100,19 +1043,10 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   ),
-                                  RadioListTile(
-                                    value: 'others',
-                                    groupValue: referralInstitutionIIISpecialistAndEquipment,
-                                    onChanged: _handleRadioValueChange8,
-                                  ),
-                                ]),
-                                TableRow(children: [
-                                  Text(''),
                                   Padding(
                                       padding:
                                           EdgeInsets.symmetric(vertical: 2.0),
                                       child: TextFormField(
-                                        enabled: referralInstitutionIIISpecialistAndEquipmentText,
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
                                               labelText: 'Type..',
@@ -1121,8 +1055,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                                       BorderRadius.circular(
                                                           8.0))),
                                           onSaved: (value) {
-                                            if(value == null) widget.user.othersreason.add("");
-                                            else widget.user.othersreason.add(value);
+                                            if(value != null)
+                                              widget.user.othersreason[3] = value;
                                           }))
                                 ])
                               ],

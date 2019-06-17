@@ -4,7 +4,7 @@ import 'package:hp_cdrs/app_screens/social_autopsy/user.dart';
 
 class SocialAutopsyB4 extends StatefulWidget {
   final User user;
-  SocialAutopsyB4({Key key, this.user}):super(key:key);
+  SocialAutopsyB4({Key key, this.user}) : super(key: key);
   @override
   State createState() => SocialAutopsyB4State();
 }
@@ -33,13 +33,14 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
 
   void _handleSubmitted() {
     final FormState form = _formKey.currentState;
-    form.save();
-    print(widget.user.dischargeDueDissatisfactionTreatment);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => (SocialAutopsyC(user:widget.user))),
-    );
+    if (form.validate()) {
+      form.save();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => (SocialAutopsyC(user: widget.user))),
+      );
+    }
   }
 
   @override
@@ -50,11 +51,12 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
           title: Text('Treatment seeking history'),
         ),
         body: Container(
+            width: MediaQuery.of(context).size.width,
             child: Builder(
                 builder: (context) => Form(
-                  key: this._formKey,
-                        child: SingleChildScrollView(
-                            child: Column(children: <Widget>[
+                    key: this._formKey,
+                    child: SingleChildScrollView(
+                        child: Column(children: <Widget>[
                       Container(
                           width: MediaQuery.of(context).size.width,
                           color: Colors.green.shade50,
@@ -67,7 +69,8 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
                             ),
                             RadioListTile(
                               value: 'yes',
-                              groupValue: widget.user.dischargedAgainstMedicalAdvice,
+                              groupValue:
+                                  widget.user.dischargedAgainstMedicalAdvice,
                               title: Text('Yes'),
                               onChanged: _handleRadioValueChange1,
                             ),
@@ -113,10 +116,15 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
             TextFormField(
               keyboardType: TextInputType.multiline,
               maxLines: null,
-              decoration: InputDecoration(hintText: 'Type here..', ),
+              decoration: InputDecoration(
+                hintText: 'Type here..',
+              ),
               onSaved: (value) {
-                widget.user.reasonAgainstdischargedMedicalAdvice = value;
+                widget.user.reasonDischargedAgainstMedicalAdvice = value;
               },
+              validator: (value) {
+                if (value.isEmpty)
+                  return 'Please fill the entry';},
             ),
             ListTile(
               leading: Text('14.2'),
@@ -126,23 +134,37 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
             TextFormField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                decoration: InputDecoration(hintText: 'Type here..',),
-              onSaved: (value) {
+                decoration: InputDecoration(
+                  hintText: 'Type here..',
+                ),
+                onSaved: (value) {
                   widget.user.circumstancesDischargeBaby = value;
-              },
-            ),
+                },
+                validator: (value) {
+                  if (value.isEmpty)
+                    return 'Please fill the entry';
+                  else
+                    return null;
+                }),
             ListTile(
               leading: Text('14.3'),
               title: Text(
                   'Whether relatives were aware of the discharge of the baby and whether the discharge was on the request of the relatives or on the advice of the doctor / paramedical person(specify)?'),
             ),
             TextFormField(
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                decoration: InputDecoration(hintText: 'Type here..'),
-            onSaved: (value) {
-                  widget.user.dischargeOnBehalf = value;
-            },),
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              decoration: InputDecoration(hintText: 'Type here..'),
+              onSaved: (value) {
+                widget.user.dischargeOnBehalf = value;
+              },
+              validator: (value) {
+                if (value.isEmpty)
+                  return 'Please fill the entry';
+                else
+                  return null;
+              },
+            ),
             ListTile(
               leading: Text('14.4'),
               title: Text('Whether baby died before discharge?'),
@@ -190,14 +212,15 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
             ),
             ListTile(
               leading: Text('14.6'),
-              title: Text('Any other reason for discharge against medical advice? Specify.'),
+              title: Text(
+                  'Any other reason for discharge against medical advice? Specify.'),
             ),
             TextFormField(
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                decoration: InputDecoration(hintText: 'Type here..'),
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              decoration: InputDecoration(hintText: 'Type here..'),
               onSaved: (value) {
-                  widget.user.reasonAgainstdischargedMedicalAdvice = value;
+                widget.user.reasonAgainstdischargedMedicalAdvice = value;
               },
             )
           ])));

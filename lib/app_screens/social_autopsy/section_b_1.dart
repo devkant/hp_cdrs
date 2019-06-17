@@ -63,6 +63,7 @@ class SocialAutopsyB1State extends State<SocialAutopsyB1> {
         title: Text('Treatment seeking history'),
       ),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         child: Builder(
             builder: (context) => Form(
               key: this._formKey,

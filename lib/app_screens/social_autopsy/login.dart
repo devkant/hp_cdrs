@@ -2,6 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/user.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/section_a.dart';
 
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final user = User();
+    return MaterialApp(
+      home: SocialAutopsyLogin(user:user),
+    );
+  }
+}
+
 class SocialAutopsyLogin extends StatefulWidget {
   final User user;
   SocialAutopsyLogin({Key key, this.user}):super(key:key);
@@ -16,11 +28,13 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.yellow.shade50,
         appBar: AppBar(
           title: Text('Social Autopsy'),
           backgroundColor: Colors.blue,
         ),
         body: Container(
+          width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
           child: Builder(
             builder: (context) => Form(
@@ -31,12 +45,15 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
                     children: <Widget>[
                       Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16.0)),
-                Padding(
-                    padding: EdgeInsets.only(top: 10.0, bottom: 30.0),
+                Card(
+                  margin: EdgeInsets.symmetric(vertical: 30.0),
+                  color: Colors.blue.shade100,
+                    child:Padding(
+                    padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                     child: Text(widget.user.applicationNumber, textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
-                ),
+                )),
                       Padding(
-                          padding: EdgeInsets.only(top: 10.0),
+                          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
                           child: TextFormField(
                             decoration: InputDecoration(
                                 labelText: 'Reference ID',
@@ -52,7 +69,7 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
                             },
                           )),
                       Padding(
-                          padding: EdgeInsets.only(top: 10.0, bottom: 20.0),
+                          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
                           child: TextFormField(
                             decoration: InputDecoration(
                                 labelText: 'MCTS Number',
