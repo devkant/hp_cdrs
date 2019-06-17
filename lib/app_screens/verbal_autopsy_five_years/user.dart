@@ -2,7 +2,7 @@ class User{
 
   //form pg 1
 
-  String applicationNumber = 'APPLICATION NUMBER';
+  String applicationNumber = '';
   //drop down
   String district = null;
   String block = null;
@@ -31,7 +31,6 @@ class User{
   String ageDays = '';
   String dob = '';
   String dod = '';
-  String districtAddress = null;
   String locality = '';
   num pincode;
   String placeDeath = '';

@@ -232,7 +232,6 @@ class _verbalAutopsy5YrSec3State
       'ageDays': child.ageDays,
       'dob': child.dob,
       'dod': child.dod,
-      'districtAddress': child.districtAddress,
       'locality': child.locality,
       'pincode': child.pincode,
       'placeDeath': child.placeDeath,
