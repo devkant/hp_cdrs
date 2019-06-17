@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'verbal_autopsy_sec2_part1.dart';
+import 'verbal_autopsy_sec2_p1.dart';
 import 'dart:async';
 import 'user.dart';
 
@@ -114,12 +114,14 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
 
   }
 
+
+
   //date picker class for dob & dod
   Future<Null> _selectDOBDate(BuildContext context) async {
     final DateTime pickedDOB = await showDatePicker(
       context: context,
       initialDate: _deceasedDOB,
-      firstDate: DateTime(2019, 4, 1),
+      firstDate: DateTime.now().subtract(Duration(days: 28)),
       lastDate: DateTime.now(),
     );
 
@@ -138,7 +140,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
     final DateTime pickedDOD = await showDatePicker(
       context: context,
       initialDate: _deceasedDOD,
-      firstDate: DateTime(2019, 4, 1),
+      firstDate: DateTime.now().subtract(Duration(days: 28)),
       lastDate: DateTime.now(),
     );
 
