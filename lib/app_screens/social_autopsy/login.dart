@@ -23,7 +23,7 @@ class SocialAutopsyLogin extends StatefulWidget {
 
 class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
   final _formKey = GlobalKey<FormState>();
-  //var user = User();
+  bool _autoValidate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +38,7 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
           padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
           child: Builder(
             builder: (context) => Form(
+              autovalidate: _autoValidate,
                 key: this._formKey,
                 child: SingleChildScrollView(
                   child: Column(
@@ -47,10 +48,20 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
                           padding: const EdgeInsets.symmetric(vertical: 16.0)),
                 Card(
                   margin: EdgeInsets.symmetric(vertical: 30.0),
-                  color: Colors.blue.shade100,
-                    child:Padding(
-                    padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                    child: Text(widget.user.applicationNumber, textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            labelText: 'Application Number',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0))),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter valid entry';
+                          }
+                        },
+                        onSaved: (value) {
+                          widget.user.applicationNumber = value;
+                        },
                 )),
                       Padding(
                           padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
@@ -95,6 +106,7 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
                                   builder: (context) => (SocialAutopsyA(user:widget.user))),
                             );
                           }
+                          else { _autoValidate = true; }
                         },
                         child: Text('Proceed', style: TextStyle(color: Colors.white),),
                         color: Colors.blue,

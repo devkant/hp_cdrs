@@ -1,6 +1,6 @@
 class User {
 
-  String applicationNumber = "Application Number";
+  String applicationNumber ;
 
   String referenceId = "";
   String MCTS = "";
