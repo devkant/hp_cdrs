@@ -169,8 +169,7 @@ class LoginPageState extends State<LoginPage> {
   }
 
 
-  void showAlertFun(){
-
+  void showAlertFun() {
     AlertDialog dialog = AlertDialog(
       content: Container(
         child: Column(
@@ -199,7 +198,9 @@ class LoginPageState extends State<LoginPage> {
 
                 child: Text('Send',
                   style: TextStyle(color: Colors.white),),
-                onPressed: (){emailSendFun();})
+                onPressed: () {
+                  emailSendFun();
+                })
           ],
         ),
         width: 150.0,
@@ -208,12 +209,11 @@ class LoginPageState extends State<LoginPage> {
     );
 
     showDialog(context: context,
-        builder: (BuildContext context){
+        builder: (BuildContext context) {
           return dialog;
         }
     );
-
-
+  }
 
 
 }

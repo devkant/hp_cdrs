@@ -60,7 +60,7 @@ class _PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
           entries.add(temp);
         }
         else{
-          //sendData('http://13.126.72.137/api/asha', temp);
+          apiRequest('http://13.126.72.137/api/test',temp);
         }
 
         if(i==(jsonList.length-1) && !isOffline){
