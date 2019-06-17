@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'user.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Verbal Autopsy Form Section 3',
-    home: _verbalAutopsy5YrSec3(),
-  ));
-}
 
-class _verbalAutopsy5YrSec3 extends StatefulWidget {
+//void main() {
+//  runApp(MaterialApp(
+//    title: 'Verbal Autopsy Form Section 3',
+//    home: _verbalAutopsyFormSec3(),
+//  ));
+//}
+
+class verbalAutopsy5YrSec3 extends StatefulWidget {
+  final User userObj;
+  verbalAutopsy5YrSec3({Key key, @required this.userObj}):super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _verbalAutopsy5YrSec3State();
@@ -16,35 +19,19 @@ class _verbalAutopsy5YrSec3 extends StatefulWidget {
 }
 
 class _verbalAutopsy5YrSec3State
-    extends State<_verbalAutopsy5YrSec3> {
+    extends State<verbalAutopsy5YrSec3> {
   var _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  TextEditingController langCodeController = TextEditingController();
-  TextEditingController narrativeController = TextEditingController();
-  TextEditingController interviewerNameController = TextEditingController();
+//  String langCodeController = '';
+//  String narrativeController = '';
+//  String interviewerNameController = '';
 
 
-  DateTime _interviewDate = DateTime.now();
+//  DateTime _interviewDate = DateTime.now();
 
-  bool _knowledgeCheck = false;
+  bool knowledgeCheck = false;
 
-
-  Future<Null> _selectInterviewDate(BuildContext context) async {
-    final DateTime pickedDOB = await showDatePicker(
-      context: context,
-      initialDate: _interviewDate,
-      firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
-    );
-
-    if (pickedDOB != null && pickedDOB != _interviewDate) {
-      print('Date Selected');
-      setState(() {
-        _interviewDate = pickedDOB;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +39,7 @@ class _verbalAutopsy5YrSec3State
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
-          'Section 3: Written narrative in local language',
+          'Section 3: Written narrative in'"\n"'local language',
           style: TextStyle(fontSize: 18.0),
         ),
       ),
@@ -83,7 +70,7 @@ class _verbalAutopsy5YrSec3State
                             ,),),
                         Flexible(
                             child: TextFormField(
-                                controller: langCodeController,
+                                onSaved: (value){widget.userObj.code = value;},
                                 validator: (String value) {
                                   if (value.isEmpty) return 'Please input the Code';
                                 },
@@ -109,7 +96,7 @@ class _verbalAutopsy5YrSec3State
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: TextFormField(
-                        controller: narrativeController,
+                        onSaved: (value){widget.userObj.symptomstype = value;},
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         validator: (String value) {
@@ -121,69 +108,17 @@ class _verbalAutopsy5YrSec3State
                         )),),
 
 
-                  Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(children:
-                      <Widget>[
-
-                        Padding(
-                          padding: EdgeInsets.only(right: 10.0),
-                          child:  Text('Interviewer name:', style: TextStyle(fontSize: 16.0),),),
-
-                        Flexible(
-                          child: TextFormField(
-                              controller: interviewerNameController,
-                              validator: (String value) {
-                                if (value.isEmpty) return 'Please input a valid entry';
-                              },
-                              decoration: InputDecoration(
-                                  labelText: 'Interviewer name',
-                                  hintText: 'Interviewer name',
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0))
-                              )),)])),
-
-
-                  Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(
-                        children: <Widget>[
-
-                          Text(
-                            'Date of interview:',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.0),
-                            child: RaisedButton(
-                                color: Colors.white,
-                                elevation: 2.0,
-                                child: Text(
-                                  "${_interviewDate.day}/${_interviewDate.month}"
-                                      "/${_interviewDate.year}",
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  _selectInterviewDate(context);
-                                }),
-                          )
-                        ],
-                      )),
-
 
 
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: CheckboxListTile(
-                        value: _knowledgeCheck,
+                        value: knowledgeCheck,
                         title: Text('I hereby state that all the details filled'
                             ' above are best and true to my knowledge.'),
                         onChanged: (bool value) {
                           setState(() {
-                            _knowledgeCheck = value;
+                            knowledgeCheck = value;
                           });
                         }),
                   ),
@@ -201,9 +136,12 @@ class _verbalAutopsy5YrSec3State
                       ),
                       onPressed: () {
                         setState(() {
-                          if ( _knowledgeCheck == false) {
+                          if (knowledgeCheck == false) {
                             // The checkbox wasn't checked
                             showSnackBar('Please check the checkbox to proceed');
+                          }
+                          if(_formKey.currentState.validate() && knowledgeCheck == true){
+
                           }
                         });
                       },
@@ -216,6 +154,7 @@ class _verbalAutopsy5YrSec3State
     );
   }
 
+
   void showSnackBar(String message){
     var snackBar = SnackBar(
 //      backgroundColor: Colors.blue,
@@ -227,6 +166,5 @@ class _verbalAutopsy5YrSec3State
     );
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }
-
 
 }

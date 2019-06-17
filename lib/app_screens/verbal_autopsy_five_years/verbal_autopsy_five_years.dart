@@ -1,47 +1,82 @@
 import 'package:flutter/material.dart';
+import 'verbal_autopsy_five_years_sec1.dart';
+import 'user.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Verbal Autopsy Form',
-    home: _verbalAutopsy5YrForm(),
-  ));
-}
+void main() => runApp(MyApp());
 
-class _verbalAutopsy5YrForm extends StatefulWidget {
+class MyApp extends StatelessWidget{
   @override
-  State<StatefulWidget> createState() {
-    return _verbalAutopsy5YrFormState();
+  Widget build(BuildContext context){
+    final userObj = User();
+    return MaterialApp(
+      home: verbalAutopsy5YrForm(userObj: userObj),
+    );
   }
 }
 
-class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
+class verbalAutopsy5YrForm extends StatefulWidget {
+  final User userObj;
+  verbalAutopsy5YrForm({Key key, @required this.userObj}):super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    return verbalAutopsy5YrFormState();
+  }
+}
+
+class verbalAutopsy5YrFormState extends State<verbalAutopsy5YrForm> {
   var _formKey = GlobalKey<FormState>();
-  var _currentItemSelected = '';
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool _firstHYS = false;
   bool _secondHYS = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _currentItemSelected = _districtName[0];
-  }
+  String rhcController;
+  String yearController;
 
-  var _districtName = ['Bilaspur', 'Chamba', 'Hamirpur', 'Kangra', 'Kinnaur',
-    'Kullu', 'Lahaul & Spiti', 'Mandi', 'Shimla', 'Sirmaur', 'Solan', 'Una'];
-  TextEditingController blockController = TextEditingController();
-  TextEditingController villageController = TextEditingController();
-  TextEditingController phcController = TextEditingController();
-  TextEditingController subCenterController = TextEditingController();
-  TextEditingController rhcController = TextEditingController();
-  TextEditingController yearController = TextEditingController();
-  TextEditingController householdHeadController = TextEditingController();
-  TextEditingController nameOfDeceasedController = TextEditingController();
-  TextEditingController nameMotherOfDeceasedController = TextEditingController();
+//  @override
+//  void initState() {
+//    super.initState();
+////    _currentItemSelected = _districtName[0];
+//  }
+
+
+  var _districtName = ['BILASPUR', 'CHAMBA', 'HAMIRPUR', 'KANGRA', 'KINNAUR',
+    'KULLU', 'LAHUL AND SPITI', 'MANDI', 'SHIMLA', 'SIRMOUR', 'SOLAN', 'UNA'];
+
+  var _bilaspurBlocks = ["SADAR","GHUMARWIN","JHANDUTTA"];
+
+  var _chambaBlocks = ["TISSA","CHAMBA","MEHLA","BHATTIYAT","SALOONI",
+    "BHARMOUR","PANGI"];
+
+  var _hamirpurBlocks = ["BAMSON","BHORANJ","BIJHARI","HAMIRPUR",
+    "NADAUN","SUJNAPUR"];
+
+  var _kangraBlocks = ["RAIT","PANCHRUKHI","DEHRA","FATEHPUR","INDORA",
+    "NAGROTA BAGWAN","NURPUR","NAGROTA SURIAN","BAIJNATH","BHAWARNA",
+    "KANGRA","LAMBAGAON","SULLAH","PRAGPUR","DHARAMSHALA"];
+
+  var _kinnaurBlocks = ["NICHAR","POOH","KALPA"];
+
+  var _kulluBlocks = ["ANNI","NAGGAR","NIRMAND"];
+
+  var _lahulBlocks = ["LAHAUL","SPITI"];
+
+  var _mandiBlocks = ["BALH","CHAUNTRA","DHARAMPUR","DRANG","GOHAR",
+    "GOPALPUR","KARSOG","SADAR MANDI","SERAJ","SUNDERNAGAR"];
+
+  var _shimlaBlocks = ["NARKANDA","THEOG","BASANTPUR","NANKHARI","CHHOHARA",
+    "MASHOBRA","CHOPAL","JUBBAL & KOTHKAI","ROHRU","RAMPUR"];
+
+  var _sirmourBlocks = ["NAHAN","PAONTA","PACHHAD","RAJGARH","SANGRAH","SHILLAI"];
+
+  var _solanBlocks = ["DHARAMPUR","KANDAGHAT","KUNIHAR","NALAGARH","SOLAN"];
+
+  var _unaBlocks = ["AMB","BANGANA","GAGRET","HAROLI","UNA"];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text('Verbal Autopsy Form'),
         ),
@@ -58,9 +93,20 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
                       padding: EdgeInsets.all(10.0),
                       child: Center(
                         child: Text(
-                          'Form No.2 Post Neo-Natal Deaths'
+                          '${widget.userObj.applicationNumber}',
+                          style: TextStyle(
+                              fontSize: 20.0, fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Center(
+                        child: Text(
+                          'Form No.2 Post Neo-Natal'
                               "\n"
-                              '(29 Days to 5 years)',
+                              'Deaths (29 Days to 5 years)',
                           style: TextStyle(
                               fontSize: 18.0, fontWeight: FontWeight.w800),
                         ),
@@ -78,41 +124,42 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
                       Padding(
                           padding: EdgeInsets.only(left: 10.0),
                           child: DropdownButton<String>(
+                            hint: Text('Select here'),
                             items: _districtName.map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: _currentItemSelected,
+                            value: widget.userObj.district,
                             onChanged: (String newSelectedValue) {
-                              _onDropDownItemSelected(newSelectedValue);
+                              setState(() {
+                                _onDropDownDistrictSelect(newSelectedValue);
+                              });
+
                             },
                           )),
+                    ]),
+
+
+                    Row(children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text('Block:', style: TextStyle(fontSize: 18.0),),
+                      ),
+
+
+                      Padding(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: blocksWidgetFun(),
+                      ),
                     ]),
 
 
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: blockController,
-                        validator: (String value) {
-                          if (value.isEmpty) return 'Please fill a valid input';
-                        },
-                        decoration: InputDecoration(
-                            labelText: 'Block/Tehsil',
-                            hintText: 'Block/Tehsil',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            )),
-                      ),
-                    ),
-
-
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: TextFormField(
-                        controller: villageController,
+                        onSaved: (value){widget.userObj.village = value;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -129,7 +176,7 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: phcController,
+                        onSaved: (value){widget.userObj.phc = value;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -146,7 +193,7 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: subCenterController,
+                        onSaved: (value){widget.userObj.subCenter = value;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -163,7 +210,9 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: rhcController,
+                        keyboardType: TextInputType.numberWithOptions(),
+                        onSaved: (value){rhcController = value;
+                        widget.userObj.rhc = num.parse(rhcController);},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -180,7 +229,8 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: yearController,
+                        onSaved: (value){yearController = value;
+                        widget.userObj.year = num.parse(yearController);},
                         keyboardType: TextInputType.numberWithOptions(),
                         validator: (String value) {
                           if (value.length!=4) return 'Please fill a valid input';
@@ -199,7 +249,7 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
                         textCapitalization: TextCapitalization.words,
-                        controller: householdHeadController,
+                        onSaved: (value){widget.userObj.head = value;},
                         validator: (String value) {
                           final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
                           if (!nameExp.hasMatch(value))
@@ -218,7 +268,7 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: nameOfDeceasedController,
+                        onSaved: (value){widget.userObj.name = value;},
                         validator: (String value) {
                           final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
                           if (!nameExp.hasMatch(value))
@@ -237,7 +287,7 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        controller: nameMotherOfDeceasedController,
+                        onSaved: (value){widget.userObj.mother = value;},
                         validator: (String value) {
                           final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
                           if (!nameExp.hasMatch(value))
@@ -259,6 +309,8 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
                         onChanged: (bool value) {
                           setState(() {
                             _firstHYS = value;
+                            if(_firstHYS == true)
+                              widget.userObj.firstHys = '1st HYS';
                           });
                         }),
                     CheckboxListTile(
@@ -267,9 +319,13 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
                         onChanged: (bool value) {
                           setState(() {
                             _secondHYS = value;
+                            if(_secondHYS == true)
+                              widget.userObj.secondHys = '2nd HYS';
                           });
                         }),
 
+                    //for testing purpose
+//                    Text('${widget.userObj.village}'),
 
                     Padding(
                       padding: EdgeInsets.all(10.0),
@@ -281,13 +337,23 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
                           style: TextStyle(fontSize: 15.0, color: Colors.white),
                         ),
                         onPressed: () {
-                          setState(() {
-                            if (_formKey.currentState.validate())
-                              AlertDialog(
-                                title: Text('Form Submitted Sucessfully'),
-                                content: Text('Success'),
-                              );
-                          });
+                          if (widget.userObj.district == null ||
+                              widget.userObj.block == null) {
+                            // The checkbox wasn't checked
+                            showSnackBar('Please select the block & district to proceed');
+                          }
+                          if (_formKey.currentState.validate() && (
+                              widget.userObj.district != null &&
+                                  widget.userObj.block != null)) {
+                            final FormState form = _formKey.currentState;
+                            form.save();
+                            setState(() {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      verbalAutopsy5YrSec1(
+                                        userObj: widget.userObj,)));
+                            });
+                          }
                         },
                       ),
                     )
@@ -298,9 +364,125 @@ class _verbalAutopsy5YrFormState extends State<_verbalAutopsy5YrForm> {
   }
 
 
-  void _onDropDownItemSelected(String newSelectedValue) {
+  void _onDropDownDistrictSelect(String newSelectedValue) {
     setState(() {
-      this._currentItemSelected = newSelectedValue;
+      this.widget.userObj.district = newSelectedValue;
+      this.widget.userObj.block = null;
     });
+  }
+
+
+  Widget blocksDropDownFun(List<String> passedList){
+
+    return DropdownButton<String>(
+      hint: Text("Select here"),
+      items: passedList.map((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      value: widget.userObj.block,
+      onChanged: (String newSelectedValue) {
+        setState(() {
+          this.widget.userObj.block = newSelectedValue;
+        });
+      },
+    );
+  }
+
+  void showSnackBar(String message){
+    var snackBar = SnackBar(
+//      backgroundColor: Colors.blue,
+      content: Text(message,
+        style: TextStyle(fontSize: 16.0,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+
+
+  Widget blocksWidgetFun(){
+
+    if(widget.userObj.district == null){
+
+      return
+        DropdownButton<String>(
+          disabledHint: Text('Select here'),
+          items: null,
+          onChanged: (String newValueSelected){
+            setState(() {
+              widget.userObj.block = null;
+            });
+          },
+        );
+    }
+
+    else {
+      switch (widget.userObj.district) {
+        case 'BILASPUR':
+          return
+            blocksDropDownFun(_bilaspurBlocks);
+          break;
+
+        case 'CHAMBA':
+          return
+            blocksDropDownFun(_chambaBlocks);
+          break;
+
+        case 'HAMIRPUR':
+          return
+            blocksDropDownFun(_hamirpurBlocks);
+          break;
+
+        case 'KANGRA':
+          return
+            blocksDropDownFun(_kangraBlocks);
+          break;
+
+        case 'KINNAUR':
+          return
+            blocksDropDownFun(_kinnaurBlocks);
+          break;
+
+        case 'KULLU':
+          return
+            blocksDropDownFun(_kulluBlocks);
+          break;
+
+        case 'LAHUL AND SPITI':
+          return
+            blocksDropDownFun(_lahulBlocks);
+          break;
+
+        case 'MANDI':
+          return
+            blocksDropDownFun(_mandiBlocks);
+          break;
+
+        case 'SHIMLA':
+          return
+            blocksDropDownFun(_shimlaBlocks);
+          break;
+
+        case 'SIRMOUR':
+          return
+            blocksDropDownFun(_sirmourBlocks);
+          break;
+
+        case 'SOLAN':
+          return
+            blocksDropDownFun(_solanBlocks);
+          break;
+
+        case 'UNA':
+          return
+            blocksDropDownFun(_unaBlocks);
+          break;
+      }
+    }
   }
 }

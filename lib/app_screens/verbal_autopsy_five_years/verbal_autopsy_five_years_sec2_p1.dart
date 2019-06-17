@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'user.dart';
+import 'verbal_autopsy_five_years_sec2_p2.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Section 2: Child Death',
-    home: verbalAutopsy5YrSec2Part1(),
-  ));
-}
+//void main() {
+//  runApp(MaterialApp(
+//    title: 'Section 2: Child Death',
+//    home: verbalAutopsy5YrSec2Part1(),
+//  ));
+//}
 
 class verbalAutopsy5YrSec2Part1 extends StatefulWidget {
+  final User userObj;
+  verbalAutopsy5YrSec2Part1({Key key, @required this.userObj}):super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _verbalAutopsy5YrSec2Part1State();
@@ -16,6 +20,7 @@ class verbalAutopsy5YrSec2Part1 extends StatefulWidget {
 
 class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
   var _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   //radio lists
   var _yesNoRadioList = ['Yes', 'No', 'Unknown'];
@@ -39,15 +44,15 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
 
 
   //current variables for radio (variables storing responses)
-  var _currentSelectedInjuryRadio = '';
-  var _currentSelectedOtherFoodRadio = '';
-  var _currentSelectedBreastfeedIllnessRadio = '';
+//  var _currentSelectedInjuryRadio = '';
+//  var _currentSelectedOtherFoodRadio = '';
+//  var _currentSelectedBreastfeedIllnessRadio = '';
 
 
 
   //current variables for drop down menus (variables storing responses)
-  var _currentSelectedInjuryKind = null;
-  var _currentSelectedFirstBreastFeed = '';
+//  var _currentSelectedInjuryKind = null;
+//  var _currentSelectedFirstBreastFeed = '';
 
 
   //checkbox variables
@@ -58,10 +63,10 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
   @override
   void initState() {
     super.initState();
-    _currentSelectedInjuryRadio = _yesNoRadioList[1];
-    _currentSelectedFirstBreastFeed = _firstBreastFeed[0];
-    _currentSelectedOtherFoodRadio = _yesNoRadioList[0];
-    _currentSelectedBreastfeedIllnessRadio = _yesNoRadioList[1];
+    widget.userObj.injury = _yesNoRadioList[1];
+    widget.userObj.firstBreastfed = _firstBreastFeed[0];
+    widget.userObj.otherThanBreastMilk = _yesNoRadioList[0];
+    widget.userObj.breastMilkDuringIllness = _yesNoRadioList[1];
   }
 
 
@@ -71,6 +76,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text('Section 2: Child death (Pg 1/4)'),
         ),
@@ -108,7 +114,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                               ),
                               Radio(
                                 value: 'Yes',
-                                groupValue: _currentSelectedInjuryRadio,
+                                groupValue: widget.userObj.injury,
                                 onChanged: (String newRadioSelected) {
                                   _onInjuryRadioSelect(newRadioSelected);
                                 },
@@ -119,7 +125,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                               ),
                               Radio(
                                 value: 'No',
-                                groupValue: _currentSelectedInjuryRadio,
+                                groupValue: widget.userObj.injury,
                                 onChanged: (String newRadioSelected) {
                                   _onInjuryRadioSelect(newRadioSelected);
                                 },
@@ -130,7 +136,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                               ),
                               Radio(
                                 value: 'Unknown',
-                                groupValue: _currentSelectedInjuryRadio,
+                                groupValue: widget.userObj.injury,
                                 onChanged: (String newRadioSelected) {
                                   _onInjuryRadioSelect(newRadioSelected);
                                 },
@@ -193,10 +199,10 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                             child: Text(value),
                           );
                         }).toList(),
-                        value: _currentSelectedFirstBreastFeed,
+                        value: widget.userObj.firstBreastfed,
                         onChanged: (String newValueSelected) {
                           setState(() {
-                            this._currentSelectedFirstBreastFeed = newValueSelected;
+                            this.widget.userObj.firstBreastfed = newValueSelected;
                           });
                         },
                       ),
@@ -231,7 +237,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                               ),
                               Radio(
                                 value: 'Yes',
-                                groupValue: _currentSelectedOtherFoodRadio,
+                                groupValue: widget.userObj.otherThanBreastMilk,
                                 onChanged: (String newRadioSelected) {
                                   _onOtherFoodRadioSelect(newRadioSelected);
                                 },
@@ -242,7 +248,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                               ),
                               Radio(
                                 value: 'No',
-                                groupValue: _currentSelectedOtherFoodRadio,
+                                groupValue: widget.userObj.otherThanBreastMilk,
                                 onChanged: (String newRadioSelected) {
                                   _onOtherFoodRadioSelect(newRadioSelected);
                                 },
@@ -253,7 +259,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                               ),
                               Radio(
                                 value: 'Unknown',
-                                groupValue: _currentSelectedOtherFoodRadio,
+                                groupValue: widget.userObj.otherThanBreastMilk,
                                 onChanged: (String newRadioSelected) {
                                   _onOtherFoodRadioSelect(newRadioSelected);
                                 },
@@ -289,7 +295,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                               ),
                               Radio(
                                 value: 'Yes',
-                                groupValue: _currentSelectedBreastfeedIllnessRadio,
+                                groupValue: widget.userObj.breastMilkDuringIllness,
                                 onChanged: (String newRadioSelected) {
                                   _onBreastfeedIllnessRadioSelect(newRadioSelected);
                                 },
@@ -300,7 +306,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                               ),
                               Radio(
                                 value: 'No',
-                                groupValue: _currentSelectedBreastfeedIllnessRadio,
+                                groupValue: widget.userObj.breastMilkDuringIllness,
                                 onChanged: (String newRadioSelected) {
                                   _onBreastfeedIllnessRadioSelect(newRadioSelected);
                                 },
@@ -311,19 +317,12 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                               ),
                               Radio(
                                 value: 'Unknown',
-                                groupValue: _currentSelectedBreastfeedIllnessRadio,
+                                groupValue: widget.userObj.breastMilkDuringIllness,
                                 onChanged: (String newRadioSelected) {
                                   _onBreastfeedIllnessRadioSelect(newRadioSelected);
                                 },
                               )
                             ])),
-
-
-
-
-
-
-
 
 
 
@@ -336,13 +335,24 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                           style: TextStyle(fontSize: 15.0, color: Colors.white),
                         ),
                         onPressed: () {
-                          setState(() {
-                            if (_formKey.currentState.validate())
-                              AlertDialog(
-                                title: Text('Form Submitted Sucessfully'),
-                                content: Text('Success'),
-                              );
-                          });
+                          if (widget.userObj.injury == 'Yes' &&
+                              widget.userObj.kindOfInjury == null) {
+                            // The checkbox wasn't checked
+                            showSnackBar('Please select option 13B');
+                          }
+                          if ((_formKey.currentState.validate() &&
+                              widget.userObj.injury == 'Yes' &&
+                              widget.userObj.kindOfInjury != null) ||
+                              (_formKey.currentState.validate() &&
+                                  widget.userObj.injury != 'Yes')
+                          ) {
+                            setState(() {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      verbalAutopsy5YrSec2Part2(
+                                        userObj : widget.userObj,)));
+                            });
+                          }
                         },
                       ),
                     ),
@@ -352,33 +362,33 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
 
   void _onInjuryRadioSelect(String newRadioSelected) {
     setState(() {
-      this._currentSelectedInjuryRadio = newRadioSelected;
+      this.widget.userObj.injury = newRadioSelected;
     });
   }
 
   void _onOtherFoodRadioSelect(String newRadioSelected) {
     setState(() {
-      this._currentSelectedOtherFoodRadio = newRadioSelected;
+      this.widget.userObj.otherThanBreastMilk = newRadioSelected;
     });
   }
 
   void _onBreastfeedIllnessRadioSelect(String newRadioSelected) {
     setState(() {
-      this._currentSelectedBreastfeedIllnessRadio = newRadioSelected;
+      this.widget.userObj.breastMilkDuringIllness= newRadioSelected;
     });
   }
 
 
   void _onDropDownInjurySelected(String newValueSelected) {
     setState(() {
-      this._currentSelectedInjuryKind = newValueSelected;
+      this.widget.userObj.kindOfInjury = newValueSelected;
     });
   }
 
 
 
   Widget injuryKindDropDownFun() {
-    if (_currentSelectedInjuryRadio == 'Yes') {
+    if (widget.userObj.injury == 'Yes') {
       return Padding(
         padding: EdgeInsets.all(10.0),
         child: DropdownButton<String>(
@@ -389,15 +399,27 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
               child: Text(value),
             );
           }).toList(),
-          value: _currentSelectedInjuryKind,
+          value: widget.userObj.kindOfInjury,
           onChanged: (String newValueSelected) {
             _onDropDownInjurySelected(newValueSelected);
           },
         ),
       );
     } else {
-      _currentSelectedInjuryKind = null;
+      widget.userObj.kindOfInjury = null;
       return Text('--Not Required--');
     }
+  }
+
+  void showSnackBar(String message){
+    var snackBar = SnackBar(
+//      backgroundColor: Colors.blue,
+      content: Text(message,
+        style: TextStyle(fontSize: 16.0,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 }

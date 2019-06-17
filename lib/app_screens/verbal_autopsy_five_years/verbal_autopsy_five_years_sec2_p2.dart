@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'user.dart';
+import 'verbal_autopsy_five_years_sec2_p3.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Verbal Autopsy Form Section 2',
-    home: _verbalAutopsy5YrSec2Part2(),
-  ));
-}
 
-class _verbalAutopsy5YrSec2Part2 extends StatefulWidget {
+
+//void main() {
+//  runApp(MaterialApp(
+//    title: 'Verbal Autopsy Form Section 2',
+//    home: _verbalAutopsy5YrSec2Part2(),
+//  ));
+//}
+
+class verbalAutopsy5YrSec2Part2 extends StatefulWidget {
+  final User userObj;
+  verbalAutopsy5YrSec2Part2({Key key, @required this.userObj}):super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsy5YrSec2Part2State();
+    return verbalAutopsy5YrSec2Part2State();
   }
 }
 
-class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> {
+class verbalAutopsy5YrSec2Part2State extends State<verbalAutopsy5YrSec2Part2> {
   var _formKey = GlobalKey<FormState>();
 
 
@@ -28,32 +34,32 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
 
 
   //selection radio variable (stores the value of selected input)
-  var _currentSelectedFeverRadio = '';
-  var _currentSelectedChillRadio = '';
-  var _currentSelectedFitsRadio = '';
-  var _currentSelectedUnconsciousRadio = '';
-  var _currentSelectedBodyStiffnessRadio = '';
-  var _currentSelectedStiffNeckRadio = '';
-  var _currentSelectedDiarrhoeaRadio = '';
-  var _currentSelectedBloodinStoolsRadio = '';
+//  var _currentSelectedFeverRadio = '';
+//  var _currentSelectedChillRadio = '';
+//  var _currentSelectedFitsRadio = '';
+//  var _currentSelectedUnconsciousRadio = '';
+//  var _currentSelectedBodyStiffnessRadio = '';
+//  var _currentSelectedStiffNeckRadio = '';
+//  var _currentSelectedDiarrhoeaRadio = '';
+//  var _currentSelectedBloodinStoolsRadio = '';
 
 
 
-  TextEditingController feverDaysController = TextEditingController();
-  TextEditingController diarrhoeaDaysController = TextEditingController();
+//TextEditingController feverDaysController = TextEditingController();
+//TextEditingController diarrhoeaDaysController = TextEditingController();
 
 
   @override
   void initState() {
     super.initState();
-    _currentSelectedFeverRadio = _yesNoRadioList[1];
-    _currentSelectedChillRadio = _yesNoRadioList[1];
-    _currentSelectedFitsRadio = _yesNoRadioList[1];
-    _currentSelectedUnconsciousRadio = _yesNoRadioList[1];
-    _currentSelectedBodyStiffnessRadio = _yesNoRadioList[1];
-    _currentSelectedStiffNeckRadio = _yesNoRadioList[1];
-    _currentSelectedDiarrhoeaRadio = _yesNoRadioList[1];
-    _currentSelectedBloodinStoolsRadio = _yesNoRadioList[1];
+    widget.userObj.fever = _yesNoRadioList[1];
+    widget.userObj.chillsOrRigorsDuringFever = _yesNoRadioList[1];
+    widget.userObj.convulsionsOrFits = _yesNoRadioList[1];
+    widget.userObj.unconscious = _yesNoRadioList[1];
+    widget.userObj.stiffness = _yesNoRadioList[1];
+    widget.userObj.stiffneck = _yesNoRadioList[1];
+    widget.userObj.diarrhoea = _yesNoRadioList[1];
+    widget.userObj.bloodInStools = _yesNoRadioList[1];
 
 
   }
@@ -116,7 +122,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedFeverRadio,
+                              groupValue: widget.userObj.fever,
                               onChanged: (String newRadioSelected) {
                                 _onFeverRadioSelect(newRadioSelected);
                               },
@@ -127,7 +133,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedFeverRadio,
+                              groupValue: widget.userObj.fever,
                               onChanged: (String newRadioSelected) {
                                 _onFeverRadioSelect(newRadioSelected);
                               },
@@ -138,7 +144,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedFeverRadio,
+                              groupValue: widget.userObj.fever,
                               onChanged: (String newRadioSelected) {
                                 _onFeverRadioSelect(newRadioSelected);
                               },
@@ -194,7 +200,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedChillRadio,
+                              groupValue: widget.userObj.chillsOrRigorsDuringFever,
                               onChanged: (String newRadioSelected) {
                                 _onChillRadioSelect(newRadioSelected);
                               },
@@ -205,7 +211,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedChillRadio,
+                              groupValue: widget.userObj.chillsOrRigorsDuringFever,
                               onChanged: (String newRadioSelected) {
                                 _onChillRadioSelect(newRadioSelected);
                               },
@@ -216,7 +222,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedChillRadio,
+                              groupValue: widget.userObj.chillsOrRigorsDuringFever,
                               onChanged: (String newRadioSelected) {
                                 _onChillRadioSelect(newRadioSelected);
                               },
@@ -252,7 +258,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedFitsRadio,
+                              groupValue: widget.userObj.convulsionsOrFits,
                               onChanged: (String newRadioSelected) {
                                 _onFitsRadioSelect(newRadioSelected);
                               },
@@ -263,7 +269,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedFitsRadio,
+                              groupValue: widget.userObj.convulsionsOrFits,
                               onChanged: (String newRadioSelected) {
                                 _onFitsRadioSelect(newRadioSelected);
                               },
@@ -274,7 +280,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedFitsRadio,
+                              groupValue: widget.userObj.convulsionsOrFits,
                               onChanged: (String newRadioSelected) {
                                 _onFitsRadioSelect(newRadioSelected);
                               },
@@ -311,7 +317,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedUnconsciousRadio,
+                              groupValue: widget.userObj.unconscious,
                               onChanged: (String newRadioSelected) {
                                 _onUnconsciousRadioSelect(newRadioSelected);
                               },
@@ -322,7 +328,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedUnconsciousRadio,
+                              groupValue: widget.userObj.unconscious,
                               onChanged: (String newRadioSelected) {
                                 _onUnconsciousRadioSelect(newRadioSelected);
                               },
@@ -333,7 +339,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedUnconsciousRadio,
+                              groupValue: widget.userObj.unconscious,
                               onChanged: (String newRadioSelected) {
                                 _onUnconsciousRadioSelect(newRadioSelected);
                               },
@@ -369,7 +375,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedBodyStiffnessRadio,
+                              groupValue: widget.userObj.stiffness,
                               onChanged: (String newRadioSelected) {
                                 _onBodyStiffnessRadioSelect(newRadioSelected);
                               },
@@ -380,7 +386,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedBodyStiffnessRadio,
+                              groupValue: widget.userObj.stiffness,
                               onChanged: (String newRadioSelected) {
                                 _onBodyStiffnessRadioSelect(newRadioSelected);
                               },
@@ -391,7 +397,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedBodyStiffnessRadio,
+                              groupValue: widget.userObj.stiffness,
                               onChanged: (String newRadioSelected) {
                                 _onBodyStiffnessRadioSelect(newRadioSelected);
                               },
@@ -427,7 +433,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedStiffNeckRadio,
+                              groupValue: widget.userObj.stiffneck,
                               onChanged: (String newRadioSelected) {
                                 _onStiffNeckRadioSelect(newRadioSelected);
                               },
@@ -438,7 +444,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedStiffNeckRadio,
+                              groupValue: widget.userObj.stiffneck,
                               onChanged: (String newRadioSelected) {
                                 _onStiffNeckRadioSelect(newRadioSelected);
                               },
@@ -449,7 +455,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedStiffNeckRadio,
+                              groupValue: widget.userObj.stiffneck,
                               onChanged: (String newRadioSelected) {
                                 _onStiffNeckRadioSelect(newRadioSelected);
                               },
@@ -484,7 +490,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedDiarrhoeaRadio,
+                              groupValue: widget.userObj.diarrhoea,
                               onChanged: (String newRadioSelected) {
                                 _onDiarrhoeaRadioSelect(newRadioSelected);
                               },
@@ -495,7 +501,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedDiarrhoeaRadio,
+                              groupValue: widget.userObj.diarrhoea,
                               onChanged: (String newRadioSelected) {
                                 _onDiarrhoeaRadioSelect(newRadioSelected);
                               },
@@ -506,7 +512,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedDiarrhoeaRadio,
+                              groupValue: widget.userObj.diarrhoea,
                               onChanged: (String newRadioSelected) {
                                 _onDiarrhoeaRadioSelect(newRadioSelected);
                               },
@@ -558,7 +564,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedBloodinStoolsRadio,
+                              groupValue: widget.userObj.bloodInStools,
                               onChanged: (String newRadioSelected) {
                                 _onBloodinStoolsRadioSelect(newRadioSelected);
                               },
@@ -569,7 +575,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedBloodinStoolsRadio,
+                              groupValue: widget.userObj.bloodInStools,
                               onChanged: (String newRadioSelected) {
                                 _onBloodinStoolsRadioSelect(newRadioSelected);
                               },
@@ -580,7 +586,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedBloodinStoolsRadio,
+                              groupValue: widget.userObj.bloodInStools,
                               onChanged: (String newRadioSelected) {
                                 _onBloodinStoolsRadioSelect(newRadioSelected);
                               },
@@ -588,9 +594,8 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                           ])),
 
 
-
-
-
+                  //for testing purposes
+//                  Text('${widget.userObj.daysDiarrhoea}'),
 
 
 
@@ -603,13 +608,17 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                         style: TextStyle(fontSize: 15.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        setState(() {
-                          if (_formKey.currentState.validate())
-                            AlertDialog(
-                              title: Text('Form Submitted Sucessfully'),
-                              content: Text('Success'),
-                            );
-                        });
+                        if (_formKey.currentState.validate()) {
+                          final FormState form = _formKey.currentState;
+                          form.save();
+                          setState(() {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    verbalAutopsy5YrSec2Part3(
+                                      userObj: widget.userObj,
+                                    )));
+                          });
+                        }
                       },
                     ),
                   ),
@@ -623,48 +632,48 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
 
   void _onFeverRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedFeverRadio = newRadioSelected;
+      this.widget.userObj.fever = newRadioSelected;
     });
   }
 
   void _onChillRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedChillRadio = newRadioSelected;
+      this.widget.userObj.chillsOrRigorsDuringFever = newRadioSelected;
     });
   }
 
   void _onFitsRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedFitsRadio = newRadioSelected;
+      this.widget.userObj.convulsionsOrFits = newRadioSelected;
     });
   }
 
   void _onUnconsciousRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedUnconsciousRadio = newRadioSelected;
+      this.widget.userObj.unconscious = newRadioSelected;
     });
   }
   void _onBodyStiffnessRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedBodyStiffnessRadio = newRadioSelected;
+      this.widget.userObj.stiffness = newRadioSelected;
     });
   }
 
   void _onStiffNeckRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedStiffNeckRadio = newRadioSelected;
+      this.widget.userObj.stiffneck = newRadioSelected;
     });
   }
 
   void _onDiarrhoeaRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedDiarrhoeaRadio = newRadioSelected;
+      this.widget.userObj.diarrhoea = newRadioSelected;
     });
   }
 
   void _onBloodinStoolsRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedBloodinStoolsRadio = newRadioSelected;
+      this.widget.userObj.bloodInStools = newRadioSelected;
     });
   }
 
@@ -672,10 +681,10 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
 
   Widget feverCompletedDays(){
 
-    if(_currentSelectedFeverRadio == 'Yes') {
+    if(widget.userObj.fever == 'Yes') {
       return Flexible(
           child: TextFormField(
-              controller: feverDaysController,
+              onSaved: (String value){widget.userObj.fever = value;},
               validator: (String value) {
                 if (value.isEmpty) return 'Please input days';
               },
@@ -688,7 +697,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                       BorderRadius.circular(10.0)))));
     }
     else {
-      feverDaysController = null;
+      widget.userObj.fever = null;
       return Text('--Not required--');
     }
   }
@@ -696,10 +705,10 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
 
   Widget diarrhoeaCompletedDays(){
 
-    if(_currentSelectedDiarrhoeaRadio == 'Yes') {
+    if(widget.userObj.diarrhoea == 'Yes') {
       return Flexible(
           child: TextFormField(
-              controller: diarrhoeaDaysController,
+              onSaved: (String value){widget.userObj.daysDiarrhoea = value;},
               validator: (String value) {
                 if (value.isEmpty) return 'Please input days';
               },
@@ -712,7 +721,7 @@ class _verbalAutopsy5YrSec2Part2State extends State<_verbalAutopsy5YrSec2Part2> 
                       BorderRadius.circular(10.0)))));
     }
     else {
-      diarrhoeaDaysController = null;
+      widget.userObj.diarrhoea = null;
       return Text('--Not required--');
     }
   }

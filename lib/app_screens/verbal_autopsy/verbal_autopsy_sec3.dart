@@ -159,6 +159,10 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                             // The checkbox wasn't checked
                             showSnackBar('Please check the checkbox to proceed');
                           }
+
+                          if(_formKey.currentState.validate()){
+                            final FormState form = _formKey.currentState;
+                            form.save();
                           if(_formKey.currentState.validate() && _knowledgeCheck  ==  true){
                             _formKey.currentState.save();
 
@@ -180,6 +184,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                                       neoFormsStatus(
                                         newEntry: widget.verbal_Autopsy_Obj,)));
                             }
+
                           }
                         });
                       },
