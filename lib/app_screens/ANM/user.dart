@@ -5,7 +5,7 @@ class User {
   String name;
   var age = Age();
   var address = Address();
-  int weight = 0;
+  double weight = 0;
   String natureOfIllness;
 
   var gender ;//= 'Male';
