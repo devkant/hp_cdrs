@@ -11,6 +11,7 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
 
   final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -40,6 +41,7 @@ class LoginPageState extends State<LoginPage> {
         }
       },
       child: Scaffold(
+        key: _scaffoldKey,
           appBar: AppBar(
             title: Text("Child Death Reporting App"),
           ),
