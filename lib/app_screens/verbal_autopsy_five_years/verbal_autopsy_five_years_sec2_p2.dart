@@ -684,7 +684,7 @@ class verbalAutopsy5YrSec2Part2State extends State<verbalAutopsy5YrSec2Part2> {
     if(widget.userObj.fever == 'Yes') {
       return Flexible(
           child: TextFormField(
-              onSaved: (String value){widget.userObj.fever = value;},
+              onSaved: (String value){widget.userObj.daysFeverLast = value;},
               validator: (String value) {
                 if (value.isEmpty) return 'Please input days';
               },
@@ -697,7 +697,7 @@ class verbalAutopsy5YrSec2Part2State extends State<verbalAutopsy5YrSec2Part2> {
                       BorderRadius.circular(10.0)))));
     }
     else {
-      widget.userObj.fever = null;
+      widget.userObj.daysFeverLast = null;
       return Text('--Not required--');
     }
   }
@@ -721,7 +721,7 @@ class verbalAutopsy5YrSec2Part2State extends State<verbalAutopsy5YrSec2Part2> {
                       BorderRadius.circular(10.0)))));
     }
     else {
-      widget.userObj.diarrhoea = null;
+      widget.userObj.daysDiarrhoea = null;
       return Text('--Not required--');
     }
   }
