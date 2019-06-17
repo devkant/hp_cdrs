@@ -104,6 +104,7 @@ class verbalAutopsy5YrFormState extends State<verbalAutopsy5YrForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
+                        keyboardType: TextInputType.numberWithOptions(),
                         onSaved: (value){widget.userObj.applicationNumber = value;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
