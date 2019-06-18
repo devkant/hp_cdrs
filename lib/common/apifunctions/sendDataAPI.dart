@@ -13,8 +13,13 @@ Future<bool>  sendData(String url,var data) async{
   var connectivityResult = await (Connectivity().checkConnectivity());
   if (connectivityResult == ConnectivityResult.mobile ||  connectivityResult == ConnectivityResult.wifi && internet==true ) {
     print("internet available");
-      createPost(url, data);
-      return true;
+      bool status = await apiRequest(url, data);
+      if(status==true){
+        return true;
+      }
+      else  {
+        return false;
+      }
   } else {
     print("Unable to connect. Please Check Internet Connection");
     return false;
@@ -79,7 +84,13 @@ Future<bool> apiRequest(String url, var jsonMap) async {
   request.add(utf8.encode(json.encode(jsonMap)));
   HttpClientResponse response = await request.close();
   // todo - you should check the response.statusCode
+  if(response.statusCode==200){
+    return true;
+  }
+  else  {
+    return  false;
+  }
   String reply = await response.transform(utf8.decoder).join();
   httpClient.close();
-  return true;
+
 }
