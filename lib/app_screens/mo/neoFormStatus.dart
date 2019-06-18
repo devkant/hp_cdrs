@@ -11,7 +11,7 @@ import 'package:hp_cdrs/app_screens/verbal_autopsy/verbal_autopsy_form.dart';
 
 class neoFormsStatus extends StatefulWidget {
   final user newEntry;
-  neoFormsStatus({Key key, @required this.newEntry}):super(key: key);
+  neoFormsStatus({Key key,this.newEntry}):super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _neoFormsStatusState();
@@ -33,15 +33,14 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
   bool fileExists = false;
   Map<String, String> fileContent;
 
+  @override
   void  initState(){
     super.initState();
-
     if(widget.newEntry!=null){
-      setState(() {
-        entries.add(widget.newEntry);
-        writeToFile(widget.newEntry);
-      });
+      print(widget.newEntry.applicationNumber);
+      entries.add(widget.newEntry);
     }
+
 
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
     _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
@@ -49,25 +48,32 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
     getApplicationDocumentsDirectory().then((Directory directory){
       dir = directory;
       jsonFile = new File(dir.path + "/" + fileName);
+      print(dir.path);
       fileExists = jsonFile.existsSync();
       if (fileExists) this.setState(() => jsonData = jsonFile.readAsStringSync());
-      jsonData  = jsonData.replaceAll('}{','}_{');
-      List<String> jsonList  = jsonData.split('_');
+      List jsonList;
+      if(jsonData!=null){
+        jsonData  = jsonData.replaceAll('}{','}_{');
+        jsonList  = jsonData.split('_');
+      }
       for(int i=0;i<jsonList.length;i++)  {
         var temp  = json.decode(jsonList[i]);
         print(temp);
-        if(isOffline ){
-          entries.add(temp);
-        }
-        else{
-          apiRequest('http://13.126.72.137/api/neonate',temp);
-        }
+        sendData('http://13.126.72.137/api/test',temp).then((status){
+          if(status  == false){
+            entries.add(temp);
+          }
+        });
 
         if(i==(jsonList.length-1) && !isOffline){
           clearFile();
         }
       }
       print(jsonList);
+
+      if(widget.newEntry!=null){
+          writeToFile(widget.newEntry);
+      }
 
 
 
@@ -124,7 +130,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
           itemBuilder: (BuildContext  context,  int index)  {
             return  Card(
               child: ListTile(
-                title: Text("Name: "+entries[index].name),
+                title: Text("Name: "+entries[index].applicationNumber),
                 leading: Icon(Icons.contacts),
               ),
             );
@@ -150,3 +156,6 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
     );
   }
 }
+
+
+

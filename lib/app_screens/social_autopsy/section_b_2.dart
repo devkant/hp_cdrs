@@ -901,7 +901,7 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                       padding:
                                           EdgeInsets.symmetric(vertical: 2.0),
                                       child: TextFormField(
-                                          keyboardType: TextInputType.number,
+                                          keyboardType: TextInputType.text,
                                           decoration: InputDecoration(
                                               labelText: 'Type..',
                                               border: OutlineInputBorder(
@@ -974,7 +974,7 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                       padding:
                                           EdgeInsets.symmetric(vertical: 2.0),
                                       child: TextFormField(
-                                          keyboardType: TextInputType.number,
+                                          keyboardType: TextInputType.text,
                                           decoration: InputDecoration(
                                               labelText: 'Type..',
                                               border: OutlineInputBorder(
@@ -1047,7 +1047,7 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                                       padding:
                                           EdgeInsets.symmetric(vertical: 2.0),
                                       child: TextFormField(
-                                          keyboardType: TextInputType.number,
+                                          keyboardType: TextInputType.text,
                                           decoration: InputDecoration(
                                               labelText: 'Type..',
                                               border: OutlineInputBorder(
