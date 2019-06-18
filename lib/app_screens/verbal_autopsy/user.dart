@@ -1,9 +1,13 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'user.g.dart';
+
+@JsonSerializable(nullable: false)
+
 class user{
 
-
   //form pg 1
-
-  String applicationNumber = 'APPLICATION NUMBER';
+  String applicationNumber = '';
   //drop down
   String district = null;
 
