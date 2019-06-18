@@ -28,7 +28,7 @@ class ANMStatus extends StatefulWidget {
 }
 
 class _ANMStatusState extends State<ANMStatus> {
-  final user  = User();
+  User user ;
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
 
