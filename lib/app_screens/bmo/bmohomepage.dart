@@ -37,10 +37,7 @@ class _BMOhomepageState extends State<BMOhomepage> with SingleTickerProviderStat
       fontSize: 22.0,
     ),
   );
-  Icon actionIcon = Icon(Icons.search, color: Colors.white,);
   final key = GlobalKey<ScaffoldState>();
-  final TextEditingController _searchQuery = TextEditingController();
-  bool _IsSearching;
 
   @override
   Widget build(BuildContext context) {
@@ -150,56 +147,11 @@ class _BMOhomepageState extends State<BMOhomepage> with SingleTickerProviderStat
             ),
           ],
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: actionIcon,
-            onPressed: () {
-              setState(() {
-                if (this.actionIcon.icon == Icons.search) {
-                  this.actionIcon = Icon(Icons.close, color: Colors.white,);
-                  this.appBarTitle = TextField(
-                    controller: _searchQuery,
-                    style: TextStyle(
-                      color: Colors.white,
-
-                    ),
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.search, color: Colors.white),
-                        hintText: "Search...",
-                        hintStyle: TextStyle(color: Colors.white)
-                    ),
-                  );
-                  _handleSearchStart();
-                }
-                else {
-                  _handleSearchEnd();
-                }
-              });
-            },),
-        ]
     );
   }
 
-  void _handleSearchStart() {
-    setState(() {
-      _IsSearching = true;
-    });
-  }
 
-  void _handleSearchEnd() {
-    setState(() {
-      this.actionIcon = Icon(Icons.search, color: Colors.white,);
-      this.appBarTitle = Text(
-        'Block Medical Officer( H.P. )',
-        style: TextStyle(
-          fontWeight: FontWeight.w400,
-          fontSize: 22.0,
-        ),
-      );
-      _IsSearching = false;
-      _searchQuery.clear();
-    });
-  }
+
 }
 
 

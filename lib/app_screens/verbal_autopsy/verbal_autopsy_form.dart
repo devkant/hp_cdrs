@@ -91,18 +91,6 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Center(
-                        child:
-                        Text('${widget.verbal_Autopsy_Obj.applicationNumber}',
-                          style: TextStyle(
-                              fontSize: 20.0, fontWeight: FontWeight.w800),
-                        ),
-                      ),
-                    ),
-
-
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Center(
                         child: Text(
                           'Form No.1 Neonatal Deaths'
                               "\n"
@@ -110,6 +98,23 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                           style: TextStyle(
                               fontSize: 18.0, fontWeight: FontWeight.w800),
                         ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        keyboardType: TextInputType.numberWithOptions(),
+                        onSaved: (value){widget.verbal_Autopsy_Obj.applicationNumber = value;},
+                        validator: (String value) {
+                          if (value.isEmpty) return 'Please fill a valid input';
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Application Number',
+                            hintText: 'Application Number',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
                       ),
                     ),
 
