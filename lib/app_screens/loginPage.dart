@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 import 'package:hp_cdrs/common/apifunctions/requestLoginAPI.dart';
+import 'forgot_passs.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,12 +10,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   @override
   void initstate(){
     super.initState();
     _saveCurrentRoute("/LoginPage");
+
   }
 
   _saveCurrentRoute(String lastRoute) async {
@@ -126,9 +130,17 @@ class LoginPageState extends State<LoginPage> {
                           },
                           splashColor: Colors.blue,
                         ),
+
                         Padding(
                             padding: EdgeInsets.all(20.0),
                             child: FlatButton(
+                              onPressed: (){
+                                setState(() {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          ForgotPass()));
+                                });
+                              },
                               child: Text(
                                 'Forgot Password',
                                 style: TextStyle(
@@ -149,5 +161,18 @@ class LoginPageState extends State<LoginPage> {
     );
   }
 
+
+
+  void showSnackBar(String message){
+    var snackBar = SnackBar(
+//      backgroundColor: Colors.blue,
+      content: Text(message,
+        style: TextStyle(fontSize: 16.0,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
 
 }
