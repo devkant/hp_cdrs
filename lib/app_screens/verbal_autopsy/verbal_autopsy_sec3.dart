@@ -81,11 +81,9 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                         ),
 
 
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child: Text('Narrative language'"\n"'code:', style: TextStyle(fontSize: 16.0),)
-                            ,),),
+                        Flexible(
+                          child: Text('Narrative language code:', style: TextStyle(fontSize: 16.0),)
+                          ,),
                         Flexible(
                             child: TextFormField(
                                 onSaved: (value){widget.verbal_Autopsy_Obj.narrativeLanguageCode = value;},
@@ -109,7 +107,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                         'doctor consulted or hospitalization, history of similar'
                         ' episodes, enter the results'
                         ' from reports of the investigations if available.'
-                      , style: TextStyle(fontSize: 16.0),)
+                      , style: TextStyle(fontSize: 16.0),textAlign: TextAlign.justify,)
                     ,),
 
                   Padding(

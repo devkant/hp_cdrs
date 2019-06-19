@@ -62,10 +62,10 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Section 2: Neonatal Death (Pg 4/5)',
+          'Section 2: Neonatal Death'"\n"'(Pg 4/5)',
           style: TextStyle(fontSize: 18.0),
-        ),
-      ),
+          textAlign: TextAlign.center,
+        ),),
       body: Form(
         key: _formKey,
         child: Padding(
@@ -79,10 +79,10 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
                       padding: EdgeInsets.all(10.0),
                       child: Center(
                           child: Text(
-                            "Details of sickness at time of death:",
+                            "Details of sickness at time of death",
                             style:
                             TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.w500),
+                                fontSize: 18.0, fontWeight: FontWeight.w800),
                           ))),
 
 
@@ -455,7 +455,7 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
   Widget questionElement(String questionNo, String question){
 
     return Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
         child: Row(children: <Widget>[
           Padding(
               padding: EdgeInsets.only(right: 10.0),
@@ -537,7 +537,7 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
       return Padding(
           padding: EdgeInsets.all(10.0),
           child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
                   'Less than 1 day',
@@ -565,7 +565,8 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
 
     else {
       widget.verbal_Autopsy_Obj.diarrhoeaDays = null;
-      return Text('--Not Required--');
+      return Padding(padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+          child: Text('--Not Required--'));
     }
   }
 
@@ -576,7 +577,7 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
       return Padding(
           padding: EdgeInsets.all(10.0),
           child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
                   'Less than 1 day',
@@ -604,7 +605,8 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
 
     else {
       widget.verbal_Autopsy_Obj.vomitDays = null;
-      return Text('--Not Required--');
+      return Padding(padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+          child: Text('--Not Required--'));
     }
   }
 
