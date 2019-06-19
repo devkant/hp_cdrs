@@ -43,7 +43,7 @@ class LoginPageState extends State<LoginPage> {
       },
       child: Scaffold(
           appBar: AppBar(
-            title: Text("Child Death Reporting App"),
+            title: Center(child: Text("HPG - CDRS")),
           ),
           backgroundColor: Colors.white,
           body:  Form(
@@ -54,6 +54,16 @@ class LoginPageState extends State<LoginPage> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
+
+
+                          Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Text('H.P. Govt. Child Death Review System',
+                                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w800),
+                                textAlign: TextAlign.center,
+                              )),
+
+
                           CircleAvatar(
                             radius:60.0,
                             backgroundColor: Colors.white,
@@ -79,7 +89,7 @@ class LoginPageState extends State<LoginPage> {
                           TextFormField(
                             validator: (value)  {
                               if (value.isEmpty) {
-                                return ('Enter a valid input');
+                                return ('Invalid username');
                               }
                             },
                             controller: _userNameController,
@@ -102,7 +112,7 @@ class LoginPageState extends State<LoginPage> {
                           TextFormField(
                             validator: (value)  {
                               if (value.isEmpty) {
-                                return ('Enter a valid input');
+                                return ('Invalid Password');
                               }
                             },
                             controller: _passwordController,
