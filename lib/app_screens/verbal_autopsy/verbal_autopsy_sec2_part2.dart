@@ -80,8 +80,8 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Section 2: Neonatal Death (Pg 2/5)',
-          style: TextStyle(fontSize: 18.0),
+          'Section 2: Neonatal Death'"\n"'(Pg 2/5)',
+          style: TextStyle(fontSize: 18.0),textAlign: TextAlign.center,
         ),
       ),
       body: Form(
@@ -100,13 +100,13 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                             "Details of baby after birth",
                             style:
                             TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.w500),
+                                fontSize: 18.0, fontWeight: FontWeight.w800),
                           ))),
 
 
                   //1st user input element start
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -164,7 +164,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
 
                   //2nd user input element start
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -223,7 +223,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
 
                   //3rd user input element
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -316,7 +316,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
 
                   //5th user input element
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                     child: Row(
                       children: <Widget>[
                         Padding(
@@ -350,22 +350,26 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                       ],
                     ),
                   ),
-                  CheckboxListTile(
-                      value: weightCheck,
-                      title: Text('Unknown'),
-                      onChanged: (bool value) {
-                        setState(() {
-                          weightCheck = value;
-                          if(weightCheck == true)
-                            widget.verbal_Autopsy_Obj.weight = null;
-                        });
-                      }),
+                  Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+                      child: Container(
+                        width: 300.0,
+                        child: CheckboxListTile(
+                            value: weightCheck,
+                            title: Text('Unknown'),
+                            onChanged: (bool value) {
+                              setState(() {
+                                weightCheck = value;
+                                if(weightCheck == true)
+                                  widget.verbal_Autopsy_Obj.weight = null;
+                              });
+                            }),)),
 
 
 
                   //6th user input element
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -424,7 +428,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
 
                   //7th user input element
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -446,7 +450,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
 
                   //8th user input element
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                     child: Row(children: <Widget>[
                       Padding(
                           padding: EdgeInsets.only(right: 10.0),
@@ -459,28 +463,31 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                     ]),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: DropdownButton<String>(
-                      items: _firstBreastFeed.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      value: widget.verbal_Autopsy_Obj.firstBreastfed,
-                      onChanged: (String newValueSelected) {
-                        setState(() {
-                          this.widget.verbal_Autopsy_Obj.firstBreastfed = newValueSelected;
-                        });
-                      },
-                    ),
+                      padding: EdgeInsets.all(10.0),
+                      child: Container(
+                        width: 240.0,
+                        child: DropdownButton<String>(
+                          isExpanded: true,
+                          items: _firstBreastFeed.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          value: widget.verbal_Autopsy_Obj.firstBreastfed,
+                          onChanged: (String newValueSelected) {
+                            setState(() {
+                              this.widget.verbal_Autopsy_Obj.firstBreastfed = newValueSelected;
+                            });
+                          },
+                        ),)
                   ),
 
 
 
                   //9th user input element
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -540,7 +547,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
 
                   //10th user input element
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -764,7 +771,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
       return Padding(
           padding: EdgeInsets.all(10.0),
           child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
                   'Less than 1 day',
@@ -792,7 +799,9 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
 
     else {
       widget.verbal_Autopsy_Obj.daysAfterStoppedCrying = null;
-      return Text('--Not Required--');
+      return Padding(
+          padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+          child: Text('--Not Required--'));
     }
   }
 
@@ -850,7 +859,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
       return Padding(
           padding: EdgeInsets.all(10.0),
           child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
                   'Less than 1 day',
