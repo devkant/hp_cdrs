@@ -6,12 +6,12 @@ import 'dart:async';
 import 'package:hp_cdrs/app_screens/mo/neoFormStatus.dart';
 
 
-//void main() {
-//  runApp(MaterialApp(
-//    title: 'Verbal Autopsy Form Section 3',
-//    home: _verbalAutopsyFormSec3(),
-//  ));
-//}
+void main() {
+  runApp(MaterialApp(
+    title: 'Verbal Autopsy Form Section 3',
+    home: verbalAutopsySec3(),
+  ));
+}
 
 class verbalAutopsySec3 extends StatefulWidget {
   final user verbal_Autopsy_Obj;
@@ -154,7 +154,6 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                         style: TextStyle(fontSize: 15.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        setState(() async{
                           if ( _knowledgeCheck == false) {
                             // The checkbox wasn't checked
                             showSnackBar('Please check the checkbox to proceed');
@@ -166,32 +165,36 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                             user child  = widget.verbal_Autopsy_Obj;
                             var data  = createMap(child);
 
-                            print(data);
-                            print(isOffline);
-                            var status  = await apiRequest('http://13.126.72.137/api/neonate',data);
-                            if(!isOffline && status){
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      neoFormsStatus(
-                                        newEntry: null,)));
-                            }
-                            else{
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      neoFormsStatus(
-                                        newEntry: widget.verbal_Autopsy_Obj,)));
-                            }
+                            sendData('http://13.126.72.137/api/test',data).then((status){
+                              print(status);
+                              if(status) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        neoFormsStatus(
+                                          newEntry: null,)));
+                              }
+                              else{
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        neoFormsStatus(
+                                          newEntry: widget.verbal_Autopsy_Obj,)));
+                              }
+
+
+                            });
 
                           }
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              )),
-        ),
-      ),
-    );
+                      }
+                      )
+              )
+          ]
+    ),)
+                      )
+
+
+
+
+    ));
   }
 
 

@@ -51,6 +51,7 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
     getApplicationDocumentsDirectory().then((Directory directory) {
       dir = directory;
       jsonFile = new File(dir.path + "/" + fileName);
+      print(dir.path);
       fileExists = jsonFile.existsSync();
       if (fileExists) this.setState(() => jsonData = jsonFile.readAsStringSync());
       jsonData  = jsonData.replaceAll('}{','}_{');
