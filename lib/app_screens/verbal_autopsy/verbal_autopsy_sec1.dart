@@ -482,7 +482,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                       Padding(
                         padding: EdgeInsets.only(right: 10.0),
                         child: Text(
-                          "Age in completed days:",
+                          "Age (in completed days):",
                           style: TextStyle(fontSize: 16.0),
                         ),
                       ),
