@@ -55,10 +55,10 @@ class _verbalAutopsySec2Part5State extends State<verbalAutopsySec2Part5> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Section 2: Neonatal Death (Pg 5/5)',
+          'Section 2: Neonatal Death'"\n"'(Pg 5/5)',
           style: TextStyle(fontSize: 18.0),
-        ),
-      ),
+          textAlign: TextAlign.center,
+        ),),
       body: Form(
         key: _formKey,
         child: Padding(
@@ -72,10 +72,10 @@ class _verbalAutopsySec2Part5State extends State<verbalAutopsySec2Part5> {
                       padding: EdgeInsets.all(10.0),
                       child: Center(
                           child: Text(
-                            "Details of sickness at time of death:",
+                            "Details of sickness at time of death",
                             style:
                             TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.w500),
+                                fontSize: 18.0, fontWeight: FontWeight.w800),
                           ))),
 
 
@@ -341,7 +341,7 @@ class _verbalAutopsySec2Part5State extends State<verbalAutopsySec2Part5> {
   Widget questionElement(String questionNo, String question){
 
     return Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
         child: Row(children: <Widget>[
           Padding(
               padding: EdgeInsets.only(right: 10.0),
