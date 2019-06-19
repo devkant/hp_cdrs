@@ -12,7 +12,7 @@ import 'anm2.dart';
 
 class ANMWorker extends StatefulWidget {
 
-  User user;
+  User user = User() ;
   ANMWorker({Key key,@ required this.user}):super(key:key);
 
   @override

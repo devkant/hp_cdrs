@@ -5,7 +5,7 @@
 //@JsonSerializable()
 class User {
 
-//  User(
+  User(
 //      this.applicationNumber,
 //      this.name,
 //      this.age,
@@ -40,7 +40,7 @@ class User {
 //      this.delay,
 //
 //      this.advice,
-//   );
+   );
 
   String applicationNumber;
   //form 1
@@ -50,12 +50,12 @@ class User {
   double weight = 0;
   String natureOfIllness;
 
-  var gender ;//= 'Male';
-  var orderOfBirth ;//= '1';
-  var caste ;//= 'SC';
-  var bplCard ;//= 'No';
-  var growthCurve;// = 'None';
-  var pastIllness ;//= 'No';
+  var gender = 'Male';
+  var orderOfBirth = '1';
+  var caste ='SC';
+  var bplCard = 'No';
+  var growthCurve = 'None';
+  var pastIllness = 'No';
 
   var immunization = List();
 
