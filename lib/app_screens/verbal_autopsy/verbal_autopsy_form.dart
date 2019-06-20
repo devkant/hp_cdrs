@@ -43,7 +43,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
     "BHARMOUR","PANGI"];
 
   var _hamirpurBlocks = ["BAMSON","BHORANJ","BIJHARI","HAMIRPUR",
-    "NADAUN","SUJNAPUR"];
+    "NADAUN","SUJANPUR"];
 
   var _kangraBlocks = ["RAIT","PANCHRUKHI","DEHRA","FATEHPUR","INDORA",
     "NAGROTA BAGWAN","NURPUR","NAGROTA SURIAN","BAIJNATH","BHAWARNA",
