@@ -715,7 +715,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
       );
     } else {
       widget.verbal_Autopsy_Obj.kindOfInjury = null;
-      return Padding( padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+      return Padding( padding: EdgeInsets.all(10.0),
           child: Text('--Not Required--'));
     }
   }
