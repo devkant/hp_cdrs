@@ -108,8 +108,9 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Section 2: Child Death (Pg 4/4)',
+          'Section 2: Child Death'"\n"'(Pg 4/4)',
           style: TextStyle(fontSize: 20.0),
+          textAlign: TextAlign.center,
         ),
       ),
       body: Form(
@@ -128,13 +129,13 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                             "Details of sickness at time of death",
                             style:
                             TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.w500),
+                                fontSize: 18.0, fontWeight: FontWeight.w800),
                           ))),
 
 
                   //1st user input element start
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -194,7 +195,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                   //2nd user input element
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -251,7 +252,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -308,7 +309,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -365,7 +366,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                           ])),
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -424,7 +425,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -484,7 +485,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -543,7 +544,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -711,7 +712,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -769,7 +770,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
 
 
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                     child: Row(children: <Widget>[
                       Padding(
                           padding: EdgeInsets.only(right: 10.0),
@@ -905,6 +906,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
     if(widget.userObj.multipleIllness == 'Yes'){
       return Container(
           decoration: BoxDecoration(
+              color: Colors.blue.shade50,
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(5.0)),
           child: Column(
@@ -918,7 +920,9 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
 
     else {
       _unknownCheck = false;
-      return Text('--Not Required--');
+      return Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Text('--Not Required--'));
     }
   }
 
@@ -964,73 +968,74 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
 
     if (widget.userObj.multipleIllness == 'Yes'
         && _unknownCheck == false) {
-      return Column(children: <Widget>[
-        CheckboxListTile(
-          value: widget.userObj.symptomsOfIllness
-              .contains(_categories['responseBody'][0]['category_name']),
-          onChanged: (bool selected) {
-            _onCategorySelected(selected,
-                _categories['responseBody'][0]['category_name']);
-            debugPrint('${widget.userObj.symptomsOfIllness}');
-          },
-          title: Text(_categories['responseBody'][0]['category_name']),
-        ),
-        CheckboxListTile(
-          value: widget.userObj.symptomsOfIllness
-              .contains(_categories['responseBody'][1]['category_name']),
-          onChanged: (bool selected) {
-            _onCategorySelected(selected,
-                _categories['responseBody'][1]['category_name']);
-            debugPrint('${widget.userObj.symptomsOfIllness}');
-          },
-          title: Text(_categories['responseBody'][1]['category_name']),
-        ),
+      return Column(
+          children: <Widget>[
+            CheckboxListTile(
+              value: widget.userObj.symptomsOfIllness
+                  .contains(_categories['responseBody'][0]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,
+                    _categories['responseBody'][0]['category_name']);
+                debugPrint('${widget.userObj.symptomsOfIllness}');
+              },
+              title: Text(_categories['responseBody'][0]['category_name']),
+            ),
+            CheckboxListTile(
+              value: widget.userObj.symptomsOfIllness
+                  .contains(_categories['responseBody'][1]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,
+                    _categories['responseBody'][1]['category_name']);
+                debugPrint('${widget.userObj.symptomsOfIllness}');
+              },
+              title: Text(_categories['responseBody'][1]['category_name']),
+            ),
 
-        CheckboxListTile(
-          value: widget.userObj.symptomsOfIllness
-              .contains(_categories['responseBody'][2]['category_name']),
-          onChanged: (bool selected) {
-            _onCategorySelected(selected,
-                _categories['responseBody'][2]['category_name']);
-            debugPrint('${widget.userObj.symptomsOfIllness}');
-          },
-          title: Text(_categories['responseBody'][2]['category_name']),
-        ),
+            CheckboxListTile(
+              value: widget.userObj.symptomsOfIllness
+                  .contains(_categories['responseBody'][2]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,
+                    _categories['responseBody'][2]['category_name']);
+                debugPrint('${widget.userObj.symptomsOfIllness}');
+              },
+              title: Text(_categories['responseBody'][2]['category_name']),
+            ),
 
-        CheckboxListTile(
-          value: widget.userObj.symptomsOfIllness
-              .contains(_categories['responseBody'][3]['category_name']),
-          onChanged: (bool selected) {
-            _onCategorySelected(selected,
-                _categories['responseBody'][3]['category_name']);
-            debugPrint('${widget.userObj.symptomsOfIllness}');
-          },
-          title: Text(_categories['responseBody'][3]['category_name']),
-        ),
+            CheckboxListTile(
+              value: widget.userObj.symptomsOfIllness
+                  .contains(_categories['responseBody'][3]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,
+                    _categories['responseBody'][3]['category_name']);
+                debugPrint('${widget.userObj.symptomsOfIllness}');
+              },
+              title: Text(_categories['responseBody'][3]['category_name']),
+            ),
 
-        CheckboxListTile(
-          value: widget.userObj.symptomsOfIllness
-              .contains(_categories['responseBody'][4]['category_name']),
-          onChanged: (bool selected) {
-            _onCategorySelected(selected,
-                _categories['responseBody'][4]['category_name']);
-            debugPrint('${widget.userObj.symptomsOfIllness}');
-          },
-          title: Text(_categories['responseBody'][4]['category_name']),
-        ),
+            CheckboxListTile(
+              value: widget.userObj.symptomsOfIllness
+                  .contains(_categories['responseBody'][4]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,
+                    _categories['responseBody'][4]['category_name']);
+                debugPrint('${widget.userObj.symptomsOfIllness}');
+              },
+              title: Text(_categories['responseBody'][4]['category_name']),
+            ),
 
-        CheckboxListTile(
-          value: widget.userObj.symptomsOfIllness
-              .contains(_categories['responseBody'][5]['category_name']),
-          onChanged: (bool selected) {
-            _onCategorySelected(selected,
-                _categories['responseBody'][5]['category_name']);
-            debugPrint('${widget.userObj.symptomsOfIllness}');
-          },
-          title: Text(_categories['responseBody'][5]['category_name']),
-        ),
+            CheckboxListTile(
+              value: widget.userObj.symptomsOfIllness
+                  .contains(_categories['responseBody'][5]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,
+                    _categories['responseBody'][5]['category_name']);
+                debugPrint('${widget.userObj.symptomsOfIllness}');
+              },
+              title: Text(_categories['responseBody'][5]['category_name']),
+            ),
 
-      ]);
+          ]);
     }
 
     else{

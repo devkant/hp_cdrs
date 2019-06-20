@@ -4,12 +4,21 @@ import 'user.dart';
 
 void main() => runApp(MyApp());
 
+
+//void main() {
+//  runApp(MaterialApp(
+//    title: 'Verbal Autopsy Form Section 1',
+//    home: verbalAutopsy5YrForm(),
+//  ));
+//}
+
+
 class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     final userObj = User();
     return MaterialApp(
-      home: verbalAutopsy5YrForm(userObj: userObj),
+      home: verbalAutopsy5YrForm(),
     );
   }
 }

@@ -12,7 +12,7 @@ import 'anm2.dart';
 
 class ANMWorker extends StatefulWidget {
 
-  User user = User() ;
+  User user = User();
   ANMWorker({Key key,@ required this.user}):super(key:key);
 
   @override
@@ -155,7 +155,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                               hintText: "Application No",
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0))),
-                          keyboardType: TextInputType.text,
+                          keyboardType: TextInputType.number,
                         ),
                       ),
                     ],

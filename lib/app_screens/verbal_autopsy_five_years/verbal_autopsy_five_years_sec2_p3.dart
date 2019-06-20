@@ -72,8 +72,9 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Section 2: Child Death (Pg 3/4)',
+          'Section 2: Child Death'"\n"'(Pg 3/4)',
           style: TextStyle(fontSize: 20.0),
+          textAlign: TextAlign.center,
         ),
       ),
       body: Form(
@@ -92,13 +93,13 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
                             "Details of sickness at time of death",
                             style:
                             TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.w500),
+                                fontSize: 18.0, fontWeight: FontWeight.w800),
                           ))),
 
 
                   //1st user input element start
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -174,7 +175,7 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -193,7 +194,7 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -251,7 +252,7 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -268,7 +269,7 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -325,7 +326,7 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
                           ])),
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -382,7 +383,7 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
                           ])),
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -440,7 +441,7 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -498,7 +499,7 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -556,7 +557,7 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -631,7 +632,7 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
 
 
                   Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -903,7 +904,9 @@ class verbalAutopsy5YrSec2Part3State extends State<verbalAutopsy5YrSec2Part3> {
 
     else{
       widget.userObj.bloodInCough = null;
-      return Text('--Not Required--');
+      return Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Text('--Not Required--'));
     }
 
   }
