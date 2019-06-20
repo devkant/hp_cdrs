@@ -220,8 +220,7 @@ class _Form5State extends State<Form5> {
                             form.save();
                             var data  = createMap(widget.user);
                             print(data);
-                            var status  = await apiRequest('http://13.126.72.137/api/anmform',data);
-
+                            var status  = await apiRequest('http://13.126.72.137/api/test',data);
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -303,7 +302,7 @@ class _Form5State extends State<Form5> {
       'weight': child.weight,
       'growthCurve': child.growthCurve,
       'pastIllness': child.pastIllness,
-      'natureOfIllness': child.natureOfIllness,
+      //natureOfIllness: { type: String },
 
       // Symptoms during Illness
       'inabilityToFeed': child.inabilityToFeed,
