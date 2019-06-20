@@ -31,6 +31,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
 
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
+  var okflag = 0;
 
   File jsonFile;
   Directory dir;
@@ -200,18 +201,19 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                             user child  = widget.verbal_Autopsy_Obj;
                             var data  = createMap(child);
 
+
                             sendData('http://13.126.72.137/api/neonate',data).then((status){
                               print(status);
                               if(status) {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        neoFormsStatus()));
+                                showAlert('Form submitted successfully!');
+
+//                                Navigator.of(context).push(MaterialPageRoute(
+//                                    builder: (BuildContext context) =>
+//                                        neoFormsStatus()));
                               }
                               else{
                                 writeToFile(data);
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        neoFormsStatus()));
+                                showAlert('Form submitted successfully!');
                               }
 
 
@@ -231,6 +233,22 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
     ));
   }
 
+  void dialogResult(){
+    print('button pressed');
+    Navigator.popUntil(context, ModalRoute.withName("HomeScreen"));
+
+  }
+
+  void showAlert(String value){
+
+    AlertDialog dialog = AlertDialog(
+      content: Text(value),
+      actions: <Widget>[
+        FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
+      ],
+    );
+    showDialog(context: context, child: dialog);
+  }
 
   void showSnackBar(String message){
     var snackBar = SnackBar(
