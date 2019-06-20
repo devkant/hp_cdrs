@@ -21,7 +21,7 @@ Future<LoginModel> requestLogoutAPI(BuildContext context) async {
   );
 
   if (response.statusCode == 200) {
-    saveLogout();
+    await saveLogout();
     return null;
   } else {
     saveLogout();

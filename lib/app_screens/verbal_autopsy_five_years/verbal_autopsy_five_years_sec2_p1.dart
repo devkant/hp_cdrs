@@ -78,7 +78,9 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: Text('Section 2: Child death (Pg 1/4)'),
+          title: Text('Section 2: Child death'"\n"'(Pg 1/4)',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20.0),),
         ),
         body: Form(
           key: _formKey,
@@ -87,10 +89,9 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
               child: SingleChildScrollView(
                   child: Column(children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                         child: Row(
                           children: <Widget>[
-
 
                             //1st form element
                             Padding(
@@ -146,7 +147,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
 
                     //2nd form element
                     Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(
                         children: <Widget>[
                           Padding(
@@ -168,17 +169,17 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
 
                     //3rd form element
                     Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom:10.0),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom:10.0),
                         child: Text(
                           'Details of baby after birth',
                           style: TextStyle(
-                              fontSize: 18.0, fontWeight: FontWeight.w500),
+                              fontSize: 18.0, fontWeight: FontWeight.w800),
                         )),
 
 
                     //4th form element
                     Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -190,28 +191,31 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                             )),
                       ]),
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: DropdownButton<String>(
-                        items: _firstBreastFeed.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        value: widget.userObj.firstBreastfed,
-                        onChanged: (String newValueSelected) {
-                          setState(() {
-                            this.widget.userObj.firstBreastfed = newValueSelected;
-                          });
-                        },
-                      ),
-                    ),
+                    Container(
+                        width: 230.0,
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: DropdownButton<String>(
+                            isExpanded: true,
+                            items: _firstBreastFeed.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            value: widget.userObj.firstBreastfed,
+                            onChanged: (String newValueSelected) {
+                              setState(() {
+                                this.widget.userObj.firstBreastfed = newValueSelected;
+                              });
+                            },
+                          ),
+                        )),
 
 
                     //5th user input element
                     Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                         child: Row(
                           children: <Widget>[
                             Padding(
@@ -269,7 +273,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
 
                     //6th form element
                     Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                         child: Row(
                           children: <Widget>[
                             Padding(
