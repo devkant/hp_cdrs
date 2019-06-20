@@ -34,6 +34,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
 
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
+  var okflag = 0;
 
   File jsonFile;
   Directory dir;
@@ -104,21 +105,34 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
           var data = createMap(child);
           sendData('http://13.126.72.137/api/test', data).then((status) {
             if (status) {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      SocialAutopsyFormStatus()));
+              showAlert('Form submitted successfully!');
             }
             else {
               writeToFile(data);
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      SocialAutopsyFormStatus()));
+              showAlert('Form submitted successfully!');
             }
           });
         }
       _autoValidate = true;
 
     }});
+  }
+
+  void dialogResult(){
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            SocialAutopsyFormStatus()));
+  }
+
+  void showAlert(String value){
+
+    AlertDialog dialog = AlertDialog(
+      content: Text(value),
+      actions: <Widget>[
+        FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
+      ],
+    );
+    showDialog(context: context, builder: (_) => dialog);
   }
 
   void _showSnackBar(message) {

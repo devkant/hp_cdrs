@@ -9,6 +9,8 @@ import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/login.dart';
 
+import 'dashboard.dart';
+
 class SocialAutopsyFormStatus extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _SocialAutopsyFormStatusState();
@@ -68,7 +70,6 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
   }
 
   void createFile(User content, Directory dir, String fileName) {
-    print("Creating file!");
     File file = new File(dir.path + "/" + fileName);
     file.createSync();
     fileExists = true;
@@ -85,7 +86,6 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
       createFile(entry, dir, fileName);
     }
     fileContent = json.decode(jsonFile.readAsStringSync());
-    print(fileContent);
   }
 
   void clearFile(){
@@ -94,43 +94,52 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
     }
   }
 
+  Future<bool> onBackPress(){
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            Dashboard()));
+  }
+
   @override
   Widget build(BuildContext context) {
 
 
-    return Scaffold(
-      appBar: AppBar(
-        title:  Text('Forms Pending'),
-      ),
-      drawer: BasicDrawer(),
-      body: ListView.builder(
-          itemCount: entries.length,
-          itemBuilder: (BuildContext  context,  int index)  {
-            return  Card(
-              child: ListTile(
-                title: Text(entries[index]['applicationNumber']),
-                leading: Icon(Icons.contacts),
+    return WillPopScope(
+      onWillPop: onBackPress,
+      child: Scaffold(
+        appBar: AppBar(
+          title:  Text('Forms Pending'),
+        ),
+        drawer: BasicDrawer(),
+        body: ListView.builder(
+            itemCount: entries.length,
+            itemBuilder: (BuildContext  context,  int index)  {
+              return  Card(
+                child: ListTile(
+                  title: Text(entries[index]['applicationNumber']),
+                  leading: Icon(Icons.contacts),
+                ),
+              );
+            }
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          icon: Icon(Icons.add),
+          tooltip: 'Add new Entry',
+          label: Text("New Form"),
+
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SocialAutopsyLogin(user:user),
               ),
             );
-          }
+
+
+          },
+        ),
+
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add),
-        tooltip: 'Add new Entry',
-        label: Text("New Form"),
-
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SocialAutopsyLogin(user:user),
-            ),
-          );
-
-
-        },
-      ),
-
     );
   }
 
