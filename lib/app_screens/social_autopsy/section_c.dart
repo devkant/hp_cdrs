@@ -109,7 +109,7 @@ class SocialAutopsyCState extends State<SocialAutopsyC> {
                         leading: Text('17)',
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         title: Text(
-                          'Awareness of mother & family members about treatment seeking',
+                          'Awareness of mother & family members about seeking treatment',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -174,12 +174,10 @@ class SocialAutopsyCState extends State<SocialAutopsyC> {
           child: SingleChildScrollView(
               child: Column(
             children: <Widget>[
-              Padding(
-                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
-                  child: ListTile(
+                  ListTile(
                     leading: Text('17.2'),
                     title: Text('List them :'),
-                  )),
+                  ),
               CheckboxListTile(
                 value: widget.user.listItem
                     .contains(_categories['responseBody'][0]['category_name']),

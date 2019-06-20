@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hp_cdrs/app_screens/social_autopsy/section_b_4.dart';
+import 'package:hp_cdrs/app_screens/social_autopsy/section_c.dart';
+import 'package:hp_cdrs/app_screens/social_autopsy/section_d.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/user.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/section_a.dart';
 
@@ -9,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = User();
     return MaterialApp(
-      home: SocialAutopsyLogin(user:user),
+      home: SocialAutopsyD(user:user),
     );
   }
 }

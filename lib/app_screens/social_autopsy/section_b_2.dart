@@ -123,8 +123,6 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                         leading: Text('13.'),
                         title: Text(
                             'Problems faced by the parents in getting treatment in the health facility:'),
-                        subtitle: Text(
-                            'Now I will ask you questions related to problems you might have faced in getting the treatment from various health facilities.'),
                       ),
                       Container(
                         padding: EdgeInsets.all(5.0),
