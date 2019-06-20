@@ -7,6 +7,7 @@ import 'package:hp_cdrs/app_screens/mo/neoFormStatus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
+import 'package:hp_cdrs/main.dart';
 
 
 void main() {
@@ -31,7 +32,6 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
 
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
-  var okflag = 0;
 
   File jsonFile;
   Directory dir;
@@ -234,9 +234,10 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
   }
 
   void dialogResult(){
-    print('button pressed');
-    Navigator.popUntil(context, ModalRoute.withName("HomeScreen"));
-
+//    print('button pressed');
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            neoFormsStatus()));
   }
 
   void showAlert(String value){
