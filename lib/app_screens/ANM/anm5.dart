@@ -220,7 +220,23 @@ class _Form5State extends State<Form5> {
                             form.save();
                             var data  = createMap(widget.user);
                             print(data);
-                            var status  = await apiRequest('http://13.126.72.137/api/anmform',data);
+                            sendData('http://13.126.72.137/api/test',data).then((status){
+                              print(status);
+                              if(status) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        ANMStatus(
+                                          newEntry: null,)));
+                              }
+                              else{
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        ANMStatus(
+                                          newEntry: widget.user,)));
+                              }
+
+
+                            });
 
                             showDialog(
                                 context: context,
@@ -231,18 +247,7 @@ class _Form5State extends State<Form5> {
                                   );
                                 }
                             );
-                            if(!isOffline && status){
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      ANMStatus(
-                                        newEntry: null,)));
-                            }
-                            else{
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      ANMStatus(
-                                        newEntry: widget.user,)));
-                            }
+
                           }
                           else {
                             _showSnackBar("Please check the checkbox to proceed");
@@ -283,7 +288,7 @@ class _Form5State extends State<Form5> {
   Map createMap(User child) {
     var data = {
 
-      'applicationNumber': '1560779046894',
+      'applicationNumber': child.applicationNumber,
       // User reference
 
       //Background Information

@@ -26,7 +26,9 @@ dependencies:
   path_provider: ^1.1.0
   connectivity: ^0.3.2
   android_alarm_manager:  ^0.2.3
-  json_annotation:
+  json_annotation: ^2.0.0
+
+
 
 
   # The following adds the Cupertino Icons font to your application.

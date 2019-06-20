@@ -28,7 +28,7 @@ class ANMStatus extends StatefulWidget {
 }
 
 class _ANMStatusState extends State<ANMStatus> {
-  final user  = User();
+  User user ;
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
 
@@ -46,10 +46,7 @@ class _ANMStatusState extends State<ANMStatus> {
     super.initState();
 
     if(widget.newEntry!=null){
-      setState(() {
         entries.add(widget.newEntry);
-        writeToFile(widget.newEntry);
-      });
     }
 
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
@@ -65,12 +62,11 @@ class _ANMStatusState extends State<ANMStatus> {
       for(int i=0;i<jsonList.length;i++)  {
         var temp  = json.decode(jsonList[i]);
         print(temp);
-        if(isOffline ){
-          entries.add(temp);
-        }
-        else{
-          sendData('http://13.126.72.137/api/anmform', temp);
-        }
+        sendData('http://13.126.72.137/api/test',temp).then((status){
+          if(status  == false){
+            entries.add(temp);
+          }
+        });
 
         if(i==(jsonList.length-1) && !isOffline){
           clearFile();
@@ -81,6 +77,9 @@ class _ANMStatusState extends State<ANMStatus> {
 
 
     });
+    if(widget.newEntry!=null){
+       writeToFile(widget.newEntry);
+    }
 
 
   }
