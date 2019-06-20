@@ -4,6 +4,9 @@ import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
 import 'dart:async';
 import 'package:hp_cdrs/app_screens/ANM/anmstatus.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'dart:convert';
 
 /*
 void main() {
@@ -54,6 +57,53 @@ class _Form5State extends State<Form5> {
     "responseTotalResult":
     3 // Total result is 3 here because we have 3 categories in responseBody.
   };
+
+  File jsonFile;
+  Directory dir;
+  String fileName = "anm.json";
+  bool fileExists = false;
+  Map<String, String> fileContent;
+
+  void  initState() {
+    super.initState();
+    ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
+    _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
+
+    getApplicationDocumentsDirectory().then((Directory directory) {
+      dir = directory;
+      jsonFile = new File(dir.path + "/" + fileName);
+      print(dir.path);
+      fileExists = jsonFile.existsSync();
+      if (fileExists) this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
+    });
+  }
+
+  void createFile(Map<String, dynamic> content, Directory dir, String fileName) {
+    print("Creating file!");
+    File file = new File(dir.path + "/" + fileName);
+    file.createSync();
+    fileExists = true;
+    file.writeAsStringSync(json.encode(content));
+  }
+
+  void writeToFile(Map data) {
+    print("Writing to file!");
+
+    if (fileExists) {
+      print("File exists");
+      jsonFile.writeAsStringSync(json.encode(data),mode: FileMode.append);
+    } else {
+      print("File does not exist!");
+      createFile(data, dir, fileName);
+    }
+  }
+
+  void connectionChanged(dynamic hasConnection) {
+    setState(() {
+      isOffline = !hasConnection;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -220,7 +270,24 @@ class _Form5State extends State<Form5> {
                             form.save();
                             var data  = createMap(widget.user);
                             print(data);
-                            var status  = await apiRequest('http://13.126.72.137/api/test',data);
+
+                            sendData('http://13.126.72.137/api/test',data).then((status){
+                              print(status);
+                              if(status) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        ANMStatus()));
+                              }
+                              else{
+                                writeToFile(data);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        ANMStatus()));
+                              }
+
+
+                            });
+
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -230,18 +297,7 @@ class _Form5State extends State<Form5> {
                                   );
                                 }
                             );
-                            if(!isOffline && status){
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      ANMStatus(
-                                        newEntry: null,)));
-                            }
-                            else{
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      ANMStatus(
-                                        newEntry: widget.user,)));
-                            }
+
                           }
                           else {
                             _showSnackBar("Please check the checkbox to proceed");

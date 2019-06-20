@@ -126,7 +126,8 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: Text('Section 2: Neonatal Death (Pg 1/5)', style: TextStyle(fontSize: 18.0),),
+          title: Text('Section 2: Neonatal Death'"\n"'(Pg 1/5)',
+            style: TextStyle(fontSize: 18.0),textAlign: TextAlign.center,),
         ),
         body: Form(
           key: _formKey,
@@ -135,7 +136,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
               child: SingleChildScrollView(
                   child: Column(children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                         child: Row(
                           children: <Widget>[
 
@@ -194,7 +195,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
 
                     //2nd form element
                     Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(
                         children: <Widget>[
                           Padding(
@@ -216,11 +217,11 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
 
                     //3rd form element
                     Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom:10.0),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0, bottom:10.0),
                         child: Text(
                           'Details of pregnancy and delivery',
                           style: TextStyle(
-                              fontSize: 18.0, fontWeight: FontWeight.w500),
+                              fontSize: 18.0, fontWeight: FontWeight.w800),
                         )),
 
 
@@ -247,7 +248,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                                   widget.verbal_Autopsy_Obj.pregnancyDuration =
                                       num.parse(pregnancyMonthsController);},
                                   validator: (String value) {
-                                    if (value.isEmpty) return 'Please input months';
+                                    if (value.isEmpty) return 'Invalid input';
                                   },
                                   keyboardType: TextInputType.numberWithOptions(),
                                   decoration: InputDecoration(
@@ -301,7 +302,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
 
                     //6th form element
                     Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                         child: Row(
                           children: <Widget>[
                             Padding(
@@ -357,7 +358,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
 
                     //7th form element
                     Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                         child: Row(
                           children: <Widget>[
                             Padding(
@@ -433,23 +434,26 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
 
                     //9th form element
                     Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                         child: Row(
                           children: <Widget>[
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
                                 child:
                                 Text('17. ', style: TextStyle(fontSize: 16.0))),
+
                             Flexible(
-                                child: Text(
-                                    'Was the child a single or multiple birth?',
-                                    style: TextStyle(fontSize: 16.0))),
+                              child:
+                              Padding(padding: EdgeInsets.only(top: 0.0),
+                                  child: Text(
+                                      'Was the child a single or multiple birth?',
+                                      style: TextStyle(fontSize: 16.0))),),
                           ],
                         )),
                     Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
                               Text(
                                 'Single',
@@ -489,7 +493,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
 
                     //10th form element
                     Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -520,7 +524,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
 
                     //11th form element
                     Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
@@ -551,7 +555,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
 
                     //12th form element
                     Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                         child: Row(
                           children: <Widget>[
                             Padding(
@@ -711,7 +715,8 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
       );
     } else {
       widget.verbal_Autopsy_Obj.kindOfInjury = null;
-      return Text('--Not Required--');
+      return Padding( padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+          child: Text('--Not Required--'));
     }
   }
 
@@ -720,7 +725,8 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
       return Container(
           decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(5.0)),
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.blue.shade50),
 //
           child: Column(children: <Widget>[
 
@@ -814,7 +820,8 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
           ));
     } else {
       widget.verbal_Autopsy_Obj.complicationsType.clear();
-      return Text('--Not Required--');
+      return Padding( padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+          child: Text('--Not Required--'));
     }
   }
 

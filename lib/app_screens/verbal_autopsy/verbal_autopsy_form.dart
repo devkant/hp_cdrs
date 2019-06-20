@@ -3,6 +3,13 @@ import 'verbal_autopsy_sec1.dart';
 import 'user.dart';
 
 
+//void main() {
+//  runApp(MaterialApp(
+//    title: 'Verbal Autopsy Form Section 1',
+//    home: verbalAutopsyForm(),
+//  ));
+//}
+
 
 class verbalAutopsyForm extends StatefulWidget {
 
@@ -370,6 +377,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
           this.widget.verbal_Autopsy_Obj.block = newSelectedValue;
         });
       },
+      //      isExpanded: true,
     );
   }
 

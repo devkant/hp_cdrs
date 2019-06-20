@@ -9,9 +9,11 @@ import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/verbal_autopsy/verbal_autopsy_form.dart';
 
+
+
+
+
 class neoFormsStatus extends StatefulWidget {
-  final user newEntry;
-  neoFormsStatus({Key key,this.newEntry}):super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _neoFormsStatusState();
@@ -19,12 +21,14 @@ class neoFormsStatus extends StatefulWidget {
 }
 
 class _neoFormsStatusState extends State<neoFormsStatus> {
+
   final User  = user();
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
 
   List <dynamic>_forms  = [];
-  List entries = [];
+  List jsonList = [];
+  List  entries = [];
   String jsonData;
 
   File jsonFile;
@@ -36,48 +40,37 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
   @override
   void  initState(){
     super.initState();
-    if(widget.newEntry!=null){
-      print(widget.newEntry.applicationNumber);
-      entries.add(widget.newEntry);
-    }
 
 
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
     _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
 
-    getApplicationDocumentsDirectory().then((Directory directory){
+    getApplicationDocumentsDirectory().then((Directory directory) {
       dir = directory;
       jsonFile = new File(dir.path + "/" + fileName);
       print(dir.path);
       fileExists = jsonFile.existsSync();
+      print(fileExists);
       if (fileExists) this.setState(() => jsonData = jsonFile.readAsStringSync());
-      List jsonList;
       if(jsonData!=null){
         jsonData  = jsonData.replaceAll('}{','}_{');
         jsonList  = jsonData.split('_');
       }
+      print(jsonList);
       for(int i=0;i<jsonList.length;i++)  {
         var temp  = json.decode(jsonList[i]);
+        entries.add(temp);
         print(temp);
-        sendData('http://13.126.72.137/api/test',temp).then((status){
-          if(status  == false){
-            entries.add(temp);
+        sendData('http://13.126.72.137/api/neonate',temp).then((status) {
+          if (status == true) {
+            if(i==(jsonList.length-1) && !isOffline){
+              clearFile();
+            }
           }
         });
-
-        if(i==(jsonList.length-1) && !isOffline){
-          clearFile();
-        }
       }
-      print(jsonList);
-
-      if(widget.newEntry!=null){
-          writeToFile(widget.newEntry);
-      }
-
-
-
     });
+    print(jsonList.length);
 
 
   }
@@ -89,7 +82,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
     });
   }
 
-  void createFile(user content, Directory dir, String fileName) {
+  void createFile(Map content, Directory dir, String fileName) {
     print("Creating file!");
     File file = new File(dir.path + "/" + fileName);
     file.createSync();
@@ -97,7 +90,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
     file.writeAsStringSync(json.encode(content),mode: FileMode.append);
   }
 
-  void writeToFile(user entry) {
+  void writeToFile(Map entry) {
     print("Writing to file!");
     if (fileExists) {
       print("File exists");
@@ -106,12 +99,12 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
       print("File does not exist!");
       createFile(entry, dir, fileName);
     }
-    this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
+    fileContent = json.decode(jsonFile.readAsStringSync());
     print(fileContent);
   }
 
   void clearFile(){
-    if(fileExists){
+    if(fileExists)  {
       jsonFile.writeAsStringSync('');
     }
   }
@@ -130,7 +123,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
           itemBuilder: (BuildContext  context,  int index)  {
             return  Card(
               child: ListTile(
-                title: Text("Name: "+entries[index].applicationNumber),
+                title: Text(entries[index]['applicationNumber']),
                 leading: Icon(Icons.contacts),
               ),
             );
@@ -156,6 +149,12 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
     );
   }
 }
+
+
+
+
+
+
 
 
 

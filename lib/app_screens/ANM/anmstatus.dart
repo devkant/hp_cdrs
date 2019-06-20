@@ -28,59 +28,56 @@ class ANMStatus extends StatefulWidget {
 }
 
 class _ANMStatusState extends State<ANMStatus> {
+
   final user  = User();
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
 
   List <dynamic>_forms  = [];
   List entries = [];
+  List jsonList = [];
   String jsonData;
 
   File jsonFile;
   Directory dir;
-  String fileName = "fbi.json";
+  String fileName = "anm.json";
   bool fileExists = false;
   Map<String, String> fileContent;
 
+  @override
   void  initState(){
     super.initState();
 
-    if(widget.newEntry!=null){
-      setState(() {
-        entries.add(widget.newEntry);
-        writeToFile(widget.newEntry);
-      });
-    }
 
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
     _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
 
-    getApplicationDocumentsDirectory().then((Directory directory){
+    getApplicationDocumentsDirectory().then((Directory directory) {
       dir = directory;
       jsonFile = new File(dir.path + "/" + fileName);
+      print(dir.path);
       fileExists = jsonFile.existsSync();
+      print(fileExists);
       if (fileExists) this.setState(() => jsonData = jsonFile.readAsStringSync());
-      jsonData  = jsonData.replaceAll('}{','}_{');
-      List<String> jsonList  = jsonData.split('_');
-      for(int i=0;i<jsonList.length;i++)  {
-        var temp  = json.decode(jsonList[i]);
-        print(temp);
-        if(isOffline ){
-          entries.add(temp);
-        }
-        else{
-          sendData('http://13.126.72.137/api/temp', temp);
-        }
-
-        if(i==(jsonList.length-1) && !isOffline){
-          clearFile();
-        }
+      if(jsonData!=null){
+        jsonData  = jsonData.replaceAll('}{','}_{');
+        jsonList  = jsonData.split('_');
       }
       print(jsonList);
-
-
-
+      for(int i=0;i<jsonList.length;i++)  {
+        var temp  = json.decode(jsonList[i]);
+        entries.add(temp);
+        print(temp);
+        sendData('http://13.126.72.137/api/fbi',temp).then((status) {
+          if (status == true) {
+            if(i==(jsonList.length-1) && !isOffline){
+              clearFile();
+            }
+          }
+        });
+      }
     });
+    print(jsonList.length);
 
 
   }
@@ -132,7 +129,7 @@ class _ANMStatusState extends State<ANMStatus> {
           itemBuilder: (BuildContext  context,  int index)  {
             return  Card(
               child: ListTile(
-                title: Text("Name: "+entries[index].name),
+                title: Text("Name: "+entries[index]['name']),
                 leading: Icon(Icons.contacts),
               ),
             );
