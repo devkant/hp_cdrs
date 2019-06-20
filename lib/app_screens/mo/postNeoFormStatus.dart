@@ -10,17 +10,15 @@ import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/verbal_autopsy_five_years/verbal_autopsy_five_years.dart';
 
 class PostNeoFormsStatus extends StatefulWidget {
-  final User newEntry;
-  PostNeoFormsStatus({Key key, @required this.newEntry}):super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _PostNeoFormsStatusState();
+    return PostNeoFormsStatusState();
   }
 }
 
-class _PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
+class PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
   final user  = User();
-  StreamSubscription _connectionChangeStream;
+  StreamSubscription connectionChangeStream;
   bool isOffline = false;
 
   List <dynamic>_forms  = [];
@@ -36,15 +34,9 @@ class _PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
   void  initState(){
     super.initState();
 
-    if(widget.newEntry!=null){
-      setState(() {
-        entries.add(widget.newEntry);
-        writeToFile(widget.newEntry);
-      });
-    }
 
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
-    _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
+    connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
 
     getApplicationDocumentsDirectory().then((Directory directory){
       dir = directory;
@@ -55,17 +47,16 @@ class _PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
       List<String> jsonList  = jsonData.split('_');
       for(int i=0;i<jsonList.length;i++)  {
         var temp  = json.decode(jsonList[i]);
-        print(temp);
-        if(isOffline ){
-          entries.add(temp);
-        }
-        else{
-          apiRequest('http://13.126.72.137/api/test',temp);
-        }
+        entries.add(temp);
+        sendData('http://13.126.72.137/api/postNeonate',temp).then((status) {
+          print(status);
+          if (status == true) {
+            if(i==(jsonList.length-1)){
+              clearFile();
+            }
+          }
 
-        if(i==(jsonList.length-1) && !isOffline){
-          clearFile();
-        }
+        });
       }
       print(jsonList);
     });
@@ -110,7 +101,7 @@ class _PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Post Neonate Pending'),
+        title:  Text('Post Neonate SavedForms'),
       ),
       drawer: BasicDrawer(),
       body: ListView.builder(
@@ -118,7 +109,7 @@ class _PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
           itemBuilder: (BuildContext  context,  int index)  {
             return  Card(
               child: ListTile(
-                title: Text("Name: "+entries[index].name),
+                title: Text("Name: "+entries[index]['applicationNumber']),
                 leading: Icon(Icons.contacts),
               ),
             );
