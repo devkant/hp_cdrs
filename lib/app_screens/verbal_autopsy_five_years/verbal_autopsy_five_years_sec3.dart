@@ -204,15 +204,12 @@ class _verbalAutopsy5YrSec3State
                               sendData('http://13.126.72.137/api/postNeonate',data).then((status){
                                 print(status);
                                 if(status) {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          PostNeoFormsStatus()));
+                                  showAlert('Form submitted successfully!', 'Sent');
                                 }
                                 else{
                                   writeToFile(data);
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          PostNeoFormsStatus()));
+                                  showAlert('Form saved in offline mode. Please relaunch'
+                                      ' the app once connected to the internet.', 'Saved');
                                 }
 
 
@@ -229,6 +226,24 @@ class _verbalAutopsy5YrSec3State
     );
   }
 
+  void dialogResult(){
+//    print('button pressed');
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            PostNeoFormsStatus()));
+  }
+
+  void showAlert(String value, String dialogTitle){
+
+    AlertDialog dialog = AlertDialog(
+      content: Text(value, textAlign: TextAlign.center,),
+      title: Text(dialogTitle),
+      actions: <Widget>[
+        FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
+      ],
+    );
+    showDialog(context: context, child: dialog);
+  }
 
   void showSnackBar(String message){
     var snackBar = SnackBar(
