@@ -12,8 +12,7 @@ class BasicDrawer extends StatefulWidget {
 class _BasicDrawerState extends State<BasicDrawer>  {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
+    return Drawer(
         child: ListView(children: <Widget>[
           UserAccountsDrawerHeader(
             //accountName: ,
@@ -31,7 +30,7 @@ class _BasicDrawerState extends State<BasicDrawer>  {
           ),
           ListTile(title: Text("Logout", style: TextStyle(
                 color: Colors.black, fontSize: 20.0),),
-              onTap: () {
+              onTap: () async{
                 requestLogoutAPI(context);
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (BuildContext ctx) => LoginPage()));
@@ -39,7 +38,6 @@ class _BasicDrawerState extends State<BasicDrawer>  {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }

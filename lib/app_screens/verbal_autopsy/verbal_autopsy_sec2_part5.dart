@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'verbal_autopsy_sec3.dart';
+import 'user.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Verbal Autopsy Form Section 2',
-    home: _verbalAutopsyFormSec2Part4(),
-  ));
-}
+//void main() {
+//  runApp(MaterialApp(
+//    title: 'Verbal Autopsy Form Section 2',
+//    home: _verbalAutopsyFormSec2Part5(),
+//  ));
+//}
 
-class _verbalAutopsyFormSec2Part4 extends StatefulWidget {
+class verbalAutopsySec2Part5 extends StatefulWidget {
+  final user verbal_Autopsy_Obj;
+  verbalAutopsySec2Part5({Key key, @required this.verbal_Autopsy_Obj}):super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _verbalAutopsyFormSec2Part4State();
+    return _verbalAutopsySec2Part5State();
   }
 }
 
-class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4> {
+class _verbalAutopsySec2Part5State extends State<verbalAutopsySec2Part5> {
   var _formKey = GlobalKey<FormState>();
 
 
@@ -24,11 +28,11 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
 
 
   //selection radio variable (stores the value of selected input)
-  var _currentSelectedBuldgeRadio = '';
-  var _currentSelectedColdRadio = '';
-  var _currentSelectedDiscoloredRadio = '';
-  var _currentSelectedYellowPalmsRadio = '';
-  var _currentSelectedBloodinStoolsRadio = '';
+//  var _currentSelectedBuldgeRadio = '';
+//  var _currentSelectedColdRadio = '';
+//  var _currentSelectedDiscoloredRadio = '';
+//  var _currentSelectedYellowPalmsRadio = '';
+//  var _currentSelectedBloodinStoolsRadio = '';
 
 
 
@@ -37,11 +41,11 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
   @override
   void initState() {
     super.initState();
-    _currentSelectedBuldgeRadio = _yesNoRadioList[1];
-    _currentSelectedColdRadio = _yesNoRadioList[1];
-    _currentSelectedDiscoloredRadio = _yesNoRadioList[1];
-    _currentSelectedYellowPalmsRadio = _yesNoRadioList[1];
-    _currentSelectedBloodinStoolsRadio = _yesNoRadioList[1];
+    widget.verbal_Autopsy_Obj.bulgingFontanelle = _yesNoRadioList[1];
+    widget.verbal_Autopsy_Obj.cold = _yesNoRadioList[1];
+    widget.verbal_Autopsy_Obj.legsDiscoloured = _yesNoRadioList[1];
+    widget.verbal_Autopsy_Obj.yellow = _yesNoRadioList[1];
+    widget.verbal_Autopsy_Obj.blood = _yesNoRadioList[1];
 
   }
 
@@ -51,10 +55,10 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Section 2: Neonatal Death (Pg 5/5)',
-          style: TextStyle(fontSize: 20.0),
-        ),
-      ),
+          'Section 2: Neonatal Death'"\n"'(Pg 5/5)',
+          style: TextStyle(fontSize: 18.0),
+          textAlign: TextAlign.center,
+        ),),
       body: Form(
         key: _formKey,
         child: Padding(
@@ -68,15 +72,15 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                       padding: EdgeInsets.all(10.0),
                       child: Center(
                           child: Text(
-                            "Details of sickness at time of death:",
+                            "Details of sickness at time of death",
                             style:
                             TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.w500),
+                                fontSize: 18.0, fontWeight: FontWeight.w800),
                           ))),
 
 
                   //1st user input element start
-                  questionElement('39. ', 'Did s/he have a'
+                  questionElement('39. ', 'Did he/she have a'
                       ' bulging fontanelle (describe)?'),
 
                   Padding(
@@ -90,7 +94,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedBuldgeRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.bulgingFontanelle,
                               onChanged: (String newRadioSelected) {
                                 _onBuldgeRadioSelect(newRadioSelected);
                               },
@@ -101,7 +105,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedBuldgeRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.bulgingFontanelle,
                               onChanged: (String newRadioSelected) {
                                 _onBuldgeRadioSelect(newRadioSelected);
                               },
@@ -112,7 +116,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedBuldgeRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.bulgingFontanelle,
                               onChanged: (String newRadioSelected) {
                                 _onBuldgeRadioSelect(newRadioSelected);
                               },
@@ -136,7 +140,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedColdRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.cold,
                               onChanged: (String newRadioSelected) {
                                 _onColdRadioSelect(newRadioSelected);
                               },
@@ -147,7 +151,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedColdRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.cold,
                               onChanged: (String newRadioSelected) {
                                 _onColdRadioSelect(newRadioSelected);
                               },
@@ -158,7 +162,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedColdRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.cold,
                               onChanged: (String newRadioSelected) {
                                 _onColdRadioSelect(newRadioSelected);
                               },
@@ -182,7 +186,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedDiscoloredRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.legsDiscoloured,
                               onChanged: (String newRadioSelected) {
                                 _onDiscoloredRadioSelect(newRadioSelected);
                               },
@@ -193,7 +197,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedDiscoloredRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.legsDiscoloured,
                               onChanged: (String newRadioSelected) {
                                 _onDiscoloredRadioSelect(newRadioSelected);
                               },
@@ -204,7 +208,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedDiscoloredRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.legsDiscoloured,
                               onChanged: (String newRadioSelected) {
                                 _onDiscoloredRadioSelect(newRadioSelected);
                               },
@@ -227,7 +231,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedYellowPalmsRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.yellow,
                               onChanged: (String newRadioSelected) {
                                 _onYellowPalmsRadioSelect(newRadioSelected);
                               },
@@ -238,7 +242,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedYellowPalmsRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.yellow,
                               onChanged: (String newRadioSelected) {
                                 _onYellowPalmsRadioSelect(newRadioSelected);
                               },
@@ -249,7 +253,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedYellowPalmsRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.yellow,
                               onChanged: (String newRadioSelected) {
                                 _onYellowPalmsRadioSelect(newRadioSelected);
                               },
@@ -272,7 +276,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'Yes',
-                              groupValue: _currentSelectedBloodinStoolsRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.blood,
                               onChanged: (String newRadioSelected) {
                                 _onBloodinStoolsRadioSelect(newRadioSelected);
                               },
@@ -283,7 +287,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'No',
-                              groupValue: _currentSelectedBloodinStoolsRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.blood,
                               onChanged: (String newRadioSelected) {
                                 _onBloodinStoolsRadioSelect(newRadioSelected);
                               },
@@ -294,7 +298,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                             ),
                             Radio(
                               value: 'Unknown',
-                              groupValue: _currentSelectedBloodinStoolsRadio,
+                              groupValue: widget.verbal_Autopsy_Obj.blood,
                               onChanged: (String newRadioSelected) {
                                 _onBloodinStoolsRadioSelect(newRadioSelected);
                               },
@@ -310,17 +314,18 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
                     child: RaisedButton(
                       color: Colors.blue,
                       child: Text(
-                        "Submit",
-                        style: TextStyle(fontSize: 15.0, color: Colors.white),
+                        "Proceed to Section 3",
+                        style: TextStyle(fontSize: 16.0, color: Colors.white),
                       ),
                       onPressed: () {
-                        setState(() {
-                          if (_formKey.currentState.validate())
-                            AlertDialog(
-                              title: Text('Form Submitted Sucessfully'),
-                              content: Text('Success'),
-                            );
-                        });
+                        if (_formKey.currentState.validate()) {
+                          setState(() {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    verbalAutopsySec3(
+                                      verbal_Autopsy_Obj: widget.verbal_Autopsy_Obj,)));
+                          });
+                        }
                       },
                     ),
                   ),
@@ -336,7 +341,7 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
   Widget questionElement(String questionNo, String question){
 
     return Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
         child: Row(children: <Widget>[
           Padding(
               padding: EdgeInsets.only(right: 10.0),
@@ -356,31 +361,31 @@ class _verbalAutopsyFormSec2Part4State extends State<_verbalAutopsyFormSec2Part4
   //radio setstate functions
   void _onBuldgeRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedBuldgeRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.bulgingFontanelle = newRadioSelected;
     });
   }
 
   void _onColdRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedColdRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.cold = newRadioSelected;
     });
   }
 
   void _onDiscoloredRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedDiscoloredRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.legsDiscoloured = newRadioSelected;
     });
   }
 
   void _onYellowPalmsRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedYellowPalmsRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.yellow = newRadioSelected;
     });
   }
 
   void _onBloodinStoolsRadioSelect(String newRadioSelected){
     setState(() {
-      this._currentSelectedBloodinStoolsRadio = newRadioSelected;
+      this.widget.verbal_Autopsy_Obj.blood = newRadioSelected;
     });
   }
 

@@ -1,38 +1,44 @@
 import 'package:flutter/material.dart';
-import 'verbal_autopsy_sec1.dart';
+import 'verbal_autopsy_five_years_sec1.dart';
 import 'user.dart';
 
+void main() => runApp(MyApp());
 
-//void main() {
-//  runApp(MaterialApp(
-//    title: 'Verbal Autopsy Form Section 1',
-//    home: verbalAutopsyForm(),
-//  ));
-//}
-
-
-class verbalAutopsyForm extends StatefulWidget {
-
-  final user verbal_Autopsy_Obj;
-  verbalAutopsyForm({Key key, @required this.verbal_Autopsy_Obj}):super(key: key);
+class MyApp extends StatelessWidget{
   @override
-  State<StatefulWidget> createState() {
-    return _verbalAutopsyFormState();
+  Widget build(BuildContext context){
+    final userObj = User();
+    return MaterialApp(
+      home: verbalAutopsy5YrForm(userObj: userObj),
+    );
   }
 }
 
-class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
+class verbalAutopsy5YrForm extends StatefulWidget {
+  final User userObj;
+  verbalAutopsy5YrForm({Key key, @required this.userObj}):super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    return verbalAutopsy5YrFormState();
+  }
+}
 
+class verbalAutopsy5YrFormState extends State<verbalAutopsy5YrForm> {
   var _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-//  var _currentSelectedDistrict = '';
 
-  @override
-  void initState() {
-    super.initState();
-//    widget.verbal_Autopsy_Obj.district = _districtName[0];
-//    widget.verbal_Autopsy_Obj.block = _bilaspurBlocks[0];
-  }
+  bool _firstHYS = false;
+  bool _secondHYS = false;
+
+  String rhcController;
+  String yearController;
+
+//  @override
+//  void initState() {
+//    super.initState();
+////    _currentItemSelected = _districtName[0];
+//  }
+
 
   var _districtName = ['BILASPUR', 'CHAMBA', 'HAMIRPUR', 'KANGRA', 'KINNAUR',
     'KULLU', 'LAHUL AND SPITI', 'MANDI', 'SHIMLA', 'SIRMOUR', 'SOLAN', 'UNA'];
@@ -67,20 +73,8 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
 
   var _unaBlocks = ["AMB","BANGANA","GAGRET","HAROLI","UNA"];
 
-
-//  String blockController = '';
-//  String villageController = '';
-//  String phcController = '';
-//  String subCenterController = '';
-  String rhcController = '';
-  String yearController = '';
-//  String headController = '';
-//  String nameController = '';
-//  String nameMotherDeceasedController = '';
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
@@ -94,14 +88,13 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                 child: Column(
                   children: <Widget>[
 
-
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Center(
                         child: Text(
-                          'Form No.1 Neonatal Deaths'
+                          'Form No.2 Post Neo-Natal'
                               "\n"
-                              '(28 Days or less of age)',
+                              'Deaths (29 Days to 5 years)',
                           style: TextStyle(
                               fontSize: 18.0, fontWeight: FontWeight.w800),
                         ),
@@ -112,13 +105,13 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
                         keyboardType: TextInputType.numberWithOptions(),
-                        onSaved: (value){widget.verbal_Autopsy_Obj.applicationNumber = value;},
+                        onSaved: (value){widget.userObj.applicationNumber = value;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
                         decoration: InputDecoration(
-                            labelText: 'Application Number',
-                            hintText: 'Application Number',
+                            labelText: 'Application number',
+                            hintText: 'Application number',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             )),
@@ -143,10 +136,10 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: widget.verbal_Autopsy_Obj.district,
+                            value: widget.userObj.district,
                             onChanged: (String newSelectedValue) {
                               setState(() {
-                                _onDropDownDistrictSelected(newSelectedValue);
+                                _onDropDownDistrictSelect(newSelectedValue);
                               });
 
                             },
@@ -171,7 +164,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        onSaved: (value){widget.verbal_Autopsy_Obj.village = value;},
+                        onSaved: (value){widget.userObj.village = value;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -188,7 +181,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        onSaved: (value){widget.verbal_Autopsy_Obj.phc = value;},
+                        onSaved: (value){widget.userObj.phc = value;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -205,7 +198,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        onSaved: (value){widget.verbal_Autopsy_Obj.subCenter = value;},
+                        onSaved: (value){widget.userObj.subCenter = value;},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -224,7 +217,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                       child: TextFormField(
                         keyboardType: TextInputType.numberWithOptions(),
                         onSaved: (value){rhcController = value;
-                        widget.verbal_Autopsy_Obj.rhc = num.parse(rhcController);},
+                        widget.userObj.rhc = num.parse(rhcController);},
                         validator: (String value) {
                           if (value.isEmpty) return 'Please fill a valid input';
                         },
@@ -242,7 +235,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
                         onSaved: (value){yearController = value;
-                        widget.verbal_Autopsy_Obj.year = num.parse(yearController);},
+                        widget.userObj.year = num.parse(yearController);},
                         keyboardType: TextInputType.numberWithOptions(),
                         validator: (String value) {
                           if (value.length!=4) return 'Please fill a valid input';
@@ -261,7 +254,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
                         textCapitalization: TextCapitalization.words,
-                        onSaved: (value){widget.verbal_Autopsy_Obj.head = value;},
+                        onSaved: (value){widget.userObj.head = value;},
                         validator: (String value) {
                           final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
                           if (!nameExp.hasMatch(value))
@@ -280,7 +273,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        onSaved: (value){widget.verbal_Autopsy_Obj.name = value;},
+                        onSaved: (value){widget.userObj.name = value;},
                         validator: (String value) {
                           final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
                           if (!nameExp.hasMatch(value))
@@ -299,7 +292,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        onSaved: (value){widget.verbal_Autopsy_Obj.mother = value;},
+                        onSaved: (value){widget.userObj.mother = value;},
                         validator: (String value) {
                           final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
                           if (!nameExp.hasMatch(value))
@@ -314,8 +307,30 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                       ),
                     ),
 
+
+                    CheckboxListTile(
+                        value: _firstHYS,
+                        title: Text('1st HYS:'),
+                        onChanged: (bool value) {
+                          setState(() {
+                            _firstHYS = value;
+                            if(_firstHYS == true)
+                              widget.userObj.firstHys = '1st HYS';
+                          });
+                        }),
+                    CheckboxListTile(
+                        value: _secondHYS,
+                        title: Text('2nd HYS:'),
+                        onChanged: (bool value) {
+                          setState(() {
+                            _secondHYS = value;
+                            if(_secondHYS == true)
+                              widget.userObj.secondHys = '2nd HYS';
+                          });
+                        }),
+
                     //for testing purpose
-//                    Text('${widget.verbal_Autopsy_Obj.block}'),
+//                    Text('${widget.userObj.village}'),
 
                     Padding(
                       padding: EdgeInsets.all(10.0),
@@ -327,21 +342,21 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                           style: TextStyle(fontSize: 15.0, color: Colors.white),
                         ),
                         onPressed: () {
-                          if (widget.verbal_Autopsy_Obj.district == null ||
-                              widget.verbal_Autopsy_Obj.block == null) {
+                          if (widget.userObj.district == null ||
+                              widget.userObj.block == null) {
                             // The checkbox wasn't checked
                             showSnackBar('Please select the block & district to proceed');
                           }
                           if (_formKey.currentState.validate() && (
-                              widget.verbal_Autopsy_Obj.district != null &&
-                                  widget.verbal_Autopsy_Obj.block != null)) {
+                              widget.userObj.district != null &&
+                                  widget.userObj.block != null)) {
                             final FormState form = _formKey.currentState;
                             form.save();
                             setState(() {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      verbalAutopsySec1(
-                                        verbal_Autopsy_Obj: widget.verbal_Autopsy_Obj,)));
+                                      verbalAutopsy5YrSec1(
+                                        userObj: widget.userObj,)));
                             });
                           }
                         },
@@ -354,12 +369,13 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
   }
 
 
-  void _onDropDownDistrictSelected(String newSelectedValue) {
+  void _onDropDownDistrictSelect(String newSelectedValue) {
     setState(() {
-      this.widget.verbal_Autopsy_Obj.district = newSelectedValue;
-      this.widget.verbal_Autopsy_Obj.block = null;
+      this.widget.userObj.district = newSelectedValue;
+      this.widget.userObj.block = null;
     });
   }
+
 
   Widget blocksDropDownFun(List<String> passedList){
 
@@ -371,13 +387,12 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
           child: Text(value),
         );
       }).toList(),
-      value: widget.verbal_Autopsy_Obj.block,
+      value: widget.userObj.block,
       onChanged: (String newSelectedValue) {
         setState(() {
-          this.widget.verbal_Autopsy_Obj.block = newSelectedValue;
+          this.widget.userObj.block = newSelectedValue;
         });
       },
-      //      isExpanded: true,
     );
   }
 
@@ -393,9 +408,11 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
+
+
   Widget blocksWidgetFun(){
 
-    if(widget.verbal_Autopsy_Obj.district == null){
+    if(widget.userObj.district == null){
 
       return
         DropdownButton<String>(
@@ -403,14 +420,14 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
           items: null,
           onChanged: (String newValueSelected){
             setState(() {
-              widget.verbal_Autopsy_Obj.block = null;
+              widget.userObj.block = null;
             });
           },
         );
     }
 
     else {
-      switch (widget.verbal_Autopsy_Obj.district) {
+      switch (widget.userObj.district) {
         case 'BILASPUR':
           return
             blocksDropDownFun(_bilaspurBlocks);
@@ -473,5 +490,4 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
       }
     }
   }
-
 }
