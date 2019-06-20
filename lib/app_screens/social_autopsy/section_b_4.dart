@@ -59,7 +59,10 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
                         child: Column(children: <Widget>[
                       Container(
                           width: MediaQuery.of(context).size.width,
-                          color: Colors.green.shade50,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: Colors.green.shade50),
                           margin: EdgeInsets.all(10.0),
                           child: Column(children: <Widget>[
                             ListTile(
@@ -102,7 +105,8 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
     if (widget.user.dischargedAgainstMedicalAdvice == 'yes') {
       return Container(
           width: MediaQuery.of(context).size.width,
-          color: Colors.green.shade50,
+          decoration: BoxDecoration(
+              color: Colors.green.shade50),
           margin: EdgeInsets.all(10.0),
           child: SingleChildScrollView(
               child: Column(children: <Widget>[

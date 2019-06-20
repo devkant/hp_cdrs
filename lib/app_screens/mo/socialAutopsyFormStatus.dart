@@ -10,8 +10,6 @@ import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/login.dart';
 
 class SocialAutopsyFormStatus extends StatefulWidget {
-  final User newEntry;
-  SocialAutopsyFormStatus({Key key, @required this.newEntry}):super(key:key);
   @override
   State<StatefulWidget> createState() => _SocialAutopsyFormStatusState();
 }
@@ -22,6 +20,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
   bool isOffline = false;
 
   List<dynamic> _forms = [];
+  List jsonList = [];
   List entries = [];
   String jsonData;
 
@@ -34,13 +33,6 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
   void initState() {
     super.initState();
 
-    if (widget.newEntry != null) {
-      setState(() {
-        entries.add(widget.newEntry);
-        writeToFile(widget.newEntry);
-      });
-    }
-
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton
         .getInstance();
     _connectionChangeStream =
@@ -51,23 +43,21 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
       jsonFile = new File(dir.path + "/" + fileName);
       fileExists = jsonFile.existsSync();
       if (fileExists) this.setState(() => jsonData = jsonFile.readAsStringSync());
-      jsonData = jsonData.replaceAll('}{','}_{');
-      List<String> jsonList  = jsonData.split('_');
+      if(jsonData!=null) {
+        jsonData = jsonData.replaceAll('}{', '}_{');
+        jsonList = jsonData.split('_');
+      }
       for(int i=0;i<jsonList.length;i++) {
         var temp = json.decode(jsonList[i]);
-        print(temp);
-        if (isOffline) {
-          entries.add(temp);
-        }
-        else {
-          apiRequest('http://13.126.72.137/api/test',temp);
-        }
-
-        if(i==(jsonList.length-1) && !isOffline){
-          clearFile();
-        }
+        entries.add(temp);
+        sendData('http://13.126.72.137/api/test',temp).then((status) {
+          if (status == true) {
+            if(i==(jsonList.length-1) && !isOffline){
+              clearFile();
+            }
+          }
+        });
       }
-      print(jsonList);
     });
   }
 
@@ -94,7 +84,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
       print("File does not exist!");
       createFile(entry, dir, fileName);
     }
-    this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
+    fileContent = json.decode(jsonFile.readAsStringSync());
     print(fileContent);
   }
 
@@ -110,7 +100,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Social Autopsy - Pending'),
+        title:  Text('Forms Pending'),
       ),
       drawer: BasicDrawer(),
       body: ListView.builder(
@@ -118,7 +108,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
           itemBuilder: (BuildContext  context,  int index)  {
             return  Card(
               child: ListTile(
-                title: Text("Name: "+entries[index].name),
+                title: Text(entries[index]['applicationNumber']),
                 leading: Icon(Icons.contacts),
               ),
             );
@@ -128,6 +118,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
         icon: Icon(Icons.add),
         tooltip: 'Add new Entry',
         label: Text("New Form"),
+
         onPressed: () {
           Navigator.push(
             context,

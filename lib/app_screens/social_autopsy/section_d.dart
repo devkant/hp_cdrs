@@ -4,6 +4,9 @@ import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
 import 'dart:async';
 import 'package:hp_cdrs/app_screens/mo/socialAutopsyFormStatus.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'dart:convert';
 
 class SocialAutopsyD extends StatefulWidget {
   final User user;
@@ -32,12 +35,41 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
 
+  File jsonFile;
+  Directory dir;
+  String fileName = "socialAutopsy.json";
+  bool fileExists = false;
+  Map<String, String> fileContent;
+
   void initState() {
     super.initState();
     ConnectionStatusSingleton connectionStatus =
         ConnectionStatusSingleton.getInstance();
     _connectionChangeStream =
         connectionStatus.connectionChange.listen(connectionChanged);
+
+    getApplicationDocumentsDirectory().then((Directory directory) {
+      dir = directory;
+      jsonFile = new File(dir.path + "/" + fileName);
+      fileExists = jsonFile.existsSync();
+      if (fileExists) this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
+    });
+  }
+
+  void createFile(Map<String, dynamic> content, Directory dir, String fileName) {
+    File file = new File(dir.path + "/" + fileName);
+    file.createSync();
+    fileExists = true;
+    file.writeAsStringSync(json.encode(content));
+  }
+
+  void writeToFile(Map data) {
+
+    if (fileExists) {
+      jsonFile.writeAsStringSync(json.encode(data),mode: FileMode.append);
+    } else {
+      createFile(data, dir, fileName);
+    }
   }
 
   void connectionChanged(dynamic hasConnection) {
@@ -68,25 +100,25 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
           _showSnackBar('Please check the declaration');
         else {
           form.save();
-          print(widget.user.nil);
-          var data = createMap(widget.user);
-          print(data);
-          var status = await sendData('http://13.126.72.137/api/social', data);
-          if (!isOffline && status) {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => SocialAutopsyFormStatus(
-                      newEntry: null,
-                    )));
-          } else {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => SocialAutopsyFormStatus(
-                      newEntry: widget.user,
-                    )));
-          }
+          User child = widget.user;
+          var data = createMap(child);
+          sendData('http://13.126.72.137/api/test', data).then((status) {
+            if (status) {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      SocialAutopsyFormStatus()));
+            }
+            else {
+              writeToFile(data);
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      SocialAutopsyFormStatus()));
+            }
+          });
         }
-      }
       _autoValidate = true;
-    });
+
+    }});
   }
 
   void _showSnackBar(message) {
@@ -133,13 +165,17 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   Widget _declaration() {
     return Container(
         width: MediaQuery.of(context).size.width,
-        color: Colors.orange.shade50,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+            borderRadius: BorderRadius.circular(5.0),
+            color: Colors.green.shade50),
         margin: EdgeInsets.all(10.0),
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
           Padding(
             padding: EdgeInsets.all(10.0),
             child: CheckboxListTile(
+              activeColor: Colors.orangeAccent,
                 value: _declarationCheck,
                 title: Text('I hereby state that all the details filled'
                     ' above are best and true to my knowledge.'),
@@ -155,7 +191,8 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   Widget _question18() {
     return Container(
         width: MediaQuery.of(context).size.width,
-        color: Colors.green.shade50,
+        decoration: BoxDecoration(
+        color: Colors.green.shade50),
         margin: EdgeInsets.all(10.0),
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
@@ -259,7 +296,8 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   Widget _question19() {
     return Container(
         width: MediaQuery.of(context).size.width,
-        color: Colors.green.shade50,
+        decoration: BoxDecoration(
+            color: Colors.green.shade50),
         margin: EdgeInsets.all(10.0),
         child: SingleChildScrollView(
             child: Column(children: <Widget>[

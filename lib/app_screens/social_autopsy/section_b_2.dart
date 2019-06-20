@@ -127,8 +127,7 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                       Container(
                         padding: EdgeInsets.all(5.0),
                         decoration: BoxDecoration(
-                            /*border: Border(top: BorderSide(), bottom: BorderSide() ),*/ color:
-                                Colors.green.shade50),
+                            color: Colors.green.shade50),
                         width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.all(8.0),
                         child: Column(
@@ -244,7 +243,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        color: Colors.green.shade50,
+                        decoration: BoxDecoration(
+                            color: Colors.green.shade50),
                         margin: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
@@ -356,7 +356,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        color: Colors.green.shade50,
+                        decoration: BoxDecoration(
+                            color: Colors.green.shade50),
                         margin: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
@@ -465,7 +466,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        color: Colors.green.shade50,
+                        decoration: BoxDecoration(
+                            color: Colors.green.shade50),
                         margin: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
@@ -543,11 +545,10 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                       ),
 
 
-//                      Text('${widget.user.otherspecify[0]}'),
-
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        color: Colors.green.shade50,
+                        decoration: BoxDecoration(
+                            color: Colors.green.shade50),
                         margin: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
@@ -623,7 +624,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        color: Colors.green.shade50,
+                        decoration: BoxDecoration(
+                            color: Colors.green.shade50),
                         margin: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
@@ -697,7 +699,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        color: Colors.green.shade50,
+                        decoration: BoxDecoration(
+                            color: Colors.green.shade50),
                         margin: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
@@ -771,7 +774,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        color: Colors.green.shade50,
+                        decoration: BoxDecoration(
+                            color: Colors.green.shade50),
                         margin: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
@@ -845,7 +849,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        color: Colors.green.shade50,
+                        decoration: BoxDecoration(
+                            color: Colors.green.shade50),
                         margin: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
@@ -918,7 +923,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        color: Colors.green.shade50,
+                        decoration: BoxDecoration(
+                            color: Colors.green.shade50),
                         margin: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
@@ -926,7 +932,7 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                               leading: Text('13.5.3'),
                               title: Text(
                                   'Specify the reasons for referring to another institution'),
-                              subtitle: Text('(Referral Instituion II)'),
+                              subtitle: Text('(Referral Institution II)'),
                             ),
                             Table(
                               defaultVerticalAlignment:
@@ -991,7 +997,8 @@ class SocialAutopsyB2State extends State<SocialAutopsyB2> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        color: Colors.green.shade50,
+                        decoration: BoxDecoration(
+                            color: Colors.green.shade50),
                         margin: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[

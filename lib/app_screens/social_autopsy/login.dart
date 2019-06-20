@@ -31,7 +31,6 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.yellow.shade50,
         appBar: AppBar(
           title: Text('Social Autopsy'),
           backgroundColor: Colors.blue,

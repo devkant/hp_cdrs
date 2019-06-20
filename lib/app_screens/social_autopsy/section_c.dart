@@ -74,7 +74,7 @@ class SocialAutopsyCState extends State<SocialAutopsyC> {
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: Text('Brief Social History of the Family'),
+          title: Text('Brief Social History \nof the Family'),
         ),
         body: Container(
             width: MediaQuery.of(context).size.width,
@@ -169,7 +169,10 @@ class SocialAutopsyCState extends State<SocialAutopsyC> {
     if (widget.user.dangerSignsWhenNewborn == 'yes') {
       return Container(
           width: MediaQuery.of(context).size.width,
-          color: Colors.green.shade50,
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.green.shade50),
           margin: EdgeInsets.all(10.0),
           child: SingleChildScrollView(
               child: Column(
@@ -283,7 +286,8 @@ class SocialAutopsyCState extends State<SocialAutopsyC> {
     if (widget.user.hospitalWhereNewbornTreated == 'yes') {
       return Container(
           width: MediaQuery.of(context).size.width,
-          color: Colors.green.shade50,
+          decoration: BoxDecoration(
+              color: Colors.green.shade50),
           margin: EdgeInsets.all(10.0),
           child: SingleChildScrollView(
               child: Column(children: <Widget>[
@@ -338,7 +342,10 @@ class SocialAutopsyCState extends State<SocialAutopsyC> {
   Widget _handleAlcoholTobaccoAbuse() {
     return Container(
         width: MediaQuery.of(context).size.width,
-        color: Colors.green.shade50,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+            borderRadius: BorderRadius.circular(5.0),
+            color: Colors.green.shade50),
         margin: EdgeInsets.all(10.0),
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
