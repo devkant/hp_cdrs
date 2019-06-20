@@ -4,6 +4,9 @@ import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
 import 'dart:async';
 import 'package:hp_cdrs/app_screens/mo/neoFormStatus.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'dart:convert';
 
 
 void main() {
@@ -29,6 +32,12 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
 
+  File jsonFile;
+  Directory dir;
+  String fileName = "neonate.json";
+  bool fileExists = false;
+  Map<String, String> fileContent;
+
 //  String langCodeController = '';
 //  String narrativeController = '';
 //  String interviewerNameController = '';
@@ -37,11 +46,39 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
 //  DateTime _interviewDate = DateTime.now();
 
   bool _knowledgeCheck = false;
-
+  @override
   void  initState() {
     super.initState();
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
     _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
+
+    getApplicationDocumentsDirectory().then((Directory directory) {
+      dir = directory;
+      jsonFile = new File(dir.path + "/" + fileName);
+      print(dir.path);
+      fileExists = jsonFile.existsSync();
+      if (fileExists) this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
+    });
+  }
+
+  void createFile(Map<String, dynamic> content, Directory dir, String fileName) {
+    print("Creating file!");
+    File file = new File(dir.path + "/" + fileName);
+    file.createSync();
+    fileExists = true;
+    file.writeAsStringSync(json.encode(content));
+  }
+
+  void writeToFile(Map data) {
+    print("Writing to file!");
+
+    if (fileExists) {
+      print("File exists");
+      jsonFile.writeAsStringSync(json.encode(data),mode: FileMode.append);
+    } else {
+      print("File does not exist!");
+      createFile(data, dir, fileName);
+    }
   }
 
   void connectionChanged(dynamic hasConnection) {
@@ -165,19 +202,18 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                             user child  = widget.verbal_Autopsy_Obj;
                             var data  = createMap(child);
 
-                            sendData('http://13.126.72.137/api/test',data).then((status){
+                            sendData('http://13.126.72.137/api/neonate',data).then((status){
                               print(status);
                               if(status) {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        neoFormsStatus(
-                                          newEntry: null,)));
+                                        neoFormsStatus()));
                               }
                               else{
+                                writeToFile(data);
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        neoFormsStatus(
-                                          newEntry: widget.verbal_Autopsy_Obj,)));
+                                        neoFormsStatus()));
                               }
 
 
@@ -186,9 +222,9 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                           }
                       }
                       )
-              )
+                )
           ]
-    ),)
+      ),  )
                       )
 
 
