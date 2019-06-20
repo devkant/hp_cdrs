@@ -205,7 +205,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                             sendData('http://13.126.72.137/api/neonate',data).then((status){
                               print(status);
                               if(status) {
-                                showAlert('Form submitted successfully!');
+                                showAlert('Form submitted successfully!', 'Sent');
 
 //                                Navigator.of(context).push(MaterialPageRoute(
 //                                    builder: (BuildContext context) =>
@@ -213,7 +213,8 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                               }
                               else{
                                 writeToFile(data);
-                                showAlert('Form submitted successfully!');
+                                showAlert('Form saved in offline mode. Please relaunch'
+                                    ' the app once connected to the internet.', 'Saved');
                               }
 
 
@@ -240,10 +241,10 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
             neoFormsStatus()));
   }
 
-  void showAlert(String value){
+  void showAlert(String value, String dialogTitle){
 
     AlertDialog dialog = AlertDialog(
-      content: Text(value),
+      content: Text(value, textAlign: TextAlign.center,),
       actions: <Widget>[
         FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
       ],
