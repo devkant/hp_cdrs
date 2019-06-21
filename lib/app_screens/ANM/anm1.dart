@@ -358,7 +358,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                           onSaved: (String value) {widget.user.address.pincode = int.parse(value);},
                           keyboardType: TextInputType.number,
                           validator: (String val) {
-                            if (val.isEmpty) {
+                            if (val.isEmpty || val.length!=6) {
                               return 'Please enter a valid input';
                             }
                           },
