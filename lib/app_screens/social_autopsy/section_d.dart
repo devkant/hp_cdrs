@@ -105,11 +105,12 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
           var data = createMap(child);
           sendData('http://13.126.72.137/api/test', data).then((status) {
             if (status) {
-              showAlert('Form submitted successfully!');
+              showAlert('Form submitted successfully!', 'Sent!');
             }
             else {
               writeToFile(data);
-              showAlert('Form submitted successfully!');
+              showAlert('Form saved in offline mode. Please relaunch '
+                  'the app once connected to the internet.', 'Saved');
             }
           });
         }
@@ -124,10 +125,10 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
             SocialAutopsyFormStatus()));
   }
 
-  void showAlert(String value){
+  void showAlert(String value, String dialogTitle){
 
     AlertDialog dialog = AlertDialog(
-      content: Text(value),
+      content: Text(value, textAlign: TextAlign.center,),
       actions: <Widget>[
         FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
       ],
