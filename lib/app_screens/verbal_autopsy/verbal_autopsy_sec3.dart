@@ -7,6 +7,7 @@ import 'package:hp_cdrs/app_screens/mo/neoFormStatus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
+import 'package:hp_cdrs/main.dart';
 
 
 void main() {
@@ -200,18 +201,20 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                             user child  = widget.verbal_Autopsy_Obj;
                             var data  = createMap(child);
 
+
                             sendData('http://13.126.72.137/api/neonate',data).then((status){
                               print(status);
                               if(status) {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        neoFormsStatus()));
+                                showAlert('Form submitted successfully!', 'Sent');
+
+//                                Navigator.of(context).push(MaterialPageRoute(
+//                                    builder: (BuildContext context) =>
+//                                        neoFormsStatus()));
                               }
                               else{
                                 writeToFile(data);
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        neoFormsStatus()));
+                                showAlert('Form saved in offline mode. Please relaunch'
+                                    ' the app once connected to the internet.', 'Saved');
                               }
 
 
@@ -231,6 +234,23 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
     ));
   }
 
+  void dialogResult(){
+//    print('button pressed');
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            neoFormsStatus()));
+  }
+
+  void showAlert(String value, String dialogTitle){
+
+    AlertDialog dialog = AlertDialog(
+      content: Text(value, textAlign: TextAlign.center,),
+      actions: <Widget>[
+        FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
+      ],
+    );
+    showDialog(context: context, child: dialog);
+  }
 
   void showSnackBar(String message){
     var snackBar = SnackBar(

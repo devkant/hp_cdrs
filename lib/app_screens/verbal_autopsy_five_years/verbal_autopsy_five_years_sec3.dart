@@ -4,6 +4,10 @@ import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
 import 'dart:async';
 import 'package:hp_cdrs/app_screens/mo/postNeoFormStatus.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'dart:convert';
+
 
 //void main() {
 //  runApp(MaterialApp(
@@ -34,7 +38,11 @@ class _verbalAutopsy5YrSec3State
 //  String narrativeController = '';
 //  String interviewerNameController = '';
 
-
+  File jsonFile;
+  Directory dir;
+  String fileName = "postNeonate.json";
+  bool fileExists = false;
+  Map<String, String> fileContent;
 //  DateTime _interviewDate = DateTime.now();
 
   bool knowledgeCheck = false;
@@ -43,7 +51,36 @@ class _verbalAutopsy5YrSec3State
     super.initState();
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
     _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
+
+    getApplicationDocumentsDirectory().then((Directory directory) {
+      dir = directory;
+      jsonFile = new File(dir.path + "/" + fileName);
+      print(dir.path);
+      fileExists = jsonFile.existsSync();
+      if (fileExists) this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
+    });
   }
+
+  void createFile(Map<String, dynamic> content, Directory dir, String fileName) {
+    print("Creating file!");
+    File file = new File(dir.path + "/" + fileName);
+    file.createSync();
+    fileExists = true;
+    file.writeAsStringSync(json.encode(content));
+  }
+
+  void writeToFile(Map data) {
+    print("Writing to file!");
+
+    if (fileExists) {
+      print("File exists");
+      jsonFile.writeAsStringSync(json.encode(data),mode: FileMode.append);
+    } else {
+      print("File does not exist!");
+      createFile(data, dir, fileName);
+    }
+  }
+
 
   void connectionChanged(dynamic hasConnection) {
     setState(() {
@@ -81,11 +118,9 @@ class _verbalAutopsy5YrSec3State
                         ),
 
 
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child: Text('Narrative language'"\n"'code:', style: TextStyle(fontSize: 16.0),)
-                            ,),),
+                        Flexible(
+                            child: Text('Narrative language code:', style: TextStyle(fontSize: 16.0),)),
+
                         Flexible(
                             child: TextFormField(
                                 onSaved: (value){widget.userObj.code = value;},
@@ -109,7 +144,8 @@ class _verbalAutopsy5YrSec3State
                         'doctor consulted or hospitalization, history of similar'
                         ' episodes, enter the results'
                         ' from reports of the investigations if available.'
-                      , style: TextStyle(fontSize: 16.0),)
+                      , style: TextStyle(fontSize: 16.0),
+                    textAlign: TextAlign.justify,)
                     ,),
 
                   Padding(
@@ -146,46 +182,43 @@ class _verbalAutopsy5YrSec3State
 
 
                   Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: RaisedButton(
-                      color: Colors.blue,
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(fontSize: 15.0, color: Colors.white),
-                      ),
-                      onPressed: () {
-                        setState(() async{
-                          if (knowledgeCheck == false) {
-                            // The checkbox wasn't checked
-                            showSnackBar('Please check the checkbox to proceed');
-                          }
-                          if(_formKey.currentState.validate() && knowledgeCheck == true){
-                            final FormState form = _formKey.currentState;
-                            form.save();
-
-                            User child  = widget.userObj;
-                            var data  = createMap(child);
-
-                            print(data);
-                            print(isOffline);
-                            var status  = await apiRequest('http://13.126.72.137/api/postNeonate',data);
-                            if(!isOffline && status){
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      PostNeoFormsStatus(
-                                        newEntry: null,)));
+                      padding: EdgeInsets.all(10.0),
+                      child: RaisedButton(
+                          color: Colors.blue,
+                          child: Text(
+                            "Submit",
+                            style: TextStyle(fontSize: 15.0, color: Colors.white),
+                          ),
+                          onPressed: () {
+                            if ( knowledgeCheck == false) {
+                              // The checkbox wasn't checked
+                              showSnackBar('Please check the checkbox to proceed');
                             }
-                            else{
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      PostNeoFormsStatus(
-                                        newEntry: widget.userObj,)));
+
+                            if(_formKey.currentState.validate() && knowledgeCheck  ==  true){
+                              _formKey.currentState.save();
+
+                              User child  = widget.userObj;
+                              var data  = createMap(child);
+
+                              sendData('http://13.126.72.137/api/postNeonate',data).then((status){
+                                print(status);
+                                if(status) {
+                                  showAlert('Form submitted successfully!', 'Sent');
+                                }
+                                else{
+                                  writeToFile(data);
+                                  showAlert('Form saved in offline mode. Please relaunch'
+                                      ' the app once connected to the internet.', 'Saved');
+                                }
+
+
+                              });
+
                             }
                           }
-                        });
-                      },
-                    ),
-                  ),
+                      )
+                  )
                 ],
               )),
         ),
@@ -193,6 +226,24 @@ class _verbalAutopsy5YrSec3State
     );
   }
 
+  void dialogResult(){
+//    print('button pressed');
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            PostNeoFormsStatus()));
+  }
+
+  void showAlert(String value, String dialogTitle){
+
+    AlertDialog dialog = AlertDialog(
+      content: Text(value, textAlign: TextAlign.center,),
+      title: Text(dialogTitle),
+      actions: <Widget>[
+        FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
+      ],
+    );
+    showDialog(context: context, child: dialog);
+  }
 
   void showSnackBar(String message){
     var snackBar = SnackBar(

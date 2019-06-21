@@ -40,10 +40,10 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
   //list declarations for drop down menus
   var _relationWithDeceased = [
     'Father/Mother',
-    'Bother/Sister',
+    'Brother/Sister',
     'Grandfather/Grandmother',
     'Other Relative',
-    'Neighbor/No Reation',
+    'Neighbor/No Relation',
     'Unknown'
   ];
   var _respondentEducation = [
@@ -160,8 +160,8 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
-          'Section 1: Details for Respondent & Deceased',
-          style: TextStyle(fontSize: 17.0),
+          'Section 1: Details of Respondent'"\n"'& Deceased',
+          style: TextStyle(fontSize: 18.0),
         ),
       ),
       body: Container(
@@ -182,7 +182,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                                 child: Text(
                                   "Details of respondent",
                                   style:
-                                  TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+                                  TextStyle(fontSize: 18.0, fontWeight: FontWeight.w800),
                                 ))),
 
 
@@ -215,7 +215,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
 
                         //2nd user input element start
                         Padding(
-                            padding: EdgeInsets.all(10.0),
+                            padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                             child: Row(children: <Widget>[
                               Padding(
                                   padding: EdgeInsets.only(right: 10.0),
@@ -248,7 +248,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
 
                         //3rd user input element start
                         Padding(
-                            padding: EdgeInsets.all(10.0),
+                            padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                             child: Row(
                               children: <Widget>[
                                 Padding(
@@ -320,22 +320,24 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                                     textAlign: TextAlign.left,
                                   ))
                             ])),
-                        Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: DropdownButton<String>(
-                            isExpanded: true,
-                            items: _respondentEducation.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            value: widget.userObj.respondentEducation,
-                            onChanged: (String newValueSelected) {
-                              _onDropDownEducationSelected(newValueSelected);
-                            },
-                          ),
-                        ),
+                        Container(
+                          width: 270.0,
+                          child: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: DropdownButton<String>(
+                              isExpanded: true,
+                              items: _respondentEducation.map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              value: widget.userObj.respondentEducation,
+                              onChanged: (String newValueSelected) {
+                                _onDropDownEducationSelected(newValueSelected);
+                              },
+                            ),
+                          ),),
 
 
                         //5th user input element start
@@ -374,7 +376,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
 
                         //6th user input element start
                         Padding(
-                            padding: EdgeInsets.all(10.0),
+                            padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                             child: Row(children: <Widget>[
                               Padding(
                                   padding: EdgeInsets.only(right: 10.0),
@@ -388,34 +390,37 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   )),
-                              Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: DropdownButton<String>(
-                                  items: _respondentReligion.map((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                  value: widget.userObj.religionHead,
-                                  onChanged: (String newValueSelected) {
-                                    _onDropDownReligionSelected(newValueSelected);
-                                  },
-                                ),
-                              ),
                             ])),
+
+                        Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: DropdownButton<String>(
+                            items: _respondentReligion.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            value: widget.userObj.religionHead,
+                            onChanged: (String newValueSelected) {
+                              _onDropDownReligionSelected(newValueSelected);
+                            },
+                          ),
+                        ),
+
+
                         Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Text(
                               'Details of deceased',
                               style:
-                              TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+                              TextStyle(fontSize: 18.0, fontWeight: FontWeight.w800),
                             )),
 
 
                         //7th user input element start
                         Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                           child: Row(children: <Widget>[
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
@@ -515,21 +520,25 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
 //                        ],
 //                      )),
 
-                        RadioListTile(
-                          title: Text('Less than 1 year'),
-                          value: 'Less than 1 year',
-                          groupValue: widget.userObj.ageDays,
-                          onChanged: (String newRadioSelected) {
-                            _onCompletedDaysRadioSelect(newRadioSelected);
-                          },),
+                        Padding(
+                            padding: EdgeInsets.only(left: 30.0),
+                            child: RadioListTile(
+                              title: Text('Less than 1 year'),
+                              value: 'Less than 1 year',
+                              groupValue: widget.userObj.ageDays,
+                              onChanged: (String newRadioSelected) {
+                                _onCompletedDaysRadioSelect(newRadioSelected);
+                              },)),
 
-                        RadioListTile(
-                          title: Text('More than 1 year'),
-                          value: 'More than 1 year',
-                          groupValue: widget.userObj.ageDays,
-                          onChanged: (String newRadioSelected) {
-                            _onCompletedDaysRadioSelect(newRadioSelected);
-                          },),
+                        Padding(
+                            padding: EdgeInsets.only(left: 30.0),
+                            child: RadioListTile(
+                              title: Text('More than 1 year'),
+                              value: 'More than 1 year',
+                              groupValue: widget.userObj.ageDays,
+                              onChanged: (String newRadioSelected) {
+                                _onCompletedDaysRadioSelect(newRadioSelected);
+                              },)),
 
 
                         //9th user input element start
@@ -689,12 +698,12 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                         //12th user input element start
                         Padding(
                             padding:
-                            EdgeInsets.only(right: 10.0, top: 10.0, bottom: 10.0),
+                            EdgeInsets.only(right: 10.0, top: 10.0),
                             child: Row(children: <Widget>[
                               Padding(
                                   padding: EdgeInsets.only(right: 10.0),
                                   child: Text(
-                                    '12. ',
+                                    '12A.',
                                     style: TextStyle(fontSize: 16.0),
                                   )),
                               Flexible(
@@ -703,33 +712,45 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                                     style: TextStyle(fontSize: 16.0),
                                     textAlign: TextAlign.left,
                                   )),
+                            ])),
+                        Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: DropdownButton<String>(
+                            items: _placeOfDeath.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            value: widget.userObj.placeDeath,
+                            onChanged: (String newValueSelected) {
+                              _onDropDownPlaceOfDeathSelected(newValueSelected);
+                            },
+                          ),
+                        ),
+
+
+                        //13th user input element start
+                        Padding(
+                            padding:
+                            EdgeInsets.only(right: 10.0, top: 10.0),
+                            child: Row(children: <Widget>[
                               Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: DropdownButton<String>(
-                                  items: _placeOfDeath.map((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                  value: widget.userObj.placeDeath,
-                                  onChanged: (String newValueSelected) {
-                                    _onDropDownPlaceOfDeathSelected(newValueSelected);
-                                  },
-                                ),
-                              ),
+                                  padding: EdgeInsets.only(right: 10.0),
+                                  child: Text(
+                                    '12B.',
+                                    style: TextStyle(fontSize: 16.0),
+                                  )),
+                              Flexible(
+                                  child: Text(
+                                    "What did the respondent think the newborn died of? "
+                                        "( Allow the respondent to tell the illness in his or her own words )",
+                                    style: TextStyle(fontSize: 16.0),
+                                    textAlign: TextAlign.justify,
+                                  )),
                             ])),
 
 
-                        //extra user input element start
-                        Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            "What did the respondent think the newborn died of? "
-                                "\( Allow the respondent to tell the illness in his or her own words \)",
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                        ),
                         Padding(
                           padding: EdgeInsets.all(10.0),
                           child: TextFormField(

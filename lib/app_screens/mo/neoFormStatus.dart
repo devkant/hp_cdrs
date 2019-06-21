@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/verbal_autopsy/verbal_autopsy_form.dart';
-
+import 'dashboard.dart';
 
 
 
@@ -109,43 +109,52 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
     }
   }
 
+  Future<bool> onBackPress(){
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            Dashboard()));
+  }
+
   @override
   Widget build(BuildContext context) {
 
 
-    return Scaffold(
-      appBar: AppBar(
-        title:  Text('Forms Pending'),
-      ),
-      drawer: BasicDrawer(),
-      body: ListView.builder(
-          itemCount: entries.length,
-          itemBuilder: (BuildContext  context,  int index)  {
-            return  Card(
-              child: ListTile(
-                title: Text(entries[index]['applicationNumber']),
-                leading: Icon(Icons.contacts),
+    return WillPopScope(
+      onWillPop: onBackPress,
+      child: Scaffold(
+        appBar: AppBar(
+          title:  Text('Neonate Saved Forms'),
+        ),
+        drawer: BasicDrawer(),
+        body: ListView.builder(
+            itemCount: entries.length,
+            itemBuilder: (BuildContext  context,  int index)  {
+              return  Card(
+                child: ListTile(
+                  title: Text(entries[index]['applicationNumber']),
+                  leading: Icon(Icons.contacts),
+                ),
+              );
+            }
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          icon: Icon(Icons.add),
+          tooltip: 'Add new Entry',
+          label: Text("New Form"),
+
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => verbalAutopsyForm(verbal_Autopsy_Obj:User),
               ),
             );
-          }
+
+
+          },
+        ),
+
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add),
-        tooltip: 'Add new Entry',
-        label: Text("New Form"),
-
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => verbalAutopsyForm(verbal_Autopsy_Obj:User),
-            ),
-          );
-
-
-        },
-      ),
-
     );
   }
 }

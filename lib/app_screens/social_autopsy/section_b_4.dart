@@ -59,7 +59,10 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
                         child: Column(children: <Widget>[
                       Container(
                           width: MediaQuery.of(context).size.width,
-                          color: Colors.green.shade50,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: Colors.green.shade50),
                           margin: EdgeInsets.all(10.0),
                           child: Column(children: <Widget>[
                             ListTile(
@@ -102,7 +105,8 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
     if (widget.user.dischargedAgainstMedicalAdvice == 'yes') {
       return Container(
           width: MediaQuery.of(context).size.width,
-          color: Colors.green.shade50,
+          decoration: BoxDecoration(
+              color: Colors.green.shade50),
           margin: EdgeInsets.all(10.0),
           child: SingleChildScrollView(
               child: Column(children: <Widget>[
@@ -113,7 +117,7 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
               title:
                   Text('Why the baby was discharged against medical advice?'),
             ),
-            TextFormField(
+            ListTile(title:TextFormField(
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: InputDecoration(
@@ -125,13 +129,15 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
               validator: (value) {
                 if (value.isEmpty)
                   return 'Please fill the entry';},
-            ),
+            )),
             ListTile(
               leading: Text('14.2'),
               title: Text(
-                  'Please narrate the circumstances leading to the discharge of the baby against medical advice / left against meddical advice / absconded.'),
+                  'Please narrate the circumstances leading to the discharge of the baby against medical advice / left against medical advice / absconded.'),
             ),
-            TextFormField(
+            ListTile
+              (
+                title: TextFormField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: InputDecoration(
@@ -145,13 +151,13 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
                     return 'Please fill the entry';
                   else
                     return null;
-                }),
+                })),
             ListTile(
               leading: Text('14.3'),
               title: Text(
                   'Whether relatives were aware of the discharge of the baby and whether the discharge was on the request of the relatives or on the advice of the doctor / paramedical person(specify)?'),
             ),
-            TextFormField(
+            ListTile(title:TextFormField(
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: InputDecoration(hintText: 'Type here..'),
@@ -164,7 +170,7 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
                 else
                   return null;
               },
-            ),
+            )),
             ListTile(
               leading: Text('14.4'),
               title: Text('Whether baby died before discharge?'),
@@ -215,14 +221,14 @@ class SocialAutopsyB4State extends State<SocialAutopsyB4> {
               title: Text(
                   'Any other reason for discharge against medical advice? Specify.'),
             ),
-            TextFormField(
+            ListTile(title:TextFormField(
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: InputDecoration(hintText: 'Type here..'),
               onSaved: (value) {
                 widget.user.reasonAgainstdischargedMedicalAdvice = value;
               },
-            )
+            ))
           ])));
     } else {
       return Container(

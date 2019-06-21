@@ -4,6 +4,9 @@ import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
 import 'dart:async';
 import 'package:hp_cdrs/app_screens/mo/socialAutopsyFormStatus.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'dart:convert';
 
 class SocialAutopsyD extends StatefulWidget {
   final User user;
@@ -29,14 +32,45 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
     ],
   };
 
-
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
+  var okflag = 0;
 
-  void  initState() {
+  File jsonFile;
+  Directory dir;
+  String fileName = "socialAutopsy.json";
+  bool fileExists = false;
+  Map<String, String> fileContent;
+
+  void initState() {
     super.initState();
-    ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
-    _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
+    ConnectionStatusSingleton connectionStatus =
+        ConnectionStatusSingleton.getInstance();
+    _connectionChangeStream =
+        connectionStatus.connectionChange.listen(connectionChanged);
+
+    getApplicationDocumentsDirectory().then((Directory directory) {
+      dir = directory;
+      jsonFile = new File(dir.path + "/" + fileName);
+      fileExists = jsonFile.existsSync();
+      if (fileExists) this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
+    });
+  }
+
+  void createFile(Map<String, dynamic> content, Directory dir, String fileName) {
+    File file = new File(dir.path + "/" + fileName);
+    file.createSync();
+    fileExists = true;
+    file.writeAsStringSync(json.encode(content));
+  }
+
+  void writeToFile(Map data) {
+
+    if (fileExists) {
+      jsonFile.writeAsStringSync(json.encode(data),mode: FileMode.append);
+    } else {
+      createFile(data, dir, fileName);
+    }
   }
 
   void connectionChanged(dynamic hasConnection) {
@@ -44,7 +78,6 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
       isOffline = !hasConnection;
     });
   }
-
 
   void _onCategorySelected(bool selected, String checkValue) {
     if (selected == true) {
@@ -59,35 +92,47 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   }
 
   void _handleSubmitted() {
-    setState(()  async{
+    setState(() async {
       final FormState form = _formKey.currentState;
       if (form.validate()) {
-        if(widget.user.availableSavings.isEmpty)
+        if (widget.user.availableSavings.isEmpty)
           _showSnackBar('Please check atleast one checkbox');
-        else if(_declarationCheck == false)
+        else if (_declarationCheck == false)
           _showSnackBar('Please check the declaration');
-        else
-        {
+        else {
           form.save();
-          var data  = createMap(widget.user);
-          print(data);
-          var status  = await sendData('http://13.126.72.137/api/social',data);
-          if(!isOffline && status){
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    SocialAutopsyFormStatus(
-                      newEntry: null,)));
-          }
-          else{
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    SocialAutopsyFormStatus(
-                      newEntry: widget.user,)));
-          }
+          User child = widget.user;
+          var data = createMap(child);
+          sendData('http://13.126.72.137/api/test', data).then((status) {
+            if (status) {
+              showAlert('Form submitted successfully!');
+            }
+            else {
+              writeToFile(data);
+              showAlert('Form submitted successfully!');
+            }
+          });
         }
-      }
       _autoValidate = true;
-    });
+
+    }});
+  }
+
+  void dialogResult(){
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            SocialAutopsyFormStatus()));
+  }
+
+  void showAlert(String value){
+
+    AlertDialog dialog = AlertDialog(
+      content: Text(value),
+      actions: <Widget>[
+        FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
+      ],
+    );
+    showDialog(context: context, builder: (_) => dialog);
   }
 
   void _showSnackBar(message) {
@@ -134,37 +179,41 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   Widget _declaration() {
     return Container(
         width: MediaQuery.of(context).size.width,
-    color: Colors.green.shade50,
-    margin: EdgeInsets.all(10.0),
-    child: SingleChildScrollView(
-    child: Column(children: <Widget>[
-      Padding(
-        padding: EdgeInsets.all(10.0),
-        child: CheckboxListTile(
-            value: _declarationCheck,
-            title: Text('I hereby state that all the details filled'
-                ' above are best and true to my knowledge.'),
-            onChanged: (bool value) {
-              setState(() {
-                _declarationCheck = value;
-              });
-            }),
-      ),
-      ]
-    )));
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+            borderRadius: BorderRadius.circular(5.0),
+            color: Colors.green.shade50),
+        margin: EdgeInsets.all(10.0),
+        child: SingleChildScrollView(
+            child: Column(children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: CheckboxListTile(
+              activeColor: Colors.orangeAccent,
+                value: _declarationCheck,
+                title: Text('I hereby state that all the details filled'
+                    ' above are best and true to my knowledge.'),
+                onChanged: (bool value) {
+                  setState(() {
+                    _declarationCheck = value;
+                  });
+                }),
+          ),
+        ])));
   }
 
   Widget _question18() {
     return Container(
         width: MediaQuery.of(context).size.width,
-        color: Colors.green.shade50,
+        decoration: BoxDecoration(
+        color: Colors.green.shade50),
         margin: EdgeInsets.all(10.0),
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
           ListTile(
             leading: Text(
               '18',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: TextStyle(fontSize: 18),
             ),
             title: Text(
               'Can you tell regarding the total amount that you had to spend on your child?',
@@ -172,10 +221,12 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.label),
-            title:
-                Text('Treatment(medicines, consultation, home treatment etc.'),
-          ),
+              title: Padding(
+            padding: EdgeInsets.only(left: 10.0),
+            child: Text(
+              'Treatment(medicines, consultation, home treatment etc.)',
+            ),
+          )),
           TextFormField(
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
@@ -187,14 +238,16 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
               widget.user.treatment = num.parse(value);
             },
             validator: (value) {
-              if(value.isEmpty)
-                return 'Fill the Treatment Cost field';
+              if (value.isEmpty) return 'Fill the Treatment Cost field';
             },
           ),
           ListTile(
-            leading: Icon(Icons.label),
-            title: Text('Transport'),
-          ),
+              title: Padding(
+            padding: EdgeInsets.only(left: 10.0),
+            child: Text(
+              'Transport',
+            ),
+          )),
           TextFormField(
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
@@ -206,14 +259,16 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
               widget.user.transport = num.parse(value);
             },
             validator: (value) {
-              if(value.isEmpty)
-                return 'Fill the Transport Cost field';
+              if (value.isEmpty) return 'Fill the Transport Cost field';
             },
           ),
           ListTile(
-            leading: Icon(Icons.label),
-            title: Text('Others'),
-          ),
+              title: Padding(
+            padding: EdgeInsets.only(left: 10.0),
+            child: Text(
+              'Others',
+            ),
+          )),
           TextFormField(
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
@@ -225,14 +280,16 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
               widget.user.othersamount = num.parse(value);
             },
             validator: (value) {
-              if(value.isEmpty)
-                return 'Fill the Other Cost field';
+              if (value.isEmpty) return 'Fill the Other Cost field';
             },
           ),
           ListTile(
-            leading: Icon(Icons.label),
-            title: Text('Total'),
-          ),
+              title: Padding(
+            padding: EdgeInsets.only(left: 10.0),
+            child: Text(
+              'Total',
+            ),
+          )),
           TextFormField(
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
@@ -244,8 +301,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
               widget.user.total = num.parse(value);
             },
             validator: (value) {
-              if(value.isEmpty)
-                return 'Fill the Total Cost field';
+              if (value.isEmpty) return 'Fill the Total Cost field';
             },
           ),
         ])));
@@ -254,7 +310,8 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   Widget _question19() {
     return Container(
         width: MediaQuery.of(context).size.width,
-        color: Colors.green.shade50,
+        decoration: BoxDecoration(
+            color: Colors.green.shade50),
         margin: EdgeInsets.all(10.0),
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
@@ -329,7 +386,6 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
         ])));
   }
 
-
   Map createMap(User child) {
     var data = {
       'applicationNumber': child.applicationNumber,
@@ -342,7 +398,6 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
       'caste': child.caste,
       'religion': child.religion,
       'bplCard': child.bplCard,
-
       'seekCareOutside': child.seekCareOutside,
       'wasIllnessSerious': child.wasIllnessSerious,
       'moneyNotAvailable': child.moneyNotAvailable,
@@ -352,7 +407,6 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
       'noHopeForSurvival': child.noHopeForSurvival,
       'transportNotAvailable': child.transportNotAvailable,
       'others': child.others,
-
       'quack': child.quack,
       'traditionalHealer': child.traditionalHealer,
       'subCentre': child.subCentre,
@@ -365,7 +419,6 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
       'reasonForSeekingCare': child.reasonForSeekingCare,
       'ashaAdviceOnHospitalTreatment': child.ashaAdviceOnHospitalTreatment,
       'conditionWhenMedical': child.conditionWhenMedical,
-
       'Hospital': child.Hospital,
       'problem': child.problem,
       'timeTaken': child.timeTaken,
@@ -378,9 +431,9 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
       'transportModeInGovt': child.transportModeInGovt,
       'transportModeInPrivate': child.transportModeInPrivate,
       'reasonForOtherInstitution': child.reasonForOtherInstitution,
-      'reasonForOtherInstitutionDecision': child.reasonForOtherInstitutionDecision,
+      'reasonForOtherInstitutionDecision':
+          child.reasonForOtherInstitutionDecision,
       'timeTakenForTreatment': child.timeTakenForTreatment,
-
       'informalPayment': child.informalPayment,
       'mobilizingSpecialists': child.mobilizingSpecialists,
       'workersNotAvailable': child.workersNotAvailable,
@@ -389,15 +442,16 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
       'moneyProblem': child.moneyProblem,
       'investigationsNotDone': child.investigationsNotDone,
       'otherProblem': child.otherProblem,
-
-      'reasonDischargedAgainstMedicalAdvice': child.reasonDischargedAgainstMedicalAdvice,
+      'reasonDischargedAgainstMedicalAdvice':
+          child.reasonDischargedAgainstMedicalAdvice,
       'dischargedAgainstMedicalAdvice': child.dischargedAgainstMedicalAdvice,
       'circumstancesDischargeBaby': child.circumstancesDischargeBaby,
       'dischargeOnBehalf': child.dischargeOnBehalf,
       'babyDiedBeforeDischarge': child.babyDiedBeforeDischarge,
-      'dischargeDueDissatisfactionTreatment': child.dischargeDueDissatisfactionTreatment,
-      'reasonAgainstdischargedMedicalAdvice': child.reasonAgainstdischargedMedicalAdvice,
-
+      'dischargeDueDissatisfactionTreatment':
+          child.dischargeDueDissatisfactionTreatment,
+      'reasonAgainstdischargedMedicalAdvice':
+          child.reasonAgainstdischargedMedicalAdvice,
       'wasGirlInfant': child.wasGirlInfant,
       'ifGirlWasBoy': child.ifGirlWasBoy,
       'alcohol': child.alcohol,
@@ -407,7 +461,6 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
       'listItem': child.listItem,
       'hospitalWhereNewbornTreated': child.hospitalWhereNewbornTreated,
       'nameOfFacilities': child.nameOfFacilities,
-
       'treatment': child.treatment,
       'transport': child.transport,
       'othersamount': child.othersamount,
@@ -416,5 +469,4 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
     };
     return data;
   }
-
 }

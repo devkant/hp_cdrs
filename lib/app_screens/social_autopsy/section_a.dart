@@ -123,7 +123,7 @@ class SocialAutopsyAState extends State<SocialAutopsyA> {
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   labelText: '4) Number of children',
-                                  hintText: 'Less than equal to years',
+                                  hintText: 'Less than or equal to 5 years of age',
                                   border: OutlineInputBorder(
                                       borderRadius:
                                           BorderRadius.circular(8.0))),
