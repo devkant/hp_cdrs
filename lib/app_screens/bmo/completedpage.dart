@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:hp_cdrs/common/functions/getToken.dart';
 import 'package:flutter/material.dart';
 
 
@@ -32,7 +32,12 @@ class _ListviewState extends State<Listview> {
   List completed=[];
 
   Future getData() async {
-    http.Response response = await http.get("http://13.126.72.137/api/104PreviousForms");
+    final token = await getToken();
+    http.Response response = await http.get("http://13.126.72.137/api/104ByBlock",
+      headers: {
+        'authToken' : token
+      }
+    );
     user = json.decode(response.body);
     setState(() {
       appli = user["docs"];
