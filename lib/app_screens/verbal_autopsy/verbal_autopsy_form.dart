@@ -112,6 +112,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
+                        initialValue: widget.appliNumber,
                         keyboardType: TextInputType.numberWithOptions(),
                         onSaved: (value){widget.verbal_Autopsy_Obj.applicationNumber = value;},
                         validator: (String value) {
