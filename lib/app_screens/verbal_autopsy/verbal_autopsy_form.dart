@@ -14,7 +14,8 @@ import 'user.dart';
 class verbalAutopsyForm extends StatefulWidget {
 
   final user verbal_Autopsy_Obj;
-  verbalAutopsyForm({Key key, @required this.verbal_Autopsy_Obj}):super(key: key);
+  final String appliNumber;
+  verbalAutopsyForm({Key key, @required this.verbal_Autopsy_Obj,this.appliNumber}):super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _verbalAutopsyFormState();
@@ -111,6 +112,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
+                        initialValue: widget.appliNumber,
                         keyboardType: TextInputType.numberWithOptions(),
                         onSaved: (value){widget.verbal_Autopsy_Obj.applicationNumber = value;},
                         validator: (String value) {

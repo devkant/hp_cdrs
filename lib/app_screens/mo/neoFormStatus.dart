@@ -9,6 +9,7 @@ import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/verbal_autopsy/verbal_autopsy_form.dart';
 import 'dashboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -37,9 +38,20 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
   bool fileExists = false;
   Map<String, String> fileContent;
 
+  String  _appliNumber;
+
+  Future<String> getAppliNumber() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    _appliNumber = pref.getString('newApplication');
+
+    return _appliNumber;
+  }
+
   @override
   void  initState(){
     super.initState();
+    getAppliNumber();
 
 
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
@@ -51,6 +63,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
       print(dir.path);
       fileExists = jsonFile.existsSync();
       print(fileExists);
+      clearFile();
       if (fileExists) this.setState(() => jsonData = jsonFile.readAsStringSync());
       if(jsonData!=null){
         jsonData  = jsonData.replaceAll('}{','}_{');
@@ -119,42 +132,65 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
   Widget build(BuildContext context) {
 
 
-    return WillPopScope(
-      onWillPop: onBackPress,
-      child: Scaffold(
-        appBar: AppBar(
-          title:  Text('Neonate Saved Forms'),
-        ),
-        drawer: BasicDrawer(),
-        body: ListView.builder(
-                itemCount: entries.length,
-                itemBuilder: (BuildContext  context,  int index)  {
-                  return  Card(
-                    child: ListTile(
-                      title: Text(entries[index]['applicationNumber']),
-                      leading: Icon(Icons.contacts),
+    return FutureBuilder(
+      future: getAppliNumber(),
+      builder: (BuildContext  context,AsyncSnapshot<String> snapshot) {
+        if(snapshot.hasData){
+          return  WillPopScope(
+            onWillPop: onBackPress,
+            child: Scaffold(
+              appBar: AppBar(
+                title:  Text('Neonate Saved Forms'),
+              ),
+              drawer: BasicDrawer(),
+              body: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(20.0),
+                  ),
+                  Text(' Next Application Assigned:\n ${_appliNumber}',
+                    style: TextStyle(
+                      fontSize: 20.0
+                    ),
+                  ),
+                  Flexible(
+                    child: ListView.builder(
+                        itemCount: entries.length,
+                        itemBuilder: (BuildContext  context,  int index)  {
+                          return  Card(
+                            child: ListTile(
+                              title: Text(entries[index]['applicationNumber']),
+                              leading: Icon(Icons.contacts),
+                            ),
+                          );
+                        }
+                    ),
+                  )
+
+
+                ],
+              ),
+              floatingActionButton: FloatingActionButton.extended(
+                icon: Icon(Icons.add),
+                tooltip: 'Add new Entry',
+                label: Text("New Form"),
+
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => verbalAutopsyForm(verbal_Autopsy_Obj:User,appliNumber:_appliNumber),
                     ),
                   );
-                }
-            ),
-        floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(Icons.add),
-          tooltip: 'Add new Entry',
-          label: Text("New Form"),
 
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => verbalAutopsyForm(verbal_Autopsy_Obj:User),
+
+                },
               ),
-            );
 
-
-          },
-        ),
-
-      ),
+            ),
+          );
+        }
+      },
     );
   }
 }
