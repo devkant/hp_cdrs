@@ -52,7 +52,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
       for(int i=0;i<jsonList.length;i++) {
         var temp = json.decode(jsonList[i]);
         entries.add(temp);
-        sendData('http://13.126.72.137/api/test',temp).then((status) {
+        sendData('http://13.126.72.137/api/social',temp).then((status) {
           if (status == true) {
             if(i==(jsonList.length-1) && !isOffline){
               clearFile();
@@ -108,7 +108,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
       onWillPop: onBackPress,
       child: Scaffold(
         appBar: AppBar(
-          title:  Text('Forms Pending'),
+          title:  Text('Saved Forms'),
         ),
         drawer: BasicDrawer(),
         body: ListView.builder(
@@ -125,7 +125,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
         floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.add),
           tooltip: 'Add new Entry',
-          label: Text("New Form"),
+          label: Text("Fill a New Form"),
 
           onPressed: () {
             Navigator.push(

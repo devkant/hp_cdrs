@@ -127,16 +127,16 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
         ),
         drawer: BasicDrawer(),
         body: ListView.builder(
-            itemCount: entries.length,
-            itemBuilder: (BuildContext  context,  int index)  {
-              return  Card(
-                child: ListTile(
-                  title: Text(entries[index]['applicationNumber']),
-                  leading: Icon(Icons.contacts),
-                ),
-              );
-            }
-        ),
+                itemCount: entries.length,
+                itemBuilder: (BuildContext  context,  int index)  {
+                  return  Card(
+                    child: ListTile(
+                      title: Text(entries[index]['applicationNumber']),
+                      leading: Icon(Icons.contacts),
+                    ),
+                  );
+                }
+            ),
         floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.add),
           tooltip: 'Add new Entry',
