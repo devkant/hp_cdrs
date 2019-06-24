@@ -681,7 +681,9 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                                             borderRadius: BorderRadius.circular(10.0))
                                     ),
                                     validator: (String value) {
-                                      if (value.length != 6) return 'Please fill a valid pincode';
+                                      if (num.parse(value) < 170000 ||
+                                      num.parse(value) > 179999)
+                                        return 'Please fill a valid pincode';
                                     },
                                     keyboardType: TextInputType.numberWithOptions(),
 
