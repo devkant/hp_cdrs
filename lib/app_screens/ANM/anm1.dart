@@ -65,7 +65,7 @@ class _ANMWorkerState extends State<ANMWorker> {
 
   var _chambaBlocks = ["TISSA","CHAMBA","MEHLA","BHATTIYAT","SALOONI","BHARMOUR","PANGI"];
 
-  var _hamirpurBlocks = ["BAMSON","BHORANJ","BIJHARI","HAMIRPUR","NADAUN","SUJNAPUR"];
+  var _hamirpurBlocks = ["BAMSON","BHORANJ","BIJHARI","HAMIRPUR","NADAUN","SUJANPUR"];
 
   var _kangraBlocks = ["RAIT","PANCHRUKHI","DEHRA","FATEHPUR","INDORA","NAGROTA BAGWAN","NURPUR","NAGROTA SURIAN","BAIJNATH","BHAWARNA","KANGRA","LAMBAGAON","SULLAH","PRAGPUR","DHARAMSHALA"];
 
@@ -136,29 +136,18 @@ class _ANMWorkerState extends State<ANMWorker> {
 
                 Padding(
                   padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: <Widget>[
-
-                      Text(
-                        "Application number: ",
-                        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
-                      ),
-
-                      Expanded(
-                        child: TextFormField(
-                          onSaved: (String value) {widget.user.applicationNumber = value;},
-                          validator: (String value) {
-                            if(value.isEmpty)
-                              return 'Please enter only alphabetical values';
-                          },
-                          decoration: InputDecoration(
-                              hintText: "Application No",
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0))),
-                          keyboardType: TextInputType.number,
-                        ),
-                      ),
-                    ],
+                  child: TextFormField(
+                    onSaved: (String value) {widget.user.applicationNumber = value;},
+                    validator: (String value) {
+                      if(value.isEmpty)
+                        return 'Please enter only alphabetical values';
+                    },
+                    decoration: InputDecoration(
+                        labelText: "Application No",
+                        hintText: "Application No",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0))),
+                    keyboardType: TextInputType.number,
                   ),
                 ),
 
@@ -369,7 +358,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                           onSaved: (String value) {widget.user.address.pincode = int.parse(value);},
                           keyboardType: TextInputType.number,
                           validator: (String val) {
-                            if (val.isEmpty) {
+                            if (val.isEmpty || val.length!=6) {
                               return 'Please enter a valid input';
                             }
                           },

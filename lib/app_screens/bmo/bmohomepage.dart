@@ -117,7 +117,7 @@ class _BMOhomepageState extends State<BMOhomepage> with SingleTickerProviderStat
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Text('104'),
+                    Text('Assign ANM'),
                     //Padding(padding: EdgeInsets.only(left: 5.0,bottom: 5.0)),
                     Icon(Icons.assignment),
                   ],
@@ -128,7 +128,7 @@ class _BMOhomepageState extends State<BMOhomepage> with SingleTickerProviderStat
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Text('Pending'),
+                    Text('Assign MO'),
                     //Padding(padding: EdgeInsets.only(left: 8.0,bottom: 5.0,right: 5.0)),
                     Icon(Icons.announcement),
                   ],

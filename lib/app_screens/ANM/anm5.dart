@@ -266,6 +266,17 @@ class _Form5State extends State<Form5> {
                       setState(() async {
                         if (_formKey.currentState.validate()) {
                           if(submission == true) {
+
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Alert"),
+                                    content: Text("The form has been submitted"),
+                                  );
+                                }
+                            );
+
                             final form = _formKey.currentState;
                             form.save();
                             var data  = createMap(widget.user);
@@ -288,15 +299,6 @@ class _Form5State extends State<Form5> {
 
                             });
 
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Alert"),
-                                    content: Text("The form has been submitted"),
-                                  );
-                                }
-                            );
 
                           }
                           else {

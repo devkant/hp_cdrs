@@ -39,7 +39,7 @@ class _hpFormState extends State<hpForm> {
     "BHARMOUR","PANGI"];
 
   var _hamirpurBlocks = ["BAMSON","BHORANJ","BIJHARI","HAMIRPUR",
-    "NADAUN","SUJNAPUR"];
+    "NADAUN","SUJANPUR"];
 
   var _kangraBlocks = ["RAIT","PANCHRUKHI","DEHRA","FATEHPUR","INDORA",
     "NAGROTA BAGWAN","NURPUR","NAGROTA SURIAN","BAIJNATH","BHAWARNA",

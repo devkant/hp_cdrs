@@ -2,9 +2,10 @@ import 'dart:core';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:hp_cdrs/common/functions/getToken.dart';
+import 'package:hp_cdrs/app_screens/bmo/anmlist.dart';
 
 import 'package:flutter/material.dart';
-import 'package:hp_cdrs/common/functions/getToken.dart';
 
 
 class page104 extends StatefulWidget {
@@ -36,11 +37,11 @@ class _ListviewState extends State<Listview> {
     final token = await getToken();
 
     http.Response response = await http.get("http://13.126.72.137/api/104ByBlock",
-      headers:{
-        'authToken' : token
+      headers: {
+        'authToken': token
       }
     );
-    user = json.decode(response.body);
+    user = json.decode(response.body,);
     setState(() {
       appli = user["docs"];
     });
@@ -156,7 +157,7 @@ class DetailPage extends StatelessWidget {
 
       ),
       floatingActionButton : FloatingActionButton.extended(
-        onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => page104()));},
+        onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Anmlist(appliNumber: appli["application"].toString())));},
         icon : Icon(Icons.account_circle,),
         label: Text("Assign ANM"),
       ),
