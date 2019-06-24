@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
-
+import 'package:hp_cdrs/common/functions/getToken.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'bmohomepage.dart';
 
 class Molist extends StatefulWidget {
+  final String appliNumber;
+  Molist({Key key, @required this.appliNumber}):super(key: key);
   @override
   _MolistState createState() => _MolistState();
 }
 
 class _MolistState extends State<Molist> {
-  final String uri = 'http://13.126.72.137/api/anm';//provide the url for mo list now it is given
-                                            // for anm.
+  final String uri = 'http://13.126.72.137/api/moByBlock';//provide the url for mo list now it is given
+  // for anm.
 
   Future<List<Users>> _fetchUsers() async {
-    var response = await http.get(uri);
+    final token = await getToken();
+    var response = await http.get(uri,
+      headers: {
+        'authToken' : token
+      }
+    );
 
     if (response.statusCode == 200) {
       final items = json.decode(response.body).cast<Map<String, dynamic>>();
@@ -33,7 +41,7 @@ class _MolistState extends State<Molist> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('ANM List',
+        title: Text('MO List',
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 22.0,
@@ -58,6 +66,7 @@ class _MolistState extends State<Molist> {
                       color: Colors.white,
                     )),
               ),
+              onTap:() {Navigator.push(context, MaterialPageRoute(builder: (context) => Show(user,widget.appliNumber)));},
             ))
                 .toList(),
           );
@@ -117,5 +126,109 @@ class Users {
       mobile: json["mobile"] == null ? null : json["mobile"],
       v: json["__v"] == null ? null : json["__v"],
     );
+  }
+}
+
+class Show extends StatelessWidget {
+
+  Show(this.user,this.appliNumber);
+  String  appliNumber;
+  final Users user;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("104"),
+      ),
+      body: Padding(
+        padding: EdgeInsets.only(top: 10.0,left: 10.0,bottom: 15.0),
+        child: ListView(
+          children: <Widget>[
+            Text("User Name : ${user.username}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("Name : ${user.name}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("Gender : ${user.gender}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("Block : ${user.block}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("Email Id : ${user.email}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("Mobile Number : ${user.mobile}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 8.0),),
+            Text("Application Assigned : ${user.nextAppl}",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+
+          ],
+        ),
+
+      ),
+      floatingActionButton : FloatingActionButton.extended(
+        onPressed: () {
+          var data  = {
+            'application' : appliNumber.toString(),
+            'username'  : user.username.toString(),
+          };
+          assignRequest(data);
+
+          Navigator.push(context, MaterialPageRoute(builder: (context) => BMOhomepage()));
+          },
+        icon : Icon(Icons.account_circle,),
+        label: Text("Assign "),
+      ),
+
+    );
+  }
+}
+
+Future<bool>  assignRequest(Map data) async {
+  final token = await getToken();
+  var request = await http.post('http://13.126.72.137/api/test',
+      body: data,
+      headers: {
+        'authToken': token,
+      }
+  );
+  if(request.statusCode==200){
+    return true;
+  }
+  else{
+    return false;
   }
 }

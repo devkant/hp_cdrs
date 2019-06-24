@@ -9,9 +9,9 @@ import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/login.dart';
 
+import 'dashboard.dart';
+
 class SocialAutopsyFormStatus extends StatefulWidget {
-  final User newEntry;
-  SocialAutopsyFormStatus({Key key, @required this.newEntry}):super(key:key);
   @override
   State<StatefulWidget> createState() => _SocialAutopsyFormStatusState();
 }
@@ -22,6 +22,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
   bool isOffline = false;
 
   List<dynamic> _forms = [];
+  List jsonList = [];
   List entries = [];
   String jsonData;
 
@@ -34,13 +35,6 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
   void initState() {
     super.initState();
 
-    if (widget.newEntry != null) {
-      setState(() {
-        entries.add(widget.newEntry);
-        writeToFile(widget.newEntry);
-      });
-    }
-
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton
         .getInstance();
     _connectionChangeStream =
@@ -51,23 +45,21 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
       jsonFile = new File(dir.path + "/" + fileName);
       fileExists = jsonFile.existsSync();
       if (fileExists) this.setState(() => jsonData = jsonFile.readAsStringSync());
-      jsonData = jsonData.replaceAll('}{','}_{');
-      List<String> jsonList  = jsonData.split('_');
+      if(jsonData!=null) {
+        jsonData = jsonData.replaceAll('}{', '}_{');
+        jsonList = jsonData.split('_');
+      }
       for(int i=0;i<jsonList.length;i++) {
         var temp = json.decode(jsonList[i]);
-        print(temp);
-        if (isOffline) {
-          entries.add(temp);
-        }
-        else {
-          apiRequest('http://13.126.72.137/api/test',temp);
-        }
-
-        if(i==(jsonList.length-1) && !isOffline){
-          clearFile();
-        }
+        entries.add(temp);
+        sendData('http://13.126.72.137/api/social',temp).then((status) {
+          if (status == true) {
+            if(i==(jsonList.length-1) && !isOffline){
+              clearFile();
+            }
+          }
+        });
       }
-      print(jsonList);
     });
   }
 
@@ -78,7 +70,6 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
   }
 
   void createFile(User content, Directory dir, String fileName) {
-    print("Creating file!");
     File file = new File(dir.path + "/" + fileName);
     file.createSync();
     fileExists = true;
@@ -94,8 +85,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
       print("File does not exist!");
       createFile(entry, dir, fileName);
     }
-    this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
-    print(fileContent);
+    fileContent = json.decode(jsonFile.readAsStringSync());
   }
 
   void clearFile(){
@@ -104,42 +94,52 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
     }
   }
 
+  Future<bool> onBackPress(){
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            Dashboard()));
+  }
+
   @override
   Widget build(BuildContext context) {
 
 
-    return Scaffold(
-      appBar: AppBar(
-        title:  Text('Social Autopsy - Pending'),
-      ),
-      drawer: BasicDrawer(),
-      body: ListView.builder(
-          itemCount: entries.length,
-          itemBuilder: (BuildContext  context,  int index)  {
-            return  Card(
-              child: ListTile(
-                title: Text("Name: "+entries[index].name),
-                leading: Icon(Icons.contacts),
+    return WillPopScope(
+      onWillPop: onBackPress,
+      child: Scaffold(
+        appBar: AppBar(
+          title:  Text('Saved Forms'),
+        ),
+        drawer: BasicDrawer(),
+        body: ListView.builder(
+            itemCount: entries.length,
+            itemBuilder: (BuildContext  context,  int index)  {
+              return  Card(
+                child: ListTile(
+                  title: Text(entries[index]['applicationNumber']),
+                  leading: Icon(Icons.contacts),
+                ),
+              );
+            }
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          icon: Icon(Icons.add),
+          tooltip: 'Add new Entry',
+          label: Text("Fill a New Form"),
+
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SocialAutopsyLogin(user:user),
               ),
             );
-          }
+
+
+          },
+        ),
+
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add),
-        tooltip: 'Add new Entry',
-        label: Text("New Form"),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SocialAutopsyLogin(user:user),
-            ),
-          );
-
-
-        },
-      ),
-
     );
   }
 

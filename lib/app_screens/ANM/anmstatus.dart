@@ -28,58 +28,60 @@ class ANMStatus extends StatefulWidget {
 }
 
 class _ANMStatusState extends State<ANMStatus> {
-  User user ;
+
+  Future<bool> onBackPress() async{
+    return false;
+  }
+
+  final user  = User();
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
 
   List <dynamic>_forms  = [];
   List entries = [];
+  List jsonList = [];
   String jsonData;
 
   File jsonFile;
   Directory dir;
-  String fileName = "fbi.json";
+  String fileName = "anm.json";
   bool fileExists = false;
   Map<String, String> fileContent;
 
+  @override
   void  initState(){
     super.initState();
 
-    if(widget.newEntry!=null){
-        entries.add(widget.newEntry);
-    }
 
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
     _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
 
-    getApplicationDocumentsDirectory().then((Directory directory){
+    getApplicationDocumentsDirectory().then((Directory directory) {
       dir = directory;
       jsonFile = new File(dir.path + "/" + fileName);
+      print(dir.path);
       fileExists = jsonFile.existsSync();
+      print(fileExists);
       if (fileExists) this.setState(() => jsonData = jsonFile.readAsStringSync());
-      jsonData  = jsonData.replaceAll('}{','}_{');
-      List<String> jsonList  = jsonData.split('_');
-      for(int i=0;i<jsonList.length;i++)  {
-        var temp  = json.decode(jsonList[i]);
-        print(temp);
-        sendData('http://13.126.72.137/api/test',temp).then((status){
-          if(status  == false){
-            entries.add(temp);
-          }
-        });
-
-        if(i==(jsonList.length-1) && !isOffline){
-          clearFile();
-        }
+      if(jsonData!=null){
+        jsonData  = jsonData.replaceAll('}{','}_{');
+        jsonList  = jsonData.split('_');
       }
       print(jsonList);
-
-
-
+      for(int i=0;i<jsonList.length;i++)  {
+        var temp  = json.decode(jsonList[i]);
+        entries.add(temp);
+        print(temp);
+        sendData('http://13.126.72.137/api/fbi',temp).then((status) {
+          if (status == true) {
+            if(i==(jsonList.length-1) && !isOffline){
+              clearFile();
+            }
+          }
+        });
+      }
     });
-    if(widget.newEntry!=null){
-       writeToFile(widget.newEntry);
-    }
+    print(jsonList.length);
 
 
   }
@@ -121,38 +123,41 @@ class _ANMStatusState extends State<ANMStatus> {
   Widget build(BuildContext context) {
 
 
-    return Scaffold(
-      appBar: AppBar(
-        title:  Text('ANM Forms Pending'),
-      ),
-      drawer: BasicDrawer(),
-      body: ListView.builder(
-          itemCount: entries.length,
-          itemBuilder: (BuildContext  context,  int index)  {
-            return  Card(
-              child: ListTile(
-                title: Text("Name: "+entries[index].name),
-                leading: Icon(Icons.contacts),
+    return WillPopScope(
+      onWillPop : onBackPress,
+      child: Scaffold(
+        appBar: AppBar(
+          title:  Text('ANM Saved Forms'),
+        ),
+        drawer: BasicDrawer(),
+        body: ListView.builder(
+            itemCount: entries.length,
+            itemBuilder: (BuildContext  context,  int index)  {
+              return  Card(
+                child: ListTile(
+                  title: Text("Name: "+entries[index]['name']),
+                  leading: Icon(Icons.contacts),
+                ),
+              );
+            }
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          label: Text("New Form"),
+          icon: Icon(Icons.add),
+          tooltip: 'Add new Entry',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ANMWorker(user: user),
               ),
             );
-          }
+
+
+          },
+        ),
+
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text("New Form"),
-        icon: Icon(Icons.add),
-        tooltip: 'Add new Entry',
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ANMWorker(user: user),
-            ),
-          );
-
-
-        },
-      ),
-
     );
   }
 }

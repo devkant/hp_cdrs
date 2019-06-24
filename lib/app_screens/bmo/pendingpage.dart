@@ -35,9 +35,9 @@ class _ListviewState extends State<Listview> {
   Future getData() async {
     final token = await getToken();
     http.Response response = await http.get("http://13.126.72.137/api/104ByBlock",
-        headers:{
-        'authToken' : token
-        }
+      headers: {
+        'authToken':  token
+      }
     );
     user = json.decode(response.body);
     setState(() {
@@ -45,7 +45,7 @@ class _ListviewState extends State<Listview> {
     });
     String display;
     for(int i=0;i<appli.length;i++){
-      if(appli[i]["mo"]==null){
+      if(appli[i]["mo"]==null && appli[i]["anm"]!=null){
         pending.add(appli[i]);
       }
 
@@ -79,7 +79,7 @@ class _ListviewState extends State<Listview> {
                   fontSize: 20.0,
                   fontWeight: FontWeight.w700,
                 ),),
-              subtitle: Text("Asha :  ${pending[index]['ashaName']}"),
+              subtitle: Text("MO Assigned :  ${pending[index]['moAssigned']}"),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context) => DetailPage(pending[index]))
@@ -176,7 +176,7 @@ class DetailPage extends StatelessWidget {
         ),
       ),
       floatingActionButton : FloatingActionButton.extended(
-        onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Molist()));},
+        onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Molist(appliNumber:appli["application"].toString())));},
         icon : Icon(Icons.account_circle,),
         label: Text("Assign MO"),
       ),

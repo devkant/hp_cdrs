@@ -6,4 +6,5 @@ saveLogout() async {
   await preferences.setString('LastUser', "");
   await preferences.setString('LastToken', "");
   await preferences.setString('Lastrole', "");
+  await preferences.clear();
 }

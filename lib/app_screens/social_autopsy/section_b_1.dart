@@ -182,7 +182,10 @@ class SocialAutopsyB1State extends State<SocialAutopsyB1> {
       widget.user.reasonForSeekingCare = '' ;
       return Container(
           width: MediaQuery.of(context).size.width,
-          color: Colors.green.shade50,
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.green.shade50),
           margin: EdgeInsets.all(10.0),
           child: SingleChildScrollView(
               child: Column(
@@ -292,7 +295,10 @@ class SocialAutopsyB1State extends State<SocialAutopsyB1> {
               .of(context)
               .size
               .width,
-          color: Colors.green.shade50,
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.green.shade50),
           margin: EdgeInsets.all(10.0),
           child: SingleChildScrollView(
               child: Column(

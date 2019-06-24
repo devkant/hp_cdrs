@@ -28,11 +28,13 @@ Future<LoginModel> requestLoginAPI(BuildContext context, String username, String
     print("success");
 
     saveCurrentLogin(responseJson);
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         new MaterialPageRoute(
             builder: (BuildContext context) =>
-            HomeScreen(user.role)));
+            HomeScreen(user.role),
+          settings: RouteSettings(name: "HomeScreen")
+        ));
 
     return LoginModel.fromJson(responseJson);
   } else {
