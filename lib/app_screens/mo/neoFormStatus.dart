@@ -63,7 +63,6 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
       print(dir.path);
       fileExists = jsonFile.existsSync();
       print(fileExists);
-      clearFile();
       if (fileExists) this.setState(() => jsonData = jsonFile.readAsStringSync());
       if(jsonData!=null){
         jsonData  = jsonData.replaceAll('}{','}_{');
