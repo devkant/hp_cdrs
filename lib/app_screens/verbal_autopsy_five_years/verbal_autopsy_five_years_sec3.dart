@@ -236,8 +236,9 @@ class _verbalAutopsy5YrSec3State
   void showAlert(String value, String dialogTitle){
 
     AlertDialog dialog = AlertDialog(
-      content: Text(value, textAlign: TextAlign.center,),
-      title: Text(dialogTitle),
+      content: Text(value, textAlign: TextAlign.justify,),
+      title: Text(dialogTitle, textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 20.0),),
       actions: <Widget>[
         FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
       ],
