@@ -208,8 +208,8 @@ class _verbalAutopsy5YrSec3State
                                 }
                                 else{
                                   writeToFile(data);
-                                  showAlert('Form saved in offline mode. Please relaunch'
-                                      ' the app once connected to the internet.', 'Saved');
+                                  showAlert('Form saved in offline mode. Please do not close'
+                                      ' the app until connected to the internet.', 'Saved');
                                 }
 
 
@@ -228,9 +228,7 @@ class _verbalAutopsy5YrSec3State
 
   void dialogResult(){
 //    print('button pressed');
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) =>
-            PostNeoFormsStatus()));
+    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
 
   void showAlert(String value, String dialogTitle){
@@ -243,7 +241,8 @@ class _verbalAutopsy5YrSec3State
         FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
       ],
     );
-    showDialog(context: context, child: dialog);
+    showDialog(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return dialog;});
   }
 
   void showSnackBar(String message){
