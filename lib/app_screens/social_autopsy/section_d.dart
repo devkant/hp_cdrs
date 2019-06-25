@@ -109,8 +109,8 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
             }
             else {
               writeToFile(data);
-              showAlert('Form saved in offline mode. Please relaunch '
-                  'the app once connected to the internet.', 'Saved');
+              showAlert('Form saved in offline mode. Please do not close '
+                  'the app until connected to the internet.', 'Saved');
             }
           });
         }
@@ -120,20 +120,20 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   }
 
   void dialogResult(){
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) =>
-            SocialAutopsyFormStatus()));
+    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
 
   void showAlert(String value, String dialogTitle){
 
     AlertDialog dialog = AlertDialog(
-      content: Text(value, textAlign: TextAlign.center,),
+      title: Text(dialogTitle, textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 20.0),),
+      content: Text(value, textAlign: TextAlign.justify,),
       actions: <Widget>[
         FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
       ],
     );
-    showDialog(context: context, builder: (_) => dialog);
+    showDialog(barrierDismissible: false, context: context, builder: (BuildContext context) { return dialog;});
   }
 
   void _showSnackBar(message) {

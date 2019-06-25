@@ -94,19 +94,17 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
     }
   }
 
-  Future<bool> onBackPress(){
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) =>
-            Dashboard()));
-  }
+//  Future<bool> onBackPress(){
+//    Navigator.of(context).push(MaterialPageRoute(
+//        builder: (BuildContext context) =>
+//            Dashboard()));
+//  }
 
   @override
   Widget build(BuildContext context) {
 
 
-    return WillPopScope(
-      onWillPop: onBackPress,
-      child: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           title:  Text('Saved Forms'),
         ),
@@ -137,9 +135,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
 
 
           },
-        ),
-
-      ),
+    )
     );
   }
 
