@@ -5,6 +5,10 @@ import 'package:hp_cdrs/app_screens/verbal_autopsy/user.dart';
 import 'neoFormStatus.dart';
 import 'socialAutopsyFormStatus.dart';
 import 'postNeoFormStatus.dart';
+import 'package:toast/toast.dart';
+import 'package:flutter/services.dart';
+
+var currentBackPressTime;
 
 void  main(){
   runApp(MaterialApp(
@@ -24,13 +28,21 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
 
-  Future<bool> onBackPress() async{
-    return false;
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      showToast("Press back again to exit", duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return Future.value(false);
+    }
+    return Future.value(true);
   }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: onBackPress,
+      onWillPop: onWillPop,
       child: Scaffold(
         drawer: BasicDrawer(),
         appBar: AppBar(
@@ -164,5 +176,11 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
+
+  void showToast(String msg, {int duration, int gravity}) {
+    Toast.show(msg, context, duration: duration, gravity: gravity);
+  }
+
+
 
 }
