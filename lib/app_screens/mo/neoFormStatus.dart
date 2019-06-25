@@ -121,11 +121,11 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
     }
   }
 
-  Future<bool> onBackPress(){
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) =>
-            Dashboard()));
-  }
+//  Future<bool> onBackPress(){
+//    Navigator.of(context).push(MaterialPageRoute(
+//        builder: (BuildContext context) =>
+//            Dashboard()));
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,58 +135,55 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
       future: getAppliNumber(),
       builder: (BuildContext  context,AsyncSnapshot<String> snapshot) {
         if(snapshot.hasData){
-          return  WillPopScope(
-            onWillPop: onBackPress,
-            child: Scaffold(
-              appBar: AppBar(
-                title:  Text('Neonate Saved Forms'),
-              ),
-              drawer: BasicDrawer(),
-              body: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(20.0),
-                  ),
-                  Text(' Next Application Assigned:\n ${_appliNumber}',
-                    style: TextStyle(
-                      fontSize: 20.0
-                    ),
-                  ),
-                  Flexible(
-                    child: ListView.builder(
-                        itemCount: entries.length,
-                        itemBuilder: (BuildContext  context,  int index)  {
-                          return  Card(
-                            child: ListTile(
-                              title: Text(entries[index]['applicationNumber']),
-                              leading: Icon(Icons.contacts),
-                            ),
-                          );
-                        }
-                    ),
-                  )
-
-
-                ],
-              ),
-              floatingActionButton: FloatingActionButton.extended(
-                icon: Icon(Icons.add),
-                tooltip: 'Add new Entry',
-                label: Text("New Form"),
-
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => verbalAutopsyForm(verbal_Autopsy_Obj:User,appliNumber:_appliNumber),
-                    ),
-                  );
-
-
-                },
-              ),
-
+          return  Scaffold(
+            appBar: AppBar(
+              title:  Text('Neonate Saved Forms'),
             ),
+            drawer: BasicDrawer(),
+            body: Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                ),
+                Text(' Next Application Assigned:\n ${_appliNumber}',
+                  style: TextStyle(
+                    fontSize: 20.0
+                  ),
+                ),
+                Flexible(
+                  child: ListView.builder(
+                      itemCount: entries.length,
+                      itemBuilder: (BuildContext  context,  int index)  {
+                        return  Card(
+                          child: ListTile(
+                            title: Text(entries[index]['applicationNumber']),
+                            leading: Icon(Icons.contacts),
+                          ),
+                        );
+                      }
+                  ),
+                )
+
+
+              ],
+            ),
+            floatingActionButton: FloatingActionButton.extended(
+              icon: Icon(Icons.add),
+              tooltip: 'Add new Entry',
+              label: Text("New Form"),
+
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => verbalAutopsyForm(verbal_Autopsy_Obj:User,appliNumber:_appliNumber),
+                  ),
+                );
+
+
+              },
+            ),
+
           );
         }
       },
