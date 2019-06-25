@@ -120,9 +120,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   }
 
   void dialogResult(){
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) =>
-            SocialAutopsyFormStatus()));
+    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
 
   void showAlert(String value, String dialogTitle){
