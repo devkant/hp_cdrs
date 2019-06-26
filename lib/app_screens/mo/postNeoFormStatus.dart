@@ -96,49 +96,46 @@ class PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
     }
   }
 
-  Future<bool> onBackPress(){
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) =>
-            Dashboard()));
-  }
+//  Future<bool> onBackPress(){
+//    Navigator.of(context).push(MaterialPageRoute(
+//        builder: (BuildContext context) =>
+//            Dashboard()));
+//  }
 
   @override
   Widget build(BuildContext context) {
 
 
-    return WillPopScope(
-      onWillPop: onBackPress,
-      child: Scaffold(
-        appBar: AppBar(
-          title:  Text('Post Neonate SavedForms'),
-        ),
-        drawer: BasicDrawer(),
-        body: ListView.builder(
-            itemCount: entries.length,
-            itemBuilder: (BuildContext  context,  int index)  {
-              return  Card(
-                child: ListTile(
-                  title: Text("Name: "+entries[index]['applicationNumber']),
-                  leading: Icon(Icons.contacts),
-                ),
-              );
-            }
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(Icons.add),
-          label: Text("New Form"),
-          tooltip: 'Add new Entry',
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => verbalAutopsy5YrForm(userObj:user),
+    return Scaffold(
+      appBar: AppBar(
+        title:  Text('Post Neonate SavedForms'),
+      ),
+      drawer: BasicDrawer(),
+      body: ListView.builder(
+          itemCount: entries.length,
+          itemBuilder: (BuildContext  context,  int index)  {
+            return  Card(
+              child: ListTile(
+                title: Text("Name: "+entries[index]['applicationNumber']),
+                leading: Icon(Icons.contacts),
               ),
             );
-            },
-        ),
-
+          }
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add),
+        label: Text("New Form"),
+        tooltip: 'Add new Entry',
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => verbalAutopsy5YrForm(userObj:user),
+            ),
+          );
+          },
+      ),
+
     );
   }
 }
