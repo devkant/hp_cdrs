@@ -282,7 +282,7 @@ class _Form5State extends State<Form5> {
                             var data  = createMap(widget.user);
                             print(data);
 
-                            sendData('http://13.126.72.137/api/test',data).then((status){
+                            sendData('http://13.235.43.83/api/test',data).then((status){
                               print(status);
                               if(status) {
                                 Navigator.of(context).push(MaterialPageRoute(

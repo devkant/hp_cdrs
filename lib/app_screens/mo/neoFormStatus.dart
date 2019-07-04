@@ -73,7 +73,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
         var temp  = json.decode(jsonList[i]);
         entries.add(temp);
         print(temp);
-        sendData('http://13.126.72.137/api/neonate',temp).then((status) {
+        sendData('http://13.235.43.83/api/neonate',temp).then((status) {
           if (status == true) {
             if(i==(jsonList.length-1) && !isOffline){
               clearFile();

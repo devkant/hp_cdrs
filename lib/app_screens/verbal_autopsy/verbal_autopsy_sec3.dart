@@ -202,7 +202,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                             var data  = createMap(child);
 
 
-                            sendData('http://13.126.72.137/api/neonate',data).then((status){
+                            sendData('http://13.235.43.83/api/neonate',data).then((status){
                               print(status);
                               if(status) {
                                 showAlert('Form submitted successfully!', 'Sent');

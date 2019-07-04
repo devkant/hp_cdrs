@@ -49,7 +49,7 @@ class PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
       for(int i=0;i<jsonList.length;i++)  {
         var temp  = json.decode(jsonList[i]);
         entries.add(temp);
-        sendData('http://13.126.72.137/api/postNeonate',temp).then((status) {
+        sendData('http://13.235.43.83/api/postNeonate',temp).then((status) {
           print(status);
           if (status == true) {
             if(i==(jsonList.length-1)){

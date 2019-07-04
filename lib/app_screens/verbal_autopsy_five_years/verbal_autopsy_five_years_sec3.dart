@@ -201,7 +201,7 @@ class _verbalAutopsy5YrSec3State
                               User child  = widget.userObj;
                               var data  = createMap(child);
 
-                              sendData('http://13.126.72.137/api/postNeonate',data).then((status){
+                              sendData('http://13.235.43.83/api/postNeonate',data).then((status){
                                 print(status);
                                 if(status) {
                                   showAlert('Form submitted successfully!', 'Sent');

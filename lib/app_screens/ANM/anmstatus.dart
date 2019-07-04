@@ -72,7 +72,7 @@ class _ANMStatusState extends State<ANMStatus> {
         var temp  = json.decode(jsonList[i]);
         entries.add(temp);
         print(temp);
-        sendData('http://13.126.72.137/api/fbi',temp).then((status) {
+        sendData('http://13.235.43.83/api/fbi',temp).then((status) {
           if (status == true) {
             if(i==(jsonList.length-1) && !isOffline){
               clearFile();

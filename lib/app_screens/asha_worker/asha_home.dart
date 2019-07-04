@@ -72,7 +72,7 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
           entries.add(tempEntry);
         }
         else{
-          sendData('http://13.126.72.137/api/asha', data);
+          sendData('http://13.235.43.83/api/asha', data);
         }
 
         if(i==(jsonList.length-1) && !isOffline){
