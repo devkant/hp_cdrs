@@ -3,11 +3,10 @@ import 'user.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
 import 'dart:async';
-import 'package:hp_cdrs/app_screens/mo/neoFormStatus.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
-import 'package:hp_cdrs/main.dart';
 
 
 void main() {
@@ -192,11 +191,14 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                       onPressed: () {
                           if ( _knowledgeCheck == false) {
                             // The checkbox wasn't checked
-                            showSnackBar('Please check the checkbox to proceed');
+                            showSnackBar('Please check the declaration to proceed');
                           }
 
                           if(_formKey.currentState.validate() && _knowledgeCheck  ==  true){
                             _formKey.currentState.save();
+                            ProgressDialog progress = new ProgressDialog(context,ProgressDialogType.Normal);
+                            progress.setMessage('Please Wait...');
+                            progress.show();
 
                             user child  = widget.verbal_Autopsy_Obj;
                             var data  = createMap(child);

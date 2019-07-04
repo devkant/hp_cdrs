@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 import 'package:hp_cdrs/common/apifunctions/requestLoginAPI.dart';
 import 'forgot_passs.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -144,6 +145,9 @@ class LoginPageState extends State<LoginPage> {
                             ),
                             onPressed: (){
                               if(_formKey.currentState.validate()) {
+                                ProgressDialog progress = new ProgressDialog(context,ProgressDialogType.Normal);
+                                progress.setMessage('Please Wait...');
+                                progress.show();
                                 SystemChannels.textInput.invokeMethod(
                                     'TextInput.hide');
                                 requestLoginAPI(context, _userNameController.text,
