@@ -3,11 +3,10 @@ import 'user.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
 import 'dart:async';
-import 'package:hp_cdrs/app_screens/mo/neoFormStatus.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
-import 'package:hp_cdrs/main.dart';
 
 
 void main() {
@@ -236,6 +235,8 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
 
   void dialogResult(){
 //    print('button pressed');
+    ProgressDialog progress = new ProgressDialog(context,ProgressDialogType.Normal);
+    progress.show();
     Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
 
