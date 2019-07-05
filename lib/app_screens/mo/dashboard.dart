@@ -27,16 +27,16 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<bool> onWillPop() {
-    DateTime now = DateTime.now();
-    if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
-      currentBackPressTime = now;
-      showToast("Press back again to exit", duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    if(_scaffoldKey.currentState.isDrawerOpen == false) {
+      _scaffoldKey.currentState.openDrawer();
       return Future.value(false);
     }
-    return Future.value(true);
+    else if(_scaffoldKey.currentState.isDrawerOpen == true){
+      return Future.value(true);
+    }
   }
 
   @override
@@ -44,6 +44,7 @@ class _DashboardState extends State<Dashboard> {
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
+        key: _scaffoldKey,
         drawer: BasicDrawer(),
         appBar: AppBar(
           title: Text("MO DashBoard"),
