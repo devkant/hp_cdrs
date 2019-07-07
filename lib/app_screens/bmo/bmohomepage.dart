@@ -39,21 +39,34 @@ class _BMOhomepageState extends State<BMOhomepage> with SingleTickerProviderStat
   );
   final key = GlobalKey<ScaffoldState>();
 
+  Future<bool> onWillPop() {
+    if(key.currentState.isDrawerOpen == false) {
+      key.currentState.openDrawer();
+      return Future.value(false);
+    }
+    else if(key.currentState.isDrawerOpen == true){
+      return Future.value(true);
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(length: 3,
-        child: Scaffold(
-            key: key,
-            appBar: buildBar(context),
-            body: TabBarView(
-              children: <Widget>[
-                page104(),
-                pending(),
-                completed(),
-              ],
-            ),
-            drawer: BasicDrawer(),
+    return WillPopScope(
+      onWillPop: onWillPop,
+//      child: MaterialApp(
+        child: DefaultTabController(length: 3,
+          child: Scaffold(
+              key: key,
+              appBar: buildBar(context),
+              body: TabBarView(
+                children: <Widget>[
+                  page104(),
+                  pending(),
+                  completed(),
+                ],
+              ),
+              drawer: BasicDrawer(),
 //          drawer: Drawer(
 //            child: ListView(children: <Widget>[
 //              UserAccountsDrawerHeader(
@@ -96,8 +109,9 @@ class _BMOhomepageState extends State<BMOhomepage> with SingleTickerProviderStat
 //            ),
 //          ),
 
+          ),
         ),
-      ),
+//      ),
     );
   }
 

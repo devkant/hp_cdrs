@@ -44,6 +44,7 @@ class LoginPageState extends State<LoginPage> {
       },
       child: Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: Center(child: Text("HPG - CDRS")),
           ),
           backgroundColor: Colors.white,
