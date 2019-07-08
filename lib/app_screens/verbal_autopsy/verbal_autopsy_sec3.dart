@@ -238,7 +238,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
 
   void dialogResult(){
 //    print('button pressed');
-    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil('', (Route<dynamic> route) => false);
   }
 
   void showAlert(String value, String dialogTitle){

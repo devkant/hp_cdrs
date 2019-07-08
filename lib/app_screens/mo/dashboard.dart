@@ -7,6 +7,7 @@ import 'socialAutopsyFormStatus.dart';
 import 'postNeoFormStatus.dart';
 import 'package:toast/toast.dart';
 import 'package:flutter/services.dart';
+import 'previousForm.dart';
 
 var currentBackPressTime;
 
@@ -50,6 +51,15 @@ class _DashboardState extends State<Dashboard> {
           title: Text("MO DashBoard"),
           elevation: .1,
           backgroundColor: Colors.blue,
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+            onPressed: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder:(BuildContext  context)  =>  PreviousForm())
+              );
+            },
+            icon: Icon(Icons.storage),
+            label: Text('Previous Filled Forms'),
         ),
         body: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 2.0),
@@ -138,7 +148,8 @@ class _DashboardState extends State<Dashboard> {
                     decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
                     child: new InkWell(
                       onTap: () {
-                        Navigator.of(context).push(
+                        Navigator.push(
+                          context,
                             MaterialPageRoute(
                                 builder: (BuildContext  context)  =>  PostNeoFormsStatus())
                         );

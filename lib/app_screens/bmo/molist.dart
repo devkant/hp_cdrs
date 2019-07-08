@@ -219,7 +219,7 @@ class Show extends StatelessWidget {
 
 Future<bool>  assignRequest(Map data) async {
   final token = await getToken();
-  var request = await http.post('http://13.235.43.83/api/test',
+  var request = await http.post('http://13.235.43.83/api/assignmo',
       body: data,
       headers: {
         'authToken': token,
