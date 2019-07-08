@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 import 'package:hp_cdrs/common/apifunctions/requestLoginAPI.dart';
 import 'forgot_passs.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -146,13 +146,12 @@ class LoginPageState extends State<LoginPage> {
                             ),
                             onPressed: (){
                               if(_formKey.currentState.validate()) {
-                                ProgressDialog progress = new ProgressDialog(context,ProgressDialogType.Normal);
-                                progress.setMessage('Please Wait...');
-                                progress.show();
+                                showAlert();
                                 SystemChannels.textInput.invokeMethod(
                                     'TextInput.hide');
                                 requestLoginAPI(context, _userNameController.text,
                                     _passwordController.text);
+//                                Navigator.of(context).pop();
                               }
                             },
                             splashColor: Colors.blue,
@@ -189,6 +188,27 @@ class LoginPageState extends State<LoginPage> {
     );
   }
 
+
+  void showAlert(){
+
+    AlertDialog dialog = AlertDialog(
+      content: Text('', textAlign: TextAlign.center,),
+      contentPadding: EdgeInsets.only(left: 0.0, right: 15.0, top: 15.0, bottom: 15.0),
+    );
+    showDialog<dynamic>(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Flexible(child:Image(
+                width: 150.0,
+                height: 150.0,
+//                  fit: BoxFit.contain,
+                image: new AssetImage("assets/waiting.gif"))),
+//              Flexible(child: dialog)
+          ],
+        );});
+
+  }
 
 
   void showSnackBar(String message){
