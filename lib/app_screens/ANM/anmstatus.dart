@@ -133,6 +133,7 @@ class _ANMStatusState extends State<ANMStatus> {
     return WillPopScope(
       onWillPop : onBackPress,
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title:  Text('ANM Saved Forms'),
         ),
