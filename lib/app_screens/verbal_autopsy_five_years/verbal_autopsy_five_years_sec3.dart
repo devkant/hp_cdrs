@@ -198,6 +198,8 @@ class _verbalAutopsy5YrSec3State
                             if(_formKey.currentState.validate() && knowledgeCheck  ==  true){
                               _formKey.currentState.save();
 
+                              showWaiting();
+
                               User child  = widget.userObj;
                               var data  = createMap(child);
 
@@ -228,7 +230,9 @@ class _verbalAutopsy5YrSec3State
 
   void dialogResult(){
 //    print('button pressed');
-    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+//    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+  for(int i = 0; i < 10; i++)
+    Navigator.of(context).pop();
   }
 
   void showAlert(String value, String dialogTitle){
@@ -243,6 +247,27 @@ class _verbalAutopsy5YrSec3State
     );
     showDialog(barrierDismissible: false, context: context,
         builder: (BuildContext context){return dialog;});
+  }
+
+  void showWaiting(){
+
+    AlertDialog dialog = AlertDialog(
+      content: Text('', textAlign: TextAlign.center,),
+      contentPadding: EdgeInsets.only(left: 0.0, right: 15.0, top: 15.0, bottom: 15.0),
+    );
+    showDialog<dynamic>(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Flexible(child:Image(
+                width: 150.0,
+                height: 150.0,
+//                  fit: BoxFit.contain,
+                image: new AssetImage("assets/waiting.gif"))),
+//              Flexible(child: dialog)
+          ],
+        );});
+
   }
 
   void showSnackBar(String message){
