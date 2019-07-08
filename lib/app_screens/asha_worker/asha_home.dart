@@ -27,6 +27,8 @@ class AshaHomeScreen extends StatefulWidget {
 
 class _AshaHomeScreenState extends State<AshaHomeScreen> {
 
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   StreamSubscription _connectionChangeStream;
   bool isOffline = false;
 
@@ -116,50 +118,64 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
     }
   }
 
+  Future<bool> onBackPress(){
+    if(_scaffoldKey.currentState.isDrawerOpen == false) {
+      _scaffoldKey.currentState.openDrawer();
+      return Future.value(false);
+    }
+    else if(_scaffoldKey.currentState.isDrawerOpen == true){
+      return Future.value(true);
+    }
+  }
+
 
 
   @override
   Widget build(BuildContext context) {
 
 
-    return Scaffold(
-      appBar: AppBar(
-        title:  Text('Forms Pending'),
-      ),
-      drawer: BasicDrawer(),
-      body: ListView.builder(
-          itemCount: entries.length,
-          itemBuilder: (BuildContext  context,  int index)  {
-            return  Card(
-              child: ListTile(
-                title: Text("Name: "+entries[index].name),
-                leading: Icon(Icons.contacts),
-              ),
-            );
-          }
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        tooltip: 'Add new Entry',
-        onPressed: () {
-          Navigator.push<Child>(
-           context,
-           MaterialPageRoute(
-               builder: (context) => hpForm(),
-           ),
-          ).then((newEntry){
-              if(newEntry!=null){
-                setState(() {
-                  entries.add(newEntry);
-                  writeToFile(newEntry);
-                });
-              }
+    return WillPopScope(
+      onWillPop: onBackPress,
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title:  Text('Forms Pending'),
+        ),
+        drawer: BasicDrawer(),
+        body: ListView.builder(
+            itemCount: entries.length,
+            itemBuilder: (BuildContext  context,  int index)  {
+              return  Card(
+                child: ListTile(
+                  title: Text("Name: "+entries[index].name),
+                  leading: Icon(Icons.contacts),
+                ),
+              );
             }
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          tooltip: 'Add new Entry',
+          onPressed: () {
+            Navigator.push<Child>(
+             context,
+             MaterialPageRoute(
+                 builder: (context) => hpForm(),
+             ),
+            ).then((newEntry){
+                if(newEntry!=null){
+                  setState(() {
+                    entries.add(newEntry);
+                    writeToFile(newEntry);
+                  });
+                }
+              }
 
-          );
-        },
+            );
+          },
+        ),
+
       ),
-
     );
   }
 

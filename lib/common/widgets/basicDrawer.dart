@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hp_cdrs/common/apifunctions/requestLogoutAPI.dart';
 import 'package:hp_cdrs/app_screens/loginPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+
 
 class BasicDrawer extends StatefulWidget {
   @override
@@ -46,9 +46,6 @@ class _BasicDrawerState extends State<BasicDrawer>  {
         ListTile(title: Text("Logout", style: TextStyle(
             color: Colors.black, fontSize: 20.0),),
           onTap: () async{
-            ProgressDialog progress = new ProgressDialog(context,ProgressDialogType.Normal);
-            progress.setMessage('Please Wait...');
-            progress.show();
             requestLogoutAPI(context);
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (BuildContext ctx) => LoginPage()));

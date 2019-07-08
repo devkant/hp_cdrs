@@ -3,7 +3,6 @@ import 'user.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
 import 'dart:async';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
@@ -196,9 +195,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
 
                           if(_formKey.currentState.validate() && _knowledgeCheck  ==  true){
                             _formKey.currentState.save();
-                            ProgressDialog progress = new ProgressDialog(context,ProgressDialogType.Normal);
-                            progress.setMessage('Please Wait...');
-                            progress.show();
+                            showWaiting();
 
                             user child  = widget.verbal_Autopsy_Obj;
                             var data  = createMap(child);
@@ -238,7 +235,9 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
 
   void dialogResult(){
 //    print('button pressed');
-    Navigator.of(context).pushNamedAndRemoveUntil('', (Route<dynamic> route) => false);
+    for(int i = 0; i < 11; i++)
+      Navigator.of(context).pop();
+
   }
 
   void showAlert(String value, String dialogTitle){
@@ -253,6 +252,27 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
     );
     showDialog(barrierDismissible: false, context: context,
         builder: (BuildContext context){return dialog;});
+  }
+
+  void showWaiting(){
+
+    AlertDialog dialog = AlertDialog(
+      content: Text('', textAlign: TextAlign.center,),
+      contentPadding: EdgeInsets.only(left: 0.0, right: 15.0, top: 15.0, bottom: 15.0),
+    );
+    showDialog<dynamic>(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Flexible(child:Image(
+                width: 150.0,
+                height: 150.0,
+//                  fit: BoxFit.contain,
+                image: new AssetImage("assets/waiting.gif"))),
+//              Flexible(child: dialog)
+          ],
+        );});
+
   }
 
   void showSnackBar(String message){
