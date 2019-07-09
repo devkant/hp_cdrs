@@ -244,7 +244,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
 
     AlertDialog dialog = AlertDialog(
       title: Text(dialogTitle, textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 20.0),),
+        style: TextStyle(fontSize: 20.0),),
       content: Text(value, textAlign: TextAlign.justify,),
       actions: <Widget>[
         FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
@@ -257,20 +257,31 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
   void showWaiting(){
 
     AlertDialog dialog = AlertDialog(
-      content: Text('', textAlign: TextAlign.center,),
-      contentPadding: EdgeInsets.only(left: 0.0, right: 15.0, top: 15.0, bottom: 15.0),
+//      content: Text('Please Wait...', textAlign: TextAlign.center,),
+//      contentPadding: EdgeInsets.only(left: 0.0, right: 15.0, top: 15.0, bottom: 15.0),
     );
-    showDialog<dynamic>(barrierDismissible: false, context: context,
-        builder: (BuildContext context){return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Flexible(child:Image(
-                width: 150.0,
-                height: 150.0,
+    showDialog(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return Dialog(
+//          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            height: 80.0,
+            width: 90.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child:Image(
+                        width: 70.0,
+                        height: 70.0,
 //                  fit: BoxFit.contain,
-                image: new AssetImage("assets/waiting.gif"))),
-//              Flexible(child: dialog)
-          ],
+                        image: new AssetImage("assets/waiting.gif"))),
+                Flexible(child: Text('Please Wait...', style: TextStyle(
+                    fontSize: 17.0, fontWeight: FontWeight.w500
+                ),))
+              ],
+            ),
+          ),
         );});
 
   }
