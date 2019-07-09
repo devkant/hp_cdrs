@@ -93,6 +93,7 @@ class PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
   void clearFile(){
     if(fileExists){
       jsonFile.writeAsStringSync('');
+      entries.clear();
     }
   }
 
@@ -111,20 +112,37 @@ class PostNeoFormsStatusState extends State<PostNeoFormsStatus> {
         title:  Text('Post Neonate SavedForms'),
       ),
       drawer: BasicDrawer(),
-      body: ListView.builder(
-          itemCount: entries.length,
-          itemBuilder: (BuildContext  context,  int index)  {
-            return  Card(
-              child: ListTile(
-                title: Text("Name: "+entries[index]['applicationNumber']),
-                leading: Icon(Icons.contacts),
+      body: Column(
+        children: <Widget>[
+          RaisedButton(
+            child: Text('Clear Saved Forms'),
+            textColor: Colors.white,
+            color: Colors.red,
+            onPressed: (){
+              setState(() {
+                clearFile();
+              });
+            },
+          ),
+          Flexible(
+              child:  ListView.builder(
+                  itemCount: entries.length,
+                  itemBuilder: (BuildContext  context,  int index)  {
+                    return  Card(
+                      child: ListTile(
+                        title: Text("Name: "+entries[index]['applicationNumber']),
+                        leading: Icon(Icons.contacts),
+                      ),
+                    );
+                  }
               ),
-            );
-          }
+          ),
+        ],
+
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add),
-        label: Text("New Form"),
+        label: Text("Fill New Form"),
         tooltip: 'Add new Entry',
         onPressed: () {
           Navigator.push(

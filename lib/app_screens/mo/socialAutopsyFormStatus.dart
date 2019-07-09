@@ -109,16 +109,33 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
           title:  Text('Saved Forms'),
         ),
         drawer: BasicDrawer(),
-        body: ListView.builder(
-            itemCount: entries.length,
-            itemBuilder: (BuildContext  context,  int index)  {
-              return  Card(
-                child: ListTile(
-                  title: Text(entries[index]['applicationNumber']),
-                  leading: Icon(Icons.contacts),
-                ),
-              );
-            }
+        body: Column(
+          children: <Widget>[
+            RaisedButton(
+              child: Text('Clear Saved Forms'),
+              textColor: Colors.white,
+              color: Colors.red,
+              onPressed: (){
+                setState(() {
+                  clearFile();
+                });
+              },
+            ),
+            Flexible(
+              child:  ListView.builder(
+                  itemCount: entries.length,
+                  itemBuilder: (BuildContext  context,  int index)  {
+                    return  Card(
+                      child: ListTile(
+                        title: Text("Name: "+entries[index]['applicationNumber']),
+                        leading: Icon(Icons.contacts),
+                      ),
+                    );
+                  }
+              ),
+            ),
+          ],
+
         ),
         floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.add),

@@ -44,6 +44,9 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
     _appliNumber = pref.getString('newApplication');
+    if(_appliNumber=='0'){
+      _appliNumber='No';
+    }
 
     return _appliNumber;
   }
@@ -118,6 +121,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
   void clearFile(){
     if(fileExists)  {
       jsonFile.writeAsStringSync('');
+      entries.clear();
     }
   }
 
@@ -145,10 +149,28 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
                 Padding(
                   padding: EdgeInsets.all(20.0),
                 ),
-                Text(' Next Application Assigned:\n ${_appliNumber}',
+                Text(' New Application Assigned:',
                   style: TextStyle(
                     fontSize: 20.0
                   ),
+                ),
+                Text('${_appliNumber}',
+                  style: TextStyle(
+                    fontSize: 20.0
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                ),
+                RaisedButton(
+                  child: Text('Clear Saved Forms'),
+                  textColor: Colors.white,
+                  color: Colors.red,
+                  onPressed: (){
+                    setState(() {
+                      clearFile();
+                    });
+                  },
                 ),
                 Flexible(
                   child: ListView.builder(

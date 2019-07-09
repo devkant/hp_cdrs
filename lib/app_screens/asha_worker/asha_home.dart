@@ -115,6 +115,7 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
   void clearFile(){
     if(fileExists){
       jsonFile.writeAsStringSync('');
+      entries.clear();
     }
   }
 
@@ -139,22 +140,44 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title:  Text('Forms Pending'),
+          title:  Text('104 Dashboard'),
         ),
         drawer: BasicDrawer(),
-        body: ListView.builder(
-            itemCount: entries.length,
-            itemBuilder: (BuildContext  context,  int index)  {
-              return  Card(
-                child: ListTile(
-                  title: Text("Name: "+entries[index].name),
-                  leading: Icon(Icons.contacts),
-                ),
-              );
-            }
+        body: Column(children: <Widget>[
+          RaisedButton(
+            child: Text('Show Previous Filled Forms'),
+            textColor: Colors.white,
+            color: Colors.orange,
+            onPressed: (){},
+          ),
+          RaisedButton(
+            child: Text('Clear Saved Forms'),
+            textColor: Colors.white,
+            color: Colors.red,
+            onPressed: (){
+              setState(() {
+                clearFile();
+              });
+            },
+          ),
+          Flexible(
+              child:   ListView.builder(
+                  itemCount: entries.length,
+                  itemBuilder: (BuildContext  context,  int index)  {
+                    return  Card(
+                      child: ListTile(
+                        title: Text("Name: "+entries[index].name),
+                        leading: Icon(Icons.contacts),
+                      ),
+                    );
+                  }
+              ),
+            )
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
+        floatingActionButton: FloatingActionButton.extended(
+          icon: Icon(Icons.add),
+          label: Text('New Case'),
           tooltip: 'Add new Entry',
           onPressed: () {
             Navigator.push<Child>(
