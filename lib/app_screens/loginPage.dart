@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 import 'package:hp_cdrs/common/apifunctions/requestLoginAPI.dart';
 import 'forgot_passs.dart';
-
+import 'package:toast/toast.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,6 +14,7 @@ class LoginPageState extends State<LoginPage> {
 
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  var currentBackPressTime;
 
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -35,12 +36,14 @@ class LoginPageState extends State<LoginPage> {
 
     return WillPopScope(
       onWillPop: () {
-        if(Navigator.canPop(context)){
-          Navigator.of(context).pushNamedAndRemoveUntil('\HomeScreen',(Route<dynamic> route)  =>false);
+        DateTime now = DateTime.now();
+        if (currentBackPressTime == null ||
+            now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+          currentBackPressTime = now;
+          showToast("Press back again to exit", duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+          return Future.value(false);
         }
-        else{
-          Navigator.of(context).pushReplacementNamed('\HomeScreen');
-        }
+        return Future.value(true);
       },
       child: Scaffold(
           appBar: AppBar(
@@ -192,22 +195,37 @@ class LoginPageState extends State<LoginPage> {
   void showAlert(){
 
     AlertDialog dialog = AlertDialog(
-      content: Text('', textAlign: TextAlign.center,),
-      contentPadding: EdgeInsets.only(left: 0.0, right: 15.0, top: 15.0, bottom: 15.0),
+//      content: Text('Please Wait...', textAlign: TextAlign.center,),
+//      contentPadding: EdgeInsets.only(left: 0.0, right: 15.0, top: 15.0, bottom: 15.0),
     );
-    showDialog<dynamic>(barrierDismissible: false, context: context,
-        builder: (BuildContext context){return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Flexible(child:Image(
-                width: 150.0,
-                height: 150.0,
+    showDialog(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return Dialog(
+//          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            height: 80.0,
+            width: 90.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child:Image(
+                    width: 70.0,
+                    height: 70.0,
 //                  fit: BoxFit.contain,
-                image: new AssetImage("assets/waiting.gif"))),
-//              Flexible(child: dialog)
-          ],
+                    image: new AssetImage("assets/waiting.gif"))),
+              Flexible(child: Text('Please Wait...', style: TextStyle(
+                fontSize: 17.0, fontWeight: FontWeight.w500
+              ),))
+              ],
+            ),
+          ),
         );});
 
+  }
+
+  void showToast(String msg, {int duration, int gravity}) {
+    Toast.show(msg, context, duration: duration, gravity: gravity);
   }
 
 
