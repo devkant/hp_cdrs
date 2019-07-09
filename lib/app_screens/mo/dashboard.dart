@@ -5,11 +5,9 @@ import 'package:hp_cdrs/app_screens/verbal_autopsy/user.dart';
 import 'neoFormStatus.dart';
 import 'socialAutopsyFormStatus.dart';
 import 'postNeoFormStatus.dart';
-import 'package:toast/toast.dart';
 import 'package:flutter/services.dart';
 import 'previousForm.dart';
 
-var currentBackPressTime;
 
 void  main(){
   runApp(MaterialApp(
@@ -188,11 +186,5 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
-
-  void showToast(String msg, {int duration, int gravity}) {
-    Toast.show(msg, context, duration: duration, gravity: gravity);
-  }
-
-
 
 }
