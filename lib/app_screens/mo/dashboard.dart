@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/verbal_autopsy/verbal_autopsy_form.dart';
-import 'package:hp_cdrs/app_screens/verbal_autopsy/user.dart';
 import 'neoFormStatus.dart';
 import 'socialAutopsyFormStatus.dart';
 import 'postNeoFormStatus.dart';
