@@ -164,13 +164,23 @@ class LoginPageState extends State<LoginPage> {
                       Padding(
                           padding: EdgeInsets.all(20.0),
                           child: FlatButton(
-                            onPressed: (){
-                              setState(() {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        ForgotPass()));
-                              });
+                             onPressed: (){
+                              if(_formKey.currentState.validate()) {
+                                showAlert();
+                                SystemChannels.textInput.invokeMethod(
+                                    'TextInput.hide');
+                                requestLoginAPI(context, _userNameController.text,
+                                    _passwordController.text);
+//                                Navigator.of(context).pop();
+                              }
                             },
+//                             onPressed: (){
+//                               setState(() {
+//                                 Navigator.of(context).push(MaterialPageRoute(
+//                                     builder: (BuildContext context) =>
+//                                         ForgotPass()));
+//                               });
+//                             },
                             child: Text(
                               'Forgot Password',
                               style: TextStyle(
@@ -195,9 +205,7 @@ class LoginPageState extends State<LoginPage> {
 
                             ),
 
-                          )
-                      )
-                    ],
+                          ],
                   ),
                 )
             ),
