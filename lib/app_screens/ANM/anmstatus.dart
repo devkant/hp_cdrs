@@ -124,6 +124,7 @@ class _ANMStatusState extends State<ANMStatus> {
     if(fileExists){
       jsonFile.writeAsStringSync('');
     }
+    entries.clear();
   }
 
   @override
@@ -138,19 +139,41 @@ class _ANMStatusState extends State<ANMStatus> {
           title:  Text('ANM Saved Forms'),
         ),
         drawer: BasicDrawer(),
-        body: ListView.builder(
-            itemCount: entries.length,
-            itemBuilder: (BuildContext  context,  int index)  {
-              return  Card(
-                child: ListTile(
-                  title: Text("Name: "+entries[index]['name']),
-                  leading: Icon(Icons.contacts),
-                ),
-              );
-            }
+        body: Column(
+          children: <Widget>[
+            RaisedButton(
+              child: Text('Show Previous Filled Forms'),
+              textColor: Colors.white,
+              color: Colors.orange,
+              onPressed: (){},
+            ),
+            RaisedButton(
+              child: Text('Clear Saved Forms'),
+              textColor: Colors.white,
+              color: Colors.red,
+              onPressed: (){
+                setState(() {
+                  clearFile();
+                });
+                },
+            ),
+            Flexible(
+              child: ListView.builder(
+                  itemCount: entries.length,
+                  itemBuilder: (BuildContext  context,  int index)  {
+                    return  Card(
+                      child: ListTile(
+                        title: Text("Name: "+entries[index]['name']),
+                        leading: Icon(Icons.contacts),
+                      ),
+                    );
+                  }
+              ),
+            )
+          ],
         ),
         floatingActionButton: FloatingActionButton.extended(
-          label: Text("New Form"),
+          label: Text("Fill New Form"),
           icon: Icon(Icons.add),
           tooltip: 'Add new Entry',
           onPressed: () {
@@ -166,6 +189,7 @@ class _ANMStatusState extends State<ANMStatus> {
         ),
 
       ),
+
     );
   }
 }
