@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/ANM/anm1.dart';
+import 'previousFormANM.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -145,7 +146,9 @@ class _ANMStatusState extends State<ANMStatus> {
               child: Text('Show Previous Filled Forms'),
               textColor: Colors.white,
               color: Colors.orange,
-              onPressed: (){},
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PreviousForm()));
+              },
             ),
             RaisedButton(
               child: Text('Clear Saved Forms'),
