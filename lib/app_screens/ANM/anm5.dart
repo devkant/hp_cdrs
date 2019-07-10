@@ -267,15 +267,15 @@ class _Form5State extends State<Form5> {
                         if (_formKey.currentState.validate()) {
                           if(submission == true) {
 
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Alert"),
-                                    content: Text("The form has been submitted"),
-                                  );
-                                }
-                            );
+//                            showDialog(
+//                                context: context,
+//                                builder: (BuildContext context) {
+//                                  return AlertDialog(
+//                                    title: Text("Alert"),
+//                                    content: Text("The form has been submitted"),
+//                                  );
+//                                }
+//                            );
 
                             final form = _formKey.currentState;
                             form.save();
@@ -285,15 +285,18 @@ class _Form5State extends State<Form5> {
                             sendData('http://13.235.43.83/api/fbi',data).then((status){
                               print(status);
                               if(status) {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        ANMStatus()));
+                                showAlert('Form submitted successfully!', 'Sent');
+//                                Navigator.of(context).push(MaterialPageRoute(
+//                                    builder: (BuildContext context) =>
+//                                        ANMStatus()));
                               }
                               else{
                                 writeToFile(data);
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        ANMStatus()));
+                                showAlert('Form saved in offline mode. Please do not close'
+                                    ' the app until connected to the internet.', 'Saved');
+//                                Navigator.of(context).push(MaterialPageRoute(
+//                                    builder: (BuildContext context) =>
+//                                        ANMStatus()));
                               }
 
 
@@ -316,6 +319,27 @@ class _Form5State extends State<Form5> {
         ),
       ),
     );
+  }
+
+  void showAlert(String value, String dialogTitle){
+
+    AlertDialog dialog = AlertDialog(
+      title: Text(dialogTitle, textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 20.0),),
+      content: Text(value, textAlign: TextAlign.justify,),
+      actions: <Widget>[
+        FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
+      ],
+    );
+    showDialog(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return dialog;});
+  }
+
+  void dialogResult(){
+//    print('button pressed');
+    for(int i = 0; i < 6; i++)
+      Navigator.of(context).pop();
+
   }
 
   void _showSnackBar(message) {
