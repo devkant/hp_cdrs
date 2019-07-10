@@ -15,6 +15,7 @@ void showDialogSingleButton(BuildContext context, String title, String message, 
             child: new Text(buttonLabel),
             onPressed: () {
               Navigator.of(context).pop();
+              Navigator.of(context).pop();    //for waiting dialog
             },
           ),
         ],

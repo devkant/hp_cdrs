@@ -5,10 +5,9 @@ import 'package:hp_cdrs/app_screens/verbal_autopsy/user.dart';
 import 'neoFormStatus.dart';
 import 'socialAutopsyFormStatus.dart';
 import 'postNeoFormStatus.dart';
-import 'package:toast/toast.dart';
 import 'package:flutter/services.dart';
+import 'previousForm.dart';
 
-var currentBackPressTime;
 
 void  main(){
   runApp(MaterialApp(
@@ -27,16 +26,16 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<bool> onWillPop() {
-    DateTime now = DateTime.now();
-    if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
-      currentBackPressTime = now;
-      showToast("Press back again to exit", duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    if(_scaffoldKey.currentState.isDrawerOpen == false) {
+      _scaffoldKey.currentState.openDrawer();
       return Future.value(false);
     }
-    return Future.value(true);
+    else if(_scaffoldKey.currentState.isDrawerOpen == true){
+      return Future.value(true);
+    }
   }
 
   @override
@@ -44,11 +43,21 @@ class _DashboardState extends State<Dashboard> {
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
+        key: _scaffoldKey,
         drawer: BasicDrawer(),
         appBar: AppBar(
           title: Text("MO DashBoard"),
           elevation: .1,
           backgroundColor: Colors.blue,
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+            onPressed: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder:(BuildContext  context)  =>  PreviousForm())
+              );
+            },
+            icon: Icon(Icons.storage),
+            label: Text('Previous Filled Forms'),
         ),
         body: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 2.0),
@@ -137,7 +146,8 @@ class _DashboardState extends State<Dashboard> {
                     decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
                     child: new InkWell(
                       onTap: () {
-                        Navigator.of(context).push(
+                        Navigator.push(
+                          context,
                             MaterialPageRoute(
                                 builder: (BuildContext  context)  =>  PostNeoFormsStatus())
                         );
@@ -176,11 +186,5 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
-
-  void showToast(String msg, {int duration, int gravity}) {
-    Toast.show(msg, context, duration: duration, gravity: gravity);
-  }
-
-
 
 }

@@ -239,7 +239,7 @@ class _hpFormState extends State<hpForm> {
                           'address':  newEntry.address,
                           'ashaName':newEntry.ashaName,
                         };
-                        var status  = await sendData('http://13.126.72.137/api/asha',data);
+                        var status  = await sendData('http://13.235.43.83/api/asha',data);
                         if(!isOffline && status){
                           Navigator.of(context).pop(null);
                         }

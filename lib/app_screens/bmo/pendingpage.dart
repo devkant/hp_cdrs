@@ -34,7 +34,7 @@ class _ListviewState extends State<Listview> {
 
   Future getData() async {
     final token = await getToken();
-    http.Response response = await http.get("http://13.126.72.137/api/104ByBlock",
+    http.Response response = await http.get("http://13.235.43.83/api/104ByBlock",
       headers: {
         'authToken':  token
       }
