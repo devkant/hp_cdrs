@@ -281,6 +281,7 @@ class _Form5State extends State<Form5> {
                             form.save();
                             var data  = createMap(widget.user);
                             print(data);
+                            showWaiting();
 
                             sendData('http://13.235.43.83/api/fbi',data).then((status){
                               print(status);
@@ -335,9 +336,41 @@ class _Form5State extends State<Form5> {
         builder: (BuildContext context){return dialog;});
   }
 
+  void showWaiting(){
+
+    AlertDialog dialog = AlertDialog(
+//      content: Text('Please Wait...', textAlign: TextAlign.center,),
+//      contentPadding: EdgeInsets.only(left: 0.0, right: 15.0, top: 15.0, bottom: 15.0),
+    );
+    showDialog(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return Dialog(
+//          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            height: 80.0,
+            width: 90.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child:Image(
+                        width: 70.0,
+                        height: 70.0,
+//                  fit: BoxFit.contain,
+                        image: new AssetImage("assets/waiting.gif"))),
+                Flexible(child: Text('Please Wait...', style: TextStyle(
+                    fontSize: 17.0, fontWeight: FontWeight.w500
+                ),))
+              ],
+            ),
+          ),
+        );});
+
+  }
+
   void dialogResult(){
 //    print('button pressed');
-    for(int i = 0; i < 6; i++)
+    for(int i = 0; i < 7; i++)
       Navigator.of(context).pop();
 
   }
