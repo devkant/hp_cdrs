@@ -45,7 +45,7 @@ class _ListviewState extends State<Listview> {
     });
     String display;
     for(int i=0;i<appli.length;i++){
-      if(appli[i]["mo"]==null && appli[i]["anm"]!=null){
+      if(appli[i]["moAssigned"]==null && appli[i]["anm"]!=null){
         pending.add(appli[i]);
       }
 

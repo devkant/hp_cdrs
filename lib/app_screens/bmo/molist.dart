@@ -205,9 +205,12 @@ class Show extends StatelessWidget {
             'application' : appliNumber.toString(),
             'username'  : user.username.toString(),
           };
-          assignRequest(data);
-
-          Navigator.push(context, MaterialPageRoute(builder: (context) => BMOhomepage()));
+            assignRequest(data);
+            int i=3;
+            while(i>0){
+              Navigator.pop(context);
+              i-=1;
+            }
           },
         icon : Icon(Icons.account_circle,),
         label: Text("Assign "),

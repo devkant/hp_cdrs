@@ -92,9 +92,12 @@ class _ListviewState extends State<Listview> {
                   ),),
                 subtitle: Text("Asha :  ${Appli104[index]['ashaName']}"),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => DetailPage(Appli104[index]))
-                  );
+                  setState(() {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => DetailPage(Appli104[index]))
+                    );
+                  });
+
                 },
               );
 
