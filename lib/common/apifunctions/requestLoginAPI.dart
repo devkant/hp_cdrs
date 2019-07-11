@@ -28,6 +28,7 @@ Future<LoginModel> requestLoginAPI(BuildContext context, String username, String
     print("success");
 
     saveCurrentLogin(responseJson);
+    Navigator.of(context).pop();                        //for waiting dialog
     Navigator.pushReplacement(
         context,
         new MaterialPageRoute(
