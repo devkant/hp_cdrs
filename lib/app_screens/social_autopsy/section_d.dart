@@ -103,7 +103,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
           form.save();
           User child = widget.user;
           var data = createMap(child);
-          sendData('http://13.126.72.137/api/test', data).then((status) {
+          sendData('http://13.235.43.83/api/test', data).then((status) {
             if (status) {
               showAlert('Form submitted successfully!', 'Sent!');
             }

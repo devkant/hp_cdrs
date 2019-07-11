@@ -36,7 +36,7 @@ class _ListviewState extends State<Listview> {
   Future getData() async {
     final token = await getToken();
 
-    http.Response response = await http.get("http://13.126.72.137/api/104ByBlock",
+    http.Response response = await http.get("http://13.235.43.83/api/104ByBlock",
       headers: {
         'authToken': token
       }
@@ -57,7 +57,9 @@ class _ListviewState extends State<Listview> {
   @override
   void initState() {
     super.initState();
-    getData();
+    setState(() {
+      getData();
+    });
 
   }
 
@@ -66,30 +68,42 @@ class _ListviewState extends State<Listview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView.builder(
+        body: Appli104.isEmpty?
+        Center(
+          child: Text('No Application',
+            style: TextStyle(fontSize: 20.0,
+              color: Colors.black,
+            ),
+          ),
+        ):ListView.builder(
 
           itemCount: Appli104 == null ? 0 : Appli104.length,
           itemBuilder: (BuildContext context, int index) {
-            return ListTile(
+              return ListTile(
 
 
-              trailing: CircleAvatar(
-                backgroundImage: AssetImage("assets/hpgovt.png"),
-              ),
-              title: Text("${Appli104[index]["application"]}",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w700,
-                ),),
-              subtitle: Text("Asha :  ${Appli104[index]['ashaName']}"),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => DetailPage(Appli104[index]))
-                );
-              },
-            );
+                trailing: CircleAvatar(
+                  backgroundImage: AssetImage("assets/hpgovt.png"),
+                ),
+                title: Text("${Appli104[index]["application"]}",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w700,
+                  ),),
+                subtitle: Text("Asha :  ${Appli104[index]['ashaName']}"),
+                onTap: () {
+                  setState(() {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => DetailPage(Appli104[index]))
+                    );
+                  });
+
+                },
+              );
+
           },
         )
+
     );
   }
 }

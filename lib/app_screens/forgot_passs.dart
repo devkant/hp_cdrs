@@ -90,7 +90,7 @@ class ForgotPassState extends State<ForgotPass> {
                             showSnackBar('Please check your inbox for password reset link');
                             setState(() {
                               Map data = {'email': emailController.text};
-                              sendData('http://13.126.72.137/api/test', data);
+                              sendData('http://13.235.43.83/api/test', data);
 //                              Navigator.pop(context, snackBarMessage);
                             });
                           }

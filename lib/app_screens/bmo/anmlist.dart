@@ -14,7 +14,7 @@ class Anmlist extends StatefulWidget {
 }
 
 class _AnmlistState extends State<Anmlist> {
-  final String uri = 'http://13.126.72.137/api/anmByBlock';
+  final String uri = 'http://13.235.43.83/api/anmByBlock';
 
   Future<List<Users>> _fetchUsers() async {
     final token = await getToken();
@@ -208,8 +208,12 @@ class Show extends StatelessWidget {
 
             };
           assignRequest(data);
+          int i=3;
+          while(i>0){
+            Navigator.pop(context);
+            i-=1;
+          }
 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => BMOhomepage()));
           },
         icon : Icon(Icons.account_circle,),
         label: Text("Assign "),
@@ -221,7 +225,7 @@ class Show extends StatelessWidget {
 
 Future<bool>  assignRequest(Map data) async {
   final token = await getToken();
-  var request = await http.post('http://13.126.72.137/api/assignanm',
+  var request = await http.post('http://13.235.43.83/api/assignanm',
     body: data,
     headers: {
       'authToken': token,
