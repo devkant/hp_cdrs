@@ -235,7 +235,7 @@ class _hpFormState extends State<hpForm> {
                         var data  = {
                           'name': newEntry.name,
                           'district' :  newEntry.district,
-                          'block' : "HAMIRPUR",
+                          'block' : newEntry.block,
                           'address':  newEntry.address,
                           'ashaName':newEntry.ashaName,
                         };
