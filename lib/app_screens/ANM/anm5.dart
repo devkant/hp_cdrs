@@ -267,33 +267,37 @@ class _Form5State extends State<Form5> {
                         if (_formKey.currentState.validate()) {
                           if(submission == true) {
 
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Alert"),
-                                    content: Text("The form has been submitted"),
-                                  );
-                                }
-                            );
+//                            showDialog(
+//                                context: context,
+//                                builder: (BuildContext context) {
+//                                  return AlertDialog(
+//                                    title: Text("Alert"),
+//                                    content: Text("The form has been submitted"),
+//                                  );
+//                                }
+//                            );
 
                             final form = _formKey.currentState;
                             form.save();
                             var data  = createMap(widget.user);
                             print(data);
+                            showWaiting();
 
                             sendData('http://13.235.43.83/api/fbi',data).then((status){
                               print(status);
                               if(status) {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        ANMStatus()));
+                                showAlert('Form submitted successfully!', 'Sent');
+//                                Navigator.of(context).push(MaterialPageRoute(
+//                                    builder: (BuildContext context) =>
+//                                        ANMStatus()));
                               }
                               else{
                                 writeToFile(data);
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        ANMStatus()));
+                                showAlert('Form saved in offline mode. Please do not close'
+                                    ' the app until connected to the internet.', 'Saved');
+//                                Navigator.of(context).push(MaterialPageRoute(
+//                                    builder: (BuildContext context) =>
+//                                        ANMStatus()));
                               }
 
 
@@ -316,6 +320,59 @@ class _Form5State extends State<Form5> {
         ),
       ),
     );
+  }
+
+  void showAlert(String value, String dialogTitle){
+
+    AlertDialog dialog = AlertDialog(
+      title: Text(dialogTitle, textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 20.0),),
+      content: Text(value, textAlign: TextAlign.justify,),
+      actions: <Widget>[
+        FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
+      ],
+    );
+    showDialog(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return dialog;});
+  }
+
+  void showWaiting(){
+
+    AlertDialog dialog = AlertDialog(
+//      content: Text('Please Wait...', textAlign: TextAlign.center,),
+//      contentPadding: EdgeInsets.only(left: 0.0, right: 15.0, top: 15.0, bottom: 15.0),
+    );
+    showDialog(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return Dialog(
+//          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            height: 80.0,
+            width: 90.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child:Image(
+                        width: 70.0,
+                        height: 70.0,
+//                  fit: BoxFit.contain,
+                        image: new AssetImage("assets/waiting.gif"))),
+                Flexible(child: Text('Please Wait...', style: TextStyle(
+                    fontSize: 17.0, fontWeight: FontWeight.w500
+                ),))
+              ],
+            ),
+          ),
+        );});
+
+  }
+
+  void dialogResult(){
+//    print('button pressed');
+    for(int i = 0; i < 7; i++)
+      Navigator.of(context).pop();
+
   }
 
   void _showSnackBar(message) {
