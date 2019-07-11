@@ -198,10 +198,12 @@ class _verbalAutopsy5YrSec3State
                             if(_formKey.currentState.validate() && knowledgeCheck  ==  true){
                               _formKey.currentState.save();
 
+                              showWaiting();
+
                               User child  = widget.userObj;
                               var data  = createMap(child);
 
-                              sendData('http://13.126.72.137/api/postNeonate',data).then((status){
+                              sendData('http://13.235.43.83/api/postNeonate',data).then((status){
                                 print(status);
                                 if(status) {
                                   showAlert('Form submitted successfully!', 'Sent');
@@ -228,7 +230,9 @@ class _verbalAutopsy5YrSec3State
 
   void dialogResult(){
 //    print('button pressed');
-    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+//    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+  for(int i = 0; i < 10; i++)
+    Navigator.of(context).pop();
   }
 
   void showAlert(String value, String dialogTitle){
@@ -243,6 +247,39 @@ class _verbalAutopsy5YrSec3State
     );
     showDialog(barrierDismissible: false, context: context,
         builder: (BuildContext context){return dialog;});
+  }
+
+  void showWaiting(){
+
+    AlertDialog dialog = AlertDialog(
+//      content: Text('Please Wait...', textAlign: TextAlign.center,),
+//      contentPadding: EdgeInsets.only(left: 0.0, right: 15.0, top: 15.0, bottom: 15.0),
+    );
+    showDialog(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return Dialog(
+//          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            height: 80.0,
+            width: 90.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Flexible(child:
+                Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child:Image(
+                        width: 70.0,
+                        height: 70.0,
+//                  fit: BoxFit.contain,
+                        image: new AssetImage("assets/waiting.gif")))),
+                Flexible(child: Text('Please Wait...', style: TextStyle(
+                    fontSize: 17.0, fontWeight: FontWeight.w500
+                ),))
+              ],
+            ),
+          ),
+        );});
+
   }
 
   void showSnackBar(String message){

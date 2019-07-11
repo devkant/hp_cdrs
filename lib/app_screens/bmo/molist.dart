@@ -13,7 +13,7 @@ class Molist extends StatefulWidget {
 }
 
 class _MolistState extends State<Molist> {
-  final String uri = 'http://13.126.72.137/api/moByBlock';//provide the url for mo list now it is given
+  final String uri = 'http://13.235.43.83/api/moByBlock';//provide the url for mo list now it is given
   // for anm.
 
   Future<List<Users>> _fetchUsers() async {
@@ -205,9 +205,12 @@ class Show extends StatelessWidget {
             'application' : appliNumber.toString(),
             'username'  : user.username.toString(),
           };
-          assignRequest(data);
-
-          Navigator.push(context, MaterialPageRoute(builder: (context) => BMOhomepage()));
+            assignRequest(data);
+            int i=3;
+            while(i>0){
+              Navigator.pop(context);
+              i-=1;
+            }
           },
         icon : Icon(Icons.account_circle,),
         label: Text("Assign "),
@@ -219,7 +222,7 @@ class Show extends StatelessWidget {
 
 Future<bool>  assignRequest(Map data) async {
   final token = await getToken();
-  var request = await http.post('http://13.126.72.137/api/test',
+  var request = await http.post('http://13.235.43.83/api/assignmo',
       body: data,
       headers: {
         'authToken': token,

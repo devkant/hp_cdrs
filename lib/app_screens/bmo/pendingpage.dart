@@ -34,7 +34,7 @@ class _ListviewState extends State<Listview> {
 
   Future getData() async {
     final token = await getToken();
-    http.Response response = await http.get("http://13.126.72.137/api/104ByBlock",
+    http.Response response = await http.get("http://13.235.43.83/api/104ByBlock",
       headers: {
         'authToken':  token
       }
@@ -45,7 +45,7 @@ class _ListviewState extends State<Listview> {
     });
     String display;
     for(int i=0;i<appli.length;i++){
-      if(appli[i]["mo"]==null && appli[i]["anm"]!=null){
+      if(appli[i]["moAssigned"]==null && appli[i]["anm"]!=null){
         pending.add(appli[i]);
       }
 
@@ -55,7 +55,9 @@ class _ListviewState extends State<Listview> {
   @override
   void initState() {
     super.initState();
-    getData();
+    setState(() {
+      getData();
+    });
 
   }
 
@@ -64,13 +66,18 @@ class _ListviewState extends State<Listview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView.builder(
+        body: pending.isEmpty?
+        Center(
+          child: Text('No Application',
+            style: TextStyle(fontSize: 20.0,
+              color: Colors.black,
+            ),
+          ),
+        ):ListView.builder(
 
           itemCount: pending == null ? 0 : pending.length,
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
-
-
               trailing: CircleAvatar(
                 backgroundImage: AssetImage("assets/hpgovt.png"),
               ),

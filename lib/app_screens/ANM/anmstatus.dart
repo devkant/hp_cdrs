@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/common/widgets/basicDrawer.dart';
 import 'package:hp_cdrs/app_screens/ANM/anm1.dart';
+import 'previousFormANM.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -28,9 +29,16 @@ class ANMStatus extends StatefulWidget {
 }
 
 class _ANMStatusState extends State<ANMStatus> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  Future<bool> onBackPress() async{
-    return false;
+  Future<bool> onBackPress(){
+    if(_scaffoldKey.currentState.isDrawerOpen == false) {
+      _scaffoldKey.currentState.openDrawer();
+      return Future.value(false);
+    }
+    else if(_scaffoldKey.currentState.isDrawerOpen == true){
+      return Future.value(true);
+    }
   }
 
   final user  = User();
@@ -72,7 +80,7 @@ class _ANMStatusState extends State<ANMStatus> {
         var temp  = json.decode(jsonList[i]);
         entries.add(temp);
         print(temp);
-        sendData('http://13.126.72.137/api/fbi',temp).then((status) {
+        sendData('http://13.235.43.83/api/fbi',temp).then((status) {
           if (status == true) {
             if(i==(jsonList.length-1) && !isOffline){
               clearFile();
@@ -117,6 +125,7 @@ class _ANMStatusState extends State<ANMStatus> {
     if(fileExists){
       jsonFile.writeAsStringSync('');
     }
+    entries.clear();
   }
 
   @override
@@ -126,23 +135,48 @@ class _ANMStatusState extends State<ANMStatus> {
     return WillPopScope(
       onWillPop : onBackPress,
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title:  Text('ANM Saved Forms'),
         ),
         drawer: BasicDrawer(),
-        body: ListView.builder(
-            itemCount: entries.length,
-            itemBuilder: (BuildContext  context,  int index)  {
-              return  Card(
-                child: ListTile(
-                  title: Text("Name: "+entries[index]['name']),
-                  leading: Icon(Icons.contacts),
-                ),
-              );
-            }
+        body: Column(
+          children: <Widget>[
+            RaisedButton(
+              child: Text('Show Previous Filled Forms'),
+              textColor: Colors.white,
+              color: Colors.orange,
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PreviousForm()));
+              },
+            ),
+            RaisedButton(
+              child: Text('Clear Saved Forms'),
+              textColor: Colors.white,
+              color: Colors.red,
+              onPressed: (){
+                setState(() {
+                  clearFile();
+                });
+                },
+            ),
+            Flexible(
+              child: ListView.builder(
+                  itemCount: entries.length,
+                  itemBuilder: (BuildContext  context,  int index)  {
+                    return  Card(
+                      child: ListTile(
+                        title: Text("Name: "+entries[index]['name']),
+                        leading: Icon(Icons.contacts),
+                      ),
+                    );
+                  }
+              ),
+            )
+          ],
         ),
         floatingActionButton: FloatingActionButton.extended(
-          label: Text("New Form"),
+          label: Text("Fill New Form"),
           icon: Icon(Icons.add),
           tooltip: 'Add new Entry',
           onPressed: () {
@@ -158,6 +192,7 @@ class _ANMStatusState extends State<ANMStatus> {
         ),
 
       ),
+
     );
   }
 }
