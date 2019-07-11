@@ -55,7 +55,9 @@ class _ListviewState extends State<Listview> {
   @override
   void initState() {
     super.initState();
-    getData();
+    setState(() {
+      getData();
+    });
 
   }
 
@@ -64,13 +66,18 @@ class _ListviewState extends State<Listview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView.builder(
+        body: pending.isEmpty?
+        Center(
+          child: Text('No Application',
+            style: TextStyle(fontSize: 20.0,
+              color: Colors.black,
+            ),
+          ),
+        ):ListView.builder(
 
           itemCount: pending == null ? 0 : pending.length,
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
-
-
               trailing: CircleAvatar(
                 backgroundImage: AssetImage("assets/hpgovt.png"),
               ),

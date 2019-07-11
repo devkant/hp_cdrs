@@ -54,7 +54,9 @@ class _ListviewState extends State<Listview> {
   @override
   void initState() {
     super.initState();
-    getData();
+    setState(() {
+      getData();
+    });
 
   }
 
@@ -62,29 +64,38 @@ class _ListviewState extends State<Listview> {
 
   @override
   Widget build(BuildContext context) {
+    print(completed);
     return Scaffold(
-        body: ListView.builder(
-
+        body: completed.isEmpty?
+            Center(
+        child: Text('No Application',
+          style: TextStyle(fontSize: 20.0,
+            color: Colors.black,
+          ),
+        ),
+      ):
+      ListView.builder(
           itemCount: completed == null ? 0 : completed.length,
           itemBuilder: (BuildContext context, int index) {
-            return ListTile(
+
+              return ListTile(
 
 
-              trailing: CircleAvatar(
-                backgroundImage: AssetImage("assets/hpgovt.png"),
-              ),
-              title: Text("${completed[index]["application"]}",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w700,
-                ),),
-              subtitle: Text("Medical Officer :  ${completed[index]['mo']}"),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => DetailPage(completed[index]))
-                );
-              },
-            );
+                trailing: CircleAvatar(
+                  backgroundImage: AssetImage("assets/hpgovt.png"),
+                ),
+                title: Text("${completed[index]["application"]}",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w700,
+                  ),),
+                subtitle: Text("Medical Officer :  ${completed[index]['mo']}"),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => DetailPage(completed[index]))
+                  );
+                },
+              );
           },
         )
     );
