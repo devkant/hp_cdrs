@@ -129,7 +129,18 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
     }
   }
 
+  void showAlert(String value) {
 
+    AlertDialog dialog = AlertDialog(
+      content: Text(value, textAlign: TextAlign.justify,),
+      actions: <Widget>[
+        FlatButton(onPressed:(){ clearFile(); entries.clear(); Navigator.of(context).pop(); }, child: Text('Yes')),
+        FlatButton(onPressed:(){Navigator.of(context).pop();}, child: Text('No')),
+      ],
+    );
+    showDialog(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return dialog;}).then((_)=>setState((){}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,9 +166,7 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
             textColor: Colors.white,
             color: Colors.red,
             onPressed: (){
-              setState(() {
-                clearFile();
-              });
+              showAlert('Are you sure?');
             },
           ),
           Flexible(
