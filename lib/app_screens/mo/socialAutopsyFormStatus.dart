@@ -100,9 +100,21 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
 //            Dashboard()));
 //  }
 
+  void showAlert(String value) {
+
+    AlertDialog dialog = AlertDialog(
+      content: Text(value, textAlign: TextAlign.justify,),
+      actions: <Widget>[
+        FlatButton(onPressed:(){ clearFile(); entries.clear(); Navigator.of(context).pop(); }, child: Text('Yes')),
+        FlatButton(onPressed:(){Navigator.of(context).pop();}, child: Text('No')),
+      ],
+    );
+    showDialog(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return dialog;}).then((_)=>setState((){}));
+  }
+
   @override
   Widget build(BuildContext context) {
-
 
     return  Scaffold(
         appBar: AppBar(
@@ -116,9 +128,7 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
               textColor: Colors.white,
               color: Colors.red,
               onPressed: (){
-                setState(() {
-                  clearFile();
-                });
+                  showAlert('Are you sure?');
               },
             ),
             Flexible(
@@ -135,7 +145,6 @@ class _SocialAutopsyFormStatusState extends State<SocialAutopsyFormStatus> {
               ),
             ),
           ],
-
         ),
         floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.add),
