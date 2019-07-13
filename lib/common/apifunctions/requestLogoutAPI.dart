@@ -20,11 +20,11 @@ Future<LoginModel> requestLogoutAPI(BuildContext context) async {
     },
   );
 
-  if (response.statusCode == 200) {
+  if (response.statusCode == 200){
     await saveLogout();
     return null;
   } else {
-    saveLogout();
+    await saveLogout();
     return null;
   }
 }

@@ -11,11 +11,9 @@ class BasicDrawer extends StatefulWidget {
 }
 
 class _BasicDrawerState extends State<BasicDrawer>  {
-  String _name  = '';
 
   @override
   void initState() {
-    getName().then(_updateName);
     super.initState();
     
   }
@@ -47,26 +45,15 @@ class _BasicDrawerState extends State<BasicDrawer>  {
             color: Colors.black, fontSize: 20.0),),
           onTap: () async{
             requestLogoutAPI(context);
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => LoginPage()));
+//            Navigator.pushReplacement(context,
+//                MaterialPageRoute(builder: (BuildContext ctx) => LoginPage()));
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
           },
         ),
       ],
       ),
     );
   }
-
-  void  _updateName(String value)  {
-    setState(() {
-      this._name  = value;
-    });
-  }
-}
-
-
-Future<String> getName()  async{
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String  name  = prefs.getString("role");
-  return  name;
 }
 

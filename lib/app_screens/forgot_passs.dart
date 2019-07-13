@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
+import 'package:http/http.dart' as  http;
+import 'package:hp_cdrs/common/functions/getToken.dart';
 
 void main() => runApp(MyApp());
 
@@ -89,9 +91,16 @@ class ForgotPassState extends State<ForgotPass> {
                             form.save();
                             showSnackBar('Please check your inbox for password reset link');
                             setState(() {
-                              Map data = {'email': emailController.text};
-                              sendData('http://13.235.43.83/api/test', data);
-//                              Navigator.pop(context, snackBarMessage);
+                              Map data = {'email': emailController.toString()};
+                              sendRequest(data).then((status){
+                                if(status){
+                                  showSnackBar('Please check your inbox for password reset link');
+                                }
+                                else{
+                                  showSnackBar('No Internet Connection!');
+                                }
+                              });
+    
                             });
                           }
                         },
@@ -102,8 +111,9 @@ class ForgotPassState extends State<ForgotPass> {
               ),
             )));
   }
-
-
+  
+  
+  
   void showSnackBar(String message){
     var snackBar = SnackBar(
 //      backgroundColor: Colors.blue,
@@ -114,6 +124,18 @@ class ForgotPassState extends State<ForgotPass> {
       ),
     );
     _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+}
+
+Future<bool>  sendRequest(Map data) async {
+  var request = await http.post('http://13.235.43.83/api/',
+      body: data,
+  );
+  if(request.statusCode==200){
+    return true;
+  }
+  else{
+    return false;
   }
 }
 

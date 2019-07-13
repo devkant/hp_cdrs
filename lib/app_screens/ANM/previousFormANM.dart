@@ -35,16 +35,20 @@ class Appli{
 
 Future<List<Appli>> loadAppli() async{
   final token = await getToken();
-  var response = await http.get('http://13.235.43.83/api/test',
+  var response = await http.get('http://13.235.43.83/api/anmPreviousForms',
       headers: {
         'authToken': token,
       }
   );
+  print(response.statusCode);
   if(response.statusCode==200){
-    final items = json.decode(response.body).cast<Map<String,dynamic>>();
+    final json  = jsonDecode(response.body);
+    print(json);
+    final items = json.decode(json['docs']).cast<Map<String,dynamic>>();
     List  <Appli> listOfAppli = items.map<Appli>((json) {
       return Appli.fromJson(json);
     }).toList();
+    print(listOfAppli);
     return  listOfAppli;
   }
   else{

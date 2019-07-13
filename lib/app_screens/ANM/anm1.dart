@@ -31,6 +31,8 @@ class _ANMWorkerState extends State<ANMWorker> {
     widget.user.bplCard = dropdownBPL[0];
     widget.user.growthCurve = growthCurve[0];
     widget.user.pastIllness = dropdownPastIllness[0];
+    widget.user.address.district = null;
+    widget.user.address.block = null;
 
   }
 

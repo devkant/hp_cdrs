@@ -228,14 +228,14 @@ class _hpFormState extends State<hpForm> {
                         Child newEntry  = new Child(
                           childNameController.text.toString(),
                           this._currentSelectedDistrict.toString(),
-                          ashaBlockController.text.toString(),
+                          block.toString(),
                           addressController.text.toString(),
                           phnNumberController.text.toString(),
                         );
                         var data  = {
                           'name': newEntry.name,
                           'district' :  newEntry.district,
-                          'block' : "HAMIRPUR",
+                          'block' : newEntry.block,
                           'address':  newEntry.address,
                           'ashaName':newEntry.ashaName,
                         };

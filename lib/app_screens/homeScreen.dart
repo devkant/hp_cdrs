@@ -9,6 +9,7 @@ import 'package:hp_cdrs/app_screens/asha_worker/asha_home.dart';
 import 'package:hp_cdrs/app_screens/bmo/bmohomepage.dart';
 import 'package:hp_cdrs/app_screens/mo/dashboard.dart';
 import 'package:hp_cdrs/app_screens/ANM/anmstatus.dart';
+import 'package:hp_cdrs/common/functions/logoutAuth.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _saveCurrentRoute("/HomeScreen");
+
   }
 
   _saveCurrentRoute(String lastRoute) async {
