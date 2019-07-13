@@ -28,7 +28,6 @@ class Appli{
         appliNumber:  parsedJson['appliNumber'],
         name: parsedJson['name'],
         address:  parsedJson['address']
-
     );
   }
 }
@@ -41,6 +40,7 @@ Future<List<Appli>> loadAppli() async{
       }
   );
   print(response.statusCode);
+  print(response.body);
   if(response.statusCode==200){
     final json  = jsonDecode(response.body);
     print(json);
