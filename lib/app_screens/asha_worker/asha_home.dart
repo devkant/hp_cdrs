@@ -8,6 +8,7 @@ import 'package:hp_cdrs/model/classes/class_asha.dart';
 import 'package:hp_cdrs/app_screens/asha_worker/asha_page.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
+import '104previousForms.dart';
 
 
 void  main(){
@@ -159,7 +160,10 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
             child: Text('Show Previous Filled Forms'),
             textColor: Colors.white,
             color: Colors.orange,
-            onPressed: (){},
+            onPressed: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder:(BuildContext  context)  =>  PreviousForm()));
+            },
           ),
           RaisedButton(
             child: Text('Clear Saved Forms'),

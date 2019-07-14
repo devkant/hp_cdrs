@@ -124,7 +124,11 @@ class PreviousFormState extends State<PreviousForm> {
                                         style: TextStyle(fontSize: 18.0,decoration: TextDecoration.underline),
 
                                       ),
-                                      onTap: (){},
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => Show(user.appliNumber,'previous'))
+                                        );
+                                      },
 
                                     ),
                                   ),
@@ -170,18 +174,19 @@ class PreviousFormState extends State<PreviousForm> {
 
 
 class Show extends StatefulWidget {
-  String  appliNumber;
-  Show(this.appliNumber);
+  final String  appliNumber;
+  final String  url;
+  Show(this.appliNumber,this.url);
   @override
   ShowState createState() => ShowState();
 }
 
 class ShowState extends State<Show> {
-  final String url  = 'http://13.235.43.83/api/test';
 
   Future<List<dynamic>>  getData() async {
+    final String Url  = 'http://13.235.43.83/api/'+widget.url;
     final token = await getToken();
-    var response = await http.get(url,
+    var response = await http.get(Url,
         headers: {
           'authToken' : token,
           'applicationNumber': widget.appliNumber

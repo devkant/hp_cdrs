@@ -151,7 +151,13 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
     return FutureBuilder(
       future: getAppliNumber(),
       builder: (BuildContext  context,AsyncSnapshot<String> snapshot) {
-        if(snapshot.hasData){
+        String app;
+        if(snapshot.hasData && snapshot.data!=null){
+          app = snapshot.data;
+        }
+        else{
+          app = 'No Application';
+        }
           return  Scaffold(
             appBar: AppBar(
               title:  Text('Neonate Saved Forms'),
@@ -167,7 +173,7 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
                     fontSize: 20.0
                   ),
                 ),
-                Text('${_appliNumber}',
+                Text('${app}',
                   style: TextStyle(
                     fontSize: 20.0
                   ),
@@ -218,7 +224,6 @@ class _neoFormsStatusState extends State<neoFormsStatus> {
             ),
 
           );
-        }
       },
     );
   }

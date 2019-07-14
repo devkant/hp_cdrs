@@ -18,21 +18,44 @@ class _BasicDrawerState extends State<BasicDrawer>  {
     
   }
 
+  Future<String>  getInfo() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    final name  = preferences.getString('LastUser');
+
+    return  name;
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(children: <Widget>[
-        UserAccountsDrawerHeader(
-          accountName: Text('Hello',
-            style: TextStyle(
-              fontSize: 20.0
-            ),
-          ),
-          currentAccountPicture: CircleAvatar(
-            backgroundImage: AssetImage("assets/hpgovt.png"),
-          ),
+        FutureBuilder<String>(
+          future: getInfo(),
+          builder: (BuildContext context,AsyncSnapshot snapshot){
+            switch(snapshot.connectionState){
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+                return  Text('Loading...');
+              default:
+                if (snapshot.hasError)
+                  return new Text('Error: ${snapshot.error}');
+                else
+                  return UserAccountsDrawerHeader(
+                    accountName: Text('Hello ${snapshot.data} !',
+                      style: TextStyle(
+                          fontSize: 20.0
+                      ),
+                    ),
+                    currentAccountPicture: CircleAvatar(
+                      backgroundImage: AssetImage("assets/hpgovt.png"),
+                    ),
+                  );
+            }
+          },
         ),
+
         ListTile(title: Text("About", style: TextStyle(
             color: Colors.black, fontSize: 20.0),),
           onTap: () {
