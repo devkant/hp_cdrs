@@ -283,7 +283,7 @@ class _Form5State extends State<Form5> {
                             print(data);
                             showWaiting();
 
-                            sendData('http://13.235.43.83/api/test',data).then((status){
+                            sendData('http://13.235.43.83/api/fbi',data).then((status){
                               print(status);
                               if(status) {
                                 showAlert('Form submitted successfully!', 'Sent');
