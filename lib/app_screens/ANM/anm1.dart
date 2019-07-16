@@ -13,7 +13,8 @@ import 'anm2.dart';
 class ANMWorker extends StatefulWidget {
 
   User user = User();
-  ANMWorker({Key key,@ required this.user}):super(key:key);
+  final String appliNumber;
+  ANMWorker({Key key,@ required this.user, this.appliNumber}):super(key:key);
 
   @override
   _ANMWorkerState createState() => _ANMWorkerState();
@@ -61,7 +62,7 @@ class _ANMWorkerState extends State<ANMWorker> {
 //  var pastIllness = 'No';
 //  var immunization = List();
 
-  var _districtName = ['BILASPUR', 'CHAMBA', 'HAMIRPUR', 'KANGRA', 'KINNAUR','KULLU', 'LAHUL AND SPITI', 'MANDI', 'SHIMLA', 'SIRMOUR', 'SOLAN', 'UNA'];
+  var _districtName = ['BILASPUR', 'CHAMBA', 'HAMIRPUR', 'KANGRA', 'KINNAUR','KULLU', 'LAHAUL AND SPITI', 'MANDI', 'SHIMLA', 'SIRMOUR', 'SOLAN', 'UNA'];
 
   var _bilaspurBlocks = ["SADAR","GHUMARWIN","JHANDUTTA"];
 
@@ -139,6 +140,7 @@ class _ANMWorkerState extends State<ANMWorker> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
+                    initialValue: widget.appliNumber,
                     onSaved: (String value) {widget.user.applicationNumber = value;},
                     validator: (String value) {
                       if(value.isEmpty)
@@ -718,7 +720,7 @@ class _ANMWorkerState extends State<ANMWorker> {
             blocksDropDownFun(_kulluBlocks);
           break;
 
-        case 'LAHUL AND SPITI':
+        case 'LAHAUL AND SPITI':
           return
             blocksDropDownFun(_lahulBlocks);
           break;
