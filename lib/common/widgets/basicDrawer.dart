@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hp_cdrs/common/apifunctions/requestLogoutAPI.dart';
 import 'package:hp_cdrs/app_screens/loginPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hp_cdrs/app_screens/about.dart';
 
 
 class BasicDrawer extends StatefulWidget {
@@ -60,6 +61,10 @@ class _BasicDrawerState extends State<BasicDrawer>  {
             color: Colors.black, fontSize: 20.0),),
           onTap: () {
             SystemChannels.textInput.invokeMethod('TextInput.hide');
+            Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (BuildContext  context)  =>  About())
+            );
 //              Here I have not implemented an actual about screen, but if you did you would navigate to it's route
 //              Navigator.of(context).pushReplacementNamed('/AboutScreen');
           },
