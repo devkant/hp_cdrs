@@ -53,7 +53,7 @@ class AboutState extends State<About> {
                             ' of the following students of IIIT Una '
                             'and NIT Hamirpur -\n\n\n'
                             '1. Dev Kant Kumar Chouhan\n\n'
-                            '2. Amol Baapde Singhaniya\n\n'
+                            '2. Amol Singhaniya\n\n'
                             '3. Aryan Verma\n\n'
                             '4. Meet Vyas\n\n'
                             '5. Rohit Kumar', style: TextStyle(fontSize: 18.0),
