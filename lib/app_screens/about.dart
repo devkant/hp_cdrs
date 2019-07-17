@@ -48,15 +48,15 @@ class AboutState extends State<About> {
                             borderRadius: BorderRadius.circular(10.0)),
                         child: Padding(
                           padding: EdgeInsets.all(15.0),
-                        child: Text('This application has been developed'
-                            ' and is currently being maintained by a team'
-                            ' of the following students of IIIT Una '
-                            'and NIT Hamirpur -\n\n\n'
-                            '1. Dev Kant Kumar Chouhan\n\n'
-                            '2. Amol Singhaniya\n\n'
-                            '3. Aryan Verma\n\n'
-                            '4. Meet Vyas\n\n'
-                            '5. Rohit Kumar', style: TextStyle(fontSize: 18.0),
+                        child: Text('Child Death Review (CDR) is a strategy to '
+                            'understand the geographical variation in causes of '
+                            'child deaths and thereby initiating specific child '
+                            'health interventions. Analysis of child deaths '
+                            'provides information about the medical causes of '
+                            'death, helps to identify the gaps in health '
+                            'service delivery and social factors that '
+                            'contribute to child deaths. ',
+                          style: TextStyle(fontSize: 18.0),
                           textAlign: TextAlign.justify,)),
                       ),),
                   ],
