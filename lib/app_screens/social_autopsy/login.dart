@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
 
 class SocialAutopsyLogin extends StatefulWidget {
   final User user;
-  SocialAutopsyLogin({Key key, this.user}):super(key:key);
+  final String appliNumber;
+  SocialAutopsyLogin({Key key, this.user, this.appliNumber}):super(key:key);
   @override
   State createState() => SocialAutopsyLoginState();
 }
@@ -51,6 +52,7 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
                 Card(
                   margin: EdgeInsets.symmetric(vertical: 30.0),
                       child: TextFormField(
+                        initialValue: widget.appliNumber,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             labelText: 'Application Number',
