@@ -262,7 +262,7 @@ class _Form5State extends State<Form5> {
                       'Submit',
                       style: TextStyle(fontSize: 20.0, color: Colors.white),
                     ),
-                    onPressed: () {
+                    onPressed: () async{
                       setState(() {
                         if (_formKey.currentState.validate()) {
                           if(submission == true) {
@@ -283,7 +283,7 @@ class _Form5State extends State<Form5> {
                             print(data);
                             showWaiting();
 
-                            sendData('http://13.235.43.83/api/fbi',data).then((status){
+                            sendData('http://13.235.43.83/api/anmform',data).then((status){
                               print(status);
                               if(status) {
                                 showAlert('Form submitted successfully!', 'Sent');
@@ -370,7 +370,8 @@ class _Form5State extends State<Form5> {
 
   void dialogResult(){
 //    print('button pressed');
-    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+    Navigator.of(context).pushAndRemoveUntil
+      (MaterialPageRoute(builder:(BuildContext  context)  =>  ANMStatus()), (Route<dynamic> route) => false);
 
   }
 
