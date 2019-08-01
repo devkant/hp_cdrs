@@ -18,14 +18,14 @@ class User {
   var immunization = List();
 
   //form 2
-  int inabilityToFeed ;
-  int fever ;
-  int looseStools ;
-  int vomiting ;
-  int fastBreathing ;
-  int convulsions ;
-  int appearanceOfSkinRashes ;
-  int injury ;
+  var inabilityToFeed = 'Yes';
+  var fever = 'Yes';
+  var looseStools = 'Yes' ;
+  var vomiting = 'Yes' ;
+  var fastBreathing = 'Yes' ;
+  var convulsions = 'Yes' ;
+  var appearanceOfSkinRashes = 'Yes' ;
+  var injury = 'Yes' ;
   String otherSymptoms ;
 
   //form 3
