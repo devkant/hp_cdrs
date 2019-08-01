@@ -131,7 +131,6 @@ class Show extends StatefulWidget {
 }
 
 class ShowState extends State<Show> {
-
   Future<Map<String,dynamic>>  getData() async {
     final String Url  = 'http://13.235.43.83/api/'+widget.url+'/'+widget.appliNumber;
     final token = await getToken();

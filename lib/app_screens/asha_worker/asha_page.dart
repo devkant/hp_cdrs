@@ -349,7 +349,7 @@ class _hpFormState extends State<hpForm> {
             blocksDropDownFun(_kulluBlocks);
           break;
 
-        case 'LAHUL AND SPITI':
+        case 'LAHAUL AND SPITI':
           return
             blocksDropDownFun(_lahulBlocks);
           break;

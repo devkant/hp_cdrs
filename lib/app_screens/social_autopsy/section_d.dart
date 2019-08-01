@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hp_cdrs/app_screens/mo/dashboard.dart';
 import 'package:hp_cdrs/app_screens/social_autopsy/user.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
@@ -101,6 +102,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
           _showSnackBar('Please check the declaration');
         else {
           form.save();
+          showWaiting();
           User child = widget.user;
           var data = createMap(child);
           sendData('http://13.235.43.83/api/test', data).then((status) {
@@ -120,7 +122,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
   }
 
   void dialogResult(){
-    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder:(BuildContext  context)  =>  Dashboard()), (Route<dynamic> route) => false);
   }
 
   void showAlert(String value, String dialogTitle){
@@ -141,6 +143,38 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
       content: new Text(message),
     );
     _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+  void showWaiting(){
+
+    AlertDialog dialog = AlertDialog(
+//      content: Text('Please Wait...', textAlign: TextAlign.center,),
+//      contentPadding: EdgeInsets.only(left: 0.0, right: 15.0, top: 15.0, bottom: 15.0),
+    );
+    showDialog(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return Dialog(
+//          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            height: 80.0,
+            width: 90.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child:Image(
+                        width: 70.0,
+                        height: 70.0,
+//                  fit: BoxFit.contain,
+                        image: new AssetImage("assets/waiting.gif"))),
+                Flexible(child: Text('Please Wait...', style: TextStyle(
+                    fontSize: 17.0, fontWeight: FontWeight.w500
+                ),))
+              ],
+            ),
+          ),
+        );});
+
   }
 
   @override

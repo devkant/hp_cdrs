@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget{
 
 class verbalAutopsy5YrForm extends StatefulWidget {
   final User userObj;
-  verbalAutopsy5YrForm({Key key, @required this.userObj}):super(key: key);
+  final String appliNumber;
+  verbalAutopsy5YrForm({Key key, @required this.userObj, this.appliNumber}):super(key: key);
   @override
   State<StatefulWidget> createState() {
     return verbalAutopsy5YrFormState();
@@ -113,6 +114,7 @@ class verbalAutopsy5YrFormState extends State<verbalAutopsy5YrForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
+                        initialValue: widget.appliNumber,
                         keyboardType: TextInputType.numberWithOptions(),
                         onSaved: (value){widget.userObj.applicationNumber = value;},
                         validator: (String value) {

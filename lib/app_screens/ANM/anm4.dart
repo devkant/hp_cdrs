@@ -61,9 +61,14 @@ class _Form4State extends State<Form4> {
 
         "category_name": "Injury"},
 
+      {"category_id": "8", "category_name": "Preterm"},
+      {"category_id": "9", "category_name": "Birth asphyxia"},
+      {"category_id": "10", "category_name": "Infection"},
+      {"category_id": "11", "category_name": "Congenital Malformations"},
+
     ],
     "responseTotalResult":
-    8 // Total result is 3 here because we have 3 categories in responseBody.
+    12 // Total result is 3 here because we have 3 categories in responseBody.
   };
 
   @override
@@ -83,6 +88,7 @@ class _Form4State extends State<Form4> {
               child: Column(
                 children: <Widget>[
 
+                  /*
                   Row(
                     children: <Widget>[
 
@@ -115,6 +121,7 @@ class _Form4State extends State<Form4> {
 
                     ],
                   ),
+                  */
 
                   causesOfDeath(),
 
@@ -131,7 +138,7 @@ class _Form4State extends State<Form4> {
                       onPressed: () {
                         final FormState form = _formKey.currentState;
                         form.save();
-                        if(widget.user.probable == 'Yes' && widget.user.disease.isEmpty) {
+                        if(/*widget.user.probable == 'Yes' &&*/ widget.user.disease.isEmpty) {
                           _showSnackBar("Please check the checkbox to proceed");
                         }
                         else {
@@ -154,7 +161,7 @@ class _Form4State extends State<Form4> {
   }
 
   Widget causesOfDeath() {
-    if( widget.user.probable == 'Yes') {
+    if( /*widget.user.probable == 'Yes'*/ true) {
       return Column(
         children: <Widget>[
 
@@ -162,7 +169,7 @@ class _Form4State extends State<Form4> {
             children: <Widget>[
 
               Text(
-                "2.",
+                "1.",
                 style: TextStyle(fontSize: 18.0),
               ),
 
@@ -183,7 +190,7 @@ class _Form4State extends State<Form4> {
             children: <Widget>[
 
               Text(
-                "3.",
+                "2.",
                 style: TextStyle(fontSize: 18.0),
               ),
 
@@ -204,7 +211,7 @@ class _Form4State extends State<Form4> {
             children: <Widget>[
 
               Text(
-                "4.",
+                "3.",
                 style: TextStyle(fontSize: 18.0),
               ),
 
@@ -225,7 +232,7 @@ class _Form4State extends State<Form4> {
             children: <Widget>[
 
               Text(
-                "5.",
+                "4.",
                 style: TextStyle(fontSize: 18.0),
               ),
 
@@ -246,7 +253,7 @@ class _Form4State extends State<Form4> {
             children: <Widget>[
 
               Text(
-                "6.",
+                "5.",
                 style: TextStyle(fontSize: 18.0),
               ),
 
@@ -267,7 +274,7 @@ class _Form4State extends State<Form4> {
             children: <Widget>[
 
               Text(
-                "7.",
+                "6.",
                 style: TextStyle(fontSize: 18.0),
               ),
 
@@ -288,7 +295,7 @@ class _Form4State extends State<Form4> {
             children: <Widget>[
 
               Text(
-                "8.",
+                "7.",
                 style: TextStyle(fontSize: 18.0),
               ),
 
@@ -309,7 +316,70 @@ class _Form4State extends State<Form4> {
             children: <Widget>[
 
               Text(
-                "9. ",
+                "8.",
+                style: TextStyle(fontSize: 18.0),
+              ),
+
+              Expanded(
+                child:CheckboxListTile(
+                  value: widget.user.disease.contains(_categories['responseBody'][7]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][7]['category_name']);
+                    debugPrint('${widget.user.disease}');
+                  },
+                  title: Text(_categories['responseBody'][7]['category_name']),
+                ),
+              ),
+            ],
+          ),
+
+          Row(
+            children: <Widget>[
+
+              Text(
+                "9.",
+                style: TextStyle(fontSize: 18.0),
+              ),
+
+              Expanded(
+                child:CheckboxListTile(
+                  value: widget.user.disease.contains(_categories['responseBody'][8]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][8]['category_name']);
+                    debugPrint('${widget.user.disease}');
+                  },
+                  title: Text(_categories['responseBody'][8]['category_name']),
+                ),
+              ),
+            ],
+          ),
+
+          Row(
+            children: <Widget>[
+
+              Text(
+                "10.",
+                style: TextStyle(fontSize: 18.0),
+              ),
+
+              Expanded(
+                child:CheckboxListTile(
+                  value: widget.user.disease.contains(_categories['responseBody'][9]['category_name']),
+                  onChanged: (bool selected) {
+                    _onCategorySelected(selected,_categories['responseBody'][9]['category_name']);
+                    debugPrint('${widget.user.disease}');
+                  },
+                  title: Text(_categories['responseBody'][9]['category_name']),
+                ),
+              ),
+            ],
+          ),
+
+          Row(
+            children: <Widget>[
+
+              Text(
+                "11. ",
                 style: TextStyle(fontSize: 18.0),
               ),
 
