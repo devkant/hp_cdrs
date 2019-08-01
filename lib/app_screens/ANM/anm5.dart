@@ -37,8 +37,6 @@ class _Form5State extends State<Form5> {
 
   bool submission = false;
 
-  var dropdownPlaceOfDeath = ['Home', 'Transit', 'Hospital'];
-
   Map<String, dynamic> _categories = {
     "responseCode": "1",
     "responseText": "List categories.",
@@ -158,32 +156,6 @@ class _Form5State extends State<Form5> {
                     ),
                   ),
                 ), //Respondent Cause
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "2. Place of death: ",
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      DropdownButton<String>(
-                        items: dropdownPlaceOfDeath.map((String value1) {
-                          return DropdownMenuItem<String>(
-                            value: value1,
-                            child: Text(value1),
-                          );
-                        }).toList(),
-                        value: widget.user.placeOfDeath,
-                        onChanged: (String newValueSelected) {
-                          setState(() {
-                            this.widget.user.placeOfDeath = newValueSelected;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
 
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
@@ -470,7 +442,6 @@ class _Form5State extends State<Form5> {
       'disease': child.disease,
 
       // According to the respondent, cause of death
-      'placeOfDeath': child.placeOfDeath,
       'causeOfDeath': child.causeOfDeath,
 
       // Occurence of delay
