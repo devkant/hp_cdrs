@@ -39,6 +39,7 @@ class User {
   //form 5
   String causeOfDeath;
   String advice;
+  var placeOfDeath = 'Home';
   var delay = List();
 
 }
