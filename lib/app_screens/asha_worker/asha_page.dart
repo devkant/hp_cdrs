@@ -30,8 +30,11 @@ class _hpFormState extends State<hpForm> {
   bool isOffline = false;
 
   var _formKey = GlobalKey<FormState>();
+
+  var _deceasedSexList = ['Male', 'Female'];
+
   var _districtName = ['BILASPUR', 'CHAMBA', 'HAMIRPUR', 'KANGRA', 'KINNAUR',
-    'KULLU', 'LAHAUL AND SPITI', 'MANDI', 'SHIMLA', 'SIRMAUR', 'SOLAN', 'UNA'];
+    'KULLU', 'LAHAUL AND SPITI', 'MANDI', 'SHIMLA', 'SIRMOUR', 'SOLAN', 'UNA'];
 
   var _bilaspurBlocks = ["SADAR","GHUMARWIN","JHANDUTTA"];
 
@@ -67,9 +70,17 @@ class _hpFormState extends State<hpForm> {
 
   var _currentSelectedDistrict = null;
 
+  var _deceasedSex = '';
+
+  var _ageInDays = '';
+  var _ageInMonths = '';
+  var _ageInYears = '';
+
   @override
   void initState() {
     super.initState();
+
+    _deceasedSex = _deceasedSexList[0];
 
     ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
     _connectionChangeStream = connectionStatus.connectionChange.listen(connectionChanged);
@@ -87,9 +98,12 @@ class _hpFormState extends State<hpForm> {
 
 
   TextEditingController childNameController = TextEditingController();
+  TextEditingController fatherNameController = TextEditingController();
   TextEditingController ashaBlockController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController villageNameController = TextEditingController();
   TextEditingController phnNumberController = TextEditingController();
+  TextEditingController ashaNameController = TextEditingController();
 
   /*Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
@@ -118,8 +132,9 @@ class _hpFormState extends State<hpForm> {
           key: _formKey,
           child: Padding(
             padding: EdgeInsets.all(10.0),
-            child: ListView(
-              children: <Widget>[
+            child: SingleChildScrollView(
+              child:Column(
+                  children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
@@ -132,6 +147,156 @@ class _hpFormState extends State<hpForm> {
                     decoration: InputDecoration(
                         labelText: 'Name of the child',
                         hintText: 'Name of the child',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        )),
+                  ),
+                ),
+
+                Padding(
+                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                    child:Row(children: <Widget>[Text('Deceased\'s age:',
+                      style: TextStyle(fontSize: 18.0),)],)
+                ),
+
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: TextFormField(
+                            validator: (String val) {
+                              if (val.isEmpty || int.parse(val)>4) {
+                                return 'Please enter a valid input';
+                              }
+                            },
+                            decoration: InputDecoration(
+                                labelText: "Years",
+                                hintText: "Years",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0))),
+                            keyboardType: TextInputType.number,
+                            onSaved: (String value) {_ageInYears = value;},
+                          ),
+                        ),
+                      ), //Years
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: TextFormField(
+                            validator: (String val) {
+                              if (val.isEmpty || int.parse(val)>11) {
+                                return 'Please enter a valid input';
+                              }
+                            },
+                            decoration: InputDecoration(
+                                labelText: "Months",
+                                hintText: "Months",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0))),
+                            keyboardType: TextInputType.number,
+                            onSaved: (String value) {_ageInMonths = value;},
+                          ),
+                        ),
+                      ), //Months
+                      Expanded(
+                        child: TextFormField(
+                          validator: (String val) {
+                            if (val.isEmpty || int.parse(val)>31) {
+                              return 'Please enter a valid input';
+                            }
+                          },
+                          decoration: InputDecoration(
+                              labelText: "Days",
+                              hintText: "Days",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0))),
+                          keyboardType: TextInputType.number,
+                          onSaved: (String value) {_ageInDays = value;},
+                        ),
+                      ), //Days
+
+                    ],
+                  ),
+                ), //Age
+
+
+
+                Padding(
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                  child: Row(
+                    children: <Widget>[
+                      Text('Deceased\'s sex:', style: TextStyle(fontSize: 18.0),),
+                    ],
+                  )
+                ),
+
+                Padding(padding: EdgeInsets.all(10.0),
+                  child:
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Text(
+                        'Male',
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                      Radio(
+                        value: 'Male',
+                        groupValue: _deceasedSex,
+                        onChanged: (String newRadioSelected) {
+                          _onSexRadioSelect(newRadioSelected);
+                        },
+                      ),
+                      Text(
+                        'Female',
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                      Radio(
+                        value: 'Female',
+                        groupValue: _deceasedSex,
+                        onChanged: (String newRadioSelected) {
+                          _onSexRadioSelect(newRadioSelected);
+                        },
+                      ),
+
+                    ],
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    controller: fatherNameController,
+                    validator: (String value) {
+                      final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
+                      if (!nameExp.hasMatch(value))
+                        return 'Please enter only alphabetical values';
+                    },
+                    decoration: InputDecoration(
+                        labelText: 'Name of the father',
+                        hintText: 'Name of the father',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        )),
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    controller: phnNumberController,
+                    keyboardType: TextInputType.numberWithOptions(),
+                    validator: (String value) {
+                      if (value.isEmpty || value.length != 10)
+                        return 'Please enter a valid phone number';
+                    },
+                    decoration: InputDecoration(
+                        labelText: 'Father\'s contact number',
+                        hintText: 'Father\'s contact number',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         )),
@@ -196,10 +361,34 @@ class _hpFormState extends State<hpForm> {
                         )),
                   ),
                 ),
+
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
-                    controller: phnNumberController,
+                    controller: villageNameController,
+                    validator: (String value) {
+                      if (value.length < 3)
+                        return 'The village name should contain more than two letters';
+                    },
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        labelText: 'Village name',
+                        hintText: 'Village name',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        )),
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    controller: ashaNameController,
+                    validator: (String value) {
+                      final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
+                      if (!nameExp.hasMatch(value))
+                        return 'Please enter only alphabetical values';
+                    },
                     decoration: InputDecoration(
                         labelText: 'Asha Name',
                         hintText: 'Asha Name',
@@ -225,12 +414,13 @@ class _hpFormState extends State<hpForm> {
                       if (_formKey.currentState.validate() && (
                           _currentSelectedDistrict != null &&
                               block != null)){
+                        showWaiting();
                         Child newEntry  = new Child(
                           childNameController.text.toString(),
                           this._currentSelectedDistrict.toString(),
                           block.toString(),
                           addressController.text.toString(),
-                          phnNumberController.text.toString(),
+                          ashaNameController.text.toString(),
                         );
                         var data  = {
                           'name': newEntry.name,
@@ -241,6 +431,7 @@ class _hpFormState extends State<hpForm> {
                         };
                         var status  = await sendData('http://13.235.43.83/api/asha',data);
                         if(!isOffline && status){
+                          Navigator.of(context).pop();  //for waiting dialog
                           Navigator.of(context).pop(null);
                         }
                         else{
@@ -252,7 +443,7 @@ class _hpFormState extends State<hpForm> {
                     },
                   ),
                 )
-              ],
+              ]),
             ),
           )),
     );
@@ -381,4 +572,44 @@ class _hpFormState extends State<hpForm> {
       }
     }
   }
+
+  void _onSexRadioSelect(String newRadioSelected) {
+    setState(() {
+      this._deceasedSex = newRadioSelected;
+    });
+  }
+
+
+  void showWaiting(){
+
+    AlertDialog dialog = AlertDialog(
+//      content: Text('Please Wait...', textAlign: TextAlign.center,),
+//      contentPadding: EdgeInsets.only(left: 0.0, right: 15.0, top: 15.0, bottom: 15.0),
+    );
+    showDialog(barrierDismissible: false, context: context,
+        builder: (BuildContext context){return Dialog(
+//          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            height: 80.0,
+            width: 90.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child:Image(
+                        width: 70.0,
+                        height: 70.0,
+//                  fit: BoxFit.contain,
+                        image: new AssetImage("assets/waiting.gif"))),
+                Flexible(child: Text('Please Wait...', style: TextStyle(
+                    fontSize: 17.0, fontWeight: FontWeight.w500
+                ),))
+              ],
+            ),
+          ),
+        );});
+
+  }
+
 }
