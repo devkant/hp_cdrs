@@ -128,7 +128,7 @@ class ForgotPassState extends State<ForgotPass> {
 }
 
 Future<bool>  sendRequest(Map data) async {
-  var request = await http.post('http://13.235.43.83/api/',
+  var request = await http.post('http://13.235.43.83/api/forgot',
       body: data,
   );
   if(request.statusCode==200){

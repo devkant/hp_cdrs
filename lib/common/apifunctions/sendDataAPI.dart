@@ -40,11 +40,11 @@ Future<Post> createPost(String url, var data) async {
       'authToken':  token,
     },
   );
-
+  print(response.statusCode);
   if  (response.statusCode==200){
-    print("success");
+    print("");
   }else{
-    print("sending of failed");
+    print(response.statusCode);
   }
 
   return  Post.fromJson(json.decode(response.body));
@@ -84,13 +84,12 @@ Future<bool> apiRequest(String url, var jsonMap) async {
   request.add(utf8.encode(json.encode(jsonMap)));
   HttpClientResponse response = await request.close();
   // todo - you should check the response.statusCode
+  print(response.statusCode);
   if(response.statusCode==200){
     return true;
   }
   else  {
     return  false;
   }
-  String reply = await response.transform(utf8.decoder).join();
-  httpClient.close();
 
 }

@@ -4,17 +4,6 @@ import 'dart:async';
 import 'package:hp_cdrs/common/functions/getToken.dart';
 import 'dart:convert';
 
-void main()=>runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.blue),
-      home: PreviousForm(),
-    );
-  }
-}
 
 class Appli{
   String  appliNumber;
@@ -44,13 +33,13 @@ Future<List<Appli>> loadAppli() async{
         'authToken': token,
       }
   );
-  print(response.statusCode);
-  print(response.body);
   if(response.statusCode==200){
     final items = json.decode(response.body).cast<Map<String,dynamic>>();
+    print(items);
     List  <Appli> listOfAppli = items.map<Appli>((json) {
       return Appli.fromJson(json);
     }).toList();
+    print(listOfAppli);
     return  listOfAppli;
   }
   else{
@@ -80,7 +69,6 @@ class PreviousFormState extends State<PreviousForm> {
       body: FutureBuilder<List<Appli>>(
         future: loadAppli(),
         builder: (context, snapshot) {
-          print(snapshot);
           if (!snapshot.hasData)
             return Center(child: CircularProgressIndicator());
           if(snapshot.data.isEmpty)
@@ -106,12 +94,16 @@ class PreviousFormState extends State<PreviousForm> {
                         children: <Widget>[
                           Container(
                             margin: EdgeInsets.fromLTRB(10.0, 40.0, 40.0, 40.0),
-                            child: Column(
+                            child: Wrap(
                               children: <Widget>[
-                                Text(user.appliNumber,style:TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),),
-                                Text('Name: ${user.name}',style:TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold)),
+                                Column(
+                                  children: <Widget>[
+                                    Text(user.appliNumber,style:TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),),
+                                    Text('Name: ${user.name}',style:TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
                               ],
-                            ),
+                            )
                           ),
                           Wrap(
                             children: <Widget>[
@@ -126,7 +118,7 @@ class PreviousFormState extends State<PreviousForm> {
                                       ),
                                       onTap: (){
                                         Navigator.push(context, MaterialPageRoute(
-                                            builder: (context) => Show(user.appliNumber,'previous'))
+                                            builder: (context) => Show(user.appliNumber,'previousNeonate'))
                                         );
                                       },
 
@@ -139,7 +131,11 @@ class PreviousFormState extends State<PreviousForm> {
                                         style: TextStyle(fontSize: 18.0,decoration: TextDecoration.underline),
 
                                       ),
-                                      onTap: (){},
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => Show(user.appliNumber,'previousPostNeonate'))
+                                        );
+                                      },
 
                                     ),
                                   ),
@@ -150,7 +146,11 @@ class PreviousFormState extends State<PreviousForm> {
                                         style: TextStyle(fontSize: 18.0,decoration: TextDecoration.underline),
 
                                       ),
-                                      onTap: (){},
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => Show(user.appliNumber,'previousSocial'))
+                                        );
+                                      },
 
                                     ),
                                   ),
@@ -183,21 +183,19 @@ class Show extends StatefulWidget {
 
 class ShowState extends State<Show> {
 
-  Future<List<dynamic>>  getData() async {
-    final String Url  = 'http://13.235.43.83/api/'+widget.url;
+  Future<Map<String,dynamic>>  getData() async {
+    final String Url  = 'http://13.235.43.83/api/'+widget.url+'/'+widget.appliNumber;
     final token = await getToken();
     var response = await http.get(Url,
         headers: {
           'authToken' : token,
-          'applicationNumber': widget.appliNumber
+          'applicationNumber': widget.appliNumber.toString()
         }
     );
-    print(response.body);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       Map map = json.decode(response.body);
-      final list = map.values.toList(growable: true);
-      print(list);
-      return list;
+      return map;
     } else {
       throw Exception('Failed to load internet');
     }
@@ -207,14 +205,17 @@ class ShowState extends State<Show> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Details'),),
-      body: FutureBuilder<List<dynamic>>(
+      body: FutureBuilder(
         future: getData(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<Map<String,dynamic>> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
             case ConnectionState.waiting:
-              return new Text('loading...');
+              return new Center(child: CircularProgressIndicator(),);
             default:
+              if  (!snapshot.hasData){
+                return  Center(child:Text('No Data',style: TextStyle(fontSize: 20.0),));
+              }
               if (snapshot.hasError)
                 return new Text('Error: ${snapshot.error}');
               else
@@ -225,20 +226,22 @@ class ShowState extends State<Show> {
     );
   }
 
-  Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
-    List<dynamic> values = snapshot.data;
-    return new ListView.builder(
-      itemCount: values.length,
-      itemBuilder: (BuildContext context, int index) {
-        return new Column(
-          children: <Widget>[
-            new ListTile(
-              title: new Text(values[index]),
-            ),
-            new Divider(height: 2.0,),
-          ],
-        );
-      },
+  Widget createListView(BuildContext context, AsyncSnapshot<Map<String,dynamic>> snapshot) {
+    Map values = snapshot.data;
+    Map<String,dynamic> myMap = Map.from(snapshot.data ); // transform your snapshot data in map
+    var keysList = myMap.keys.toList();
+    return ListView.builder(
+        itemCount: myMap.length, // getting map length you can use keyList.length too
+        itemBuilder: (BuildContext context, int index) {
+          return Wrap(
+            spacing: 8.0, // gap between adjacent chips
+            runSpacing: 4.0,
+            children: <Widget>[
+              Text('  ${keysList[index]}: ${myMap[keysList[index]]}',
+                style: TextStyle(fontSize: 18.0),)
+            ],
+          );
+        }
     );
   }
 }
