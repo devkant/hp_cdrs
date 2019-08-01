@@ -470,6 +470,7 @@ class _Form5State extends State<Form5> {
       'disease': child.disease,
 
       // According to the respondent, cause of death
+      'placeOfDeath': child.placeOfDeath,
       'causeOfDeath': child.causeOfDeath,
 
       // Occurence of delay
