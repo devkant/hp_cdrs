@@ -75,9 +75,13 @@ class _Form3State extends State<Form3> {
 
         "category_name": "Traditional Healer"},
 
+      {"category_id": "10",
+
+        "category_name": "Home"},
+
     ],
     "responseTotalResult":
-    9 // Total result is 3 here because we have 3 categories in responseBody.
+    10 // Total result is 3 here because we have 3 categories in responseBody.
   };
 
   @override
@@ -303,7 +307,19 @@ class _Form3State extends State<Form3> {
               },
               title: Text(_categories['responseBody'][8]['category_name']),
             ),
-          ), //Traditional Healer
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: CheckboxListTile(
+              value: widget.user.treatmentLocation.contains(_categories['responseBody'][9]['category_name']),
+              onChanged: (bool selected) {
+                _onCategorySelected(selected,_categories['responseBody'][9]['category_name']);
+                debugPrint('${widget.user.treatmentLocation}');
+              },
+              title: Text(_categories['responseBody'][9]['category_name']),
+            ),
+          ),//Traditional Healer
 
         ],
       );
