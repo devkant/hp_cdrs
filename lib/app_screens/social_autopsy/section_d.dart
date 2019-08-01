@@ -105,7 +105,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
           showWaiting();
           User child = widget.user;
           var data = createMap(child);
-          sendData('http://13.235.43.83/api/test', data).then((status) {
+          sendData('http://13.235.43.83/api/social', data).then((status) {
             if (status) {
               showAlert('Form submitted successfully!', 'Sent!');
             }
