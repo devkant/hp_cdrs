@@ -87,14 +87,9 @@ class SocialAutopsyLoginState extends State<SocialAutopsyLogin> {
                           padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
                           child: TextFormField(
                             decoration: InputDecoration(
-                                labelText: 'MCTS Number',
+                                labelText: 'RCH Number',
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0))),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter valid entry';
-                              }
-                            },
                             onSaved: (value) {
                               widget.user.MCTS = value;
                             },

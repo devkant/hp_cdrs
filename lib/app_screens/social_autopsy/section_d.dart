@@ -192,8 +192,8 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
                     autovalidate: _autoValidate,
                     child: SingleChildScrollView(
                         child: Column(children: <Widget>[
-                      _question18(),
-                      _question19(),
+                      _question16(),
+                      _question17(),
                       _declaration(),
                       Padding(
                         padding: EdgeInsets.all(20.0),
@@ -237,7 +237,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
         ])));
   }
 
-  Widget _question18() {
+  Widget _question16() {
     return Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -247,7 +247,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
             child: Column(children: <Widget>[
           ListTile(
             leading: Text(
-              '18',
+              '16',
               style: TextStyle(fontSize: 18),
             ),
             title: Text(
@@ -342,7 +342,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
         ])));
   }
 
-  Widget _question19() {
+  Widget _question17() {
     return Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -351,7 +351,7 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
           ListTile(
-            leading: Text('19'),
+            leading: Text('17'),
             title: Text('How did you(the family) arrange this money?'),
             subtitle: Text('Multiple answers allowed. Check all that apply.'),
           ),
@@ -487,11 +487,11 @@ class SocialAutopsyDState extends State<SocialAutopsyD> {
           child.dischargeDueDissatisfactionTreatment,
       'reasonAgainstdischargedMedicalAdvice':
           child.reasonAgainstdischargedMedicalAdvice,
-      'wasGirlInfant': child.wasGirlInfant,
-      'ifGirlWasBoy': child.ifGirlWasBoy,
-      'alcohol': child.alcohol,
-      'tobacco': child.tobacco,
-      'domesticAbuseMother': child.domesticAbuseMother,
+//      'wasGirlInfant': child.wasGirlInfant,
+//      'ifGirlWasBoy': child.ifGirlWasBoy,
+//      'alcohol': child.alcohol,
+//      'tobacco': child.tobacco,
+//      'domesticAbuseMother': child.domesticAbuseMother,
       'dangerSignsWhenNewborn': child.dangerSignsWhenNewborn,
       'listItem': child.listItem,
       'hospitalWhereNewbornTreated': child.hospitalWhereNewbornTreated,
