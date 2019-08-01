@@ -33,7 +33,7 @@ class User {
   var treatmentLocation = List();
 
   //form 4
-  var probable = 'Yes';
+  //var probable = 'Yes';
   var disease = List();
 
   //form 5
