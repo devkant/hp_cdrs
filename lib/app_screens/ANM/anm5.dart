@@ -293,7 +293,11 @@ class _Form5State extends State<Form5> {
                     onPressed: () async{
                       setState(() {
                         if (_formKey.currentState.validate()) {
-                          if(submission == true) {
+
+                          if(widget.user.delay.isEmpty) {
+                            _showSnackBar("Please check the delay option");
+                          }
+                          else if(submission == true) {
 
 //                            showDialog(
 //                                context: context,
