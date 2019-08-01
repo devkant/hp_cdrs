@@ -161,7 +161,6 @@ class _Form4State extends State<Form4> {
   }
 
   Widget causesOfDeath() {
-    if( /*widget.user.probable == 'Yes'*/ true) {
       return Column(
         children: <Widget>[
 
@@ -403,11 +402,6 @@ class _Form4State extends State<Form4> {
 
         ],
       );
-    }
-    else {
-      widget.user.disease.clear();
-      return Text("");
-    }
   }
 
   void _onCategorySelected(bool selected, category_name) {
