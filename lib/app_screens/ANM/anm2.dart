@@ -27,6 +27,8 @@ class _Form2State extends State<Form2> {
   //formkey
   final _formKey = GlobalKey<FormState>();
 
+  var dropdown = ['Yes', 'No'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,40 +41,35 @@ class _Form2State extends State<Form2> {
           padding: EdgeInsets.all(20.0),
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Text(
-                  "Duration of symptoms:",
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
-                ),
-              ), //Duration of Symptom
+//              Padding(
+//                padding: const EdgeInsets.only(bottom: 10.0),
+//                child: Text(
+//                  "Symptoms:",
+//                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
+//                ),
+//              ), //Duration of Symptom
 
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Row(
                   children: <Widget>[
                     Text(
-                      "1. ",
+                      "1. Inability to feed: ",
                       style: TextStyle(fontSize: 18.0),
                     ),
-                    Expanded(
-                      child: TextFormField(
-                        onSaved: (String value) { widget.user.inabilityToFeed = int.parse(value);},
-                        //controller: inabilityToFeedController,
-                        validator: (String val) {
-                          if (val.isEmpty) {
-                            return 'Please enter a valid input';
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Inability to feed",
-                          hintText: "No of days",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
+                    DropdownButton<String>(
+                      items: dropdown.map((String value1) {
+                        return DropdownMenuItem<String>(
+                          value: value1,
+                          child: Text(value1),
+                        );
+                      }).toList(),
+                      value: widget.user.inabilityToFeed,
+                      onChanged: (String newValueSelected) {
+                        setState(() {
+                          this.widget.user.inabilityToFeed = newValueSelected;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -83,27 +80,22 @@ class _Form2State extends State<Form2> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      "2. ",
+                      "2. Fever: ",
                       style: TextStyle(fontSize: 18.0),
                     ),
-                    Expanded(
-                      child: TextFormField(
-                        onSaved: (String value) { widget.user.fever = int.parse(value);},
-                        //controller: feverController,
-                        validator: (String val) {
-                          if (val.isEmpty) {
-                            return 'Please enter a valid input';
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Fever",
-                          hintText: "No of days",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
+                    DropdownButton<String>(
+                      items: dropdown.map((String value1) {
+                        return DropdownMenuItem<String>(
+                          value: value1,
+                          child: Text(value1),
+                        );
+                      }).toList(),
+                      value: widget.user.fever,
+                      onChanged: (String newValueSelected) {
+                        setState(() {
+                          this.widget.user.fever = newValueSelected;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -114,26 +106,22 @@ class _Form2State extends State<Form2> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      "3. ",
+                      "3. Loose Stools: ",
                       style: TextStyle(fontSize: 18.0),
                     ),
-                    Expanded(
-                      child: TextFormField(
-                        onSaved: (String value) { widget.user.looseStools = int.parse(value);},
-                        validator: (String val) {
-                          if (val.isEmpty) {
-                            return 'Please enter a valid input';
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Loose Stools",
-                          hintText: "No of days",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
+                    DropdownButton<String>(
+                      items: dropdown.map((String value1) {
+                        return DropdownMenuItem<String>(
+                          value: value1,
+                          child: Text(value1),
+                        );
+                      }).toList(),
+                      value: widget.user.looseStools,
+                      onChanged: (String newValueSelected) {
+                        setState(() {
+                          this.widget.user.looseStools = newValueSelected;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -144,26 +132,22 @@ class _Form2State extends State<Form2> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      "4. ",
+                      "4. Vomiting: ",
                       style: TextStyle(fontSize: 18.0),
                     ),
-                    Expanded(
-                      child: TextFormField(
-                        onSaved: (String value) { widget.user.vomiting = int.parse(value);},
-                        validator: (String val) {
-                          if (val.isEmpty) {
-                            return 'Please enter a valid input';
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Vomiting",
-                          hintText: "No of days",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
+                    DropdownButton<String>(
+                      items: dropdown.map((String value1) {
+                        return DropdownMenuItem<String>(
+                          value: value1,
+                          child: Text(value1),
+                        );
+                      }).toList(),
+                      value: widget.user.vomiting,
+                      onChanged: (String newValueSelected) {
+                        setState(() {
+                          this.widget.user.vomiting = newValueSelected;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -174,26 +158,22 @@ class _Form2State extends State<Form2> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      "5. ",
+                      "5. Fast Breathing: ",
                       style: TextStyle(fontSize: 18.0),
                     ),
-                    Expanded(
-                      child: TextFormField(
-                        onSaved: (String value) { widget.user.fastBreathing = int.parse(value);},
-                        validator: (String val) {
-                          if (val.isEmpty) {
-                            return 'Please enter a valid input';
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Fast Breathing",
-                          hintText: "No of days",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
+                    DropdownButton<String>(
+                      items: dropdown.map((String value1) {
+                        return DropdownMenuItem<String>(
+                          value: value1,
+                          child: Text(value1),
+                        );
+                      }).toList(),
+                      value: widget.user.fastBreathing,
+                      onChanged: (String newValueSelected) {
+                        setState(() {
+                          this.widget.user.fastBreathing = newValueSelected;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -204,26 +184,22 @@ class _Form2State extends State<Form2> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      "6. ",
+                      "6. Convulsions: ",
                       style: TextStyle(fontSize: 18.0),
                     ),
-                    Expanded(
-                      child: TextFormField(
-                        onSaved: (String value) { widget.user.convulsions = int.parse(value);},
-                        validator: (String val) {
-                          if (val.isEmpty) {
-                            return 'Please enter a valid input';
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Convulsions",
-                          hintText: "No of days",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
+                    DropdownButton<String>(
+                      items: dropdown.map((String value1) {
+                        return DropdownMenuItem<String>(
+                          value: value1,
+                          child: Text(value1),
+                        );
+                      }).toList(),
+                      value: widget.user.convulsions,
+                      onChanged: (String newValueSelected) {
+                        setState(() {
+                          this.widget.user.convulsions = newValueSelected;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -234,26 +210,22 @@ class _Form2State extends State<Form2> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      "7. ",
+                      "7. Appearance of Skin rashes: ",
                       style: TextStyle(fontSize: 18.0),
                     ),
-                    Expanded(
-                      child: TextFormField(
-                        onSaved: (String value) { widget.user.appearanceOfSkinRashes = int.parse(value);},
-                        validator: (String val) {
-                          if (val.isEmpty) {
-                            return 'Please enter a valid input';
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Appearance of Skin rashes",
-                          hintText: "No of days",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
+                    DropdownButton<String>(
+                      items: dropdown.map((String value1) {
+                        return DropdownMenuItem<String>(
+                          value: value1,
+                          child: Text(value1),
+                        );
+                      }).toList(),
+                      value: widget.user.appearanceOfSkinRashes,
+                      onChanged: (String newValueSelected) {
+                        setState(() {
+                          this.widget.user.appearanceOfSkinRashes = newValueSelected;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -264,26 +236,22 @@ class _Form2State extends State<Form2> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      "8. ",
+                      "8. Injury(like fractures,wounds): ",
                       style: TextStyle(fontSize: 18.0),
                     ),
-                    Expanded(
-                      child: TextFormField(
-                        onSaved: (String value) { widget.user.injury = int.parse(value);},
-                        validator: (String val) {
-                          if (val.isEmpty) {
-                            return 'Please enter a valid input';
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Injury(like fractures, wounds)",
-                          hintText: "No of days",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
+                    DropdownButton<String>(
+                      items: dropdown.map((String value1) {
+                        return DropdownMenuItem<String>(
+                          value: value1,
+                          child: Text(value1),
+                        );
+                      }).toList(),
+                      value: widget.user.injury,
+                      onChanged: (String newValueSelected) {
+                        setState(() {
+                          this.widget.user.injury = newValueSelected;
+                        });
+                      },
                     ),
                   ],
                 ),
