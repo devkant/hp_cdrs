@@ -75,11 +75,11 @@ class User {
 
 
 
-  String wasGirlInfant = "no";
-  String ifGirlWasBoy = "";
-  List<bool> alcohol = [false, false, false];
-  List<bool> tobacco = [false, false, false];
-  bool domesticAbuseMother = false;
+//  String wasGirlInfant = "no";
+//  String ifGirlWasBoy = "";
+//  List<bool> alcohol = [false, false, false];
+//  List<bool> tobacco = [false, false, false];
+//  bool domesticAbuseMother = false;
 
   String dangerSignsWhenNewborn = "no";
   List<String> listItem = List();
@@ -153,11 +153,11 @@ class User {
         babyDiedBeforeDischarge = json['babyDiedBeforeDischarge'],
         dischargeDueDissatisfactionTreatment = json['dischargeDueDissatisfactionTreatment'],
         reasonAgainstdischargedMedicalAdvice = json['reasonAgainstdischargedMedicalAdvice'],
-        wasGirlInfant = json['wasGirlInfant'],
-        ifGirlWasBoy = json['ifGirlWasBoy'],
-        alcohol = json['alcohol'],
-        tobacco = json['tobacco'],
-        domesticAbuseMother = json['domesticAbuseMother'],
+//        wasGirlInfant = json['wasGirlInfant'],
+//        ifGirlWasBoy = json['ifGirlWasBoy'],
+//        alcohol = json['alcohol'],
+//        tobacco = json['tobacco'],
+//        domesticAbuseMother = json['domesticAbuseMother'],
         dangerSignsWhenNewborn = json['dangerSignsWhenNewborn'],
         listItem = json['listItem'],
         hospitalWhereNewbornTreated = json['hospitalWhereNewbornTreated'],
@@ -235,11 +235,11 @@ class User {
     'dischargeDueDissatisfactionTreatment': dischargeDueDissatisfactionTreatment,
     'reasonAgainstdischargedMedicalAdvice': reasonAgainstdischargedMedicalAdvice,
 
-    'wasGirlInfant': wasGirlInfant,
-    'ifGirlWasBoy': ifGirlWasBoy,
-    'alcohol': alcohol,
-    'tobacco': tobacco,
-    'domesticAbuseMother': domesticAbuseMother,
+//    'wasGirlInfant': wasGirlInfant,
+//    'ifGirlWasBoy': ifGirlWasBoy,
+//    'alcohol': alcohol,
+//    'tobacco': tobacco,
+//    'domesticAbuseMother': domesticAbuseMother,
     'dangerSignsWhenNewborn': dangerSignsWhenNewborn,
     'listItem': listItem,
     'hospitalWhereNewbornTreated': hospitalWhereNewbornTreated,

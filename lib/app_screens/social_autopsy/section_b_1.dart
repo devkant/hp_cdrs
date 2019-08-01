@@ -413,10 +413,29 @@ class SocialAutopsyB1State extends State<SocialAutopsyB1> {
                 ],
               )));
     }
-    else
+    else {
+      widget.user.quack = false;
+      widget.user.traditionalHealer = false;
+      widget.user.subCentre = false;
+      widget.user.phc = false;
+      widget.user.chc = false;
+      widget.user.subDistrictHospital = false;
+      widget.user.districtGovtHospital = false;
+      widget.user.privateAllopathic = false;
+      widget.user.doctorAlternateSystem = false;
+      widget.user.reasonForSeekingCare = '' ;
+      widget.user.wasIllnessSerious = false;
+      widget.user.moneyNotAvailable = false;
+      widget.user.familyMembersNotAbleAccompany = false;
+      widget.user.badWeather = false;
+      widget.user.didNotKnowAboutInfant = false;
+      widget.user.noHopeForSurvival = false;
+      widget.user.transportNotAvailable = false;
+      widget.user.others ='';
       return Container(
         height: 0.0,
         width: 0.0,
       );
+    }
   }
 }
