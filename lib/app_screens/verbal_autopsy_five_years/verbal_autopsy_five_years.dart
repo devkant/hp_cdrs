@@ -225,16 +225,16 @@ class verbalAutopsy5YrFormState extends State<verbalAutopsy5YrForm> {
 
                     Padding(
                       padding: EdgeInsets.all(10.0),
-                      child: TextFormField(
+                      child: TextField(
                         keyboardType: TextInputType.numberWithOptions(),
-                        onSaved: (value){rhcController = value;
+                        onSubmitted: (value){rhcController = value;
                         widget.userObj.rhc = num.parse(rhcController);},
-                        validator: (String value) {
-                          if (value.isEmpty) return 'Please fill a valid input';
-                        },
+//                        validator: (String value) {
+//                          if (value.isEmpty) return 'Please fill a valid input';
+//                        },
                         decoration: InputDecoration(
-                            labelText: 'RHC Number of Mother/Baby',
-                            hintText: 'RHC Number of Mother/Baby',
+                            labelText: 'RCH Number of Mother/Baby',
+                            hintText: 'RCH Number of Mother/Baby',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             )),
@@ -264,7 +264,6 @@ class verbalAutopsy5YrFormState extends State<verbalAutopsy5YrForm> {
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: TextFormField(
-                        textCapitalization: TextCapitalization.words,
                         onSaved: (value){widget.userObj.head = value;},
                         validator: (String value) {
                           final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
@@ -318,27 +317,6 @@ class verbalAutopsy5YrFormState extends State<verbalAutopsy5YrForm> {
                       ),
                     ),
 
-
-                    CheckboxListTile(
-                        value: _firstHYS,
-                        title: Text('1st HYS:'),
-                        onChanged: (bool value) {
-                          setState(() {
-                            _firstHYS = value;
-                            if(_firstHYS == true)
-                              widget.userObj.firstHys = '1st HYS';
-                          });
-                        }),
-                    CheckboxListTile(
-                        value: _secondHYS,
-                        title: Text('2nd HYS:'),
-                        onChanged: (bool value) {
-                          setState(() {
-                            _secondHYS = value;
-                            if(_secondHYS == true)
-                              widget.userObj.secondHys = '2nd HYS';
-                          });
-                        }),
 
                     //for testing purpose
 //                    Text('${widget.userObj.village}'),
