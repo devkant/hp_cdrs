@@ -140,7 +140,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '26A.',
+                              '25A.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -200,7 +200,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '26B.',
+                              '25B.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -257,7 +257,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '26C.',
+                              '25C.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -314,7 +314,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '27. ',
+                              '26. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -371,7 +371,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '28. ',
+                              '27. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -430,7 +430,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '29. ',
+                              '28. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -490,7 +490,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '30. ',
+                              '29. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -549,7 +549,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '31A.',
+                              '30A.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -608,7 +608,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                           Padding(
                               padding: EdgeInsets.only(right: 10.0),
                               child:
-                              Text('31B.', style: TextStyle(fontSize: 16.0))),
+                              Text('30B.', style: TextStyle(fontSize: 16.0))),
                           Flexible(
                               child: Text(
                                   'If yes, what were the symptoms'
@@ -626,7 +626,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '32A.',
+                              '31A.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -683,7 +683,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                         Padding(
                           padding: EdgeInsets.only(right: 10.0),
                           child: Text(
-                            '32B.',
+                            '31B.',
                             style: TextStyle(fontSize: 16.0),
                           ),
                         ),
@@ -697,7 +697,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                                 onSaved: (String value){widget.userObj.dpt3Doses = num.parse(value);},
                                 validator: (String value) {
                                   if (value.isEmpty)
-                                    return 'Please input no. of dozes';
+                                    return 'Please input dozes';
                                 },
                                 keyboardType: TextInputType.numberWithOptions(),
                                 decoration: InputDecoration(
@@ -717,7 +717,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '32C.',
+                              '31C.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -774,7 +774,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                     child: Row(children: <Widget>[
                       Padding(
                           padding: EdgeInsets.only(right: 10.0),
-                          child: Text('32D.', style: TextStyle(fontSize: 16.0))),
+                          child: Text('31D.', style: TextStyle(fontSize: 16.0))),
                       Flexible(
                           child: Text(
                             'Did she/he receive'
@@ -813,7 +813,7 @@ class verbalAutopsy5YrSec2Part4State extends State<verbalAutopsy5YrSec2Part4> {
                     child: RaisedButton(
                       color: Colors.blue,
                       child: Text(
-                        "Next",
+                        "Proceed to next Section",
                         style: TextStyle(fontSize: 15.0, color: Colors.white),
                       ),
                       onPressed: () {
