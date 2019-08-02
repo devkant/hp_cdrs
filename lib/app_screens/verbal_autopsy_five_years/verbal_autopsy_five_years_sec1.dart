@@ -56,17 +56,17 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
     'Unknown'
   ];
   var _respondentCategory = ['General', 'OBC', 'SC', 'ST'];
-  var _respondentReligion = [
-    'Hindu',
-    'Muslim',
-    'Christian',
-    'Sikh',
-    'Buddhist',
-    'Jain',
-    'No Religion',
-    'Others',
-    'Unknown'
-  ];
+//  var _respondentReligion = [
+//    'Hindu',
+//    'Muslim',
+//    'Christian',
+//    'Sikh',
+//    'Buddhist',
+//    'Jain',
+//    'No Religion',
+//    'Others',
+//    'Unknown'
+//  ];
   var _placeOfDeath = [
     'Home',
     'Private Hospital',
@@ -110,7 +110,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
     widget.userObj.relationship = _relationWithDeceased[0];
     widget.userObj.respondentEducation = _respondentEducation[0];
     widget.userObj.category = _respondentCategory[0];
-    widget.userObj.religionHead = _respondentReligion[0];
+//    widget.userObj.religionHead = _respondentReligion[0];
     widget.userObj.placeDeath = _placeOfDeath[0];
   }
 
@@ -374,41 +374,6 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                             ])),
 
 
-                        //6th user input element start
-                        Padding(
-                            padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
-                            child: Row(children: <Widget>[
-                              Padding(
-                                  padding: EdgeInsets.only(right: 10.0),
-                                  child: Text(
-                                    '6. ',
-                                    style: TextStyle(fontSize: 16.0),
-                                  )),
-                              Flexible(
-                                  child: Text(
-                                    'Religion of the head of the household:',
-                                    style: TextStyle(fontSize: 16.0),
-                                    textAlign: TextAlign.left,
-                                  )),
-                            ])),
-
-                        Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: DropdownButton<String>(
-                            items: _respondentReligion.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            value: widget.userObj.religionHead,
-                            onChanged: (String newValueSelected) {
-                              _onDropDownReligionSelected(newValueSelected);
-                            },
-                          ),
-                        ),
-
-
                         Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Text(
@@ -418,14 +383,14 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                             )),
 
 
-                        //7th user input element start
+                        //6th user input element start
                         Padding(
                           padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                           child: Row(children: <Widget>[
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
                                 child: Text(
-                                  '7. ',
+                                  '6. ',
                                   style: TextStyle(fontSize: 16.0),
                                 )),
                             Padding(
@@ -471,20 +436,20 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
 
 
 
-                        //8th user input element start
+                        //7th user input element start
                         Padding(
                           padding: EdgeInsets.all(10.0),
                           child: Row(children: <Widget>[
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
                                 child: Text(
-                                  '8. ',
+                                  '7. ',
                                   style: TextStyle(fontSize: 16.0),
                                 )),
                             Padding(
                               padding: EdgeInsets.only(right: 10.0),
                               child: Text(
-                                "Age in completed months:",
+                                "Age in completed months & years:",
                                 style: TextStyle(fontSize: 16.0),
                               ),
                             ),
@@ -520,28 +485,72 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
 //                        ],
 //                      )),
 
-                        Padding(
-                            padding: EdgeInsets.only(left: 30.0),
-                            child: RadioListTile(
-                              title: Text('Less than 1 year'),
-                              value: 'Less than 1 year',
-                              groupValue: widget.userObj.ageDays,
-                              onChanged: (String newRadioSelected) {
-                                _onCompletedDaysRadioSelect(newRadioSelected);
-                              },)),
+//                        Padding(
+//                            padding: EdgeInsets.only(left: 30.0),
+//                            child: RadioListTile(
+//                              title: Text('Less than 1 year'),
+//                              value: 'Less than 1 year',
+//                              groupValue: widget.userObj.ageDays,
+//                              onChanged: (String newRadioSelected) {
+//                                _onCompletedDaysRadioSelect(newRadioSelected);
+//                              },)),
+//
+//                        Padding(
+//                            padding: EdgeInsets.only(left: 30.0),
+//                            child: RadioListTile(
+//                              title: Text('More than 1 year'),
+//                              value: 'More than 1 year',
+//                              groupValue: widget.userObj.ageDays,
+//                              onChanged: (String newRadioSelected) {
+//                                _onCompletedDaysRadioSelect(newRadioSelected);
+//                              },)),
 
-                        Padding(
-                            padding: EdgeInsets.only(left: 30.0),
-                            child: RadioListTile(
-                              title: Text('More than 1 year'),
-                              value: 'More than 1 year',
-                              groupValue: widget.userObj.ageDays,
-                              onChanged: (String newRadioSelected) {
-                                _onCompletedDaysRadioSelect(newRadioSelected);
-                              },)),
+                      Row(children: <Widget>[
+                        Padding(padding: EdgeInsets.only(left: 10.0),
+                        child: Text('Years:', style: TextStyle(fontSize: 16.0),)),
+
+                        Expanded(child: Padding(
+                          padding: EdgeInsets.all(5.0),
+                          child: TextFormField(
+                            keyboardType: TextInputType.numberWithOptions(),
+                            onSaved: (value){widget.userObj.ageDays = (12*num.parse(value)).toString();},
+                            validator: (String value) {
+                              if (value.isEmpty || num.parse(value) > 4)
+                                return 'Invalid input';
+                            },
+                            decoration: InputDecoration(
+                                labelText: 'Years',
+                                hintText: 'Years',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                )),
+                          ),
+                        )),
+
+                        Padding(padding: EdgeInsets.only(left: 10.0),
+                            child: Text('Months:', style: TextStyle(fontSize: 16.0),)),
+
+                        Expanded(child: Padding(
+                          padding: EdgeInsets.all(5.0),
+                          child: TextFormField(
+                            keyboardType: TextInputType.numberWithOptions(),
+                            onSaved: (value){widget.userObj.ageDays = value;},
+                            validator: (String value) {
+                              if (value.isEmpty || num.parse(value) > 11)
+                                return 'Invalid input';
+                            },
+                            decoration: InputDecoration(
+                                labelText: 'Months',
+                                hintText: 'Months',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                )),
+                          ),
+                        )),
+                      ],),
 
 
-                        //9th user input element start
+                        //8th user input element start
                         Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Row(
@@ -549,7 +558,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                                 Padding(
                                   padding: EdgeInsets.only(right: 10.0),
                                   child: Text(
-                                    '9. ',
+                                    '8. ',
                                     style: TextStyle(fontSize: 16.0),
                                   ),
                                 ),
@@ -579,16 +588,16 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                               ],
                             )),
 
-                        //10th user input element start
+                        //9th user input element start
                         Padding(
                             padding:
                             EdgeInsets.only(right: 10.0, top: 10.0, bottom: 10.0),
                             child: Row(
                               children: <Widget>[
                                 Padding(
-                                  padding: EdgeInsets.only(right: 10.0),
+                                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
                                   child: Text(
-                                    '10. ',
+                                    '9. ',
                                     style: TextStyle(fontSize: 16.0),
                                   ),
                                 ),
@@ -619,7 +628,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                             )),
 
 
-                        //11th user input element start
+                        //10th user input element start
                         Padding(
                             padding:
                             EdgeInsets.only(right: 10.0, top: 10.0, bottom: 10.0),
@@ -628,7 +637,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                                 Padding(
                                   padding: EdgeInsets.only(right: 10.0),
                                   child: Text(
-                                    '11A.',
+                                    '10A.',
                                     style: TextStyle(fontSize: 16.0),
                                   ),
                                 ),
@@ -660,7 +669,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                                 Padding(
                                   padding: EdgeInsets.only(right: 10.0),
                                   child: Text(
-                                    '11B.',
+                                    '10B.',
                                     style: TextStyle(fontSize: 16.0),
                                   ),
                                 ),
@@ -672,19 +681,19 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                                   ),),
 
                                 Flexible(
-                                  child: TextFormField(
-                                    onSaved: (String value){widget.userObj.pincode = num.parse(value);},
+                                  child: TextField(
+                                    onSubmitted: (String value){widget.userObj.pincode = num.parse(value);},
                                     decoration: InputDecoration(
                                         hintText: 'Pincode',
                                         labelText: 'Pincode',
                                         border: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(10.0))
                                     ),
-                                    validator: (String value) {
-                                      if (num.parse(value) < 170000 ||
-                                      num.parse(value) > 179999)
-                                        return 'Please fill a valid pincode';
-                                    },
+//                                    validator: (String value) {
+//                                      if (num.parse(value) < 170000 ||
+//                                      num.parse(value) > 179999)
+//                                        return 'Please fill a valid pincode';
+//                                    },
                                     keyboardType: TextInputType.numberWithOptions(),
 
                                   ),),
@@ -697,7 +706,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
 
 
 
-                        //12th user input element start
+                        //11th user input element start
                         Padding(
                             padding:
                             EdgeInsets.only(right: 10.0, top: 10.0),
@@ -705,7 +714,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                               Padding(
                                   padding: EdgeInsets.only(right: 10.0),
                                   child: Text(
-                                    '12A.',
+                                    '11A.',
                                     style: TextStyle(fontSize: 16.0),
                                   )),
                               Flexible(
@@ -732,7 +741,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                         ),
 
 
-                        //13th user input element start
+                        //12th user input element start
                         Padding(
                             padding:
                             EdgeInsets.only(right: 10.0, top: 10.0),
@@ -740,7 +749,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                               Padding(
                                   padding: EdgeInsets.only(right: 10.0),
                                   child: Text(
-                                    '12B.',
+                                    '11B.',
                                     style: TextStyle(fontSize: 16.0),
                                   )),
                               Flexible(
@@ -755,12 +764,12 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
 
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: TextFormField(
-                            onSaved: (String value){widget.userObj.respondentThink = value;},
+                          child: TextField(
+                            onSubmitted: (String value){widget.userObj.respondentThink = value;},
                             decoration: InputDecoration(hintText: 'Your Text Here'),
-                            validator: (String value) {
-                              if (value.isEmpty) return 'Please fill a valid input';
-                            },
+//                            validator: (String value) {
+//                              if (value.isEmpty) return 'Please fill a valid input';
+//                            },
                             keyboardType: TextInputType.multiline,
                             maxLines: null,
                           ),
@@ -830,11 +839,6 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
     });
   }
 
-  void _onDropDownReligionSelected(String newValueSelected) {
-    setState(() {
-      this.widget.userObj.religionHead = newValueSelected;
-    });
-  }
 
   void _onDropDownCategorySelected(String newValueSelected) {
     setState(() {
