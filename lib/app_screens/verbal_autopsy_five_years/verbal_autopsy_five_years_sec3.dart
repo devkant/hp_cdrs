@@ -3,7 +3,7 @@ import 'user.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
 import 'dart:async';
-import 'package:hp_cdrs/app_screens/mo/postNeoFormStatus.dart';
+import 'package:hp_cdrs/app_screens/mo/dashboard.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
@@ -114,7 +114,7 @@ class _verbalAutopsy5YrSec3State
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(right: 10.0),
-                          child: Text('33. ', style: TextStyle(fontSize: 16.0),),
+                          child: Text('32. ', style: TextStyle(fontSize: 16.0),),
                         ),
 
 
@@ -228,19 +228,12 @@ class _verbalAutopsy5YrSec3State
     );
   }
 
-  void dialogResult(){
-//    print('button pressed');
-//    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
-  for(int i = 0; i < 10; i++)
-    Navigator.of(context).pop();
-  }
-
   void showAlert(String value, String dialogTitle){
 
     AlertDialog dialog = AlertDialog(
       content: Text(value, textAlign: TextAlign.justify,),
       title: Text(dialogTitle, textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 20.0),),
+        style: TextStyle(fontSize: 20.0),),
       actions: <Widget>[
         FlatButton(onPressed:(){dialogResult();}, child: Text('OK'))
       ],
@@ -293,6 +286,14 @@ class _verbalAutopsy5YrSec3State
     );
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }
+
+
+  void dialogResult(){
+//    print('button pressed');
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+        builder:(BuildContext  context)  =>  Dashboard()), (Route<dynamic> route) => false);
+  }
+
 
   dynamic createMap(User child) {
     var data = {
