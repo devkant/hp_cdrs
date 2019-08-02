@@ -97,7 +97,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
                                 child:
-                                Text('13A.', style: TextStyle(fontSize: 16.0))),
+                                Text('12A.', style: TextStyle(fontSize: 16.0))),
                             Flexible(
                                 child: Text(
                                     'Did he/she die from an injury or accident?',
@@ -153,7 +153,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                           Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '13B.',
+                              '12B.',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -183,7 +183,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
-                            child: Text('14A.', style: TextStyle(fontSize: 16.0))),
+                            child: Text('13A.', style: TextStyle(fontSize: 16.0))),
                         Flexible(
                             child: Text(
                               'When was he/she first breastfed?',
@@ -221,7 +221,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
                                 child:
-                                Text('14B.', style: TextStyle(fontSize: 16.0))),
+                                Text('13B.', style: TextStyle(fontSize: 16.0))),
                             Flexible(
                                 child: Text(
                                     'Did the child receive anything other '
@@ -279,7 +279,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
                                 child:
-                                Text('14C.', style: TextStyle(fontSize: 16.0))),
+                                Text('13C.', style: TextStyle(fontSize: 16.0))),
                             Flexible(
                                 child: Text(
                                     'During the illness that led to'
@@ -342,7 +342,7 @@ class _verbalAutopsy5YrSec2Part1State extends State<verbalAutopsy5YrSec2Part1> {
                           if (widget.userObj.injury == 'Yes' &&
                               widget.userObj.kindOfInjury == null) {
                             // The checkbox wasn't checked
-                            showSnackBar('Please select option 13B');
+                            showSnackBar('Please select option 12B');
                           }
                           if ((_formKey.currentState.validate() &&
                               widget.userObj.injury == 'Yes' &&
