@@ -8,7 +8,7 @@ void showDialogSingleButton(BuildContext context, String title, String message, 
       // return object of type Dialog
       return AlertDialog(
         title: new Text(title),
-        content: new Text(message),
+        content: new Text(message, textAlign: TextAlign.justify,),
         actions: <Widget>[
           // usually buttons at the bottom of the dialog
           new FlatButton(

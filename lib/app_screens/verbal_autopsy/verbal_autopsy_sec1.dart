@@ -35,7 +35,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
   //list declarations for radio buttons
   var _liveWithRadioList = ['Yes', 'No', 'Unknown'];
   var _deceasedSexList = ['Male', 'Female'];
-  var _completedDaysRadio = ['Less than 1 day', '01-28 days'];
+  var _completedDaysRadio = ['Less than 1 day','01-07 days', '08-28 days'];
 
   //list declarations for drop down menus
   var _relationWithDeceased = [
@@ -56,17 +56,17 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
     'Unknown'
   ];
   var _respondentCategory = ['General', 'OBC', 'SC', 'ST'];
-  var _respondentReligion = [
-    'Hindu',
-    'Muslim',
-    'Christian',
-    'Sikh',
-    'Buddhist',
-    'Jain',
-    'No Religion',
-    'Others',
-    'Unknown'
-  ];
+//  var _respondentReligion = [
+//    'Hindu',
+//    'Muslim',
+//    'Christian',
+//    'Sikh',
+//    'Buddhist',
+//    'Jain',
+//    'No Religion',
+//    'Others',
+//    'Unknown'
+//  ];
   var _placeOfDeathDropList = [
     'Home',
     'Private Hospital',
@@ -94,8 +94,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
   //controller obj for text fields
 //  String respondentNameController = '';
 //  String deceasedAddressController = '';
-  String PincodeController = '';
-
+    String PincodeController = '';
 //  String respondentWordsController = '';
 
   @override
@@ -109,7 +108,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
     widget.verbal_Autopsy_Obj.respondentEducation =
     _respondentEducationDropList[0];
     widget.verbal_Autopsy_Obj.category = _respondentCategory[0];
-    widget.verbal_Autopsy_Obj.religion = _respondentReligion[0];
+//    widget.verbal_Autopsy_Obj.religion = _respondentReligion[0];
     widget.verbal_Autopsy_Obj.placeOfDeath = _placeOfDeathDropList[0];
 
   }
@@ -374,37 +373,21 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                       ])),
 
                   //6th user input element start
-                  Padding(
-                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
-                      child: Row(children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child: Text(
-                              '6. ',
-                              style: TextStyle(fontSize: 16.0),
-                            )),
-                        Flexible(
-                            child: Text(
-                              'Religion of the head of the household:',
-                              style: TextStyle(fontSize: 16.0),
-                              textAlign: TextAlign.left,
-                            )),
-                      ])),
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: DropdownButton<String>(
-                      items: _respondentReligion.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      value: widget.verbal_Autopsy_Obj.religion,
-                      onChanged: (String newValueSelected) {
-                        _onDropDownReligionSelected(newValueSelected);
-                      },
-                    ),
-                  ),
+//                  Padding(
+//                    padding: EdgeInsets.all(10.0),
+//                    child: DropdownButton<String>(
+//                      items: _respondentReligion.map((String value) {
+//                        return DropdownMenuItem<String>(
+//                          value: value,
+//                          child: Text(value),
+//                        );
+//                      }).toList(),
+//                      value: widget.verbal_Autopsy_Obj.religion,
+//                      onChanged: (String newValueSelected) {
+//                        _onDropDownReligionSelected(newValueSelected);
+//                      },
+//                    ),
+//                  ),
 
 
 
@@ -423,7 +406,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                       Padding(
                           padding: EdgeInsets.only(right: 10.0),
                           child: Text(
-                            '7. ',
+                            '6. ',
                             style: TextStyle(fontSize: 16.0),
                           )),
                       Padding(
@@ -476,7 +459,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                       Padding(
                           padding: EdgeInsets.only(right: 10.0),
                           child: Text(
-                            '8. ',
+                            '7. ',
                             style: TextStyle(fontSize: 16.0),
                           )),
                       Padding(
@@ -489,34 +472,34 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                     ]),
                   ),
                   Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Less than 1 day',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: 'Less than 1 day',
-                            groupValue: widget.verbal_Autopsy_Obj.ageInDays,
-                            onChanged: (String newRadioSelected) {
-                              _onCompletedDaysRadioSelect(newRadioSelected);
-                            },
-                          ),
-                          Text(
-                            '01-28 days',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                          Radio(
-                            value: '01-28 days',
-                            groupValue: widget.verbal_Autopsy_Obj.ageInDays,
-                            onChanged: (String newRadioSelected) {
-                              _onCompletedDaysRadioSelect(newRadioSelected);
-                            },
-                          )
-                        ],
-                      )),
+                      padding: EdgeInsets.only(left: 30.0),
+                      child: RadioListTile(
+                        title: Text('Less than 1 day'),
+                        value: 'Less than 1 day',
+                        groupValue: widget.verbal_Autopsy_Obj.ageInDays,
+                        onChanged: (String newRadioSelected) {
+                          _onCompletedDaysRadioSelect(newRadioSelected);
+                        },)),
+
+                  Padding(
+                      padding: EdgeInsets.only(left: 30.0),
+                      child: RadioListTile(
+                        title: Text('01-07 days'),
+                        value: '01-07 days',
+                        groupValue: widget.verbal_Autopsy_Obj.ageInDays,
+                        onChanged: (String newRadioSelected) {
+                          _onCompletedDaysRadioSelect(newRadioSelected);
+                        },)),
+
+                  Padding(
+                      padding: EdgeInsets.only(left: 30.0),
+                      child: RadioListTile(
+                        title: Text('08-28 days'),
+                        value: '08-28 days',
+                        groupValue: widget.verbal_Autopsy_Obj.ageInDays,
+                        onChanged: (String newRadioSelected) {
+                          _onCompletedDaysRadioSelect(newRadioSelected);
+                        },)),
 
                   //9th user input element start
                   Padding(
@@ -526,7 +509,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                           Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '9. ',
+                              '8. ',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -559,13 +542,13 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                   //10th user input element start
                   Padding(
                       padding:
-                      EdgeInsets.only(right: 10.0, top: 10.0, bottom: 10.0),
+                      EdgeInsets.all(10.0),
                       child: Row(
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '10. ',
+                              '9. ',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -604,7 +587,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                           Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '11A.',
+                              '10A.',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -630,27 +613,24 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                   ),
 
                   Padding(
-                      padding:
-                      EdgeInsets.only(right: 10.0, top: 10.0, bottom: 10.0),
+                      padding: EdgeInsets.only(right: 10.0, top: 10.0),
                       child: Row(
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '11B.',
+                              '10B.',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child: Text(
-                              'Pincode:',
-                              style: TextStyle(fontSize: 16.0),
-                            ),
-                          ),
+                         Text(
+                                'Pincode: ',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+
                           Flexible(
-                            child: TextFormField(
-                              onSaved: (value) {
+                            child: TextField(
+                              onSubmitted: (value) {
                                 PincodeController = value;
                                 widget.verbal_Autopsy_Obj.pin =
                                     num.parse(PincodeController);
@@ -660,11 +640,11 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                                   labelText: 'Pincode',
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0))),
-                              validator: (String value) {
-                                if (num.parse(value) < 170000||
-                                num.parse(value) > 179999)
-                                  return 'Please fill a valid pincode';
-                              },
+//                              validator: (String value) {
+//                                if (num.parse(value) < 170000||
+//                                    num.parse(value) > 179999)
+//                                  return 'Please fill a valid pincode';
+//                              },
                               keyboardType: TextInputType.numberWithOptions(),
                             ),
                           ),
@@ -678,7 +658,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '12A.',
+                              '11A.',
                               style: TextStyle(fontSize: 16.0),
                               textAlign: TextAlign.left,
                             )),
@@ -713,7 +693,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '12B.',
+                              '11B.',
                               style: TextStyle(fontSize: 16.0),
                               textAlign: TextAlign.left,
                             )),
@@ -727,14 +707,16 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                       ])),
                   Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: TextFormField(
-                      onSaved: (value) {
-                        widget.verbal_Autopsy_Obj.probableCause = value;
+                    child: TextField(
+                      onSubmitted: (value) {
+                        setState(() {
+                          widget.verbal_Autopsy_Obj.probableCause = value;
+                        });
                       },
                       decoration: InputDecoration(hintText: 'Your Text Here'),
-                      validator: (String value) {
-                        if (value.isEmpty) return 'Please fill a valid input';
-                      },
+//                      validator: (String value) {
+//                        if (true) return '';
+//                      },
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
                     ),
@@ -801,11 +783,11 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
     });
   }
 
-  void _onDropDownReligionSelected(String newValueSelected) {
-    setState(() {
-      this.widget.verbal_Autopsy_Obj.religion = newValueSelected;
-    });
-  }
+//  void _onDropDownReligionSelected(String newValueSelected) {
+//    setState(() {
+//      this.widget.verbal_Autopsy_Obj.religion = newValueSelected;
+//    });
+//  }
 
   void _onDropDownCategorySelected(String newValueSelected) {
     setState(() {

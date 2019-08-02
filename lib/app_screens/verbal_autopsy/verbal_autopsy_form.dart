@@ -223,16 +223,16 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
 
                     Padding(
                       padding: EdgeInsets.all(10.0),
-                      child: TextFormField(
+                      child: TextField(
                         keyboardType: TextInputType.numberWithOptions(),
-                        onSaved: (value){rhcController = value;
+                        onSubmitted: (value){rhcController = value;
                         widget.verbal_Autopsy_Obj.rhc = num.parse(rhcController);},
-                        validator: (String value) {
-                          if (value.isEmpty) return 'Please fill a valid input';
-                        },
+//                        validator: (String value) {
+//                          if (value.isEmpty) return 'Please fill a valid input';
+//                        },
                         decoration: InputDecoration(
-                            labelText: 'RHC Number of Mother/Baby',
-                            hintText: 'RHC Number of Mother/Baby',
+                            labelText: 'RCH Number of Mother/Baby',
+                            hintText: 'RCH Number of Mother/Baby',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             )),

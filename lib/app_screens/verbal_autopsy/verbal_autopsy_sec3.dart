@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'user.dart';
 import 'package:hp_cdrs/common/apifunctions/sendDataAPI.dart';
 import 'package:hp_cdrs/connectionStatus.dart';
+import 'package:hp_cdrs/app_screens/mo/dashboard.dart';
 import 'dart:async';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
@@ -113,7 +114,7 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(right: 10.0),
-                          child: Text('44. ', style: TextStyle(fontSize: 16.0),),
+                          child: Text('43. ', style: TextStyle(fontSize: 16.0),),
                         ),
 
 
@@ -235,9 +236,8 @@ class _verbalAutopsySec3State extends State<verbalAutopsySec3> {
 
   void dialogResult(){
 //    print('button pressed');
-    for(int i = 0; i < 11; i++)
-      Navigator.of(context).pop();
-
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+        builder:(BuildContext  context)  =>  Dashboard()), (Route<dynamic> route) => false);
   }
 
   void showAlert(String value, String dialogTitle){

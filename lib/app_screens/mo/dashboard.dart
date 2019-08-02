@@ -56,7 +56,7 @@ class _DashboardState extends State<Dashboard> {
               );
             },
             icon: Icon(Icons.storage),
-            label: Text('Previous Filled Forms'),
+            label: Text('Previously Filled Forms'),
         ),
         body: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 2.0),
