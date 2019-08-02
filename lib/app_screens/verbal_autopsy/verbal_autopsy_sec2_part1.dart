@@ -145,7 +145,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
                                 child:
-                                Text('13A.', style: TextStyle(fontSize: 16.0))),
+                                Text('12A.', style: TextStyle(fontSize: 16.0))),
                             Flexible(
                                 child: Text(
                                     'Did he/she die from an injury or accident?',
@@ -201,7 +201,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                           Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '13B.',
+                              '12B.',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -233,7 +233,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                           Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '14A.',
+                              '13A.',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -243,13 +243,13 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                                 style: TextStyle(fontSize: 16.0),
                               )),
                           Flexible(
-                              child: TextFormField(
-                                  onSaved: (value){pregnancyMonthsController = value;
+                              child: TextField(
+                                  onSubmitted: (value){pregnancyMonthsController = value;
                                   widget.verbal_Autopsy_Obj.pregnancyDuration =
                                       num.parse(pregnancyMonthsController);},
-                                  validator: (String value) {
-                                    if (value.isEmpty) return 'Invalid input';
-                                  },
+//                                  validator: (String value) {
+//                                    if (value.isEmpty) return 'Invalid input';
+//                                  },
                                   keyboardType: TextInputType.numberWithOptions(),
                                   decoration: InputDecoration(
                                       labelText: 'Months',
@@ -270,7 +270,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                           Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '14B.',
+                              '13B.',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -280,14 +280,14 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                                 style: TextStyle(fontSize: 16.0),
                               )),
                           Flexible(
-                              child: TextFormField(
-                                  onSaved: (value){motherAgeController = value;
+                              child: TextField(
+                                  onSubmitted: (value){motherAgeController = value;
                                   widget.verbal_Autopsy_Obj.mothersAge =
                                       num.parse(motherAgeController);},
-                                  validator: (String value) {
-                                    if (value.isEmpty)
-                                      return 'Please input the age';
-                                  },
+//                                  validator: (String value) {
+//                                    if (value.isEmpty)
+//                                      return 'Please input the age';
+//                                  },
                                   keyboardType: TextInputType.numberWithOptions(),
                                   decoration: InputDecoration(
                                       labelText: 'Age',
@@ -308,7 +308,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
                                 child:
-                                Text('15. ', style: TextStyle(fontSize: 16.0))),
+                                Text('14. ', style: TextStyle(fontSize: 16.0))),
                             Flexible(
                                 child: Text(
                                     'Did the mother receive 2 doses of Td during pregnancy?',
@@ -364,7 +364,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
                                 child:
-                                Text('16A.', style: TextStyle(fontSize: 16.0))),
+                                Text('15A.', style: TextStyle(fontSize: 16.0))),
                             Flexible(
                                 child: Text(
                                     'Were there any complications during '
@@ -421,7 +421,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
                                 child:
-                                Text('16B.', style: TextStyle(fontSize: 16.0))),
+                                Text('15B.', style: TextStyle(fontSize: 16.0))),
                             Flexible(
                                 child: Text(
                                     'If yes, what complication(s) occurred?',
@@ -440,7 +440,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
                                 child:
-                                Text('17. ', style: TextStyle(fontSize: 16.0))),
+                                Text('16. ', style: TextStyle(fontSize: 16.0))),
 
                             Flexible(
                               child:
@@ -497,7 +497,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
-                            child: Text('18. ', style: TextStyle(fontSize: 16.0))),
+                            child: Text('17. ', style: TextStyle(fontSize: 16.0))),
                         Flexible(
                             child: Text(
                               'Where was the baby born?',
@@ -528,7 +528,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                       child: Row(children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
-                            child: Text('19. ', style: TextStyle(fontSize: 16.0))),
+                            child: Text('18. ', style: TextStyle(fontSize: 16.0))),
                         Flexible(
                             child: Text(
                               'Who attended the delivery?',
@@ -561,7 +561,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                             Padding(
                                 padding: EdgeInsets.only(right: 10.0),
                                 child:
-                                Text('20. ', style: TextStyle(fontSize: 16.0))),
+                                Text('19. ', style: TextStyle(fontSize: 16.0))),
                             Flexible(
                                 child: Text(
                                     'Was a disinfected or new used to cut the umbilical cord?',
@@ -623,7 +623,7 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                           if (widget.verbal_Autopsy_Obj.injury == 'Yes' &&
                               widget.verbal_Autopsy_Obj.kindOfInjury == null) {
                             // The checkbox wasn't checked
-                            showSnackBar('Please select option 13B');
+                            showSnackBar('Please select option 12B');
                           }
                           if ((_formKey.currentState.validate() &&
                               widget.verbal_Autopsy_Obj.injury == 'Yes' &&
