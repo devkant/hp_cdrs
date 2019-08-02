@@ -96,7 +96,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '28A.',
+                              '27A.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -153,9 +153,9 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                       padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                       child: Row(children: <Widget>[
                         Padding(
-                            padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                            padding: EdgeInsets.only(right: 10.0, top: 10.0),
                             child: Text(
-                              '28B.',
+                              '27B.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -177,7 +177,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '29A.',
+                              '28A.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -236,7 +236,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '29B.',
+                              '28B.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -259,7 +259,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '30A.',
+                              '29A.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -319,7 +319,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '30B.',
+                              '29B.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -342,7 +342,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '31. ',
+                              '30. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -401,7 +401,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '32A.',
+                              '31A.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -460,7 +460,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '32B.',
+                              '31B.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -519,7 +519,7 @@ class _verbalAutopsySec2Part3State extends State<verbalAutopsySec2Part3> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '32C.',
+                              '31C.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
