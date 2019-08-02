@@ -87,7 +87,7 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
 
 
                   //1st user input element start
-                  questionElement('33A.', 'Did he/she have diarrhoea (frequent'
+                  questionElement('32A.', 'Did he/she have diarrhoea (frequent'
                       ' liquid stools)?'),
 
                   Padding(
@@ -133,7 +133,7 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
 
 
                   //2nd user input element
-                  questionElement('33B.', 'If yes, for how many completed days'
+                  questionElement('32B.', 'If yes, for how many completed days'
                       ' were the stools frequent or liquid?'),
 
                   diarrhoeaDaysRadio(),
@@ -141,7 +141,7 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
 
 
                   //3rd user input element
-                  questionElement('34A.', 'Did he/she vomit?'),
+                  questionElement('33A.', 'Did he/she vomit?'),
 
                   Padding(
                       padding: EdgeInsets.all(10.0),
@@ -186,7 +186,7 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
 
 
                   //4th user input element
-                  questionElement('34B.', 'If yes, for how many '
+                  questionElement('33B.', 'If yes, for how many '
                       'completed days did he/she vomit?'),
 
                   vomitDaysRadio(),
@@ -195,7 +195,7 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
 
 
                   //5th user input element
-                  questionElement('35A.', 'Did he/she have redness around, or '
+                  questionElement('34A.', 'Did he/she have redness around, or '
                       'discharge from, the umbilical cord stump?'),
 
                   Padding(
@@ -241,7 +241,7 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
 
 
                   //6th user input element
-                  questionElement('35B.', 'Did she/he has some '
+                  questionElement('34B.', 'Did she/he has some '
                       'pustules/rashes?'),
 
                   Padding(
@@ -287,7 +287,7 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
 
 
                   //7th user input element
-                  questionElement('36. ', 'Did he/she have yellow eyes or skin?'),
+                  questionElement('35. ', 'Did he/she have yellow eyes or skin?'),
 
                   Padding(
                       padding: EdgeInsets.all(10.0),
@@ -332,7 +332,7 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
 
 
                   //8th user input element
-                  questionElement('37. ', 'Did he/she have spasms or fits (convulsions)?'),
+                  questionElement('36. ', 'Did he/she have spasms or fits (convulsions)?'),
 
                   Padding(
                       padding: EdgeInsets.all(10.0),
@@ -377,7 +377,7 @@ class _verbalAutopsySec2Part4State extends State<verbalAutopsySec2Part4> {
 
 
                   //9th user input element
-                  questionElement('38. ', 'Did he/she become unresponsive '
+                  questionElement('37. ', 'Did he/she become unresponsive '
                       'or unconscious?'),
 
                   Padding(
