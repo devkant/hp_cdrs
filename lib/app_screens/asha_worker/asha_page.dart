@@ -417,9 +417,16 @@ class _hpFormState extends State<hpForm> {
                         showWaiting();
                         Child newEntry  = new Child(
                           childNameController.text.toString(),
+                          _ageInYears.toString(),
+                          _ageInMonths.toString(),
+                          _ageInDays.toString(),
+                          _deceasedSex.toString(),
+                          fatherNameController.text.toString(),
+                          phnNumberController.text.toString(),
                           this._currentSelectedDistrict.toString(),
                           block.toString(),
                           addressController.text.toString(),
+                          villageNameController.text.toString(),
                           ashaNameController.text.toString(),
                         );
                         var data  = {
