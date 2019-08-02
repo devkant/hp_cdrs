@@ -62,13 +62,23 @@ class _AshaHomeScreenState extends State<AshaHomeScreen> {
       for(int i=0;i<jsonList.length;i++){
         var temp  = json.decode(jsonList[i]);
         print(temp);
-        Child tempEntry = new Child(temp['name'],temp['district'],temp['block'],temp['address'],temp['phoneNumber']);
+        Child tempEntry = new Child(temp['name'],temp['years'],temp['months'],
+            temp['days'],temp['sex'],temp['fatherName'],temp['phnNumber'],
+            temp['district'],temp['block'],temp['address'],temp['village'],
+            temp['ashaName']);
         var data  = {
           'name': tempEntry.name,
+          'years': tempEntry.years,
+          'months': tempEntry.months,
+          'days': tempEntry.days,
+          'sex': tempEntry.sex,
+          'fatherName': tempEntry.fatherName,
+          'phnNumber': tempEntry.phnNumber,
           'district' :  tempEntry.district,
           'block' : tempEntry.block,
           'address':  tempEntry.address,
-          'phoneNumber':tempEntry.ashaName,
+          'village': tempEntry.village,
+          'ashaName':tempEntry.ashaName,
         };
 
         if(isOffline ){
