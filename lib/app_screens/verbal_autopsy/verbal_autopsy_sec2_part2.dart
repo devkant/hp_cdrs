@@ -111,7 +111,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '21. ',
+                              '20. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -169,7 +169,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '22. ',
+                              '21. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -228,7 +228,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '23. ',
+                              '22. ',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -286,7 +286,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                     child: Row(children: <Widget>[
                       Padding(
                           padding: EdgeInsets.only(right: 10.0),
-                          child: Text('24A.', style: TextStyle(fontSize: 16.0))),
+                          child: Text('23A.', style: TextStyle(fontSize: 16.0))),
                       Flexible(
                           child: Text(
                             'Compared to other children in your '
@@ -322,7 +322,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                         Padding(
                           padding: EdgeInsets.only(right: 10.0),
                           child: Text(
-                            '24B.',
+                            '23B.',
                             style: TextStyle(fontSize: 16.0),
                           ),
                         ),
@@ -374,7 +374,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '25A.',
+                              '24A.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -433,7 +433,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '25B.',
+                              '24B.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -454,7 +454,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                     child: Row(children: <Widget>[
                       Padding(
                           padding: EdgeInsets.only(right: 10.0),
-                          child: Text('26A.', style: TextStyle(fontSize: 16.0))),
+                          child: Text('25A.', style: TextStyle(fontSize: 16.0))),
                       Flexible(
                           child: Text(
                             'When was he/she first breastfed?',
@@ -492,7 +492,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '26B.',
+                              '25B.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -552,7 +552,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '27A.',
+                              '26A.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -612,7 +612,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '27B.',
+                              '26B.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
@@ -633,7 +633,7 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                         Padding(
                             padding: EdgeInsets.only(right: 10.0),
                             child: Text(
-                              '27C.',
+                              '26C.',
                               style: TextStyle(fontSize: 16.0),
                             )),
                         Flexible(
