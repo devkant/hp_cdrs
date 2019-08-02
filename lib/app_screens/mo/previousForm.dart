@@ -59,7 +59,7 @@ class PreviousFormState extends State<PreviousForm> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Previous Filled Forms',
+        title: Text('Previously Filled Forms',
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 22.0,
