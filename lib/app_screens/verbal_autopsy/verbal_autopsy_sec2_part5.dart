@@ -80,7 +80,7 @@ class _verbalAutopsySec2Part5State extends State<verbalAutopsySec2Part5> {
 
 
                   //1st user input element start
-                  questionElement('39. ', 'Did he/she have a'
+                  questionElement('38. ', 'Did he/she have a'
                       ' bulging fontanelle (describe)?'),
 
                   Padding(
@@ -126,7 +126,7 @@ class _verbalAutopsySec2Part5State extends State<verbalAutopsySec2Part5> {
 
 
                   //2nd user input element
-                  questionElement('40. ', 'Did the child\'s body '
+                  questionElement('39. ', 'Did the child\'s body '
                       'feel cold when touched?'),
 
                   Padding(
@@ -172,7 +172,7 @@ class _verbalAutopsySec2Part5State extends State<verbalAutopsySec2Part5> {
 
 
                   //3rd user input element
-                  questionElement('41. ', 'Were the child\'s hands, legs '
+                  questionElement('40. ', 'Were the child\'s hands, legs '
                       'or lips discoloured (blue, othercolour)?'),
 
                   Padding(
@@ -218,7 +218,7 @@ class _verbalAutopsySec2Part5State extends State<verbalAutopsySec2Part5> {
 
 
                   //4th user input element
-                  questionElement('42. ', 'Did he/she have yellow Palms/soles?'),
+                  questionElement('41. ', 'Did he/she have yellow Palms/soles?'),
 
                   Padding(
                       padding: EdgeInsets.all(10.0),
@@ -263,7 +263,7 @@ class _verbalAutopsySec2Part5State extends State<verbalAutopsySec2Part5> {
 
 
                   //5th user input element
-                  questionElement('43. ', 'Was there blood in the stools?'),
+                  questionElement('42. ', 'Was there blood in the stools?'),
 
                   Padding(
                       padding: EdgeInsets.all(10.0),
