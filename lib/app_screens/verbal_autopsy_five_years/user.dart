@@ -28,7 +28,7 @@ class User{
   String category = '';
   String religionHead = '';
   String sex = '';
-  String ageDays = '';
+  String ageDays = null;
   String dob = '';
   String dod = '';
   String locality = '';
