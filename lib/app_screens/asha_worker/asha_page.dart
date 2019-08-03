@@ -72,9 +72,9 @@ class _hpFormState extends State<hpForm> {
 
   var _deceasedSex = '';
 
-  var _ageInDays = '';
-  var _ageInMonths = '';
-  var _ageInYears = '';
+  TextEditingController _ageInDays = TextEditingController();
+  TextEditingController _ageInMonths = TextEditingController();
+  TextEditingController _ageInYears = TextEditingController();
 
   @override
   void initState() {
@@ -168,6 +168,7 @@ class _hpFormState extends State<hpForm> {
                         child: Padding(
                           padding: EdgeInsets.only(right: 8.0),
                           child: TextFormField(
+                            controller: _ageInYears,
                             validator: (String val) {
                               if (val.isEmpty || int.parse(val)>4) {
                                 return 'Please enter a valid input';
@@ -179,7 +180,6 @@ class _hpFormState extends State<hpForm> {
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0))),
                             keyboardType: TextInputType.number,
-                            onSaved: (String value) {_ageInYears = value;},
                           ),
                         ),
                       ), //Years
@@ -187,6 +187,7 @@ class _hpFormState extends State<hpForm> {
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: TextFormField(
+                            controller: _ageInMonths,
                             validator: (String val) {
                               if (val.isEmpty || int.parse(val)>11) {
                                 return 'Please enter a valid input';
@@ -198,12 +199,12 @@ class _hpFormState extends State<hpForm> {
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0))),
                             keyboardType: TextInputType.number,
-                            onSaved: (String value) {_ageInMonths = value;},
                           ),
                         ),
                       ), //Months
                       Expanded(
                         child: TextFormField(
+                          controller: _ageInDays,
                           validator: (String val) {
                             if (val.isEmpty || int.parse(val)>31) {
                               return 'Please enter a valid input';
@@ -215,7 +216,6 @@ class _hpFormState extends State<hpForm> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0))),
                           keyboardType: TextInputType.number,
-                          onSaved: (String value) {_ageInDays = value;},
                         ),
                       ), //Days
 
@@ -415,11 +415,13 @@ class _hpFormState extends State<hpForm> {
                           _currentSelectedDistrict != null &&
                               block != null)){
                         showWaiting();
+//                        final FormState form = _formKey.currentState;
+//                        form.save();
                         Child newEntry  = new Child(
                           childNameController.text.toString(),
-                          _ageInYears.toString(),
-                          _ageInMonths.toString(),
-                          _ageInDays.toString(),
+                          _ageInYears.text.toString(),
+                          _ageInMonths.text.toString(),
+                          _ageInDays.text.toString(),
                           _deceasedSex.toString(),
                           fatherNameController.text.toString(),
                           phnNumberController.text.toString(),
@@ -431,9 +433,16 @@ class _hpFormState extends State<hpForm> {
                         );
                         var data  = {
                           'name': newEntry.name,
+                          'years': newEntry.years,
+                          'months': newEntry.months,
+                          'days': newEntry.days,
+                          'sex': newEntry.sex,
+                          'fatherName': newEntry.fatherName,
+                          'phnNumber': newEntry.phnNumber,
                           'district' :  newEntry.district,
                           'block' : newEntry.block,
                           'address':  newEntry.address,
+                          'village': newEntry.village,
                           'ashaName':newEntry.ashaName,
                         };
                         var status  = await sendData('http://13.235.43.83/api/asha',data);
