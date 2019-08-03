@@ -32,7 +32,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
   //list declarations for radio buttons
   var _yesNoList = ['Yes', 'No', 'Unknown'];
   var _deceasedSexRadioList = ['Male', 'Female'];
-  var _completedDaysRadio = ['Less than 1 year', 'More than 1 year'];
+//  var _completedDaysRadio = ['Less than 1 year', 'More than 1 year'];
 
   var displayDOB = 'Select date';
   var displayDOD = 'Select date';
@@ -105,7 +105,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
     super.initState();
     widget.userObj.liveWith = _yesNoList[0];
     widget.userObj.sex = _deceasedSexRadioList[0];
-    widget.userObj.ageDays = _completedDaysRadio[0];
+//    widget.userObj.ageDays = _completedDaysRadio[0];
 
     widget.userObj.relationship = _relationWithDeceased[0];
     widget.userObj.respondentEducation = _respondentEducation[0];
@@ -513,7 +513,8 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                           padding: EdgeInsets.all(5.0),
                           child: TextFormField(
                             keyboardType: TextInputType.numberWithOptions(),
-                            onSaved: (value){widget.userObj.ageDays = (12*num.parse(value)).toString();},
+                            onSaved: (value){
+                              widget.userObj.ageDays = (12*num.parse(value)).toString();},
                             validator: (String value) {
                               if (value.isEmpty || num.parse(value) > 4)
                                 return 'Invalid input';
@@ -534,7 +535,9 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                           padding: EdgeInsets.all(5.0),
                           child: TextFormField(
                             keyboardType: TextInputType.numberWithOptions(),
-                            onSaved: (value){widget.userObj.ageDays = value;},
+                            onSaved: (value){
+                              widget.userObj.ageDays =
+                                (num.parse(widget.userObj.ageDays) + num.parse(value)).toString();},
                             validator: (String value) {
                               if (value.isEmpty || num.parse(value) > 11)
                                 return 'Invalid input';
@@ -548,6 +551,10 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
                           ),
                         )),
                       ],),
+
+
+                        //for testing
+//                        Text('${widget.userObj.ageDays}'),
 
 
                         //8th user input element start
