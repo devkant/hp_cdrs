@@ -328,42 +328,42 @@ class _verbalAutopsySec2Part2State extends State<verbalAutopsySec2Part2> {
                         ),
                         Flexible(
                             child: Text(
-                              'What was the birth weight (in grams) ?',
+                              'What was the birth weight (in KGs) ?',
                               style: TextStyle(fontSize: 16.0),
                             )),
 
-                        childWeight(),
-//          Flexible(
-//              child: TextFormField(
-//                validator: (String value) {
-//                    if (value.isEmpty) return 'Please fill a valid input';
-//                },
-//                  onSaved: (value){birthWeight = value;
-//                  widget.verbal_Autopsy_Obj.weight = num.parse(birthWeight);},
-//                  keyboardType: TextInputType.numberWithOptions(),
-//                  decoration: InputDecoration(
-//                      labelText: 'Weight',
-//                      hintText: 'Weight (in grams)',
-//                      border: OutlineInputBorder(
-//                          borderRadius:
-//                          BorderRadius.circular(10.0)))))
+//                       childWeight(),
+          Flexible(
+              child: TextFormField(
+                validator: (String value) {
+                    if (value.isEmpty) return 'Invalid input';
+                },
+                  onSaved: (value){birthWeight = value;
+                  widget.verbal_Autopsy_Obj.weight = num.parse(birthWeight);},
+                  keyboardType: TextInputType.numberWithOptions(),
+                  decoration: InputDecoration(
+                      labelText: 'Weight',
+                      hintText: 'Weight',
+                      border: OutlineInputBorder(
+                          borderRadius:
+                          BorderRadius.circular(10.0)))))
                       ],
                     ),
                   ),
-                  Padding(
-                      padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
-                      child: Container(
-                        width: 300.0,
-                        child: CheckboxListTile(
-                            value: weightCheck,
-                            title: Text('Unknown'),
-                            onChanged: (bool value) {
-                              setState(() {
-                                weightCheck = value;
-                                if(weightCheck == true)
-                                  widget.verbal_Autopsy_Obj.weight = null;
-                              });
-                            }),)),
+//                  Padding(
+//                      padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+//                      child: Container(
+//                        width: 300.0,
+//                        child: CheckboxListTile(
+//                            value: weightCheck,
+//                            title: Text('Unknown'),
+//                            onChanged: (bool value) {
+//                              setState(() {
+//                                weightCheck = value;
+//                                if(weightCheck == true)
+//                                  widget.verbal_Autopsy_Obj.weight = null;
+//                              });
+//                            }),)),
 
 
 
