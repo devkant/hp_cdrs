@@ -359,7 +359,7 @@ class _ANMWorkerState extends State<ANMWorker> {
 
                       Expanded(
                         child: TextField(
-                          onSubmitted: (String value) {widget.user.address.pincode = int.parse(value);},
+                          onChanged: (String value) {widget.user.address.pincode = int.parse(value);},
                           keyboardType: TextInputType.number,
 //                          validator: (String val) {
 //                            if (val.isEmpty || int.parse(val)<170000 || int.parse(val)>179999 ) {
