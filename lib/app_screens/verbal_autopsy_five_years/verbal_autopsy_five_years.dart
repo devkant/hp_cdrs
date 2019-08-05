@@ -35,12 +35,12 @@ class verbalAutopsy5YrForm extends StatefulWidget {
 
 class verbalAutopsy5YrFormState extends State<verbalAutopsy5YrForm> {
   var _formKey = GlobalKey<FormState>();
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool _firstHYS = false;
   bool _secondHYS = false;
 
-  String rhcController;
   String yearController;
 
 //  @override
@@ -227,8 +227,8 @@ class verbalAutopsy5YrFormState extends State<verbalAutopsy5YrForm> {
                       padding: EdgeInsets.all(10.0),
                       child: TextField(
                         keyboardType: TextInputType.numberWithOptions(),
-                        onSubmitted: (value){rhcController = value;
-                        widget.userObj.rhc = num.parse(rhcController);},
+                        onSubmitted: (value){
+                        widget.userObj.rhc = value;},
 //                        validator: (String value) {
 //                          if (value.isEmpty) return 'Please fill a valid input';
 //                        },

@@ -689,7 +689,7 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
 
                                 Flexible(
                                   child: TextField(
-                                    onSubmitted: (String value){widget.userObj.pincode = num.parse(value);},
+                                    onSubmitted: (String value){widget.userObj.pincode = value;},
                                     decoration: InputDecoration(
                                         hintText: 'Pincode',
                                         labelText: 'Pincode',
@@ -770,17 +770,16 @@ class _verbalAutopsy5YrSec1State extends State<verbalAutopsy5YrSec1> {
 
 
                         Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: TextField(
-                            onSubmitted: (String value){widget.userObj.respondentThink = value;},
-                            decoration: InputDecoration(hintText: 'Your Text Here'),
-//                            validator: (String value) {
-//                              if (value.isEmpty) return 'Please fill a valid input';
-//                            },
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                          ),
-                        ),
+                            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                            child: TextFormField(
+                              maxLines: null,
+                              decoration: InputDecoration(
+                                  hintText: 'Your Text Here',
+                                  ),
+                              onSaved: (value) {
+                                widget.userObj.respondentThink = value;
+                              },
+                            )),
 
 
                         Padding(

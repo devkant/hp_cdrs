@@ -12,7 +12,7 @@ class User{
   String village = '';
   String phc = '';
   String subCenter = '';
-  num rhc;
+  String rhc = '';
   num year;
   String head = '';
   String name = '';
@@ -32,7 +32,7 @@ class User{
   String dob = '';
   String dod = '';
   String locality = '';
-  num pincode;
+  String pincode = '';
   String placeDeath = '';
   String respondentThink = '';
 

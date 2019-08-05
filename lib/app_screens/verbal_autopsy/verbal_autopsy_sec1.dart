@@ -94,7 +94,7 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
   //controller obj for text fields
 //  String respondentNameController = '';
 //  String deceasedAddressController = '';
-    String PincodeController = '';
+//    String PincodeController = '';
 //  String respondentWordsController = '';
 
   @override
@@ -631,9 +631,8 @@ class _verbalAutopsySec1State extends State<verbalAutopsySec1> {
                           Flexible(
                             child: TextField(
                               onSubmitted: (value) {
-                                PincodeController = value;
                                 widget.verbal_Autopsy_Obj.pin =
-                                    num.parse(PincodeController);
+                                    value;
                               },
                               decoration: InputDecoration(
                                   hintText: 'Pincode',

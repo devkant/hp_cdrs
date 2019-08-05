@@ -73,7 +73,7 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
 //  String villageController = '';
 //  String phcController = '';
 //  String subCenterController = '';
-  String rhcController = '';
+//  String rhcController = '';
   String yearController = '';
 //  String headController = '';
 //  String nameController = '';
@@ -225,8 +225,8 @@ class _verbalAutopsyFormState extends State<verbalAutopsyForm> {
                       padding: EdgeInsets.all(10.0),
                       child: TextField(
                         keyboardType: TextInputType.numberWithOptions(),
-                        onSubmitted: (value){rhcController = value;
-                        widget.verbal_Autopsy_Obj.rhc = num.parse(rhcController);},
+                        onSubmitted: (value){
+                        widget.verbal_Autopsy_Obj.rhc = value;},
 //                        validator: (String value) {
 //                          if (value.isEmpty) return 'Please fill a valid input';
 //                        },

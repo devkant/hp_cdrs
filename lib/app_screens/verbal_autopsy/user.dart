@@ -134,7 +134,7 @@ class user{
   String village = '';
   String phc = '';
   String subCenter = '';
-  num rhc;
+  String rhc = '';
   num year;
   String head = '';
   String name = '';
@@ -161,7 +161,7 @@ class user{
   //text fields
   String respondent = '';
   String address = '';
-  num pin;
+  String pin = '';
   String probableCause = '';
 
 
@@ -184,8 +184,8 @@ class user{
 
 
   //textfields
-  num pregnancyDuration;
-  num mothersAge;
+  String pregnancyDuration = '';
+  String mothersAge = '';
 
 
   //form pg 4

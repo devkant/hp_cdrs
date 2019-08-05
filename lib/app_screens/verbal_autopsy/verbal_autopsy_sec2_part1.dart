@@ -118,8 +118,8 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
 
 
   //controllers for textfeilds
-  String pregnancyMonthsController = '';
-  String motherAgeController = '';
+//  String pregnancyMonthsController = '';
+//  String motherAgeController = '';
 
   @override
   Widget build(BuildContext context) {
@@ -243,10 +243,10 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                                 style: TextStyle(fontSize: 16.0),
                               )),
                           Flexible(
-                              child: TextField(
-                                  onSubmitted: (value){pregnancyMonthsController = value;
+                              child: TextFormField(
+                                  onSaved: (value){
                                   widget.verbal_Autopsy_Obj.pregnancyDuration =
-                                      num.parse(pregnancyMonthsController);},
+                                      value;},
 //                                  validator: (String value) {
 //                                    if (value.isEmpty) return 'Invalid input';
 //                                  },
@@ -280,10 +280,10 @@ class _verbalAutopsySec2Part1State extends State<verbalAutopsySec2Part1> {
                                 style: TextStyle(fontSize: 16.0),
                               )),
                           Flexible(
-                              child: TextField(
-                                  onSubmitted: (value){motherAgeController = value;
+                              child: TextFormField(
+                                  onSaved: (value){
                                   widget.verbal_Autopsy_Obj.mothersAge =
-                                      num.parse(motherAgeController);},
+                                      value;},
 //                                  validator: (String value) {
 //                                    if (value.isEmpty)
 //                                      return 'Please input the age';
